@@ -1,0 +1,7 @@
+matrix : amsmath
+pmatrix : amsmath
+bmatrix : amsmath
+Bmatrix : amsmath
+vmatrix : amsmath
+Vmatrix : amsmath
+smallmatrix : amsmath

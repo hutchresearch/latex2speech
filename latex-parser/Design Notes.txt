@@ -1,0 +1,9 @@
+Exceptional Commands that Should be Handled
+
+\par, \paragraph, \\
+    - Should enclose everything from use of \par (or eqiv) to next use of \par (or equiv) 
+    or if none exist then to the end of the relevant section (?) in the SSML <p>...</p> tag
+\enumerate (and similar things)
+    - Implicitly adds text (numbers) which should be read aloud-
+    - What this text is can be modified by other commands (!!!)
+    

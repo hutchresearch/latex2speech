@@ -1,0 +1,5 @@
+\\ is parsed as a Token, should be a command (?)
+$..$ is a TexMathModeEnv
+$$..$$ is a TexDisplayMathModeEnv
+\(..\) is a TexMathEnv
+\[..\] is a TexDisplayMathEnv
