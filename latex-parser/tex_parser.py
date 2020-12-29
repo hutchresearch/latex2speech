@@ -9,6 +9,7 @@ class TexParser:
 
     def parse(self, file):
         self.output = ''
+        self.envList = []
 
         docstr = file.read()
         docstr = docstr.replace('\n', ' ')
@@ -33,9 +34,7 @@ class TexParser:
 
     def _parseMathModeToken(self, tokenNode):
         mathTokens = self._getMathTokens(tokenNode.text)
-        #print("math mode parsed from: " + tokenNode.text)
         for t in mathTokens:
-            #print(t)
             found = False
             for s in self.mathmode.findall('symb'):
                 if s.get('name') == t:
@@ -75,13 +74,13 @@ class TexParser:
             else:
                 next = next + c
         
-    def _parseCmdSub(self, cmdNode, cmdElem, envList):
+    def _parseCmdSub(self, cmdNode, cmdElem):
         if cmdElem.find('prefix') is not None:
             self._concatOutput(cmdElem.find('prefix').text)
 
         argIndex = 0
         for arg in cmdElem.findall('arg'):
-            while argIndex < len(cmdNode.args) and type(cmdNode.args[argIndex]) is not TexSoup.data.BraceGroup:
+            while argIndex < len(cmdNode.args) and not isinstance(cmdNode.args[argIndex], TexSoup.data.BraceGroup):
                 argIndex += 1
 
             if argIndex == len(cmdNode.args):
@@ -92,7 +91,7 @@ class TexParser:
                 self._concatOutput(arg.find('prefix').text)
         
             if arg.get('say_contents') == 'true':
-                self._parseNodeContents(cmdNode.args[argIndex].contents, envList)
+                self._parseNodeContents(cmdNode.args[argIndex].contents, self.envList)
                 
             if arg.find('suffix') is not None:
                 self._concatOutput(arg.find('suffix').text)
@@ -105,13 +104,13 @@ class TexParser:
         if cmdElem.find('suffix') is not None:
             self._concatOutput(cmdElem.find('suffix').text)
 
-    def _parseCmd(self, cmdNode, envList):
+    def _parseCmd(self, cmdNode):
         found = False
         searchEnvs = []
         
-        if len(envList) > 0:
-            searchEnvs.append(envList[-1])
-            if envList[-1].get('mathmode') == 'true':
+        if len(self.envList) > 0:
+            searchEnvs.append(self.envList[-1])
+            if self.envList[-1].get('mathmode') == 'true':
                 searchEnvs.append(self.mathmode)
             else:
                 searchEnvs.append(self.latex)
@@ -122,50 +121,49 @@ class TexParser:
         while i < len(searchEnvs) and not found:
             for cmdElem in searchEnvs[i].findall('cmd'):
                 if cmdElem.get('name') == cmdNode.name:
-                    self._parseCmdSub(cmdNode, cmdElem, envList)
+                    self._parseCmdSub(cmdNode, cmdElem, self.envList)
                     found = True
             i += 1
 
         # Go down next recursive level, excluding arguments
-        self._parseNodeContents(cmdNode.contents[len(cmdNode.args):], envList)
+        self._parseNodeContents(cmdNode.contents[len(cmdNode.args):], self.envList)
 
-    def _parseEnv(self, envNode, envList):
+    def _parseEnv(self, envNode):
         found = False
         for envElem in self.latex.findall('env'):
             if envElem.get('name') == envNode.name:
                 found = True
-                envList.append(envElem)
+                self.envList.append(envElem)
                 
                 if envElem.find('prefix') is not None:
                     self._concatOutput(envElem.find('prefix').text)
 
                 # Go down next recursive level, excluding arguments
-                self._parseNodeContents(envNode.contents[len(envNode.args):], envList)
+                self._parseNodeContents(envNode.contents[len(envNode.args):], self.envList)
 
                 if envElem.find('suffix') is not None:
                     self._concatOutput(envElem.find('suffix').text)
 
-                envList.pop()
+                self.envList.pop()
                 break
 
         if not found:
-            self._parseNodeContents(envNode.contents[len(envNode.args):], envList)
+            self._parseNodeContents(envNode.contents[len(envNode.args):], self.envList)
 
-    def _parseNodeContents(self, nodeContents, envList):
+    def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
-                # if type(node) == TexSoup.utils.Token:
                 if isinstance(node, TexSoup.utils.Token):
-                    if len(envList) > 0 and (envList[-1].get('mathmode') == 'true'):
+                    if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     #TODO: Check for reserved tokens (e.g. r"\\")
                     else:
                         self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
-                        self._parseEnv(node, envList)
+                        self._parseEnv(node, self.envList)
                     elif isinstance(node.expr, TexSoup.data.TexCmd):
-                        self._parseCmd(node, envList)
+                        self._parseCmd(node, self.envList)
                     else:
-                        self._parseNodeContents(node.contents, envList)
+                        self._parseNodeContents(node.contents, self.envList)
 
