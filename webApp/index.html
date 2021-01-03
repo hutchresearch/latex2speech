@@ -13,9 +13,14 @@
 
     <div class="inputBox">
         <h3>Select file to upload</h3>
-        <div class="formBox">
+        <!-- <div class="formBox">
             <input type="file" id="upload" accept = ".tex"/>
-        </div>
+        </div> -->
+
+        <form enctype = "multipart/form-data" action = "main.py" method = "post"> 
+            <p><input type = "file" name = "filename" class = "formBox" accept = ".tex" /></p> <br>
+            <p><input type = "submit" value = "Upload" /></p> 
+         </form> 
 
         <div class="output">
             <h3>Download Results</h3>
@@ -28,6 +33,6 @@
 </body>
 
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.802.0.min.js"></script>
-<script src="js/main.js"></script>
+<!-- <script src="js/main.js"></script> -->
 
 </html>
