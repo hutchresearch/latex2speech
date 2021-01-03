@@ -10,3 +10,11 @@ def home():
     return render_template(
         "index.html"
     )
+
+# Get file after download, feed it to parser
+# Display download.html file
+@app.route("/submitted")
+def render_then_download():
+    return render_template(
+        "download.html"
+    )
