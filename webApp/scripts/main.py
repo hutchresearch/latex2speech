@@ -1,6 +1,4 @@
 import os 
-
-print("HIIII")
   
 fileitem = form['filename'] 
   
