@@ -12,6 +12,7 @@ function end(file) {
 
 function callbackFunc(response) {
   // do something with the response
+  console.log("Made to callback func");
   console.log(response);
 }
 
@@ -24,11 +25,20 @@ input.addEventListener('change', function () {
 
   const file = this.files[0];
 
+  // $.ajax({
+  //   type: "POST",
+  //   url: "../scripts/main.py",
+  //   data: { param: "Yo iuh iuh" },
+  //   success: callbackFunc
+  // });
+
   $.ajax({
     type: "POST",
     url: "../scripts/main.py",
-    data: { param: file },
-    success: callbackFunc
+    data: { param: "oioihoiho" }
+  }).done(function( o ) {
+     // do something
+     print("Um??");
   });
 
   //Call end function here -> Input would be file
