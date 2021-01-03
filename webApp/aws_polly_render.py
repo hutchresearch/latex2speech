@@ -8,16 +8,19 @@ def tts_of_file(file):
 
 # Changes .tex file to SSML file
 def change_file_type(file):
-    base = os.path.splitext(file)[0]
-    os.rename(file, base + '.ssml')
+    base = os.path.splitext(file.filename)[0]
+    os.rename(file.filename, base + '.ssml')
 
     return file
 
 # Adds begin and end tag to file
 def add_begin_end_tags(file):
-    with open(file, 'r+') as f:
+    with open(file.filename, 'r+') as f:
+        print("hehrehrehrehhrh")
         content = f.read()
+        print("hiiiiasfasfasdf")
         f.seek(0, 0)
+        print("maybeyba")
         beginTag = "<speak>"
         f.write(beginTag.rstrip('\r\n') + '\n' + content + '\n</speak>')
 
@@ -26,16 +29,18 @@ def add_begin_end_tags(file):
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(file):
-    file = add_begin_end_tags(file)
+    # Adds SSML tags to beginning/end
+    # file = add_begin_end_tags(file)
 
     # Call parser here
     # file = start_parser(file)
 
     # Change .tex file to .SSML file here
-    file = change_file_type(file)
+    # file = change_file_type(file)
 
     # Feed to Amazon Polly here
-    audio = tts_of_file(file)
-
-    return audio 
+    # audio = tts_of_file(file)
+    # print("noooo")
+    # return audio 
+    return file
     
