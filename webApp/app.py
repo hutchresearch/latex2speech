@@ -19,9 +19,10 @@ def render_then_download():
     if request.method == 'POST':
         # Gets file, passes file to aws_polly_render
         file = request.files['file']
-        start_polly(file)
+        audio = start_polly(file)
 
-    # Displays download page, with audio
-    return render_template(
-        "download.html"
-    )
+        # Displays download page, with audio
+        return render_template(
+            "download.html",
+            audio_download = audio
+        )
