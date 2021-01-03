@@ -1,6 +1,6 @@
 # Run flask app: python3 -m flask run
 
-from flask import Flask, render_template, request, redirect, url_for, make_response, flash
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -15,6 +15,9 @@ def home():
 # Display download.html file
 @app.route("/submit", methods = ['POST'])
 def render_then_download():
+    if request.method == 'POST':
+        f = request.files['file']
+
     return render_template(
         "download.html"
     )
