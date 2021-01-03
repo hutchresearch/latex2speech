@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --main-Color: #008080;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 50px;
+    color: var(--main-Color);
+}
+
+.inputBox {
+    width: 300px;
+    padding: 10px 50px;
+    text-align: center;
+    border: 1px solid black;
+
+    /* Centers div box */
+    position: fixed;
+    margin-top: 100px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.formBox {
+    width: 300px;
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+.output {
+    margin-top: 30px;
+}
+
+.output button {
+    margin-top: 10px;
+    padding: 2px 4px;
+}
+
+.output button #link {
+    text-decoration: none;
+    color: black;
+}
+
