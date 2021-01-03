@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tex2Speech</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
+
+    <div class="inputBox">
+        <h3>Select file to upload</h3>
+        <div class="formBox">
+            <input type="file" id="upload" accept = ".tex"/>
+        </div>
+
+        <div class="output">
+            <h3>Download Results</h3>
+            <button>
+                <a id="link" download>Download</a>
+            </button>
+        </div>
+    </div>
+    <br>
+</body>
+
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.802.0.min.js"></script>
+<script src="../js/main.js"></script>
+
+</html>
