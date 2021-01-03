@@ -1,6 +1,7 @@
 # Run flask app: python3 -m flask run
 
 from flask import Flask, render_template, request
+from aws_polly_render import main
 
 app = Flask(__name__)
 
