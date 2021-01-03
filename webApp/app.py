@@ -1,7 +1,7 @@
 # Run flask app: python3 -m flask run
 
 from flask import Flask, render_template, request
-from aws_polly_render import main
+from aws_polly_render import start_polly
 
 app = Flask(__name__)
 
@@ -17,8 +17,11 @@ def home():
 @app.route("/submit", methods = ['POST'])
 def render_then_download():
     if request.method == 'POST':
-        f = request.files['file']
+        # Gets file, passes file to aws_polly_render
+        file = request.files['file']
+        start_polly(file)
 
+    # Displays download page, with audio
     return render_template(
         "download.html"
     )
