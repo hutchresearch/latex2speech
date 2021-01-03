@@ -13,7 +13,7 @@ def home():
 
 # Get file after download, feed it to parser
 # Display download.html file
-@app.route("/submit")
+@app.route("/submit", methods = ['POST'])
 def render_then_download():
     return render_template(
         "download.html"
