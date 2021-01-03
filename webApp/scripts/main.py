@@ -1,4 +1,4 @@
 import os 
   
-def get_input(data):
+def main(data):
     print(data)

@@ -10,6 +10,11 @@ function end(file) {
   link.href = objectURL;
 }
 
+function callbackFunc(response) {
+  // do something with the response
+  console.log(response);
+}
+
 // Triggers other functions once .tex file
 // has been uploaded
 input.addEventListener('change', function () {
@@ -18,6 +23,13 @@ input.addEventListener('change', function () {
   }
 
   const file = this.files[0];
+
+  $.ajax({
+    type: "POST",
+    url: "../scripts/main.py",
+    data: { param: file },
+    success: callbackFunc
+  });
 
   //Call end function here -> Input would be file
 });
