@@ -36,7 +36,9 @@
             <div class="formBox">
                 <input type = file name = file accept = ".tex">
             </div>
-            <input type = submit value = Upload>
+            {%if file %}
+                <input type = submit value = Upload>
+            {% endif %}
         </form>
 
         <!-- Download mp3/mp4 audio -->
