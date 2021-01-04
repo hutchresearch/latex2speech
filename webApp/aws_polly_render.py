@@ -1,3 +1,4 @@
+import boto3
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
 from contextlib import closing
@@ -6,18 +7,35 @@ import sys
 import subprocess
 from tempfile import gettempdir
 
-session = Session(profile_name="admin_user")
+# Creates session of user using AWS credentials
+session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
+
+# Creates objects of use
 polly = session.client("polly")
+s3 = session.client("s3")
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file):
     try:
         # Request speech synthesis
-        audio = polly.synthesize_speech(Text="Hello world!", OutputFormat="mp3", VoiceId="Joanna")
+        audio = polly.start_speech_synthesis_task(
+            VoiceId='Joanna',
+            OutputS3BucketName='text2speech',
+            # OutputS3KeyPrefix='key',
+            OutputFormat='mp3',
+            Text='This is sample text to synthesize.')
+
+        # Output the task ID
+        taskId = audio['SynthesisTask']['TaskId']
+        print(f'Task id is {taskId}')
+
+        # Retrieve and output the current status of the task
+        task_status = audio.get_speech_synthesis_task(TaskId = taskId)
+        print(f'Status: {task_status}')
 
         return audio
-        
+
     except (BotoCoreError, ClientError) as error:
         # Error and exit
         print(error)
