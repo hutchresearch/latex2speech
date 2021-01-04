@@ -3,7 +3,7 @@ import os
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file):
-    audio = "hi.mp4"
+    audio = "sample.tex"
     return audio
 
 # Changes .tex file to SSML file
@@ -16,11 +16,8 @@ def change_file_type(file):
 # Adds begin and end tag to file
 def add_begin_end_tags(file):
     with open(file.filename, 'r+') as f:
-        print("hehrehrehrehhrh")
         content = f.read()
-        print("hiiiiasfasfasdf")
         f.seek(0, 0)
-        print("maybeyba")
         beginTag = "<speak>"
         f.write(beginTag.rstrip('\r\n') + '\n' + content + '\n</speak>')
 
@@ -39,8 +36,7 @@ def start_polly(file):
     # file = change_file_type(file)
 
     # Feed to Amazon Polly here
-    # audio = tts_of_file(file)
-    # print("noooo")
-    # return audio 
-    return file
+    audio = tts_of_file(file)
+
+    return audio 
     
