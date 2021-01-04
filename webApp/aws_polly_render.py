@@ -1,10 +1,27 @@
+from boto3 import Session
+from botocore.exceptions import BotoCoreError, ClientError
+from contextlib import closing
 import os
+import sys
+import subprocess
+from tempfile import gettempdir
+
+session = Session(profile_name="admin_user")
+polly = session.client("polly")
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file):
-    audio = "sample.tex"
-    return audio
+    try:
+        # Request speech synthesis
+        audio = polly.synthesize_speech(Text="Hello world!", OutputFormat="mp3", VoiceId="Joanna")
+
+        return audio
+        
+    except (BotoCoreError, ClientError) as error:
+        # Error and exit
+        print(error)
+        sys.exit(-1)
 
 # Changes .tex file to SSML file
 def change_file_type(file):
