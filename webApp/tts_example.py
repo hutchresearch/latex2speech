@@ -23,13 +23,13 @@ for line in f:
     cnt += 1
     command = command.format(rendered.encode('utf-8'), file_name)
     file_names += file_name
-    print command
+    print(command)
     subprocess.call(command, shell=True)
 
-print file_names
+print(file_names)
 execute_command = 'cat ' + file_names + '>result.mp3'
 subprocess.call(execute_command, shell=True)
 
 execute_command = 'rm ' + file_names
-print 'Removing temporary files: ' + execute_command
+print('Removing temporary files: ' + execute_command)
 subprocess.call(execute_command, shell=True)
