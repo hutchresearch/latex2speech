@@ -25,7 +25,7 @@ def tts_of_file(file, contents):
             OutputS3BucketName = "tex2speech",
             OutputS3KeyPrefix = file.filename,
             OutputFormat = "mp3",
-            Text = contents)
+            Text = contents + "hi")
 
         # Output the task ID
         taskId = audio['SynthesisTask']['TaskId']
@@ -43,8 +43,10 @@ def tts_of_file(file, contents):
         sys.exit(-1)
 
 # Gets contents of file, returns variable holding all text
+# Converts bytes to string
 def get_text_file(file):
-    return file.read()
+    text = file.read()
+    return str(text, 'utf-8')
 
 # Changes .tex file to SSML file
 def change_file_type(file):
