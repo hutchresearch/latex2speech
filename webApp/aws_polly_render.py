@@ -2,6 +2,7 @@
 from typing import Optional
 import os
 import sys
+import requests
 
 # AWS Libraries
 import boto3
@@ -38,12 +39,16 @@ def create_presigned_url(bucket_name, object_name, expiration=3600):
 def generate_presigned_url(objectURL):
     bucket_name = "tex2speech"
     bucket_resource_url = objectURL
-    url = create_presigned_url(
-        bucket_name,
-        bucket_resource_url
-    )
-    
-    return url
+    # url = create_presigned_url(
+    #     bucket_name,
+    #     bucket_resource_url
+    # )
+
+    url = create_presigned_url(bucket_name, bucket_resource_url)
+    if url is not None:
+        response = requests.get(url)
+
+    return response
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
