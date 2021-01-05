@@ -16,26 +16,23 @@ s3 = session.client("s3")
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
-def tts_of_file(file):
-    
-    # Get all file contents
-    text = file.read() 
+def tts_of_file(file, contents):
 
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
-            VoiceId = 'Joanna',
-            OutputS3BucketName = 'text2speech',
-            # OutputS3KeyPrefix='key',
-            OutputFormat = 'mp3',
-            Text = text)
+            VoiceId = "Joanna",
+            OutputS3BucketName = "tex2speech",
+            OutputS3KeyPrefix = file.filename,
+            OutputFormat = "mp3",
+            Text = contents)
 
         # Output the task ID
         taskId = audio['SynthesisTask']['TaskId']
         print(f'Task id is {taskId}')
 
         # Retrieve and output the current status of the task
-        task_status = audio.get_speech_synthesis_task(TaskId = taskId)
+        task_status = polly.get_speech_synthesis_task(TaskId = taskId)
         print(f'Status: {task_status}')
 
         return audio
@@ -44,6 +41,10 @@ def tts_of_file(file):
         # Error and exit
         print(error)
         sys.exit(-1)
+
+# Gets contents of file, returns variable holding all text
+def get_text_file(file):
+    return file.read()
 
 # Changes .tex file to SSML file
 def change_file_type(file):
@@ -74,8 +75,11 @@ def start_polly(file):
     # Change .tex file to .SSML file here
     # file = change_file_type(file)
 
+    # Get contents of file
+    contents = get_text_file(file)
+
     # Feed to Amazon Polly here
-    audio = tts_of_file(file)
+    audio = tts_of_file(file, contents)
 
     return audio; 
     
