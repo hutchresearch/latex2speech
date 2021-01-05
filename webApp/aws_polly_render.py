@@ -61,7 +61,7 @@ def tts_of_file(file, contents):
 
         # ----- PRINT HELPERS FOR TESTING PURPOSES -----
         # Output the task ID
-        # taskId = audio['SynthesisTask']['TaskId']
+        taskId = audio['SynthesisTask']['TaskId']
         # print(f'Task id is {taskId}')
 
         # Retrieve and output the current status of the task
@@ -69,7 +69,8 @@ def tts_of_file(file, contents):
         # print(f'Status: {task_status}')
 
         # Get audio link from bucket
-        audio_link = audio['SynthesisTask']['OutputUri']
+        objectName = file.filename + "." + taskId + ".mp3"
+        audio_link = generate_presigned_url(objectName);
 
         return audio_link
 
