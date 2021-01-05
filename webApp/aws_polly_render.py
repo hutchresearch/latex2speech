@@ -28,14 +28,17 @@ def tts_of_file(file, contents):
             Text = contents + "hi")
 
         # Output the task ID
-        taskId = audio['SynthesisTask']['TaskId']
-        print(f'Task id is {taskId}')
+        # taskId = audio['SynthesisTask']['TaskId']
+        # print(f'Task id is {taskId}')
 
         # Retrieve and output the current status of the task
-        task_status = polly.get_speech_synthesis_task(TaskId = taskId)
-        print(f'Status: {task_status}')
+        # task_status = polly.get_speech_synthesis_task(TaskId = taskId)
+        # print(f'Status: {task_status}')
 
-        return audio
+        # Get audio link from bucket
+        audio_link = audio['SynthesisTask']['OutputUri']
+
+        return audio_link
 
     except (BotoCoreError, ClientError) as error:
         # Error and exit
