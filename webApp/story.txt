@@ -1,6 +1,0 @@
-If you want to convert long form text, such as a book, to speech using Amazon Polly, you need to break up your text into chunks of 1500 characters. Wouldn’t it be ideal if an AWS CLI command would allow you to input an unlimited size text file that would be automatically converted to an MP3 file?
-
-
-A quick search reveals two solutions: a cloud solution based on AWS Lambda and AWS Batch, and a Node.js based solution. The first solution is a full-scale production system that requires good understanding of AWS services and the configuration of the services. The second solution requires the installation of Node.js. I was looking for a quick way to test the service locally from my computer with minimal configuration. Therefore I decided to create a simple Python script that would allow me to input an unlimited size text file and would output an mp3 file.
-
-The script relies on the AWS CLI tool and a standard Linux/Unix command: ‘cat’. The script could simply read a .txt file and pass it to AWS CLI command for the conversion. However, I found that the MP3 output file lacks pauses between the sentences and paragraphs. Therefore, I used Speech Synthesis Markup Language (SSML) rather than simple text. SSML is a markup language with various tags. For example, for a pause between sentences you can use markup where 1s stands for one second pause.
