@@ -14,6 +14,25 @@ session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_ke
 # Creates objects of use
 polly = session.client("polly")
 
+# Generate a presigned URL for the S3 object so any user can download
+def create_presigned_url(bucket_name, object_name, expiration=3600):    
+    # aws_profile = <your-aws-profile-name>
+    aws_profile = "rosej25"
+    s3_client = boto3.session.Session(profile_name=aws_profile).client('s3')
+    try:
+        # note that we are passing get_object as the operation to perform
+        response = s3_client.generate_presigned_url('get_object', Params={
+                                                    'Bucket': bucket_name,
+                                                    'Key': object_name},
+                                                    ExpiresIn = expiration)
+    except ClientError as e:
+        # Error and exit
+        print(e)
+        return None
+
+    # The response contains the presigned URL
+    return response
+
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file, contents):
