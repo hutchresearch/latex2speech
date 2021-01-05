@@ -13,15 +13,13 @@ session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_ke
 
 # Creates objects of use
 polly = session.client("polly")
+s3 = session.client("s3")
 
 # Generate a presigned URL for the S3 object so any user can download
 def create_presigned_url(bucket_name, object_name, expiration=3600):    
-    # aws_profile = <your-aws-profile-name>
-    aws_profile = "rosej25"
-    s3_client = boto3.session.Session(profile_name=aws_profile).client('s3')
     try:
-        # note that we are passing get_object as the operation to perform
-        response = s3_client.generate_presigned_url('get_object', Params={
+        # Creates s3 client, passes in arguments
+        response = s3.generate_presigned_url('get_object', Params={
                                                     'Bucket': bucket_name,
                                                     'Key': object_name},
                                                     ExpiresIn = expiration)
@@ -29,6 +27,8 @@ def create_presigned_url(bucket_name, object_name, expiration=3600):
         # Error and exit
         print(e)
         return None
+
+    print("\n\n" + response + "\n\n")
 
     # The response contains the presigned URL
     return response
@@ -42,9 +42,8 @@ def generate_presigned_url(objectURL):
         bucket_name,
         bucket_resource_url
     )
-    return {
-        'url': url
-}
+    
+    return url
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
@@ -57,7 +56,7 @@ def tts_of_file(file, contents):
             OutputS3BucketName = "tex2speech",
             OutputS3KeyPrefix = file.filename,
             OutputFormat = "mp3",
-            Text = contents + "hi")
+            Text = contents)
 
         # ----- PRINT HELPERS FOR TESTING PURPOSES -----
         # Output the task ID
@@ -70,7 +69,7 @@ def tts_of_file(file, contents):
 
         # Get audio link from bucket
         objectName = file.filename + "." + taskId + ".mp3"
-        audio_link = generate_presigned_url(objectName);
+        audio_link = generate_presigned_url(objectName)
 
         return audio_link
 
