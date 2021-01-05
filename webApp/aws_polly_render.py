@@ -17,14 +17,18 @@ s3 = session.client("s3")
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file):
+    
+    # Get all file contents
+    text = file.read() 
+
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
-            VoiceId='Joanna',
-            OutputS3BucketName='text2speech',
+            VoiceId = 'Joanna',
+            OutputS3BucketName = 'text2speech',
             # OutputS3KeyPrefix='key',
-            OutputFormat='mp3',
-            Text='This is sample text to synthesize.')
+            OutputFormat = 'mp3',
+            Text = text)
 
         # Output the task ID
         taskId = audio['SynthesisTask']['TaskId']
@@ -73,5 +77,5 @@ def start_polly(file):
     # Feed to Amazon Polly here
     audio = tts_of_file(file)
 
-    return audio 
+    return audio; 
     
