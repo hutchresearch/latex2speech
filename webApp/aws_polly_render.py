@@ -1,18 +1,18 @@
+# General Libraries
+from typing import Optional
+import os
+import sys
+
+# AWS Libraries
 import boto3
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-import os
-import sys
-import subprocess
-from tempfile import gettempdir
 
 # Creates session of user using AWS credentials
 session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
 
 # Creates objects of use
 polly = session.client("polly")
-s3 = session.client("s3")
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
@@ -27,6 +27,7 @@ def tts_of_file(file, contents):
             OutputFormat = "mp3",
             Text = contents + "hi")
 
+        # ----- PRINT HELPERS FOR TESTING PURPOSES -----
         # Output the task ID
         # taskId = audio['SynthesisTask']['TaskId']
         # print(f'Task id is {taskId}')
