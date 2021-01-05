@@ -84,7 +84,6 @@ def start_polly(file):
     contents = get_text_file(file)
 
     # Feed to Amazon Polly here
-    audio = tts_of_file(file, contents)
+    audio_link = tts_of_file(file, contents)
 
-    return audio; 
-    
+    return audio_link
