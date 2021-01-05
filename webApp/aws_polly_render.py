@@ -47,8 +47,9 @@ def generate_presigned_url(objectURL):
     url = create_presigned_url(bucket_name, bucket_resource_url)
     if url is not None:
         response = requests.get(url)
+        print(response.status_code)
+        return response
 
-    return response
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
