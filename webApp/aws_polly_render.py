@@ -39,16 +39,12 @@ def create_presigned_url(bucket_name, object_name, expiration=3600):
 def generate_presigned_url(objectURL):
     bucket_name = "tex2speech"
     bucket_resource_url = objectURL
-    # url = create_presigned_url(
-    #     bucket_name,
-    #     bucket_resource_url
-    # )
+    url = create_presigned_url(
+        bucket_name,
+        bucket_resource_url
+    )
 
-    url = create_presigned_url(bucket_name, bucket_resource_url)
-    if url is not None:
-        response = requests.get(url)
-        print(response.status_code)
-        return response
+    return url
 
 
 # Returns audio of file using Amazon Polly
