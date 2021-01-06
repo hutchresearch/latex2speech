@@ -87,22 +87,12 @@ def get_text_file(file):
     text = file.read()
     return str(text, 'utf-8')
 
-# Changes .tex file to SSML file
-def change_file_type(file):
-    base = os.path.splitext(file.filename)[0]
-    os.rename(file.filename, base + '.ssml')
-
-    return file
-
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(file):
-    
+
     # Call parser here
     # file = start_parser(file)
-
-    # Change .tex file to .SSML file here
-    file = change_file_type(file)
 
     # Get contents of file
     contents = get_text_file(file)
