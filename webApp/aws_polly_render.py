@@ -58,7 +58,8 @@ def tts_of_file(file, contents):
             OutputS3BucketName = "tex2speech",
             OutputS3KeyPrefix = file.filename,
             OutputFormat = "mp3",
-            Text = contents)
+            TextType = "ssml",
+            Text = "<speak>\n" + contents + "\n</speak>")
 
         # ----- PRINT HELPERS FOR TESTING PURPOSES -----
         # Output the task ID
@@ -93,27 +94,15 @@ def change_file_type(file):
 
     return file
 
-# Adds begin and end tag to file
-def add_begin_end_tags(file):
-    with open(file.filename, 'r+') as f:
-        content = f.read()
-        f.seek(0, 0)
-        beginTag = "<speak>"
-        f.write(beginTag.rstrip('\r\n') + '\n' + content + '\n</speak>')
-
-    return file
-
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(file):
-    # Adds SSML tags to beginning/end
-    # file = add_begin_end_tags(file)
-
+    
     # Call parser here
     # file = start_parser(file)
 
     # Change .tex file to .SSML file here
-    # file = change_file_type(file)
+    file = change_file_type(file)
 
     # Get contents of file
     contents = get_text_file(file)
