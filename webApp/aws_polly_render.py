@@ -58,8 +58,8 @@ def tts_of_file(file, contents):
             OutputS3BucketName = "tex2speech",
             OutputS3KeyPrefix = file.filename,
             OutputFormat = "mp3",
-            TextType = "ssml",
-            Text = "<speak>\n" + contents + "\n</speak>")
+            TextType = "text",
+            Text = "<speak>" + contents + "</speak>")
 
         # ----- PRINT HELPERS FOR TESTING PURPOSES -----
         # Output the task ID
@@ -90,7 +90,6 @@ def get_text_file(file):
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(file):
-
     # Call parser here
     # file = start_parser(file)
 
