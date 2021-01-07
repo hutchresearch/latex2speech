@@ -1,4 +1,0 @@
-Notes for sympytossml:
-    sympy stores division as to x * y ^ -1
-    sympy stores subtraction as x + (-1 * y)
-
