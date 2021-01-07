@@ -27,6 +27,7 @@ def convert(expr, ops):
                 r += convert(expr.args[int(e)], ops)
             else:
                 r += e
+            r += ' '  
     return r;
 
 def basic_convert(expr):
@@ -38,7 +39,7 @@ def basic_convert(expr):
 ops = parse_ops_file("operators")
 
 x, y, n = symbols('x y n')
-test_expr = Rational(1, 2) * x 
+test_expr = y / x 
 print_tree(test_expr, assumptions = False)
 #test_ssml = basic_convert(test_expr)
 test_ssml = convert(test_expr, ops)
