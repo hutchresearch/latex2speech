@@ -1,5 +1,7 @@
 /*
  ANTLR4 LaTeX Math Grammar
+
+ Added from Sympy library
  
  Ported from latex2sympy by @augustt198 https://github.com/augustt198/latex2sympy See license in
  LICENSE.txt
