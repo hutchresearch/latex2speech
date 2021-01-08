@@ -118,14 +118,31 @@ def expandDocMacros(doc):
                             while macro+1 < len(macroBindings[name]) and macroBindings[name][macro+1].position < child.position:
                                 macro += 1
                             if macro >= 0:
+                                # It makes me so unbelievably sad that this code is necessary, but no matter what I do, deleting a specific
+                                #   child instead deletes the first instance of a node with the same name as the child. To fix this, all
+                                #   children before the desired node to be deleted must be given temporary, unique names and changed back
+                                #   afterwards.
                                 node.insert(i, macroBindings[name][macro].expandMacro(child))
-                                node.remove(child)
+                                tempNameSuffix = 'a'
+                                tempNames = []
+                                for deleteCand in node.find_all(name):
+                                    if deleteCand.position == child.position:
+                                        child.delete()
+                                        for tempName in tempNames:
+                                            node.find(tempName).name = name
+                                        break
+                                    elif deleteCand.position < child.position:
+                                        tempName = name + tempNameSuffix
+                                        while node.find(tempName):
+                                            tempNameSuffix += 'a'
+                                            tempName = name + tempNameSuffix
+                                        deleteCand.name = tempName
+                                        tempNames.append(tempName)
+                                    else:
+                                        print('Expected node not found, moving on')
+                                        break
 
     macroBindings = {}
     createMacroBindings()
     expandDocMacrosSub(doc)
     return TexSoup.TexSoup(str(doc))
-
-# Basic test
-if __name__ == '__main__':
-    print(expandDocMacros(TexSoup.TexSoup(r'\newcommand{\a}[2][d]{\z #1 #2}\a{a}\a{a}{b}\newcommand{\b}[1]{\a{#1}}\b{b}\renewcommand{\b}[2]{\a[#1]{#2}}\b{b}{c}')))
