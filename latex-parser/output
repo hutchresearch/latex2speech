@@ -1,1 +1,0 @@
-<speak> <break time="40ms"/> this is an item, with math <break strength="strong"/> 1 plus 3 minus 6 plus alpha times hello equals 56.123 factorial <break time="40ms"/> <emphasis level="strong"> this </emphasis> is another <break strength="medium"/> <emphasis level="strong"> AND THIS </emphasis> is something after </speak>
