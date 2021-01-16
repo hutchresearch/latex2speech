@@ -9,8 +9,6 @@ class TestMacroExpansion(unittest.TestCase):
          method is necessary for unit testing. This definition of equality here is possibly
          too strict.'''
     def _docsEqual(self, doc1, doc2):
-        print(str(doc1))
-        print(str(doc2))
         return str(doc1) == str(doc2)
 
     '''Tests whether arguments and optional arguments work'''
@@ -66,6 +64,10 @@ class TestMacroExpansion(unittest.TestCase):
         doc = TexSoup.TexSoup(r'\a\newcommand{\a}{\b}\a')
         expanded = doc_preprocess.expandDocMacros(doc)
         self.assertTrue(self._docsEqual(expanded, TexSoup.TexSoup(r'\a\newcommand{\a}{\b}\b')))
+
+        doc = TexSoup.TexSoup(r'\a\renewcommand{\a}{\b}\a\renewcommand{\a}{\c}\a')
+        expanded = doc_preprocess.expandDocMacros(doc)
+        self.assertTrue(self._docsEqual(expanded, TexSoup.TexSoup(r'\a\renewcommand{\a}{\b}\b\renewcommand{\a}{\c}\c')))
 
 if __name__ == "__main__":
     unittest.main()

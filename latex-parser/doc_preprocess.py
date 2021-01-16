@@ -1,4 +1,5 @@
 import TexSoup
+from tex_soup_utils import safeReplaceChild
 
 '''
 Expand newcommand and renewcommand
@@ -118,29 +119,7 @@ def expandDocMacros(doc):
                             while macro+1 < len(macroBindings[name]) and macroBindings[name][macro+1].position < child.position:
                                 macro += 1
                             if macro >= 0:
-                                # It makes me so unbelievably sad that this code is necessary, but no matter what I do, deleting a specific
-                                #   child instead deletes the first instance of a node with the same name as the child. To fix this, all
-                                #   children before the desired node to be deleted must be given temporary, unique names and changed back
-                                #   afterwards.
-                                node.insert(i, macroBindings[name][macro].expandMacro(child))
-                                tempNameSuffix = 'a'
-                                tempNames = []
-                                for deleteCand in node.find_all(name):
-                                    if deleteCand.position == child.position:
-                                        child.delete()
-                                        for tempName in tempNames:
-                                            node.find(tempName).name = name
-                                        break
-                                    elif deleteCand.position < child.position:
-                                        tempName = name + tempNameSuffix
-                                        while node.find(tempName):
-                                            tempNameSuffix += 'a'
-                                            tempName = name + tempNameSuffix
-                                        deleteCand.name = tempName
-                                        tempNames.append(tempName)
-                                    else:
-                                        print('Expected node not found, moving on')
-                                        break
+                                safeReplaceChild(node, child, i, macroBindings[name][macro].expandMacro(child))
 
     macroBindings = {}
     createMacroBindings()
