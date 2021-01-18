@@ -147,6 +147,13 @@ def expandDocMacros(doc):
     # Create a hashtable to store in these values
     #   Input: .aux file to corresponding .tex file
     #   Output: Hashtable for \newlabel
+    #     HashTable format
+    #       Key: Name of object
+    #       Value: List
+    #           List[0] = Page Num
+    #           List[1] = Section Num
+    #           List[2] = Caption (optional)
+    #           List[3] = Type (equation, figure, etc) 
     def auxFileHashTable(auxFile):
         hash = {}
         for line in auxFile:
