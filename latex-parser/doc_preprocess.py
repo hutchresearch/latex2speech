@@ -151,7 +151,7 @@ def expandDocMacros(doc):
         hash = {}
         for line in auxFile:
             if (line[0:9] == "\\newlabel"):
-                hashObject = {}
+                hashObject = []
                 count = 1
                 name = ""
 
@@ -187,10 +187,10 @@ def expandDocMacros(doc):
                         labelType += char
 
                 # Adding object information to hash array object 
-                # hashObject.append(page)
-                # hashObject.append(section)
-                # hashObject.append(caption)
-                # hashObject.append(labelType)
+                hashObject.append(page)
+                hashObject.append(section)
+                hashObject.append(caption)
+                hashObject.append(labelType)
 
                 # Adding to hashtable
                 hash[name] = hashObject
