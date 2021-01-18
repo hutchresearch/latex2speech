@@ -173,24 +173,24 @@ def expandDocMacros(doc):
                 # Adding .aux information to corresponding
                 # object type
                 for char in line[count:]:
-                    if (char == '{') {
+                    if (char == '{'):
                         obj += 1
-                    } else if (char == '}') {
-                    } else if (obj == 1) {
+                    elif (char == '}'):
+                        obj = obj
+                    elif (obj == 1):
                         page += char
-                    } else if (obj == 2) {
+                    elif(obj == 2):
                         section += char
-                    } else if (obj == 3) {
-                        caption = += char
-                    } else if (obj == 4) {
+                    elif (obj == 3):
+                        caption += char
+                    elif (obj == 4):
                         labelType += char
-                    }
 
                 # Adding object information to hash array object 
-                hashObject.append(page)
-                hashObject.append(section)
-                hashObject.append(caption)
-                hashObject.append(labelType)
+                # hashObject.append(page)
+                # hashObject.append(section)
+                # hashObject.append(caption)
+                # hashObject.append(labelType)
 
                 # Adding to hashtable
                 hash[name] = hashObject
