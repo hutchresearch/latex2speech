@@ -19,7 +19,7 @@ def expandDocMacros(doc):
                 self.name = macroDefn.args[0].contents[0].name
                 if self.name in prevMacros:
                     prevMacros.pop(self.name)
-
+                
                 if len(prevMacros) > 0:
                     self._normalize(macroDefn, prevMacros.values())
                 
@@ -141,6 +141,13 @@ def expandDocMacros(doc):
                                     else:
                                         print('Expected node not found, moving on')
                                         break
+
+    def expandDocNewLabels():
+        # TODO
+        # 1. Open .aux file (Assuming it's been generated)
+        # 2. Traverse .aux file, create hashtable for commands -> vallues
+        # 3. Traverse doc file, replacing them, by looking into hashtable
+
 
     macroBindings = {}
     createMacroBindings()
