@@ -1,5 +1,5 @@
 import TexSoup
-from tex_soup_utils import safeReplaceChild
+from tex_soup_utils import safeReplaceChild, getEffectiveChildren, exprTest
 
 '''
 Expand newcommand and renewcommand
@@ -41,20 +41,16 @@ def expandDocMacros(doc):
 
         '''Normalizes the macro so it is defined only in terms of itself'''
         def _normalize(self, searchTarget, prevMacros):
-            excl = []
-            for arg in searchTarget.args:
-                self._normalize(arg, prevMacros)
-                excl.extend(arg.children)
-            for i, child in enumerate(searchTarget.children):
-                if child not in excl:
-                    if isinstance(child, TexSoup.data.TexEnv):
-                        self._normalize(child, prevMacros)
-                    else:
-                        for macro in prevMacros:
-                            if child.name == macro.name:
-                                self._normalize(child, prevMacros)
-                                searchTarget.insert(i, macro.expandMacro(child))
-                                searchTarget.remove(child)
+            children = getEffectiveChildren(searchTarget)
+            for i, child in enumerate(children):
+                if exprTest(child, TexSoup.data.TexCmd):
+                    for macro in prevMacros:
+                        if child.name == macro.name:
+                            self._normalize(child, prevMacros)
+                            searchTarget.insert(i, macro.expandMacro(child))
+                            searchTarget.remove(child)
+                else:
+                    self._normalize(child, prevMacros)
 
         '''Returns a string representing the expansion of an invocation of this macro'''
         def expandMacro(self, macro):
@@ -103,15 +99,11 @@ def expandDocMacros(doc):
 
     def expandDocMacrosSub(node):
         nonlocal macroBindings
-        excl = []
-        for arg in node.args:
-            expandDocMacrosSub(arg)
-            excl.extend(arg.children)
-        for i, child in enumerate(node.children):
-            if child not in excl:
-                if isinstance(child, TexSoup.data.TexEnv):
-                    expandDocMacrosSub(child)
-                else:
+        if node.name != 'newcommand' and node.name != 'renewcommand':
+            children = getEffectiveChildren(node)
+            for i, child in enumerate(children):
+                expandDocMacrosSub(child)
+                if exprTest(child, TexSoup.data.TexCmd):
                     for name in macroBindings.keys():
                         if child.name == name:
                             macro = -1

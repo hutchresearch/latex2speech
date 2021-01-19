@@ -37,7 +37,7 @@ class TestMacroExpansion(unittest.TestCase):
                                   r'\begin{dummy}'  +
                                       r'\a{\c}'       +
                                   r'\end{dummy}}'   +
-                              r'\e')
+                              r'\f{\e}')
         expanded = doc_preprocess.expandDocMacros(doc)
         self.assertTrue(self._docsEqual(expanded, \
             TexSoup.TexSoup(r'\newcommand{\a}[1]{\b{#1}}\newcommand{\c}{\d}' +
@@ -45,7 +45,7 @@ class TestMacroExpansion(unittest.TestCase):
                                 r'\begin{dummy}'  +
                                     r'\b{\d}'       +
                                 r'\end{dummy}}'   +
-                            r'\begin{dummy}\b{\d}\end{dummy}')))
+                            r'\f{\begin{dummy}\b{\d}\end{dummy}}')))
 
         # Proper definition used in the case of redefinition
         doc = TexSoup.TexSoup(r'\newcommand{\a}{\ba}\newcommand{\ca}{\a}\ca\renewcommand{\a}{\bb}\newcommand{\cb}{\a}\cb')
