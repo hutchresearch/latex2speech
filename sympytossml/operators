@@ -2,3 +2,20 @@ Mul 0 times 1
 Add 0 plus 1
 Pow 0 to the power of 1
 Mod 0 modulo 1
+sin sin of 0
+cos cosin of 0
+tan tangent of 0
+cot cotangent of 0
+sec secant of 0
+csc cosecant of 0
+asin arc sin of 0
+acos arc cosine of 0
+atan arc tangent of 0
+acot arc cotangent of 0
+asec arc secant of 0
+acsc arc cosecant of 0
+ceiling ceiling of 0
+floor floor of 0
+log log base 1 of 0
+Min minimum of 0, 1
+Max maximum of 0, 1

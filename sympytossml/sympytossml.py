@@ -14,7 +14,11 @@ def parse_ops_file(file_name):
     return ops
 
 def op_structure(ops, op):
-    return ops[str(op)] 
+    if str(op) in ops:
+        return ops[str(op)]
+    else:
+        r = [str(op), 'of', '0']
+        return r 
 
 def convert(expr, ops):
     if len(expr.args) == 0:  
@@ -36,10 +40,11 @@ def basic_convert(expr):
     else:
         return basic_convert(expr.args[0]) + str(expr.__class__.__name__) + basic_convert(expr.args[1])
 
-ops = parse_ops_file("operators")
+ops = parse_ops_file('operators')
 
+f, g = Function('f'), Function('g')
 x, y, n = symbols('x y n')
-test_expr = y / x 
+test_expr = sin(x) + f(g(tan(n))) 
 print_tree(test_expr, assumptions = False)
 #test_ssml = basic_convert(test_expr)
 test_ssml = convert(test_expr, ops)
