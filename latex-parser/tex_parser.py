@@ -166,4 +166,3 @@ class TexParser:
                         self._parseCmd(node, self.envList)
                     else:
                         self._parseNodeContents(node.contents, self.envList)
-
