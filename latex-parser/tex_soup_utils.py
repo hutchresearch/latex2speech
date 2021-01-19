@@ -50,6 +50,16 @@ def getEffectiveChildren(node):
 
     return children
 
+def seperateContents(node):
+    argContents = []
+    otherContents = []
+    for arg in node.args:
+        argContents.extend(arg.contents)
+    for other in node.contents:
+        if other not in argContents:
+            otherContents.append(other)
+    return (argContents, otherContents)
+
 '''
 Seperates the contents found in a node's arguments from other contents that
   happen to belong to a node. This is a fairly frequent occurence.
