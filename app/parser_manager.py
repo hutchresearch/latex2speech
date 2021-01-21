@@ -1,10 +1,11 @@
+import os
 
 def start_parsing(file):
     print("\n\nTEST")
 
+    print(file.filename)
+    os.system("pdflatex " + file)
+
     # TODO
-    # Connect to Connor's Parser
-    # Get .aux file first
-    # Run through
-    # Ignore math mode for now?
+    # Get .aux file
     return file
