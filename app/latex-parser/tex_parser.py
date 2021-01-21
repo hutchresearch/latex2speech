@@ -1,6 +1,7 @@
 import TexSoup
 import xml.etree.ElementTree as ET
 import enum
+import doc_preprocess
 
 class TexParser:
     def __init__(self):
@@ -13,9 +14,10 @@ class TexParser:
 
         docstr = file.read()
         docstr = docstr.replace('\n', ' ')
-        # TODO: More cleanup/command expansion
 
         doc = TexSoup.TexSoup(docstr)
+        doc = doc_preprocess.expandDocMacros(doc)
+
         self._concatOutput("<speak>")
         self._parseNodeContents(doc.contents, [])
         self._concatOutput("</speak>")
