@@ -103,5 +103,5 @@ def start_polly(file):
 
     # Feed to Amazon Polly here
     # audio_link = tts_of_file(file, contents)
-    # audio_link = "hi"
+    audio_link = "hi"
     return audio_link
