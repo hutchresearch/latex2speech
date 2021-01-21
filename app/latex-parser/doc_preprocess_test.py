@@ -9,8 +9,6 @@ class TestMacroExpansion(unittest.TestCase):
          method is necessary for unit testing. This definition of equality here is possibly
          too strict.'''
     def _docsEqual(self, doc1, doc2):
-        print(str(doc1))
-        print(str(doc2))
         return str(doc1) == str(doc2)
 
     '''Tests whether arguments and optional arguments work'''
@@ -39,7 +37,7 @@ class TestMacroExpansion(unittest.TestCase):
                                   r'\begin{dummy}'  +
                                       r'\a{\c}'       +
                                   r'\end{dummy}}'   +
-                              r'\e')
+                              r'\f{\e}')
         expanded = doc_preprocess.expandDocMacros(doc)
         self.assertTrue(self._docsEqual(expanded, \
             TexSoup.TexSoup(r'\newcommand{\a}[1]{\b{#1}}\newcommand{\c}{\d}' +
@@ -47,7 +45,7 @@ class TestMacroExpansion(unittest.TestCase):
                                 r'\begin{dummy}'  +
                                     r'\b{\d}'       +
                                 r'\end{dummy}}'   +
-                            r'\begin{dummy}\b{\d}\end{dummy}')))
+                            r'\f{\begin{dummy}\b{\d}\end{dummy}}')))
 
         # Proper definition used in the case of redefinition
         doc = TexSoup.TexSoup(r'\newcommand{\a}{\ba}\newcommand{\ca}{\a}\ca\renewcommand{\a}{\bb}\newcommand{\cb}{\a}\cb')
@@ -66,6 +64,10 @@ class TestMacroExpansion(unittest.TestCase):
         doc = TexSoup.TexSoup(r'\a\newcommand{\a}{\b}\a')
         expanded = doc_preprocess.expandDocMacros(doc)
         self.assertTrue(self._docsEqual(expanded, TexSoup.TexSoup(r'\a\newcommand{\a}{\b}\b')))
+
+        doc = TexSoup.TexSoup(r'\a\renewcommand{\a}{\b}\a\renewcommand{\a}{\c}\a')
+        expanded = doc_preprocess.expandDocMacros(doc)
+        self.assertTrue(self._docsEqual(expanded, TexSoup.TexSoup(r'\a\renewcommand{\a}{\b}\b\renewcommand{\a}{\c}\c')))
 
 if __name__ == "__main__":
     unittest.main()
