@@ -9,6 +9,9 @@ import boto3
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
 
+# Parsing Library
+from parser_manager import start_parsing
+
 # Creates session of user using AWS credentials
 session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
 
@@ -91,7 +94,7 @@ def get_text_file(file):
 # Manages all tasks afterwords
 def start_polly(file):
     # Call parser here
-    # file = start_parser(file)
+    file = start_parsing(file)
 
     # Get contents of file
     contents = get_text_file(file)
@@ -99,6 +102,6 @@ def start_polly(file):
     print("\n\n" + contents)
 
     # Feed to Amazon Polly here
-    audio_link = tts_of_file(file, contents)
+    # audio_link = tts_of_file(file, contents)
     # audio_link = "hi"
     return audio_link
