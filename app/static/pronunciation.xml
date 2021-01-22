@@ -81,7 +81,8 @@
     </env>
     <env name="table">
     </env>
-    <env name="tabular">
+    <env name="tabular" readTable = "true">
+        <prefix>Table Contents&lt;break time="40ms"/&gt;</prefix>
     </env>
     <env name="abstract">
     </env>

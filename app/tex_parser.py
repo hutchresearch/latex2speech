@@ -34,6 +34,14 @@ class TexParser:
         else:
             self.output += ' ' + string
 
+    def _parseTableContents(self, contentsNode):
+        print(contentsNode)
+        if contentsNode == r"\\":
+            self._concatOutput("Next Row")
+        else:
+            print("TEST")
+            
+
     def _parseMathModeToken(self, tokenNode):
         mathTokens = self._getMathTokens(tokenNode.text)
         for t in mathTokens:
@@ -132,8 +140,9 @@ class TexParser:
 
     def _parseEnv(self, envNode):
         found = False
-        print(envNode.name)
+        
         for envElem in self.latex.findall('env'):
+
             if envElem.get('name') == envNode.name:
                 found = True
                 self.envList.append(envElem)
@@ -174,7 +183,10 @@ class TexParser:
                         # Tai testing -> Looking for reserved tokens
                         # self._parseReservedTokens(node)
                     else:
-                        self._concatOutput(str(node))
+                        if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
+                            self._parseTableContents(node)
+                        else:
+                            self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
                         self._parseEnv(node)
@@ -182,3 +194,12 @@ class TexParser:
                         self._parseCmd(node)
                     else:
                         self._parseNodeContents(node.contents)
+
+
+# TAI TODO:
+# For Tables (Here's my idea)
+#  1. At each new row (or \\) print new row
+#  2. When c c c are defined, maybe count how many there are
+#  3. At each node, check to see if there are numC - 1 to ensure 
+#     that is values of table
+#  4. If this is true, parse, if not, move on
