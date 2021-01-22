@@ -28,6 +28,9 @@
         <arg say_contents="true"/>
         <suffix>&lt;/emphasis&gt;</suffix>
     </cmd>
+    <cmd name = "&amp;">
+        <prefix>and</prefix>
+    </cmd>
     <env name="equation" mathmode="true">
         <prefix>the equation</prefix>
     </env>

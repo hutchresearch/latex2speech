@@ -61,7 +61,7 @@ class TexParser:
                         next = "" 
                     state = tState.number
                 next = next + c
-            elif c.isspace():
+            elif c.isspace() or c == '&':
                 if len(next):
                     yield next
                     next = ""
@@ -93,7 +93,7 @@ class TexParser:
                 self._concatOutput(arg.find('prefix').text)
         
             if arg.get('say_contents') == 'true':
-                self._parseNodeContents(cmdNode.args[argIndex].contents, self.envList)
+                self._parseNodeContents(cmdNode.args[argIndex].contents)
                 
             if arg.find('suffix') is not None:
                 self._concatOutput(arg.find('suffix').text)
@@ -109,7 +109,7 @@ class TexParser:
     def _parseCmd(self, cmdNode):
         found = False
         searchEnvs = []
-        
+
         if len(self.envList) > 0:
             searchEnvs.append(self.envList[-1])
             if self.envList[-1].get('mathmode') == 'true':
@@ -118,7 +118,7 @@ class TexParser:
                 searchEnvs.append(self.latex)
         else: 
             searchEnvs.append(self.latex)
-            
+
         i = 0
         while i < len(searchEnvs) and not found:
             for cmdElem in searchEnvs[i].findall('cmd'):
@@ -155,11 +155,13 @@ class TexParser:
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
+                print(node)
                 if isinstance(node, TexSoup.utils.Token):
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     #TODO: Check for reserved tokens (e.g. r"\\")
                     else:
+                        # Tai testing -> Looking for reserved tokens
                         self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
