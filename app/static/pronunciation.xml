@@ -28,9 +28,6 @@
         <arg say_contents="true"/>
         <suffix>&lt;/emphasis&gt;</suffix>
     </cmd>
-    <cmd name = "&amp;">
-        <prefix>and</prefix>
-    </cmd>
     <env name="equation" mathmode="true">
         <prefix>the equation</prefix>
     </env>
@@ -102,4 +99,10 @@
     </env>
     <env name="verbatim">
     </env>
+
+    <reserved name = "&amp;">
+        <prefix>and</prefix>
+    </reserved>
+    <reserved name = "\\">
+    </reserved>
 </latex>

@@ -122,6 +122,7 @@ class TexParser:
         i = 0
         while i < len(searchEnvs) and not found:
             for cmdElem in searchEnvs[i].findall('cmd'):
+                print(cmdNode.name)
                 if cmdElem.get('name') == cmdNode.name:
                     self._parseCmdSub(cmdNode, cmdElem)
                     found = True
@@ -152,16 +153,27 @@ class TexParser:
         if not found:
             self._parseNodeContents(envNode.contents[len(envNode.args):])
 
+    # Function that will look into xml file for serverd tokens
+    # Example: \&, \\, etc
+    def _parseReservedTokens(self, reservedTokenNode):
+        found = False
+        print(reservedTokenNode.name)
+        # for reservedToken in self.latex.findall('reserved'):
+        #     if reservedToken.get('name') == reservedTokenNode.name:
+        #         found = True 
+                
+
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
-                print(node)
                 if isinstance(node, TexSoup.utils.Token):
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     #TODO: Check for reserved tokens (e.g. r"\\")
-                    else:
+                    # elif True:
                         # Tai testing -> Looking for reserved tokens
+                        # self._parseReservedTokens(node)
+                    else:
                         self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
