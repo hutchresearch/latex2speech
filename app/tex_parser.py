@@ -5,8 +5,8 @@ import doc_preprocess
 
 class TexParser:
     def __init__(self):
-        self.latex = ET.parse('pronunciation.xml').getroot()
-        self.mathmode = ET.parse('mathmode_pronunciation.xml').getroot()
+        self.latex = ET.parse('/static/pronunciation.xml').getroot()
+        self.mathmode = ET.parse('/static/mathmode_pronunciation.xml').getroot()
 
     def parse(self, file):
         self.output = ''

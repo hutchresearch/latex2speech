@@ -93,13 +93,16 @@ def get_text_file(file):
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(file):
+    # Get contents of file
+    contents = get_text_file(file)
+    print("\n\nCONTENTS BEFORE CHANGE\n\n" + contents)
     # Call parser here
     file = start_parsing(file)
 
     # Get contents of file
     contents = get_text_file(file)
 
-    print("\n\n" + contents)
+    print("\n\nCONTENTS AFTER CHANGE\n\n" + contents)
 
     # Feed to Amazon Polly here
     # audio_link = tts_of_file(file, contents)
