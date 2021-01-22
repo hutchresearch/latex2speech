@@ -61,8 +61,8 @@ def tts_of_file(file, contents):
             OutputS3BucketName = "tex2speech",
             OutputS3KeyPrefix = file.filename,
             OutputFormat = "mp3",
-            TextType = "text",
-            Text = "<speak>" + contents + "</speak>")
+            TextType = "ssml",
+            Text = contents)
 
         # ----- PRINT HELPERS FOR TESTING PURPOSES -----
         # Output the task ID
@@ -94,17 +94,17 @@ def get_text_file(file):
 # Manages all tasks afterwords
 def start_polly(file):
     # Get contents of file
-    contents = get_text_file(file)
-    print("\n\nCONTENTS BEFORE CHANGE\n\n" + contents)
+    # contents = get_text_file(file)
+    # print("\n\nCONTENTS BEFORE CHANGE\n\n" + contents)
     # Call parser here
-    file = start_parsing(file)
+    parsed_contents = start_parsing(file)
 
     # Get contents of file
-    contents = get_text_file(file)
+    # contents = get_text_file(file)
 
-    print("\n\nCONTENTS AFTER CHANGE\n\n" + contents)
+    print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
 
     # Feed to Amazon Polly here
-    # audio_link = tts_of_file(file, contents)
-    audio_link = "hi"
+    audio_link = tts_of_file(file, parsed_contents)
+    # audio_link = "hi"
     return audio_link
