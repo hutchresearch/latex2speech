@@ -12,7 +12,6 @@ class TexParser:
         self.output = ''
         self.envList = []
 
-        # docstr = file.read()
         text = file.read()
         docstr = str(text, 'utf-8')
         docstr = docstr.replace('\n', ' ')
@@ -25,7 +24,6 @@ class TexParser:
         self._concatOutput("</speak>")
 
         # TODO: Final cleanup
-        print("OUTPUT\n\n" + self.output)
         return self.output
 
     def _concatOutput(self, string):

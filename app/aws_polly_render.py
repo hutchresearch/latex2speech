@@ -93,14 +93,8 @@ def get_text_file(file):
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(file):
-    # Get contents of file
-    # contents = get_text_file(file)
-    # print("\n\nCONTENTS BEFORE CHANGE\n\n" + contents)
     # Call parser here
     parsed_contents = start_parsing(file)
-
-    # Get contents of file
-    # contents = get_text_file(file)
 
     print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
 
