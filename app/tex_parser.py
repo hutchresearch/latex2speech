@@ -122,7 +122,6 @@ class TexParser:
         i = 0
         while i < len(searchEnvs) and not found:
             for cmdElem in searchEnvs[i].findall('cmd'):
-                print(cmdNode.name)
                 if cmdElem.get('name') == cmdNode.name:
                     self._parseCmdSub(cmdNode, cmdElem)
                     found = True
@@ -133,6 +132,7 @@ class TexParser:
 
     def _parseEnv(self, envNode):
         found = False
+        print(envNode.name)
         for envElem in self.latex.findall('env'):
             if envElem.get('name') == envNode.name:
                 found = True
