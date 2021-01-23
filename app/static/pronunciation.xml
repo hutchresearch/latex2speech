@@ -99,4 +99,10 @@
     </env>
     <env name="verbatim">
     </env>
+
+    <reserved name = "&amp;">
+        <prefix>and</prefix>
+    </reserved>
+    <reserved name = "\\">
+    </reserved>
 </latex>
