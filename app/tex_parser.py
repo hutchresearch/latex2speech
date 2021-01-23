@@ -5,25 +5,25 @@ import doc_preprocess
 
 class TexParser:
     def __init__(self):
-        self.latex = ET.parse('/static/pronunciation.xml').getroot()
-        self.mathmode = ET.parse('/static/mathmode_pronunciation.xml').getroot()
+        self.latex = ET.parse('./static/pronunciation.xml').getroot()
+        self.mathmode = ET.parse('./static/mathmode_pronunciation.xml').getroot()
 
     def parse(self, file):
         self.output = ''
         self.envList = []
 
-        docstr = file.read()
+        text = file.read()
+        docstr = str(text, 'utf-8')
         docstr = docstr.replace('\n', ' ')
 
         doc = TexSoup.TexSoup(docstr)
         doc = doc_preprocess.expandDocMacros(doc)
 
         self._concatOutput("<speak>")
-        self._parseNodeContents(doc.contents, [])
+        self._parseNodeContents(doc.contents)
         self._concatOutput("</speak>")
 
         # TODO: Final cleanup
-
         return self.output
 
     def _concatOutput(self, string):
@@ -61,7 +61,7 @@ class TexParser:
                         next = "" 
                     state = tState.number
                 next = next + c
-            elif c.isspace():
+            elif c.isspace() or c == '&':
                 if len(next):
                     yield next
                     next = ""
@@ -93,7 +93,7 @@ class TexParser:
                 self._concatOutput(arg.find('prefix').text)
         
             if arg.get('say_contents') == 'true':
-                self._parseNodeContents(cmdNode.args[argIndex].contents, self.envList)
+                self._parseNodeContents(cmdNode.args[argIndex].contents)
                 
             if arg.find('suffix') is not None:
                 self._concatOutput(arg.find('suffix').text)
@@ -109,7 +109,7 @@ class TexParser:
     def _parseCmd(self, cmdNode):
         found = False
         searchEnvs = []
-        
+
         if len(self.envList) > 0:
             searchEnvs.append(self.envList[-1])
             if self.envList[-1].get('mathmode') == 'true':
@@ -118,17 +118,18 @@ class TexParser:
                 searchEnvs.append(self.latex)
         else: 
             searchEnvs.append(self.latex)
-            
+
         i = 0
         while i < len(searchEnvs) and not found:
             for cmdElem in searchEnvs[i].findall('cmd'):
+                print(cmdNode.name)
                 if cmdElem.get('name') == cmdNode.name:
-                    self._parseCmdSub(cmdNode, cmdElem, self.envList)
+                    self._parseCmdSub(cmdNode, cmdElem)
                     found = True
             i += 1
 
         # Go down next recursive level, excluding arguments
-        self._parseNodeContents(cmdNode.contents[len(cmdNode.args):], self.envList)
+        self._parseNodeContents(cmdNode.contents[len(cmdNode.args):])
 
     def _parseEnv(self, envNode):
         found = False
@@ -141,7 +142,7 @@ class TexParser:
                     self._concatOutput(envElem.find('prefix').text)
 
                 # Go down next recursive level, excluding arguments
-                self._parseNodeContents(envNode.contents[len(envNode.args):], self.envList)
+                self._parseNodeContents(envNode.contents[len(envNode.args):])
 
                 if envElem.find('suffix') is not None:
                     self._concatOutput(envElem.find('suffix').text)
@@ -150,7 +151,17 @@ class TexParser:
                 break
 
         if not found:
-            self._parseNodeContents(envNode.contents[len(envNode.args):], self.envList)
+            self._parseNodeContents(envNode.contents[len(envNode.args):])
+
+    # Function that will look into xml file for serverd tokens
+    # Example: \&, \\, etc
+    def _parseReservedTokens(self, reservedTokenNode):
+        found = False
+        print(reservedTokenNode.name)
+        # for reservedToken in self.latex.findall('reserved'):
+        #     if reservedToken.get('name') == reservedTokenNode.name:
+        #         found = True 
+                
 
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
@@ -159,12 +170,15 @@ class TexParser:
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     #TODO: Check for reserved tokens (e.g. r"\\")
+                    # elif True:
+                        # Tai testing -> Looking for reserved tokens
+                        # self._parseReservedTokens(node)
                     else:
                         self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
-                        self._parseEnv(node, self.envList)
+                        self._parseEnv(node)
                     elif isinstance(node.expr, TexSoup.data.TexCmd):
-                        self._parseCmd(node, self.envList)
+                        self._parseCmd(node)
                     else:
-                        self._parseNodeContents(node.contents, self.envList)
+                        self._parseNodeContents(node.contents)
