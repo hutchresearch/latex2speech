@@ -1,7 +1,7 @@
 import TexSoup
 import xml.etree.ElementTree as ET
 import enum
-import doc_preprocess
+import doc_preprocess, doc_postprocess
 
 class TexParser:
     def __init__(self):
@@ -13,7 +13,11 @@ class TexParser:
         self.envList = []
 
         text = file.read()
-        docstr = str(text, 'utf-8')
+        docstr = None
+        try:
+            docstr = str(text, 'utf-8')
+        except TypeError:
+            docstr = text
         docstr = docstr.replace('\n', ' ')
 
         doc = TexSoup.TexSoup(docstr)
@@ -23,7 +27,8 @@ class TexParser:
         self._parseNodeContents(doc.contents)
         self._concatOutput("</speak>")
 
-        # TODO: Final cleanup
+        self.output = doc_postprocess.cleanXMLString(self.output)
+
         return self.output
 
     def _concatOutput(self, string):
