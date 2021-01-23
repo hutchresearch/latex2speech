@@ -35,12 +35,16 @@ class TexParser:
             self.output += ' ' + string
 
     def _parseTableContents(self, contentsNode):
-        print(contentsNode)
+        # print(contentsNode)
         if contentsNode == r"\\":
             self._concatOutput("Next Row")
         else:
-            print("TEST")
-            
+            split = str(contentsNode).split() 
+            column = 0
+            for word in split: 
+                self._concatOutput("Column " + column + split[0])
+                print(split)
+
 
     def _parseMathModeToken(self, tokenNode):
         mathTokens = self._getMathTokens(tokenNode.text)
