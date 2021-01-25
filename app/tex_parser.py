@@ -39,6 +39,18 @@ class TexParser:
         else:
             self.output += ' ' + string
 
+    def _parseTableContents(self, contentsNode):
+        # print(contentsNode)
+        if contentsNode == r"\\":
+            self._concatOutput("Next Row")
+        else:
+            split = str(contentsNode).split() 
+            column = 0
+            for word in split: 
+                self._concatOutput("Column " + column + split[0])
+                print(split)
+
+
     def _parseMathModeToken(self, tokenNode):
         mathTokens = self._getMathTokens(tokenNode.text)
         for t in mathTokens:
@@ -114,7 +126,7 @@ class TexParser:
     def _parseCmd(self, cmdNode):
         found = False
         searchEnvs = []
-
+        print(cmdNode.name)
         if len(self.envList) > 0:
             searchEnvs.append(self.envList[-1])
             if self.envList[-1].get('mathmode') == 'true':
@@ -137,7 +149,9 @@ class TexParser:
 
     def _parseEnv(self, envNode):
         found = False
+        print(envNode.name)
         for envElem in self.latex.findall('env'):
+
             if envElem.get('name') == envNode.name:
                 found = True
                 self.envList.append(envElem)
@@ -157,28 +171,17 @@ class TexParser:
         if not found:
             self._parseNodeContents(envNode.contents[len(envNode.args):])
 
-    # Function that will look into xml file for serverd tokens
-    # Example: \&, \\, etc
-    def _parseReservedTokens(self, reservedTokenNode):
-        found = False
-        print(reservedTokenNode.name)
-        # for reservedToken in self.latex.findall('reserved'):
-        #     if reservedToken.get('name') == reservedTokenNode.name:
-        #         found = True 
-                
-
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
                 if isinstance(node, TexSoup.utils.Token):
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
-                    #TODO: Check for reserved tokens (e.g. r"\\")
-                    # elif True:
-                        # Tai testing -> Looking for reserved tokens
-                        # self._parseReservedTokens(node)
                     else:
-                        self._concatOutput(str(node))
+                        # if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
+                        #     self._parseTableContents(node)
+                        # else:
+                            self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
                         self._parseEnv(node)
@@ -186,3 +189,14 @@ class TexParser:
                         self._parseCmd(node)
                     else:
                         self._parseNodeContents(node.contents)
+
+
+# TAI TODO:
+# For Tables (Here's my idea)
+#  1. At each new row (or \\) print new row
+#  2. When c c c are defined, maybe count how many there are
+#  3. At each node, check to see if there are numC - 1 to ensure 
+#     that is values of table
+#  4. If this is true, parse, if not, move on
+
+# For Bib/References

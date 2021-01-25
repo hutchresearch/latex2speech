@@ -99,6 +99,6 @@ def start_polly(file):
     print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
 
     # Feed to Amazon Polly here
-    audio_link = tts_of_file(file, parsed_contents)
-    # audio_link = "hi"
+    # audio_link = tts_of_file(file, parsed_contents)
+    audio_link = "hi"
     return audio_link
