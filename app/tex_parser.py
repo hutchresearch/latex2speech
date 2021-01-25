@@ -2,6 +2,7 @@ import TexSoup
 import xml.etree.ElementTree as ET
 import enum
 import doc_preprocess, doc_postprocess
+from tex_soup_utils import seperateContents
 
 class TexParser:
     def __init__(self):
@@ -145,9 +146,11 @@ class TexParser:
             i += 1
 
         # Go down next recursive level, excluding arguments
-        self._parseNodeContents(cmdNode.contents[len(cmdNode.args):])
+        _,contents = seperateContents(cmdNode)
+        self._parseNodeContents(contents)
 
     def _parseEnv(self, envNode):
+        _,contents = seperateContents(envNode)
         found = False
         print(envNode.name)
         for envElem in self.latex.findall('env'):
@@ -160,7 +163,7 @@ class TexParser:
                     self._concatOutput(envElem.find('prefix').text)
 
                 # Go down next recursive level, excluding arguments
-                self._parseNodeContents(envNode.contents[len(envNode.args):])
+                self._parseNodeContents(contents)
 
                 if envElem.find('suffix') is not None:
                     self._concatOutput(envElem.find('suffix').text)
@@ -169,7 +172,7 @@ class TexParser:
                 break
 
         if not found:
-            self._parseNodeContents(envNode.contents[len(envNode.args):])
+            self._parseNodeContents(contents)
 
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
