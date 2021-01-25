@@ -11,6 +11,7 @@ class TexParser:
     def parse(self, file):
         self.output = ''
         self.envList = []
+        self.inTable = False
 
         text = file.read()
         docstr = None
@@ -39,17 +40,19 @@ class TexParser:
         else:
             self.output += ' ' + string
 
+    # Function that will take in new table contents, and parse
+    # each column
     def _parseTableContents(self, contentsNode):
         # print(contentsNode)
+        column = 1
         if contentsNode == r"\\":
             self._concatOutput("Next Row")
         else:
             split = str(contentsNode).split() 
-            column = 0
             for word in split: 
-                self._concatOutput("Column " + column + split[0])
-                print(split)
-
+                if word != "&":
+                    self._concatOutput(", Column: " + str(column) + ", Value: " + word)
+                    column += 1
 
     def _parseMathModeToken(self, tokenNode):
         mathTokens = self._getMathTokens(tokenNode.text)
@@ -126,7 +129,7 @@ class TexParser:
     def _parseCmd(self, cmdNode):
         found = False
         searchEnvs = []
-        print(cmdNode.name)
+        # print(cmdNode.name)
         if len(self.envList) > 0:
             searchEnvs.append(self.envList[-1])
             if self.envList[-1].get('mathmode') == 'true':
@@ -149,7 +152,7 @@ class TexParser:
 
     def _parseEnv(self, envNode):
         found = False
-        print(envNode.name)
+        # print(envNode.name)
         for envElem in self.latex.findall('env'):
 
             if envElem.get('name') == envNode.name:
@@ -178,9 +181,15 @@ class TexParser:
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     else:
-                        # if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
-                        #     self._parseTableContents(node)
-                        # else:
+                        if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
+                            self.inTable = True
+
+                        print(str(node))
+
+                        if self.inTable == True:
+                            self._parseTableContents(node)
+                        else:
+
                             self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
