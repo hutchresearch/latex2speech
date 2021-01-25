@@ -192,9 +192,9 @@ class TexParser:
                         # Tai testing -> Looking for reserved tokens
                         # self._parseReservedTokens(node)
                     else:
-                        if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
-                            self._parseTableContents(node)
-                        else:
+                        # if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
+                        #     self._parseTableContents(node)
+                        # else:
                             self._concatOutput(str(node))
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
