@@ -171,26 +171,12 @@ class TexParser:
         if not found:
             self._parseNodeContents(envNode.contents[len(envNode.args):])
 
-    # Function that will look into xml file for serverd tokens
-    # Example: \&, \\, etc
-    def _parseReservedTokens(self, reservedTokenNode):
-        found = False
-        print(reservedTokenNode.name)
-        # for reservedToken in self.latex.findall('reserved'):
-        #     if reservedToken.get('name') == reservedTokenNode.name:
-        #         found = True 
-                
-
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
                 if isinstance(node, TexSoup.utils.Token):
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
-                    #TODO: Check for reserved tokens (e.g. r"\\")
-                    # elif True:
-                        # Tai testing -> Looking for reserved tokens
-                        # self._parseReservedTokens(node)
                     else:
                         # if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
                         #     self._parseTableContents(node)
