@@ -28,6 +28,31 @@
         <arg say_contents="true"/>
         <suffix>&lt;/emphasis&gt;</suffix>
     </cmd>
+    <cmd name = "texttt">
+        <prefix>&lt;emphasis level="strong"&gt; </prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name = "cite">
+        <prefix>&lt;emphasis level="reduced"&gt; Cited in references as </prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name = "bibitem">
+        <prefix>&lt;break time="1s"/&gt;Bibliography item is read as: &lt;break time="0.5s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+    </cmd>
+    <cmd name = "LaTeX">
+        <prefix>LaTeX</prefix>
+    </cmd>
+    <!-- This is incase user does \thebibliography -->
+    <cmd name = "thebibliography">
+        <prefix>&lt;emphasis level="strong"&gt; References Section &lt;/emphasis&gt;</prefix>
+    </cmd>
+    <!-- This is incase user does \begin{thebibliography} -->
+    <env name = "thebibliography">
+        <prefix>&lt;emphasis level="strong"&gt; References Section &lt;/emphasis&gt;</prefix>
+    </env>
     <env name="equation" mathmode="true">
         <prefix>the equation</prefix>
     </env>

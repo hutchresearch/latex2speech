@@ -126,7 +126,7 @@ class TexParser:
     def _parseCmd(self, cmdNode):
         found = False
         searchEnvs = []
-
+        print(cmdNode.name)
         if len(self.envList) > 0:
             searchEnvs.append(self.envList[-1])
             if self.envList[-1].get('mathmode') == 'true':
@@ -149,7 +149,7 @@ class TexParser:
 
     def _parseEnv(self, envNode):
         found = False
-        
+        print(envNode.name)
         for envElem in self.latex.findall('env'):
 
             if envElem.get('name') == envNode.name:
@@ -198,3 +198,5 @@ class TexParser:
 #  3. At each node, check to see if there are numC - 1 to ensure 
 #     that is values of table
 #  4. If this is true, parse, if not, move on
+
+# For Bib/References
