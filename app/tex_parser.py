@@ -20,6 +20,7 @@ class TexParser:
         except TypeError:
             docstr = text
         docstr = docstr.replace('\n', ' ')
+        docstr = docstr.replace('\hline', '')
 
         doc = TexSoup.TexSoup(docstr)
         doc = doc_preprocess.expandDocMacros(doc)
@@ -48,6 +49,7 @@ class TexParser:
             self.inTable = not self.inTable
         elif (self.inTable == True):
             self.inTable = not self.inTable
+            self._concatOutput(" End table.")
 
     # Function that will take in new table contents, and parse
     # each column
@@ -57,7 +59,7 @@ class TexParser:
         column = 1
         for word in split: 
             if word != "&":
-                self._concatOutput(", Column: " + str(column) + " Value: " + word)
+                self._concatOutput(", Column " + str(column) + ", Value: " + word)
                 column += 1
 
     def _parseMathModeToken(self, tokenNode):
@@ -183,11 +185,11 @@ class TexParser:
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
-                self._checkIfInTableEnvionment()
                 if isinstance(node, TexSoup.utils.Token):
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     else:
+                        self._checkIfInTableEnvionment() # Could be more efficient
                         if self.inTable == True:
                             self._parseTableContents(node)
                         else:
