@@ -34,19 +34,12 @@ def convert(expr, ops):
             r += ' '  
     return r;
 
-def basic_convert(expr):
-    if len(expr.args) == 0:
-        return str(expr)
-    else:
-        return basic_convert(expr.args[0]) + str(expr.__class__.__name__) + basic_convert(expr.args[1])
-
 ops = parse_ops_file('operators')
 
 f, g = Function('f'), Function('g')
 x, y, n = symbols('x y n')
-test_expr = sin(x) + f(g(tan(n))) 
+test_expr = x + f(g(tan(n))) 
 print_tree(test_expr, assumptions = False)
-#test_ssml = basic_convert(test_expr)
 test_ssml = convert(test_expr, ops)
 
 print(test_ssml)
