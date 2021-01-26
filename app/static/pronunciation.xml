@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <latex>
+    <cmd name = "title">
+        <prefix>Title: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>&lt;break time="0.3s"/&gt;</suffix>
+    </cmd>
+    <cmd name = "author">
+        <prefix>By: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>&lt;break time="0.3s"/&gt;</suffix>
+    </cmd>
+    <cmd name = "date">
+        <prefix>Published: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>&lt;break time="0.3s"/&gt;</suffix>
+    </cmd>
     <cmd name="section">
         <prefix>section </prefix>
         <arg say_contents="true"/>
@@ -44,6 +59,11 @@
     </cmd>
     <cmd name = "LaTeX">
         <prefix>LaTeX</prefix>
+    </cmd>
+    <cmd name = "caption">
+        <prefix>Caption: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>break time="0.5s"/&gt;</suffix>
     </cmd>
     <!-- This is incase user does \thebibliography -->
     <cmd name = "thebibliography">
@@ -105,6 +125,7 @@
     <env name="array">
     </env>
     <env name="table">
+        <prefix>Start Table</prefix>
     </env>
     <env name="tabular" readTable = "true">
         <prefix>Table Contents&lt;break time="40ms"/&gt;</prefix>
@@ -125,10 +146,4 @@
     </env>
     <env name="verbatim">
     </env>
-
-    <reserved name = "&amp;">
-        <prefix>and</prefix>
-    </reserved>
-    <reserved name = "\\">
-    </reserved>
 </latex>
