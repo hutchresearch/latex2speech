@@ -40,19 +40,25 @@ class TexParser:
         else:
             self.output += ' ' + string
 
+    # Flip switch for true/false in environment
+    # This might be able to done better, when printing node
+    # in _nodeparseNodeContents that single node is the \begin to \end tabular
+    def _checkIfInTableEnvionment(self):
+        if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
+            self.inTable = not self.inTable
+        elif (self.inTable == True):
+            self.inTable = not self.inTable
+
     # Function that will take in new table contents, and parse
     # each column
     def _parseTableContents(self, contentsNode):
-        # print(contentsNode)
+        self._concatOutput("New Row: ")
+        split = str(contentsNode).split('&') 
         column = 1
-        if contentsNode == r"\\":
-            self._concatOutput("Next Row")
-        else:
-            split = str(contentsNode).split() 
-            for word in split: 
-                if word != "&":
-                    self._concatOutput(", Column: " + str(column) + ", Value: " + word)
-                    column += 1
+        for word in split: 
+            if word != "&":
+                self._concatOutput(", Column: " + str(column) + " Value: " + word)
+                column += 1
 
     def _parseMathModeToken(self, tokenNode):
         mathTokens = self._getMathTokens(tokenNode.text)
@@ -129,7 +135,7 @@ class TexParser:
     def _parseCmd(self, cmdNode):
         found = False
         searchEnvs = []
-        # print(cmdNode.name)
+
         if len(self.envList) > 0:
             searchEnvs.append(self.envList[-1])
             if self.envList[-1].get('mathmode') == 'true':
@@ -152,7 +158,7 @@ class TexParser:
 
     def _parseEnv(self, envNode):
         found = False
-        # print(envNode.name)
+
         for envElem in self.latex.findall('env'):
 
             if envElem.get('name') == envNode.name:
@@ -177,20 +183,16 @@ class TexParser:
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
+                self._checkIfInTableEnvionment()
                 if isinstance(node, TexSoup.utils.Token):
                     if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     else:
-                        if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
-                            self.inTable = True
-
-                        print(str(node))
-
                         if self.inTable == True:
                             self._parseTableContents(node)
                         else:
-
                             self._concatOutput(str(node))
+
                 elif isinstance(node, TexSoup.data.TexNode):
                     if isinstance(node.expr, TexSoup.data.TexEnv):
                         self._parseEnv(node)
@@ -198,14 +200,3 @@ class TexParser:
                         self._parseCmd(node)
                     else:
                         self._parseNodeContents(node.contents)
-
-
-# TAI TODO:
-# For Tables (Here's my idea)
-#  1. At each new row (or \\) print new row
-#  2. When c c c are defined, maybe count how many there are
-#  3. At each node, check to see if there are numC - 1 to ensure 
-#     that is values of table
-#  4. If this is true, parse, if not, move on
-
-# For Bib/References
