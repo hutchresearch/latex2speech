@@ -1,7 +1,8 @@
 import TexSoup
 import xml.etree.ElementTree as ET
 import enum
-import doc_preprocess, doc_postprocess
+import expand_macros, expand_labels
+from doc_cleanup import cleanXMLString
 from tex_soup_utils import seperateContents
 
 class TexParser:
@@ -24,13 +25,13 @@ class TexParser:
         docstr = docstr.replace('\hline', '')
 
         doc = TexSoup.TexSoup(docstr)
-        doc = doc_preprocess.expandDocMacros(doc)
+        doc = expand_macros.expandDocMacros(doc)
 
         self._concatOutput("<speak>")
         self._parseNodeContents(doc.contents)
         self._concatOutput("</speak>")
 
-        self.output = doc_postprocess.cleanXMLString(self.output)
+        self.output = cleanXMLString(self.output)
 
         return self.output
 
