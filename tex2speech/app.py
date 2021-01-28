@@ -1,6 +1,6 @@
 # Run flask app: python3 -m flask run
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 from aws_polly_render import start_polly
 
 app = Flask(__name__)
@@ -26,3 +26,11 @@ def render_then_download():
             "download.html",
             audio_download = audio_link
         )
+
+# If usr tries going to random page on our web application
+# through page does not exist
+@app.route('/<page_name>')
+def other_page(page_name):
+    response = make_response('The page named %s does not exist.' \
+                % page_name, 404)
+    return response
