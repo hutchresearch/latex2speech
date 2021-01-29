@@ -510,11 +510,11 @@ def get_differential_var_str(text):
 
 def test_sympy():
     print(process_sympy("{\\frac{3}{4}}"))
-    print(process_sympy("du = T ds -P dv"))
-    print(process_sympy("a_{n + 1} = (1 - S_n)c^2 + c(\\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})"))
-    print(process_sympy("(n + 1)^4 = 4\\sum_{i = 1}^{n} i^3 + 6\\sum_{i = 1}^{n} i^2 + 4\\sum_{i = 1}^{n} i + \\sum_{i = 1}^{n} 1"))
-    print(process_sympy("\\frac{n!}{k!(n-k)!} = \\binom{n}{k}"))
-    print(process_sympy("\\frac{\\frac{1}{x}+\\frac{1}{y}}{y-z}"))
+    # print(process_sympy("du = T ds -P dv"))
+    # print(process_sympy("a_{n + 1} = (1 - S_n)c^2 + c(\\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})"))
+    # print(process_sympy("(n + 1)^4 = 4\\sum_{i = 1}^{n} i^3 + 6\\sum_{i = 1}^{n} i^2 + 4\\sum_{i = 1}^{n} i + \\sum_{i = 1}^{n} 1"))
+    # print(process_sympy("\\frac{n!}{k!(n-k)!} = \\binom{n}{k}"))
+    # print(process_sympy("\\frac{\\frac{1}{x}+\\frac{1}{y}}{y-z}"))
 
 if __name__ == "__main__":
     test_sympy()

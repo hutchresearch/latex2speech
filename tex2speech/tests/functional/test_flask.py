@@ -2,6 +2,8 @@ import unittest
 from app import app
 from pathlib import Path
 
+import aws_polly_render
+
 class BasicTestCase(unittest.TestCase):
         
         def _docsEqual(self, doc1, doc2):
@@ -45,7 +47,7 @@ class BasicTestCase(unittest.TestCase):
         def test_get_text_file(self):
                 path = Path(__file__).parent / "../../random_latex_reference/sample.tex"
 
-                testdata = open(path).read()
+                testdata = aws_polly_render.get_text_file(open(path))
 
                 self.assertTrue(self._docsEqual(testdata, r"\documentclass{article}\usepackage{epsfig}\usepackage{hyperref}\begin{document}This is a sample file in the text formatter \LaTeX.I require you to use it for the following reasons:\end{document}"))
 
