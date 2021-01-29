@@ -1,17 +1,17 @@
 from sympy import *
 import xml.etree.ElementTree as ET
 
-class sympytossml:
 def convert(expr):
     #print_tree(test_expr, assumptions = False)
-    
     funcs_tree = ET.parse('sympy_funcs.xml')
+    return _convert(expr, funcs_tree)
+
+def _convert(expr, funcs_tree):
+    
     func_id = expr.__class__.__name__
     r = funcs_tree.getroot()
     func = r.find(func_id)
-    return _convert(expr, func)
-
-def _convert(expr, func):
+    
     s = str()
     if len(expr.args) == 0:  
         s += str(expr)
@@ -25,7 +25,7 @@ def _convert(expr, func):
                 j = repeat_index
 
             if func[j].tag == 'arg':
-                s += _convert(expr.args[i], func)
+                s += _convert(expr.args[i], funcs_tree)
                 i += 1
                 j += 1
             
@@ -37,4 +37,4 @@ def _convert(expr, func):
                 repeat_index = j
                 j += 1
     return s
-         
+                 
