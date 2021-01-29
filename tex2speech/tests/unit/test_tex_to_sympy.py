@@ -57,6 +57,7 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"2\div 3")
         self.assertTrue(self._equal(equation, "2/3"))
 
+    '''Testing exponents and squareroots in LaTeX'''
     def testing_exponents_squareroot(self):
         # Basic Exponents
         equation = tex_to_sympy.test_sympy("1^2")
@@ -98,6 +99,59 @@ class TestTexToSympy(unittest.TestCase):
         # Square roots and exponents
         equation = tex_to_sympy.test_sympy(r"\sqrt[3]{8} + 8^5")
         self.assertTrue(self._equal(equation, "2 + 8**5"))    
+
+    '''Testing fractions in LaTeX'''
+    def testing_fractions(self):
+        # Basic Fractions
+        equation = tex_to_sympy.test_sympy(r"\frac{1}{2}")
+        self.assertTrue(self._equal(equation, "1/2")) 
+        # Fractions with negatives
+        equation = tex_to_sympy.test_sympy(r"-\frac{9}{2} - \frac{9}{2} + \frac{-1}{2} + \frac{1}{-2} + \frac{-1}{-2}")
+        self.assertTrue(self._equal(equation, "-9/2 - 9/2 - 1/2 + 1/(-2) - 1/((-2))")) 
+        # Fractions with 0 as numerator
+        equation = tex_to_sympy.test_sympy(r"\frac{0}{2}")
+        self.assertTrue(self._equal(equation, "0/2")) 
+        # Fractions with 0 as denominator
+        equation = tex_to_sympy.test_sympy(r"\frac{1}{0}")
+        self.assertTrue(self._equal(equation, "1/0")) 
+        # Fractions with 0 in it
+        equation = tex_to_sympy.test_sympy(r"\frac{0}{0}")
+        self.assertTrue(self._equal(equation, "0/0")) 
+        # Fractions with division
+        equation = tex_to_sympy.test_sympy(r"\frac{2/3}{4/5}")
+        self.assertTrue(self._equal(equation, "(2/3)/((4/5))")) 
+        # Fractions within a fraction
+        equation = tex_to_sympy.test_sympy(r"\frac{\frac{2}{3}}{\frac{4}{5}}")
+        self.assertTrue(self._equal(equation, "(2/3)/((4/5))")) 
+        # Fraction using \dfrac -> This is just a display,
+        # but it'll still be put into mathmode
+        equation = tex_to_sympy.test_sympy(r"\frac{\dfrac{2}{3}}{\dfrac{4}{5}}")
+        self.assertTrue(self._equal(equation, "((2*3)*dfrac)/(((4*5)*dfrac))")) 
+
+    '''Testing fractions, square roots, exponents, basic algrebra all together. Basically all the stuff up above will be together in these functions'''
+    def testing_frac_sqrt_exp_basic(self):
+        # Fraction and exponent
+        equation = tex_to_sympy.test_sympy(r"(1+\frac{1}{x})^2")
+        self.assertTrue(self._equal(equation, "(1 + 1/x)**2")) 
+        # Fraction and exponent with \left \right commands
+        equation = tex_to_sympy.test_sympy(r"\left(1+\frac{1}{x}\right)^2")
+        self.assertTrue(self._equal(equation, "left(right/x + 1)**2")) 
+        # Testing super scripts
+        equation = tex_to_sympy.test_sympy(r"x^{2+a}")
+        self.assertTrue(self._equal(equation, "x**(a + 2)")) 
+        # Testing exponents a lot
+        equation = tex_to_sympy.test_sympy(r"e^{e^{e^{e^{x}}}}")
+        self.assertTrue(self._equal(equation, "e**(e**(e**(e**x)))"))
+        # Subscripts testing 
+        equation = tex_to_sympy.test_sympy(r"n_1")
+        self.assertTrue(self._equal(equation, "n_{1}"))
+        equation = tex_to_sympy.test_sympy(r"n_{k+1}")
+        self.assertTrue(self._equal(equation, "n_{k + 1}"))
+        # Superscripts and subscripts testing
+        equation = tex_to_sympy.test_sympy(r"n_{k+1}^2")
+        self.assertTrue(self._equal(equation, "n_{k + 1}**2"))
+
+
 
     '''Testing test_sympy() function'''
     def testing_test_sympy(self):

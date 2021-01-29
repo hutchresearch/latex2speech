@@ -515,7 +515,10 @@ def test_sympy(mathmode):
     # print(process_sympy("\\frac{n!}{k!(n-k)!} = \\binom{n}{k}"))
     # print(process_sympy("\\frac{\\frac{1}{x}+\\frac{1}{y}}{y-z}"))
     print(process_sympy("x^n + y^n = z^n"))
-    print(process_sympy(r"\sqrt[3]{8} + 8^5"))
+    print(process_sympy(r"n_1"))
+    print(process_sympy(r"n_{k+1}"))
+    print(process_sympy(r"n_{k+1}^2"))
+
     return process_sympy(mathmode)
 
 if __name__ == "__main__":
