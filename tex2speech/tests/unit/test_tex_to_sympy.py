@@ -32,6 +32,15 @@ class TestTexToSympy(unittest.TestCase):
         # Basic Multiplication with negative numbers
         equationThree = tex_to_sympy.test_sympy("2 * -4 * -1000")
         self.assertTrue(self._equal(equationThree, "(-1000)*(2*(-4))"))
+        # Multiplication without *
+        equation = tex_to_sympy.test_sympy("mc * 3x")
+        self.assertTrue(self._equal(equation, "(3*x)*(c*m)"))
+        # Multiplication using cdot
+        equation = tex_to_sympy.test_sympy(r"3\cdot5")
+        self.assertTrue(self._equal(equation, "3*5"))
+        # Multiplication using \times
+        equation = tex_to_sympy.test_sympy(r"n\times m")
+        self.assertTrue(self._equal(equation, "m*n"))
         # Basic Division
         equationFour = tex_to_sympy.test_sympy("1 / 2")
         self.assertTrue(self._equal(equationFour, "1/2"))
@@ -44,6 +53,51 @@ class TestTexToSympy(unittest.TestCase):
         # Division with negative numbers
         equationSeven = tex_to_sympy.test_sympy("50 / -9 / -32")
         self.assertTrue(self._equal(equationSeven, "(50/((-9)))/((-32))"))
+        # Division with \div function
+        equation = tex_to_sympy.test_sympy(r"2\div 3")
+        self.assertTrue(self._equal(equation, "2/3"))
+
+    def testing_exponents_squareroot(self):
+        # Basic Exponents
+        equation = tex_to_sympy.test_sympy("1^2")
+        self.assertTrue(self._equal(equation, "1**2"))
+        # Basic Exponents with more
+        equation = tex_to_sympy.test_sympy("1^2^2 + 3^1")
+        self.assertTrue(self._equal(equation, "(1**2)**2 + 3**1"))
+        # Exponents on bodies
+        equation = tex_to_sympy.test_sympy("(1 + 4 - 3)^5")
+        self.assertTrue(self._equal(equation, "(-3 + 1 + 4)**5"))
+        # Basic Negative Exponents
+        equation = tex_to_sympy.test_sympy("1^-5")
+        self.assertTrue(self._equal(equation, "1"))
+        # More Basic Negative Exponents
+        equation = tex_to_sympy.test_sympy("4^-3 + -4^-3 + -4^3")
+        self.assertTrue(self._equal(equation, "4"))
+        # Exponents with 0
+        equation = tex_to_sympy.test_sympy("4^0")
+        self.assertTrue(self._equal(equation, "4**0")) 
+        # Exponents with negative 0
+# [ERROR] -> This should be either 4**-0 or 1, not 4
+        # equation = tex_to_sympy.test_sympy("4^-0")
+        # self.assertTrue(self._equal(equation, "4**-0")) 
+        # Basic square roots
+        equation = tex_to_sympy.test_sympy(r"\sqrt{2}")
+        self.assertTrue(self._equal(equation, "sqrt(2)"))   
+        # Basic square roots with negatives
+        equation = tex_to_sympy.test_sympy(r"-\sqrt{2}")
+        self.assertTrue(self._equal(equation, "-sqrt(2)")) 
+        # Basic square roots with negatives / Imaginary nums??
+        equation = tex_to_sympy.test_sympy(r"\sqrt{-25}")
+        self.assertTrue(self._equal(equation, "5*I")) 
+        # Cubed roots
+        equation = tex_to_sympy.test_sympy(r"\sqrt[4]{40}")
+        self.assertTrue(self._equal(equation, "40**(1/4)"))    
+        # Negative Cubed roots -> I checked if this was correct, it is
+        equation = tex_to_sympy.test_sympy(r"\sqrt[-4]{40}")
+        self.assertTrue(self._equal(equation, "250**(1/4)/10"))          
+        # Square roots and exponents
+        equation = tex_to_sympy.test_sympy(r"\sqrt[3]{8} + 8^5")
+        self.assertTrue(self._equal(equation, "2 + 8**5"))    
 
     '''Testing test_sympy() function'''
     def testing_test_sympy(self):
