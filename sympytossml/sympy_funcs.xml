@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ssmlfuncs>
+    <Add>
+        <arg />
+        <repeat />
+        <text> plus </text>
+        <arg />
+    </Add>
+
+    <Mul>
+        <arg />
+        <repeat /> 
+        <text> times </text>
+        <arg />
+    </Mul>
+
+    <Pow>
+        <arg />
+        <text> to the power of </text>
+        <arg />
+    </Pow>
+</ssmlfuncs>
+    

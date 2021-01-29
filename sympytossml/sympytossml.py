@@ -1,45 +1,40 @@
 from sympy import *
+import xml.etree.ElementTree as ET
 
-def parse_ops_file(file_name):
-    ops_f = open(file_name)
-    ops = {}     
+class sympytossml:
+def convert(expr):
+    #print_tree(test_expr, assumptions = False)
     
-    for ln in ops_f:
-        ln_lst = ln.split()
-        op_name = ln_lst[0]
-        ops[op_name] = list()
-        for i in range(1, len(ln_lst)):
-            ops[op_name].append(ln_lst[i])
-    
-    return ops
+    funcs_tree = ET.parse('sympy_funcs.xml')
+    func_id = expr.__class__.__name__
+    r = funcs_tree.getroot()
+    func = r.find(func_id)
+    return _convert(expr, func)
 
-def op_structure(ops, op):
-    if str(op) in ops:
-        return ops[str(op)]
-    else:
-        r = [str(op), 'of', '0']
-        return r 
-
-def convert(expr, ops):
+def _convert(expr, func):
+    s = str()
     if len(expr.args) == 0:  
-        return str(expr)
+        s += str(expr)
     else:
-        structure = op_structure(ops, expr.__class__.__name__)
-        r = ""
-        for e in structure:
-            if e.isdigit():
-                r += convert(expr.args[int(e)], ops)
-            else:
-                r += e
-            r += ' '  
-    return r;
+        i = 0
+        j = 0
+        repeat_index = 0
+        
+        while i < len(expr.args):
+            if j >= len(func):
+                j = repeat_index
 
-ops = parse_ops_file('operators')
-
-f, g = Function('f'), Function('g')
-x, y, n = symbols('x y n')
-test_expr = x + f(g(tan(n))) 
-print_tree(test_expr, assumptions = False)
-test_ssml = convert(test_expr, ops)
-
-print(test_ssml)
+            if func[j].tag == 'arg':
+                s += _convert(expr.args[i], func)
+                i += 1
+                j += 1
+            
+            elif func[j].tag == 'text':
+                s += str(func[j].text)
+                j += 1
+            
+            elif func[j].tag == 'repeat':
+                repeat_index = j
+                j += 1
+    return s
+         
