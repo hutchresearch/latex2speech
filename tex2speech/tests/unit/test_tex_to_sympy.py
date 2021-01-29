@@ -151,13 +151,120 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"n_{k+1}^2")
         self.assertTrue(self._equal(equation, "n_{k + 1}**2"))
 
+    '''Equation Unit testing, these have equal signs'''
+    def testing_equations(self):
+        # Testing basic exponent equation
+        equation = tex_to_sympy.test_sympy(r"x^n + y^n = z^n")
+        self.assertTrue(self._equal(equation, "Eq(x**n + y**n, z**n)"))
+        # Equation with square root and fractions and multiple =
+# [ERROR] -> Doesn't render equataions with multiple equal signs
+# The case below returns as false :(
+        # equation = tex_to_sympy.test_sympy(r"\sqrt[3]{8}=8^{\frac{1}{3}}=2")
+        # self.assertTrue(self._equal(equation, ""))
+        # Equation E = mc^2
+        equation = tex_to_sympy.test_sympy(r"E=mc^2")
+        self.assertTrue(self._equal(equation, "Eq(E, c**2*m)"))
+        # Equation with pi and fractions
+        equation = tex_to_sympy.test_sympy(r"A = \frac{\pi r^2}{2}")
+        self.assertTrue(self._equal(equation, "Eq(A, (pi*r**2)/2)"))
+        # Equation with pi and fractions
+# [ERROR] -> You can't have jsut a "= 3 + 2", there must be something on otherside of equals sign
+        equation = tex_to_sympy.test_sympy(r"1= \frac{1}{2} \pi r^2")
+        self.assertTrue(self._equal(equation, "Eq(1, (pi*r**2)/2)"))
+        # Equation using exponent multiplication (euler's equation)
+        equation = tex_to_sympy.test_sympy(r"e^{\pi i} + 1 = 0")
+        self.assertTrue(self._equal(equation, "Eq(e**(i*pi) + 1, 0)"))
+        # Long equation! 
+# [ERROR] -> You can't have \\ commands inline of the equation, it will completey error since it doesn't know the command
+        equation = tex_to_sympy.test_sympy(r"p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3 - 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3")
+        self.assertTrue(self._equal(equation, "Eq(p(x), -a**3*b**3 + 2*y**6 - 12*x*y**5 - 12*x**2*y**4 + 19*(x**3*y**3) + 590*(x**4*y**2) + 3*x**6 + 14*(x**5*y))"))
+        # Simple equation with &
+# [ERROR] -> Doesn't like equations with &, will ocmpletely error
+        # equation = tex_to_sympy.test_sympy(r"2x - 5y &=  8")
+        # self.assertTrue(self._equal(equation, "Eq(e**(i*pi) + 1, 0)"))
+        # Big equation with bunch of combinations of sqrt, superscripts, and exponents
+        equation = tex_to_sympy.test_sympy(r"a_{n + 1} = (1 - S_n)c^2 + c(\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})")
+        self.assertTrue(self._equal(equation, "Eq(a_{n + 1}, c**2*(1 - S_{n}) + c(sqrt(c**2*(1 - S_{n})**2 + S_{n}(2 - S_{n}))))"))
 
+    '''Testing Greek Letters'''
+    def testing_greek_letters(self):
+        # Alpha
+        equation = tex_to_sympy.test_sympy(r"\alpha A")
+        self.assertTrue(self._equal(equation, "A*alpha"))
+        # Beta
+        equation = tex_to_sympy.test_sympy(r"\beta B")
+        self.assertTrue(self._equal(equation, "B*beta"))
+        # Gamma
+        equation = tex_to_sympy.test_sympy(r"\gamma \Gamma")
+        self.assertTrue(self._equal(equation, "Gamma*gamma"))
+        # Delta
+        equation = tex_to_sympy.test_sympy(r"\delta \Delta")
+        self.assertTrue(self._equal(equation, "Delta*delta"))
+        # Epsilon
+        equation = tex_to_sympy.test_sympy(r"\epsilon")
+        self.assertTrue(self._equal(equation, "epsilon"))
+        equation = tex_to_sympy.test_sympy(r"\varepsilon E")
+        self.assertTrue(self._equal(equation, "E*varepsilon"))
+        # Zelta
+        equation = tex_to_sympy.test_sympy(r"\zeta Z")
+        self.assertTrue(self._equal(equation, "Z*zeta"))
+        # Eta
+        equation = tex_to_sympy.test_sympy(r"\eta H")
+        self.assertTrue(self._equal(equation, "H*eta"))
+        # Theta
+        equation = tex_to_sympy.test_sympy(r"\theta \vartheta \Theta")
+        self.assertTrue(self._equal(equation, "theta*(Theta*vartheta)"))
+        # Iota
+        equation = tex_to_sympy.test_sympy(r"\iota I")
+        self.assertTrue(self._equal(equation, "I*iota"))
+        # Kappa
+        equation = tex_to_sympy.test_sympy(r"\kappa K")
+        self.assertTrue(self._equal(equation, "K*kappa"))
+        # Lambda
+        equation = tex_to_sympy.test_sympy(r"\lambda \Lambda")
+        self.assertTrue(self._equal(equation, "Lambda*lambda"))
+        # Mu
+        equation = tex_to_sympy.test_sympy(r"\mu M")
+        self.assertTrue(self._equal(equation, "M*mu"))
+        # Nu
+        equation = tex_to_sympy.test_sympy(r"\nu N")
+        self.assertTrue(self._equal(equation, "N*nu"))
+        # Xi
+        equation = tex_to_sympy.test_sympy(r"\xi\Xi")
+        self.assertTrue(self._equal(equation, "Xi*xi"))
+        # O
+        equation = tex_to_sympy.test_sympy(r"o O")
+        self.assertTrue(self._equal(equation, "O*o"))
+        # Pi
+        equation = tex_to_sympy.test_sympy(r"\pi \Pi")
+        self.assertTrue(self._equal(equation, "Pi*pi"))
+        # Rho
+        equation = tex_to_sympy.test_sympy(r"\rho\varrho P")
+        self.assertTrue(self._equal(equation, "rho*(P*varrho)"))
+        # Sigma
+        equation = tex_to_sympy.test_sympy(r"\sigma \Sigma")
+        self.assertTrue(self._equal(equation, "Sigma*sigma"))
+        # Tau
+        equation = tex_to_sympy.test_sympy(r"\tau T")
+        self.assertTrue(self._equal(equation, "T*tau"))
+        # Upsilon
+        equation = tex_to_sympy.test_sympy(r"\upsilon \Upsilon")
+        self.assertTrue(self._equal(equation, "Upsilon*upsilon"))
+        # Phi
+        equation = tex_to_sympy.test_sympy(r"\phi \varphi \Phi")
+        self.assertTrue(self._equal(equation, "phi*(Phi*varphi)"))
+        # Chi
+        equation = tex_to_sympy.test_sympy(r"\chi X")
+        self.assertTrue(self._equal(equation, "X*chi"))
+        # Psi
+        equation = tex_to_sympy.test_sympy(r"\psi \Psi")
+        self.assertTrue(self._equal(equation, "Psi*psi"))
+        # Omega
+        equation = tex_to_sympy.test_sympy(r"\omega \Omega")
+        self.assertTrue(self._equal(equation, "Omega*omega"))
 
     '''Testing test_sympy() function'''
     def testing_test_sympy(self):
-        # Function one test
-        equation = tex_to_sympy.test_sympy("a_{n + 1} = (1 - S_n)c^2 + c(\\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})")
-        self.assertTrue(self._equal(equation, "Eq(a_{n + 1}, c**2*(1 - S_{n}) + c(sqrt(c**2*(1 - S_{n})**2 + S_{n}(2 - S_{n}))))"))
 
         # Function two test
         equationTwo = tex_to_sympy.test_sympy("\\frac{n!}{k!(n-k)!} = \\binom{n}{k}")
