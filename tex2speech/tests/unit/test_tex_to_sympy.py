@@ -24,8 +24,26 @@ class TestTexToSympy(unittest.TestCase):
     '''Testing basic multiplication/division in LaTeX'''
     def testing_multiplication_division(self):
         # Basic Multiplication
-        equationOne = tex_to_sympy.test_sympy("1 + 2")
-        self.assertTrue(self._equal(equationOne, "1 + 2"))
+        equationOne = tex_to_sympy.test_sympy("1 * 2 * 4")
+        self.assertTrue(self._equal(equationOne, "2*4"))
+        # Basic Multiplication with 0
+        equationTwo = tex_to_sympy.test_sympy("2 * 4 * 0 * 1000")
+        self.assertTrue(self._equal(equationTwo, "1000*(0*(2*4))"))
+        # Basic Multiplication with negative numbers
+        equationThree = tex_to_sympy.test_sympy("2 * -4 * -1000")
+        self.assertTrue(self._equal(equationThree, "(-1000)*(2*(-4))"))
+        # Basic Division
+        equationFour = tex_to_sympy.test_sympy("1 / 2")
+        self.assertTrue(self._equal(equationFour, "1/2"))
+        # Basic Division with 0
+        equationFive = tex_to_sympy.test_sympy("1 / 0")
+        self.assertTrue(self._equal(equationFive, "1/0"))
+        # Basic Division with 0
+        equationSix = tex_to_sympy.test_sympy("0 / 1")
+        self.assertTrue(self._equal(equationSix, "0/1"))
+        # Division with negative numbers
+        equationSeven = tex_to_sympy.test_sympy("50 / -9 / -32")
+        self.assertTrue(self._equal(equationSeven, "(50/((-9)))/((-32))"))
 
     '''Testing test_sympy() function'''
     def testing_test_sympy(self):
