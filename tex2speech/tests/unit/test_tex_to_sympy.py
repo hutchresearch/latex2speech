@@ -263,6 +263,131 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"\omega \Omega")
         self.assertTrue(self._equal(equation, "Omega*omega"))
 
+    '''Testing Miscellaneous symps'''
+    def testing_misc_symbols(self):
+        # Infinity
+        equation = tex_to_sympy.test_sympy(r"\infty")
+        self.assertTrue(self._equal(equation, "oo"))
+        # Re
+        equation = tex_to_sympy.test_sympy(r"\Re")
+        self.assertTrue(self._equal(equation, "Re"))
+        # Nabla
+        equation = tex_to_sympy.test_sympy(r"\nabla")
+        self.assertTrue(self._equal(equation, "nabla"))
+        # Partial
+        equation = tex_to_sympy.test_sympy(r"\partial")
+        self.assertTrue(self._equal(equation, "partial"))
+        # Emptyset
+        equation = tex_to_sympy.test_sympy(r"\emptyset")
+        self.assertTrue(self._equal(equation, "emptyset"))
+        # wp
+        equation = tex_to_sympy.test_sympy(r"\wp")
+        self.assertTrue(self._equal(equation, "wp"))
+        # neg
+        equation = tex_to_sympy.test_sympy(r"\neg")
+        self.assertTrue(self._equal(equation, "neg"))
+        # Square command
+        equation = tex_to_sympy.test_sympy(r"\square")
+        self.assertTrue(self._equal(equation, "square"))
+        # Blacksquare command
+        equation = tex_to_sympy.test_sympy(r"\blacksquare")
+        self.assertTrue(self._equal(equation, "blacksquare"))
+        # For all command
+        equation = tex_to_sympy.test_sympy(r"\forall")
+        self.assertTrue(self._equal(equation, "forall"))
+        # Im command
+        equation = tex_to_sympy.test_sympy(r"\Im")
+        self.assertTrue(self._equal(equation, "Im"))
+        # exists command
+        equation = tex_to_sympy.test_sympy(r"\exists")
+        self.assertTrue(self._equal(equation, "exists"))
+        # nexists command
+        equation = tex_to_sympy.test_sympy(r"\nexists")
+        self.assertTrue(self._equal(equation, "nexists"))
+        # varnothing command
+        equation = tex_to_sympy.test_sympy(r"\varnothing")
+        self.assertTrue(self._equal(equation, "varnothing"))
+        # complement command
+        equation = tex_to_sympy.test_sympy(r"\complement")
+        self.assertTrue(self._equal(equation, "complement"))
+        # cdots command
+        equation = tex_to_sympy.test_sympy(r"\cdots")
+        self.assertTrue(self._equal(equation, "cdots"))
+        # surd command
+        equation = tex_to_sympy.test_sympy(r"\surd")
+        self.assertTrue(self._equal(equation, "surd"))
+        # triangle command
+        equation = tex_to_sympy.test_sympy(r"\triangle")
+        self.assertTrue(self._equal(equation, "triangle"))
+
+    '''Testing for binary operation/relation symbols'''
+    def testing_binary_operation_relation_symbols(self):
+        # Times
+        equation = tex_to_sympy.test_sympy(r"3\times2")
+        self.assertTrue(self._equal(equation, "2*3"))
+        # Div
+        equation = tex_to_sympy.test_sympy(r"2\div3")
+        self.assertTrue(self._equal(equation, "2/3"))
+        # Cub
+        equation = tex_to_sympy.test_sympy(r"\cup")
+        self.assertTrue(self._equal(equation, "cup"))
+        # Less than equal
+# [ERROR] -> I don't want this to be False/True, I want leq to expand, not be evaluated
+        equation = tex_to_sympy.test_sympy(r"3\leq2")
+        self.assertTrue(self._equal(equation, "False"))
+        # In
+        equation = tex_to_sympy.test_sympy(r"\in")
+        self.assertTrue(self._equal(equation, "in"))
+        # Nottin
+        equation = tex_to_sympy.test_sympy(r"\notin")
+        self.assertTrue(self._equal(equation, "notin"))
+        # simeq
+        equation = tex_to_sympy.test_sympy(r"\simeq")
+        self.assertTrue(self._equal(equation, "simeq"))
+        # wedge
+        equation = tex_to_sympy.test_sympy(r"\wedge")
+        self.assertTrue(self._equal(equation, "wedge"))
+        # oplus
+        equation = tex_to_sympy.test_sympy(r"\oplus")
+        self.assertTrue(self._equal(equation, "oplus"))
+        # Box
+        equation = tex_to_sympy.test_sympy(r"\Box")
+        self.assertTrue(self._equal(equation, "Box"))
+        # equivalement
+        equation = tex_to_sympy.test_sympy(r"\equiv")
+        self.assertTrue(self._equal(equation, "equiv"))
+        # cap
+        equation = tex_to_sympy.test_sympy(r"\cap")
+        self.assertTrue(self._equal(equation, "cap"))
+        # not equal
+        equation = tex_to_sympy.test_sympy(r"\neq")
+        self.assertTrue(self._equal(equation, "neq"))
+        # greater than equal
+# [ERROR] -> Don't want this to be true/false want it to be expanded not evaluated
+        equation = tex_to_sympy.test_sympy(r"3\geq3")
+        self.assertTrue(self._equal(equation, "True"))
+        # perp
+        equation = tex_to_sympy.test_sympy(r"\perp")
+        self.assertTrue(self._equal(equation, "perp"))
+        # subset
+        equation = tex_to_sympy.test_sympy(r"\subset")
+        self.assertTrue(self._equal(equation, "subset"))
+        # approximately
+        equation = tex_to_sympy.test_sympy(r"\approx")
+        self.assertTrue(self._equal(equation, "approx"))
+        # vee
+        equation = tex_to_sympy.test_sympy(r"\vee")
+        self.assertTrue(self._equal(equation, "vee"))
+        # otimes
+        equation = tex_to_sympy.test_sympy(r"\otimes")
+        self.assertTrue(self._equal(equation, "otimes"))
+        # boxtimes
+        equation = tex_to_sympy.test_sympy(r"\boxtimes")
+        self.assertTrue(self._equal(equation, "boxtimes"))
+        # cong
+        equation = tex_to_sympy.test_sympy(r"\cong")
+        self.assertTrue(self._equal(equation, "cong"))
+
     '''Testing test_sympy() function'''
     def testing_test_sympy(self):
 
