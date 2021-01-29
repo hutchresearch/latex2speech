@@ -8,7 +8,6 @@ from gen.PSListener import PSListener
 
 from sympy.printing.str import StrPrinter
 
-
 def process_sympy(sympy):
     matherror = MathErrorListener(sympy)
 
@@ -23,7 +22,6 @@ def process_sympy(sympy):
     # remove default console error listener
     parser.removeErrorListeners()
     parser.addErrorListener(matherror)
-
 
     relation = parser.math().relation()
     expr = convert_relation(relation)
@@ -321,6 +319,7 @@ def convert_frac(frac):
     return sympy.Mul(expr_top, sympy.Pow(expr_bot, -1, evaluate=False), evaluate=False)
 
 def convert_binom(binom):
+    print("Printing \n\n" + binom)
     expr_n = convert_expr(binom.n)
     expr_k = convert_expr(binom.k)
     return sympy.binomial(expr_n, expr_k, evaluate=False)
@@ -508,13 +507,15 @@ def get_differential_var_str(text):
         text = text[1:]
     return text
 
-def test_sympy():
-    print(process_sympy("{\\frac{3}{4}}"))
+def test_sympy(mathmode):
+    # print(process_sympy("{\\frac{3}{4}}"))
     # print(process_sympy("du = T ds -P dv"))
     # print(process_sympy("a_{n + 1} = (1 - S_n)c^2 + c(\\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})"))
     # print(process_sympy("(n + 1)^4 = 4\\sum_{i = 1}^{n} i^3 + 6\\sum_{i = 1}^{n} i^2 + 4\\sum_{i = 1}^{n} i + \\sum_{i = 1}^{n} 1"))
     # print(process_sympy("\\frac{n!}{k!(n-k)!} = \\binom{n}{k}"))
     # print(process_sympy("\\frac{\\frac{1}{x}+\\frac{1}{y}}{y-z}"))
+    print(process_sympy("x^n + y^n = z^n"))
+    return process_sympy(mathmode)
 
 if __name__ == "__main__":
     test_sympy()
