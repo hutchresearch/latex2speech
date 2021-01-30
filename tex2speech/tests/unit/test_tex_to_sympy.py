@@ -327,13 +327,42 @@ class TestTexToSympy(unittest.TestCase):
 
     '''Testing derivatives of functions'''
     def testing_derivative(self):
-        print("TEST")
+        # First order derivative
+# [ERROR] -> Doesn't understand prime the f'
+        # equation = tex_to_sympy.test_sympy(r"f'(x)")
+        # self.assertTrue(self._equal(equationTwo, ""))
+        # Second order derivative
+# [ERROR] -> Doesn't understand prime the f''
+        # equation = tex_to_sympy.test_sympy(r"f''(x)")
+        # self.assertTrue(self._equal(equationTwo, ""))
+        # K-th order derivative
+        equation = tex_to_sympy.test_sympy(r"f^{(k)}(x)")
+        self.assertTrue(self._equal(equationTwo, "f**k*x"))
+        # Partial first order derivative
+        equation = tex_to_sympy.test_sympy(r"\frac{\partial f}{\partial x}")
+        self.assertTrue(self._equal(equationTwo, "Derivative(f, x)"))
+        # Partial Second order derivative
+        equation = tex_to_sympy.test_sympy(r"\frac{\partial^2 f}{\partial x^2}")
+        self.assertTrue(self._equal(equationTwo, "(f*partial**2)/((partial*x**2))"))
+        # Partial k-th order derivative
+        equation = tex_to_sympy.test_sympy(r"\frac{\partial^{k} f}{\partial x^k}")
+        self.assertTrue(self._equal(equationTwo, "(f*partial**k)/((partial*x**k))"))
 
     '''Testing binomials of equations'''
     def testing_binomial(self):
         # Binomial in equation
         equationTwo = tex_to_sympy.test_sympy(r"\frac{n!}{k!(n-k)!} = \binom{n}{k}")
         self.assertTrue(self._equal(equationTwo, "Eq(factorial(n)/((factorial(k)*factorial(-k + n))), binom*(k*n))"))
+        # Testing binomial with factorial and frac
+        equationTwo = tex_to_sympy.test_sympy(r"\binom{n}{k} = \frac{n!}{k!(n-k)!}")
+        self.assertTrue(self._equal(equationTwo, "Eq(binom*(k*n), factorial(n)/((factorial(k)*factorial(-k + n))))"))
+        # Simple biinom
+        equationTwo = tex_to_sympy.test_sympy(r"\frac{A_n^k}{k!} = \binom{n}{k}")
+        self.assertTrue(self._equal(equationTwo, "Eq(A_{n}**k/factorial(k), binom*(k*n))"))
+        # Pascal's triangle
+        equationTwo = tex_to_sympy.test_sympy(r"\binom{n}{k} =  \binom{n-1}{k-1} +\binom{n-1}{k}")
+        self.assertTrue(self._equal(equationTwo, "Eq(binom*(k*n), binom*(k*(n - 1)) + binom*((k - 1)*(n - 1)))"))
+
 
     '''Testing Greek Letters'''
     def testing_greek_letters(self):
