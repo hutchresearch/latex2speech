@@ -185,6 +185,100 @@ class TestTexToSympy(unittest.TestCase):
         # Big equation with bunch of combinations of sqrt, superscripts, and exponents
         equation = tex_to_sympy.test_sympy(r"a_{n + 1} = (1 - S_n)c^2 + c(\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})")
         self.assertTrue(self._equal(equation, "Eq(a_{n + 1}, c**2*(1 - S_{n}) + c(sqrt(c**2*(1 - S_{n})**2 + S_{n}(2 - S_{n}))))"))
+        # Testing standard function with ln and e variables
+# [ERROR] -> Doesn't render just "ln" as natural log, it assumes it's a regular string. -> Eq(l*(e**x*n), x)
+        # equation = tex_to_sympy.test_sympy(r"lne^x = x")
+        # self.assertTrue(self._equal(equation, ""))
+        # Testing standard function with ln and e variables, but using \ln instead
+        equation = tex_to_sympy.test_sympy(r"\ln e^x = x")
+        self.assertTrue(self._equal(equation, "Eq(log(e**x, E), x)"))
+
+    '''Testing integrals of equations'''
+    def testing_integral(self):
+        # Integral simple
+# [NOTE] -> Doesn't like just basic \int with nothing else
+        # equation = tex_to_sympy.test_sympy(r"\int")
+        # self.assertTrue(self._equal(equation, ""))
+        # Integral
+# [ERROR] -> This doesn't render when there is \, but usually when there is \command, it's fine with the command. Possibly since , is special charachter it acts differently...
+        # equation = tex_to_sympy.test_sympy(r"\int_{a}^{b} x^2 \,dx")
+        # self.assertTrue(self._equal(equation, ""))
+        # Basic integral
+        equation = tex_to_sympy.test_sympy(r"\int_0^2x^2dx")
+        self.assertTrue(self._equal(equation, "Integral(x**2, (x, 0, 2))"))
+        # Integral Limits
+        equation = tex_to_sympy.test_sympy(r"\int_{a}^b f(x)dx")
+        self.assertTrue(self._equal(equation, "Integral(f(x), (x, a, b))"))
+        # Basic integral with limit
+        equation = tex_to_sympy.test_sympy(r"\int\limits_{x\in C}dx")
+        self.assertTrue(self._equal(equation, "Integral(limits_{x*(C*in)}, x)"))
+        # Double integral with limits
+# [ERROR] -> Doesn't like , in the f(x, y)...which we need :o
+        # equation = tex_to_sympy.test_sympy(r"\int_{a}^b\int_{c}^d f(x,y)dxdy")
+        # self.assertTrue(self._equal(equation, "Integral(limits_{x*(C*in)}, x)"))
+        # Multiple integrals
+        equation = tex_to_sympy.test_sympy(r"\iint_V \mu(u,v) \du\dv")
+        self.assertTrue(self._equal(equation, "iint_{V}*((du*dv)*mu(u, v))"))
+        # Multiple integrals 2 example
+        equation = tex_to_sympy.test_sympy(r"\iiint_V \mu(u,v,w) \du\dv\dw")
+        self.assertTrue(self._equal(equation, "iiint_{V}*((du*(dv*dw))*mu(u, v, w))"))
+        # Multiple integrals 3 example [NOTE] -> I smooshed togeter the dt, du, dv, and dw, and it still renders!
+        equation = tex_to_sympy.test_sympy(r"\iiiint_V \mu(t,u,v,w) dtdudvdw")
+        self.assertTrue(self._equal(equation, "iiiint_{V}*((dt*(du*(dv*dw)))*mu(t, u, v, w))"))
+        # Multiple integrals 4 example
+        equation = tex_to_sympy.test_sympy(r"\idotsint_V \mu(u_1,\dots,u_k) \du_1 \dots du_k")
+        self.assertTrue(self._equal(equation, "idotsint_{V}*((du_{1}*(dots*du))*mu(u_{1}, dots, u_{k}))"))
+        # This integral thing has a circle in through it, found it on LaTeX documentation
+        equation = tex_to_sympy.test_sympy(r"\oint_V f(s) \ds")
+        self.assertTrue(self._equal(equation, "oint_{V}*(ds*f(s))"))
+
+    '''Testing summations of equations'''
+    def testing_summation(self):
+        # Basic summation
+        equation = tex_to_sympy.test_sympy(r"\sum_{n=-\infty}^{+\infty} f(x)")
+        self.assertTrue(self._equal(equation, "Sum(f(x), (n, -oo, oo))"))
+        # Sumation closed form for i
+        equation = tex_to_sympy.test_sympy(r"\sum_{i=1}^{n}i=\frac{n(n+1)}{2}")
+        self.assertTrue(self._equal(equation, "Eq(Sum(i, (i, 1, n)), n(n + 1)/2)"))
+        # Sumation with infinity and exponent
+        equation = tex_to_sympy.test_sympy(r"\sum_{n=1}^{\infty} 2^{-n} = 1")
+        self.assertTrue(self._equal(equation, "Eq(Sum(2**(-n), (n, 1, oo)), 1)"))
+
+    '''Testing limits of functions'''
+    def testing_limit(self):
+        # Basic limit
+# What is dir='-'??? Further investigation
+        equation = tex_to_sympy.test_sympy(r"\lim_{x\to\infty} f(x)")
+        self.assertTrue(self._equal(equation, "Limit(f(x), x, oo, dir='-')"))
+        # Limit function with f(x) and frac
+        equation = tex_to_sympy.test_sympy(r"\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}")
+        self.assertTrue(self._equal(equation, "Limit((-f(x) + f(h + x))/h, h, 0)"))
+
+    '''Testing product functions'''
+    def testing_product(self):
+        # Product function
+        equation = tex_to_sympy.test_sympy(r"\prod_{i=1}^ni=n!")
+        self.assertTrue(self._equal(equation, "Eq(Product(i, (i, 1, n)), factorial(n))"))
+        # Product function part 2
+        equation = tex_to_sympy.test_sympy(r"\prod_{i=a}^{b} f(i)")
+        self.assertTrue(self._equal(equation, "Product(f(i), (i, a, b))"))
+        # Product with \limits
+# [ERROR] -> It just can't do prod_limits right after, check in on this if you can do it in regular latex and if it renders
+        # equation = tex_to_sympy.test_sympy(r"\prod_\limits_{j=1}^k A_{\alpha_j}")
+        # self.assertTrue(self._equal(equation, "Product(f(i), (i, a, b))"))
+        # Product without \limits
+        equation = tex_to_sympy.test_sympy(r"\prod_{j=1}^k A_{\alpha_j}")
+        self.assertTrue(self._equal(equation, "Product(A_{alpha_{j}}, (j, 1, k))"))
+        # Product from 1 to n
+# [ERROR] -> I actually don't know why this is erroring..
+        # equation = tex_to_sympy.test_sympy(r"\prod_{i=1}^n")
+        # self.assertTrue(self._equal(equation, ""))
+        # Product off n first integers
+        equation = tex_to_sympy.test_sympy(r"\prod_{i=1}^n i^2{6}")
+        self.assertTrue(self._equal(equation, "Product(6*i**2, (i, 1, n))"))
+        # Double product
+        equation = tex_to_sympy.test_sympy(r"\prod^k_{i=1}\prod^l_{j=1}\q_i q_j")
+        self.assertTrue(self._equal(equation, "Product(q_{i}*q_{j}, (j, 1, l), (i, 1, k))"))
 
     '''Testing Greek Letters'''
     def testing_greek_letters(self):
