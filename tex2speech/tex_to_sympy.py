@@ -508,10 +508,8 @@ def get_differential_var_str(text):
     return text
 
 def test_sympy(mathmode):
-    # print(process_sympy("a_{n + 1} = (1 - S_n)c^2 + c(\\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})"))
 
-
-    print(process_sympy(r"\sec1"))
+    print(process_sympy(r"x^{n} + y^{n} \ne z^{n}"))
 
 
     return process_sympy(mathmode)
