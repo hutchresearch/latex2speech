@@ -70,18 +70,9 @@ def auxFileHashTable(auxFile):
     # print(hash['sample'])
     return hash
 
-def expandDocNewLabels(doc):
-    # TODO
-    # Get appropriate .aux file to corresponding document
-    # 1. Open .aux file (Assuming it's been generated)
-    split_string = doc.name.split(".tex", 1)
-    docName = split_string[0] + ".aux"
-
-    # 2. Traverse .aux file, create hashtable for commands -> vallues
-    auxFile = open(docName, "r")
-    myHash = auxFileHashTable(auxFile)
-
-    # 3. Traverse doc file, replacing them, by looking into hashtable
+'''With the hash table that was created, use findall from TexSoup to replace file contents'''
+def replaceReferences(doc, myHash):
+    # Traverse doc file, replacing them, by looking into hashtable
     contents = doc.read()
     myDoc = TexSoup.TexSoup(str(contents))
     for name in myHash:
@@ -101,7 +92,23 @@ def expandDocNewLabels(doc):
 
     print(contents)
 
-    # 4. Delete .pdf, .out, .log, and .aux file
+def expandDocNewLabels(doc):
+    # TODO
+    # Create .aux file
+
+    # Get appropriate .aux file to corresponding document
+    # Open .aux file (Assuming it's been generated)
+    split_string = doc.name.split(".tex", 1)
+    docName = split_string[0] + ".aux"
+
+    # Traverse .aux file, create hashtable for commands -> vallues
+    auxFile = open(docName, "r")
+    myHash = auxFileHashTable(auxFile)
+
+    # Repalce all references to correct for figures and equations
+    replaceReferences(doc, myHash)
+
+    # Delete .pdf, .out, .log, and .aux file
     os.remove(split_string[0] + ".log")
     os.remove(split_string[0] + ".out")
     os.remove(split_string[0] + ".pdf")
