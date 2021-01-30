@@ -330,23 +330,23 @@ class TestTexToSympy(unittest.TestCase):
         # First order derivative
 # [ERROR] -> Doesn't understand prime the f'
         # equation = tex_to_sympy.test_sympy(r"f'(x)")
-        # self.assertTrue(self._equal(equationTwo, ""))
+        # self.assertTrue(self._equal(equation, ""))
         # Second order derivative
 # [ERROR] -> Doesn't understand prime the f''
         # equation = tex_to_sympy.test_sympy(r"f''(x)")
-        # self.assertTrue(self._equal(equationTwo, ""))
+        # self.assertTrue(self._equal(equation, ""))
         # K-th order derivative
         equation = tex_to_sympy.test_sympy(r"f^{(k)}(x)")
-        self.assertTrue(self._equal(equationTwo, "f**k*x"))
+        self.assertTrue(self._equal(equation, "f**k*x"))
         # Partial first order derivative
         equation = tex_to_sympy.test_sympy(r"\frac{\partial f}{\partial x}")
-        self.assertTrue(self._equal(equationTwo, "Derivative(f, x)"))
+        self.assertTrue(self._equal(equation, "Derivative(f, x)"))
         # Partial Second order derivative
         equation = tex_to_sympy.test_sympy(r"\frac{\partial^2 f}{\partial x^2}")
-        self.assertTrue(self._equal(equationTwo, "(f*partial**2)/((partial*x**2))"))
+        self.assertTrue(self._equal(equation, "(f*partial**2)/((partial*x**2))"))
         # Partial k-th order derivative
         equation = tex_to_sympy.test_sympy(r"\frac{\partial^{k} f}{\partial x^k}")
-        self.assertTrue(self._equal(equationTwo, "(f*partial**k)/((partial*x**k))"))
+        self.assertTrue(self._equal(equation, "(f*partial**k)/((partial*x**k))"))
 
     '''Testing binomials of equations'''
     def testing_binomial(self):
@@ -363,6 +363,101 @@ class TestTexToSympy(unittest.TestCase):
         equationTwo = tex_to_sympy.test_sympy(r"\binom{n}{k} =  \binom{n-1}{k-1} +\binom{n-1}{k}")
         self.assertTrue(self._equal(equationTwo, "Eq(binom*(k*n), binom*(k*(n - 1)) + binom*((k - 1)*(n - 1)))"))
 
+    '''Testing Operators'''
+    def testing_operators(self):
+# Note, doesn't like single things by themself here, for example can't just be \cos, needs \cos1 or something
+        # Cosine operator
+        equation = tex_to_sympy.test_sympy(r"\cos1")
+        self.assertTrue(self._equal(equation, "cos(1)"))
+        # Cosecant operator
+        equation = tex_to_sympy.test_sympy(r"\csc1")
+        self.assertTrue(self._equal(equation, "csc(1)"))
+        # expression operator
+        equation = tex_to_sympy.test_sympy(r"\exp")
+        self.assertTrue(self._equal(equation, "exp"))
+        # Ker operator
+        equation = tex_to_sympy.test_sympy(r"\ker")
+        self.assertTrue(self._equal(equation, "ker"))
+        # limsup operator
+        equation = tex_to_sympy.test_sympy(r"\limsup")
+        self.assertTrue(self._equal(equation, "limsup"))
+        # min operator
+        equation = tex_to_sympy.test_sympy(r"\min")
+        self.assertTrue(self._equal(equation, "min"))
+        # Sinh operator
+        equation = tex_to_sympy.test_sympy(r"\sinh1")
+        self.assertTrue(self._equal(equation, "sinh(1)"))
+        # arcsin operator
+        equation = tex_to_sympy.test_sympy(r"\arcsin1")
+        self.assertTrue(self._equal(equation, "asin(1)"))
+        # cosh operator
+        equation = tex_to_sympy.test_sympy(r"\cosh1")
+        self.assertTrue(self._equal(equation, "cosh(1)"))
+        # deg operator
+        equation = tex_to_sympy.test_sympy(r"\deg")
+        self.assertTrue(self._equal(equation, "deg"))
+        # gcd operator
+        equation = tex_to_sympy.test_sympy(r"\gcd")
+        self.assertTrue(self._equal(equation, "gcd"))
+        # lg operator
+        equation = tex_to_sympy.test_sympy(r"\lg")
+        self.assertTrue(self._equal(equation, "lg"))
+        # ln operator
+# [NOTE] -> Can't have just ln
+        equation = tex_to_sympy.test_sympy(r"\ln1")
+        self.assertTrue(self._equal(equation, "log(1, E)"))
+        # pr operator
+        equation = tex_to_sympy.test_sympy(r"\Pr")
+        self.assertTrue(self._equal(equation, "Pr"))
+        # sup operator
+        equation = tex_to_sympy.test_sympy(r"\sup")
+        self.assertTrue(self._equal(equation, "sup"))
+        # arctan operator
+        equation = tex_to_sympy.test_sympy(r"\arctan1")
+        self.assertTrue(self._equal(equation, "atan(1)"))
+        # cotan operator
+        equation = tex_to_sympy.test_sympy(r"\cot(1)")
+        self.assertTrue(self._equal(equation, "cot(1)"))
+        # det operator
+        equation = tex_to_sympy.test_sympy(r"\det")
+        self.assertTrue(self._equal(equation, "det"))
+        # hom operator
+        equation = tex_to_sympy.test_sympy(r"\hom")
+        self.assertTrue(self._equal(equation, "hom"))
+        # lim operator
+# [NOTE] -> can't just have lim empty
+        # equation = tex_to_sympy.test_sympy(r"\lim")
+        # self.assertTrue(self._equal(equation, ""))
+        # log operator
+        equation = tex_to_sympy.test_sympy(r"\log1")
+        self.assertTrue(self._equal(equation, "log(1, 10)"))
+        # sec operator
+        equation = tex_to_sympy.test_sympy(r"\sec1")
+        self.assertTrue(self._equal(equation, "sec(1)"))
+        # tan operator
+        equation = tex_to_sympy.test_sympy(r"\tan1")
+        self.assertTrue(self._equal(equation, "tan(1)"))
+        # arg operator
+        equation = tex_to_sympy.test_sympy(r"\arg")
+        self.assertTrue(self._equal(equation, "arg"))
+        # coth operator
+        equation = tex_to_sympy.test_sympy(r"\coth(1)")
+        self.assertTrue(self._equal(equation, "coth(1)"))
+        # dim operator
+        equation = tex_to_sympy.test_sympy(r"\dim")
+        self.assertTrue(self._equal(equation, "dim"))
+        # liminf operator
+        equation = tex_to_sympy.test_sympy(r"\liminf")
+        self.assertTrue(self._equal(equation, "liminf"))
+        # max operator
+        equation = tex_to_sympy.test_sympy(r"\max")
+        self.assertTrue(self._equal(equation, "max"))
+        # sin operator
+        equation = tex_to_sympy.test_sympy(r"\sin1")
+        self.assertTrue(self._equal(equation, "sin(1)"))
+        # tanh operator
+        equation = tex_to_sympy.test_sympy(r"\tanh1")
+        self.assertTrue(self._equal(equation, "tanh(1)"))
 
     '''Testing Greek Letters'''
     def testing_greek_letters(self):
