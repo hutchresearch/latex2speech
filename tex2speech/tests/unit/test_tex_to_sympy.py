@@ -243,6 +243,26 @@ class TestTexToSympy(unittest.TestCase):
         # Sumation with infinity and exponent
         equation = tex_to_sympy.test_sympy(r"\sum_{n=1}^{\infty} 2^{-n} = 1")
         self.assertTrue(self._equal(equation, "Eq(Sum(2**(-n), (n, 1, oo)), 1)"))
+        # Summation with \limits
+# [ERROR] -> Figure out if this renders in LaTeX, \sum\limits it doesn't like
+        # equation = tex_to_sympy.test_sympy(r"\sum\limits_{j=1}^k A_{\alpha_j}")
+        # self.assertTrue(self._equal(equation, ""))
+        # Sumation without \limits
+        equation = tex_to_sympy.test_sympy(r"\sum_{j=1}^k A_{\alpha_j}")
+        self.assertTrue(self._equal(equation, "Sum(A_{alpha_{j}}, (j, 1, k))"))
+        # Sum from 1 to n
+# [ERROR] -> Doesn't like not having anything after the summation for example it'll run if you put a 1 afterwords
+        # equation = tex_to_sympy.test_sympy(r"\sum_{i=1}^{n}")
+        # self.assertTrue(self._equal(equation, ""))
+        # Sum off n first integers
+        equation = tex_to_sympy.test_sympy(r"\sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}")
+        self.assertTrue(self._equal(equation, "Eq(Sum(i**2, (i, 1, n)), ((2*n + 1)*n(n + 1))/6)"))
+        # Dobule sum
+        equation = tex_to_sympy.test_sympy(r"\sum^k_{i=1}\sum^l_{j=1}\q_i q_j")
+        self.assertTrue(self._equal(equation, "Sum(q_{i}*q_{j}, (j, 1, l), (i, 1, k))"))
+        # Big summation
+        equation = tex_to_sympy.test_sympy(r"(n + 1)^4 = 4\sum_{i = 1}^{n} i^3 + 6\sum_{i = 1}^{n} i^2 + 4\sum_{i = 1}^{n} i + \sum_{i = 1}^{n} 1")
+        self.assertTrue(self._equal(equation, "Eq((n + 1)**4, 6*Sum(i**2, (i, 1, n)) + 4*Sum(i**3, (i, 1, n)) + 4*Sum(i, (i, 1, n)) + Sum(1, (i, 1, n)))"))
 
     '''Testing limits of functions'''
     def testing_limit(self):
@@ -253,6 +273,31 @@ class TestTexToSympy(unittest.TestCase):
         # Limit function with f(x) and frac
         equation = tex_to_sympy.test_sympy(r"\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}")
         self.assertTrue(self._equal(equation, "Limit((-f(x) + f(h + x))/h, h, 0)"))
+        # Limit function at plus infinity
+# [NOTE] -> Figure out what dir='-' means...
+        equation = tex_to_sympy.test_sympy(r"\lim_{x \to +\infty} f(x)")
+        self.assertTrue(self._equal(equation, "Limit(f(x), x, oo, dir='-')"))
+        # Limit function at minus infinity
+        equation = tex_to_sympy.test_sympy(r"\lim_{x \to -\infty} f(x)")
+        self.assertTrue(self._equal(equation, "Limit(f(x), x, -oo)"))
+        # Limit function at alpha
+        equation = tex_to_sympy.test_sympy(r"\lim_{x \to \alpha} f(x)")
+        self.assertTrue(self._equal(equation, "Limit(f(x), x, alpha)"))
+        # Limit function at infinity
+# [ERROR] -> Doesn't like > command
+        # equation = tex_to_sympy.test_sympy(r"\inf_{x > s}f(x)")
+        # self.assertTrue(self._equal(equation, ""))
+        # Limit function with sup
+        equation = tex_to_sympy.test_sympy(r"\sup_{x \in \mathbb{R}}f(x)")
+        self.assertTrue(self._equal(equation, "sup_{x*(in*(R*mathbb))}*f(x)"))
+        # Limit function with max
+# [ERROR] -> Like nown before, this does not like \[], it doesn't like backslashes with special sympbols
+        # equation = tex_to_sympy.test_sympy(r"\max_{x \in \[a,b\]}f(x)")
+        # self.assertTrue(self._equal(equation, ""))
+        # Limit function with min
+# [ERROR] -> Same as above with backslash and special command
+        # equation = tex_to_sympy.test_sympy(r"\min_{x \in \[\alpha,\beta\]}f(x)")
+        # self.assertTrue(self._equal(equation, ""))
 
     '''Testing product functions'''
     def testing_product(self):
@@ -279,6 +324,16 @@ class TestTexToSympy(unittest.TestCase):
         # Double product
         equation = tex_to_sympy.test_sympy(r"\prod^k_{i=1}\prod^l_{j=1}\q_i q_j")
         self.assertTrue(self._equal(equation, "Product(q_{i}*q_{j}, (j, 1, l), (i, 1, k))"))
+
+    '''Testing derivatives of functions'''
+    def testing_derivative(self):
+        print("TEST")
+
+    '''Testing binomials of equations'''
+    def testing_binomial(self):
+        # Binomial in equation
+        equationTwo = tex_to_sympy.test_sympy(r"\frac{n!}{k!(n-k)!} = \binom{n}{k}")
+        self.assertTrue(self._equal(equationTwo, "Eq(factorial(n)/((factorial(k)*factorial(-k + n))), binom*(k*n))"))
 
     '''Testing Greek Letters'''
     def testing_greek_letters(self):
