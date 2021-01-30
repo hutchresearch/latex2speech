@@ -1,6 +1,9 @@
 from sympy import *
 import xml.etree.ElementTree as ET
 
+quantity_start = 'begin quantity'
+quantity_end = 'end quantity'
+
 def convert(expr):
     #print_tree(test_expr, assumptions = False)
     funcs_tree = ET.parse('sympy_funcs.xml')
@@ -13,7 +16,7 @@ def _convert(expr, funcs_tree):
     func = r.find(func_id)
     
     s = str()
-    if len(expr.args) == 0:  
+    if len(expr.args) == 0:
         s += str(expr)
     else:
         i = 0
@@ -25,7 +28,10 @@ def _convert(expr, funcs_tree):
                 j = repeat_index
 
             if func[j].tag == 'arg':
-                s += _convert(expr.args[i], funcs_tree)
+                if isinstance(expr.args[i], Symbol):
+                    s += _convert(expr.args[i], funcs_tree)
+                else:
+                    s += quantity_start + _convert(expr.args[i], funcs_tree) + quantity_end
                 i += 1
                 j += 1
             

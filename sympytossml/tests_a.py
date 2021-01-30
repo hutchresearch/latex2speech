@@ -18,8 +18,8 @@ def test_power():
 
 def test_powmul():
     expr = a ** (a * b)
-    assert convert(expr) == 'a to the power of a times b'
+    assert convert(expr) == 'a to the power of begin quantity a times b end quantity'
 
 def test_recursive_basic():
     expr = a * (x + (b * y)) ** b
-    assert convert(expr) == 'a times x plus b times y to the power of b'
+    assert convert(expr) == 'a times begin quantity x plus begin quantity b times y end quantity end quantity to the power of b'
