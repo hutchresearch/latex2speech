@@ -482,14 +482,5 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"\cong")
         self.assertTrue(self._equal(equation, "cong"))
 
-    '''Testing test_sympy() function'''
-    def testing_test_sympy(self):
-
-        # Function two test
-        equationTwo = tex_to_sympy.test_sympy("\\frac{n!}{k!(n-k)!} = \\binom{n}{k}")
-        self.assertTrue(self._equal(equationTwo, "Eq(factorial(n)/((factorial(k)*factorial(-k + n))), binom*(k*n))"))
-        
-
-
 if __name__ == "__main__":
     unittest.main()
