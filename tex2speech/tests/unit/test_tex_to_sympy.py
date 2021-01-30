@@ -1,0 +1,401 @@
+import unittest
+import tex_to_sympy
+
+class TestTexToSympy(unittest.TestCase):
+
+    def _equal(self, one, two):
+        return str(one) == str(two)
+
+    '''Testing basic addition/subtraction in LaTeX'''
+    def testing_addition_subtraction(self):
+        # Basic Addition
+        equationOne = tex_to_sympy.test_sympy("1 + 2")
+        self.assertTrue(self._equal(equationOne, "1 + 2"))
+        # Basic Addition and Subtraction
+        equationTwo = tex_to_sympy.test_sympy("1 + 2 - 3 + 4 - 1")
+        self.assertTrue(self._equal(equationTwo, "-1 - 3 + 1 + 2 + 4"))
+        # Basic Addition and Subtration with negative numbers
+        equationThree = tex_to_sympy.test_sympy("-1 + 2 - -3 + -4 - 1")
+        self.assertTrue(self._equal(equationThree, "-1 - 4 - 1 + 2 + 3"))
+        # Basic Addition and Subtration with negative numbers with 0
+        equationThree = tex_to_sympy.test_sympy("-1 - -0 + 2 + 0 - 0 - -3 + -4 - 1")
+        self.assertTrue(self._equal(equationThree, "-1 - 4 - 1 + 2 + 3"))
+
+    '''Testing basic multiplication/division in LaTeX'''
+    def testing_multiplication_division(self):
+        # Basic Multiplication
+        equationOne = tex_to_sympy.test_sympy("1 * 2 * 4")
+        self.assertTrue(self._equal(equationOne, "2*4"))
+        # Basic Multiplication with 0
+        equationTwo = tex_to_sympy.test_sympy("2 * 4 * 0 * 1000")
+        self.assertTrue(self._equal(equationTwo, "1000*(0*(2*4))"))
+        # Basic Multiplication with negative numbers
+        equationThree = tex_to_sympy.test_sympy("2 * -4 * -1000")
+        self.assertTrue(self._equal(equationThree, "(-1000)*(2*(-4))"))
+        # Multiplication without *
+        equation = tex_to_sympy.test_sympy("mc * 3x")
+        self.assertTrue(self._equal(equation, "(3*x)*(c*m)"))
+        # Multiplication using cdot
+        equation = tex_to_sympy.test_sympy(r"3\cdot5")
+        self.assertTrue(self._equal(equation, "3*5"))
+        # Multiplication using \times
+        equation = tex_to_sympy.test_sympy(r"n\times m")
+        self.assertTrue(self._equal(equation, "m*n"))
+        # Basic Division
+        equationFour = tex_to_sympy.test_sympy("1 / 2")
+        self.assertTrue(self._equal(equationFour, "1/2"))
+        # Basic Division with 0
+        equationFive = tex_to_sympy.test_sympy("1 / 0")
+        self.assertTrue(self._equal(equationFive, "1/0"))
+        # Basic Division with 0
+        equationSix = tex_to_sympy.test_sympy("0 / 1")
+        self.assertTrue(self._equal(equationSix, "0/1"))
+        # Division with negative numbers
+        equationSeven = tex_to_sympy.test_sympy("50 / -9 / -32")
+        self.assertTrue(self._equal(equationSeven, "(50/((-9)))/((-32))"))
+        # Division with \div function
+        equation = tex_to_sympy.test_sympy(r"2\div 3")
+        self.assertTrue(self._equal(equation, "2/3"))
+
+    '''Testing exponents and squareroots in LaTeX'''
+    def testing_exponents_squareroot(self):
+        # Basic Exponents
+        equation = tex_to_sympy.test_sympy("1^2")
+        self.assertTrue(self._equal(equation, "1**2"))
+        # Basic Exponents with more
+        equation = tex_to_sympy.test_sympy("1^2^2 + 3^1")
+        self.assertTrue(self._equal(equation, "(1**2)**2 + 3**1"))
+        # Exponents on bodies
+        equation = tex_to_sympy.test_sympy("(1 + 4 - 3)^5")
+        self.assertTrue(self._equal(equation, "(-3 + 1 + 4)**5"))
+        # Basic Negative Exponents
+        equation = tex_to_sympy.test_sympy("1^-5")
+        self.assertTrue(self._equal(equation, "1"))
+        # More Basic Negative Exponents
+        equation = tex_to_sympy.test_sympy("4^-3 + -4^-3 + -4^3")
+        self.assertTrue(self._equal(equation, "4"))
+        # Exponents with 0
+        equation = tex_to_sympy.test_sympy("4^0")
+        self.assertTrue(self._equal(equation, "4**0")) 
+        # Exponents with negative 0
+# [ERROR] -> This should be either 4**-0 or 1, not 4
+        # equation = tex_to_sympy.test_sympy("4^-0")
+        # self.assertTrue(self._equal(equation, "4**-0")) 
+        # Basic square roots
+        equation = tex_to_sympy.test_sympy(r"\sqrt{2}")
+        self.assertTrue(self._equal(equation, "sqrt(2)"))   
+        # Basic square roots with negatives
+        equation = tex_to_sympy.test_sympy(r"-\sqrt{2}")
+        self.assertTrue(self._equal(equation, "-sqrt(2)")) 
+        # Basic square roots with negatives / Imaginary nums??
+        equation = tex_to_sympy.test_sympy(r"\sqrt{-25}")
+        self.assertTrue(self._equal(equation, "5*I")) 
+        # Cubed roots
+        equation = tex_to_sympy.test_sympy(r"\sqrt[4]{40}")
+        self.assertTrue(self._equal(equation, "40**(1/4)"))    
+        # Negative Cubed roots -> I checked if this was correct, it is
+        equation = tex_to_sympy.test_sympy(r"\sqrt[-4]{40}")
+        self.assertTrue(self._equal(equation, "250**(1/4)/10"))          
+        # Square roots and exponents
+        equation = tex_to_sympy.test_sympy(r"\sqrt[3]{8} + 8^5")
+        self.assertTrue(self._equal(equation, "2 + 8**5"))    
+
+    '''Testing fractions in LaTeX'''
+    def testing_fractions(self):
+        # Basic Fractions
+        equation = tex_to_sympy.test_sympy(r"\frac{1}{2}")
+        self.assertTrue(self._equal(equation, "1/2")) 
+        # Fractions with negatives
+        equation = tex_to_sympy.test_sympy(r"-\frac{9}{2} - \frac{9}{2} + \frac{-1}{2} + \frac{1}{-2} + \frac{-1}{-2}")
+        self.assertTrue(self._equal(equation, "-9/2 - 9/2 - 1/2 + 1/(-2) - 1/((-2))")) 
+        # Fractions with 0 as numerator
+        equation = tex_to_sympy.test_sympy(r"\frac{0}{2}")
+        self.assertTrue(self._equal(equation, "0/2")) 
+        # Fractions with 0 as denominator
+        equation = tex_to_sympy.test_sympy(r"\frac{1}{0}")
+        self.assertTrue(self._equal(equation, "1/0")) 
+        # Fractions with 0 in it
+        equation = tex_to_sympy.test_sympy(r"\frac{0}{0}")
+        self.assertTrue(self._equal(equation, "0/0")) 
+        # Fractions with division
+        equation = tex_to_sympy.test_sympy(r"\frac{2/3}{4/5}")
+        self.assertTrue(self._equal(equation, "(2/3)/((4/5))")) 
+        # Fractions within a fraction
+        equation = tex_to_sympy.test_sympy(r"\frac{\frac{2}{3}}{\frac{4}{5}}")
+        self.assertTrue(self._equal(equation, "(2/3)/((4/5))")) 
+        # Fraction using \dfrac -> This is just a display,
+        # but it'll still be put into mathmode
+        equation = tex_to_sympy.test_sympy(r"\frac{\dfrac{2}{3}}{\dfrac{4}{5}}")
+        self.assertTrue(self._equal(equation, "((2*3)*dfrac)/(((4*5)*dfrac))")) 
+
+    '''Testing fractions, square roots, exponents, basic algrebra all together. Basically all the stuff up above will be together in these functions'''
+    def testing_frac_sqrt_exp_basic(self):
+        # Fraction and exponent
+        equation = tex_to_sympy.test_sympy(r"(1+\frac{1}{x})^2")
+        self.assertTrue(self._equal(equation, "(1 + 1/x)**2")) 
+        # Fraction and exponent with \left \right commands
+        equation = tex_to_sympy.test_sympy(r"\left(1+\frac{1}{x}\right)^2")
+        self.assertTrue(self._equal(equation, "left(right/x + 1)**2")) 
+        # Testing super scripts
+        equation = tex_to_sympy.test_sympy(r"x^{2+a}")
+        self.assertTrue(self._equal(equation, "x**(a + 2)")) 
+        # Testing exponents a lot
+        equation = tex_to_sympy.test_sympy(r"e^{e^{e^{e^{x}}}}")
+        self.assertTrue(self._equal(equation, "e**(e**(e**(e**x)))"))
+        # Subscripts testing 
+        equation = tex_to_sympy.test_sympy(r"n_1")
+        self.assertTrue(self._equal(equation, "n_{1}"))
+        equation = tex_to_sympy.test_sympy(r"n_{k+1}")
+        self.assertTrue(self._equal(equation, "n_{k + 1}"))
+        # Superscripts and subscripts testing
+        equation = tex_to_sympy.test_sympy(r"n_{k+1}^2")
+        self.assertTrue(self._equal(equation, "n_{k + 1}**2"))
+
+    '''Equation Unit testing, these have equal signs'''
+    def testing_equations(self):
+        # Testing basic exponent equation
+        equation = tex_to_sympy.test_sympy(r"x^n + y^n = z^n")
+        self.assertTrue(self._equal(equation, "Eq(x**n + y**n, z**n)"))
+        # Equation with square root and fractions and multiple =
+# [ERROR] -> Doesn't render equataions with multiple equal signs
+# The case below returns as false :(
+        # equation = tex_to_sympy.test_sympy(r"\sqrt[3]{8}=8^{\frac{1}{3}}=2")
+        # self.assertTrue(self._equal(equation, ""))
+        # Equation E = mc^2
+        equation = tex_to_sympy.test_sympy(r"E=mc^2")
+        self.assertTrue(self._equal(equation, "Eq(E, c**2*m)"))
+        # Equation with pi and fractions
+        equation = tex_to_sympy.test_sympy(r"A = \frac{\pi r^2}{2}")
+        self.assertTrue(self._equal(equation, "Eq(A, (pi*r**2)/2)"))
+        # Equation with pi and fractions
+# [ERROR] -> You can't have jsut a "= 3 + 2", there must be something on otherside of equals sign
+        equation = tex_to_sympy.test_sympy(r"1= \frac{1}{2} \pi r^2")
+        self.assertTrue(self._equal(equation, "Eq(1, (pi*r**2)/2)"))
+        # Equation using exponent multiplication (euler's equation)
+        equation = tex_to_sympy.test_sympy(r"e^{\pi i} + 1 = 0")
+        self.assertTrue(self._equal(equation, "Eq(e**(i*pi) + 1, 0)"))
+        # Long equation! 
+# [ERROR] -> You can't have \\ commands inline of the equation, it will completey error since it doesn't know the command
+        equation = tex_to_sympy.test_sympy(r"p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3 - 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3")
+        self.assertTrue(self._equal(equation, "Eq(p(x), -a**3*b**3 + 2*y**6 - 12*x*y**5 - 12*x**2*y**4 + 19*(x**3*y**3) + 590*(x**4*y**2) + 3*x**6 + 14*(x**5*y))"))
+        # Simple equation with &
+# [ERROR] -> Doesn't like equations with &, will ocmpletely error
+        # equation = tex_to_sympy.test_sympy(r"2x - 5y &=  8")
+        # self.assertTrue(self._equal(equation, "Eq(e**(i*pi) + 1, 0)"))
+        # Big equation with bunch of combinations of sqrt, superscripts, and exponents
+        equation = tex_to_sympy.test_sympy(r"a_{n + 1} = (1 - S_n)c^2 + c(\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})")
+        self.assertTrue(self._equal(equation, "Eq(a_{n + 1}, c**2*(1 - S_{n}) + c(sqrt(c**2*(1 - S_{n})**2 + S_{n}(2 - S_{n}))))"))
+
+    '''Testing Greek Letters'''
+    def testing_greek_letters(self):
+        # Alpha
+        equation = tex_to_sympy.test_sympy(r"\alpha A")
+        self.assertTrue(self._equal(equation, "A*alpha"))
+        # Beta
+        equation = tex_to_sympy.test_sympy(r"\beta B")
+        self.assertTrue(self._equal(equation, "B*beta"))
+        # Gamma
+        equation = tex_to_sympy.test_sympy(r"\gamma \Gamma")
+        self.assertTrue(self._equal(equation, "Gamma*gamma"))
+        # Delta
+        equation = tex_to_sympy.test_sympy(r"\delta \Delta")
+        self.assertTrue(self._equal(equation, "Delta*delta"))
+        # Epsilon
+        equation = tex_to_sympy.test_sympy(r"\epsilon")
+        self.assertTrue(self._equal(equation, "epsilon"))
+        equation = tex_to_sympy.test_sympy(r"\varepsilon E")
+        self.assertTrue(self._equal(equation, "E*varepsilon"))
+        # Zelta
+        equation = tex_to_sympy.test_sympy(r"\zeta Z")
+        self.assertTrue(self._equal(equation, "Z*zeta"))
+        # Eta
+        equation = tex_to_sympy.test_sympy(r"\eta H")
+        self.assertTrue(self._equal(equation, "H*eta"))
+        # Theta
+        equation = tex_to_sympy.test_sympy(r"\theta \vartheta \Theta")
+        self.assertTrue(self._equal(equation, "theta*(Theta*vartheta)"))
+        # Iota
+        equation = tex_to_sympy.test_sympy(r"\iota I")
+        self.assertTrue(self._equal(equation, "I*iota"))
+        # Kappa
+        equation = tex_to_sympy.test_sympy(r"\kappa K")
+        self.assertTrue(self._equal(equation, "K*kappa"))
+        # Lambda
+        equation = tex_to_sympy.test_sympy(r"\lambda \Lambda")
+        self.assertTrue(self._equal(equation, "Lambda*lambda"))
+        # Mu
+        equation = tex_to_sympy.test_sympy(r"\mu M")
+        self.assertTrue(self._equal(equation, "M*mu"))
+        # Nu
+        equation = tex_to_sympy.test_sympy(r"\nu N")
+        self.assertTrue(self._equal(equation, "N*nu"))
+        # Xi
+        equation = tex_to_sympy.test_sympy(r"\xi\Xi")
+        self.assertTrue(self._equal(equation, "Xi*xi"))
+        # O
+        equation = tex_to_sympy.test_sympy(r"o O")
+        self.assertTrue(self._equal(equation, "O*o"))
+        # Pi
+        equation = tex_to_sympy.test_sympy(r"\pi \Pi")
+        self.assertTrue(self._equal(equation, "Pi*pi"))
+        # Rho
+        equation = tex_to_sympy.test_sympy(r"\rho\varrho P")
+        self.assertTrue(self._equal(equation, "rho*(P*varrho)"))
+        # Sigma
+        equation = tex_to_sympy.test_sympy(r"\sigma \Sigma")
+        self.assertTrue(self._equal(equation, "Sigma*sigma"))
+        # Tau
+        equation = tex_to_sympy.test_sympy(r"\tau T")
+        self.assertTrue(self._equal(equation, "T*tau"))
+        # Upsilon
+        equation = tex_to_sympy.test_sympy(r"\upsilon \Upsilon")
+        self.assertTrue(self._equal(equation, "Upsilon*upsilon"))
+        # Phi
+        equation = tex_to_sympy.test_sympy(r"\phi \varphi \Phi")
+        self.assertTrue(self._equal(equation, "phi*(Phi*varphi)"))
+        # Chi
+        equation = tex_to_sympy.test_sympy(r"\chi X")
+        self.assertTrue(self._equal(equation, "X*chi"))
+        # Psi
+        equation = tex_to_sympy.test_sympy(r"\psi \Psi")
+        self.assertTrue(self._equal(equation, "Psi*psi"))
+        # Omega
+        equation = tex_to_sympy.test_sympy(r"\omega \Omega")
+        self.assertTrue(self._equal(equation, "Omega*omega"))
+
+    '''Testing Miscellaneous symps'''
+    def testing_misc_symbols(self):
+        # Infinity
+        equation = tex_to_sympy.test_sympy(r"\infty")
+        self.assertTrue(self._equal(equation, "oo"))
+        # Re
+        equation = tex_to_sympy.test_sympy(r"\Re")
+        self.assertTrue(self._equal(equation, "Re"))
+        # Nabla
+        equation = tex_to_sympy.test_sympy(r"\nabla")
+        self.assertTrue(self._equal(equation, "nabla"))
+        # Partial
+        equation = tex_to_sympy.test_sympy(r"\partial")
+        self.assertTrue(self._equal(equation, "partial"))
+        # Emptyset
+        equation = tex_to_sympy.test_sympy(r"\emptyset")
+        self.assertTrue(self._equal(equation, "emptyset"))
+        # wp
+        equation = tex_to_sympy.test_sympy(r"\wp")
+        self.assertTrue(self._equal(equation, "wp"))
+        # neg
+        equation = tex_to_sympy.test_sympy(r"\neg")
+        self.assertTrue(self._equal(equation, "neg"))
+        # Square command
+        equation = tex_to_sympy.test_sympy(r"\square")
+        self.assertTrue(self._equal(equation, "square"))
+        # Blacksquare command
+        equation = tex_to_sympy.test_sympy(r"\blacksquare")
+        self.assertTrue(self._equal(equation, "blacksquare"))
+        # For all command
+        equation = tex_to_sympy.test_sympy(r"\forall")
+        self.assertTrue(self._equal(equation, "forall"))
+        # Im command
+        equation = tex_to_sympy.test_sympy(r"\Im")
+        self.assertTrue(self._equal(equation, "Im"))
+        # exists command
+        equation = tex_to_sympy.test_sympy(r"\exists")
+        self.assertTrue(self._equal(equation, "exists"))
+        # nexists command
+        equation = tex_to_sympy.test_sympy(r"\nexists")
+        self.assertTrue(self._equal(equation, "nexists"))
+        # varnothing command
+        equation = tex_to_sympy.test_sympy(r"\varnothing")
+        self.assertTrue(self._equal(equation, "varnothing"))
+        # complement command
+        equation = tex_to_sympy.test_sympy(r"\complement")
+        self.assertTrue(self._equal(equation, "complement"))
+        # cdots command
+        equation = tex_to_sympy.test_sympy(r"\cdots")
+        self.assertTrue(self._equal(equation, "cdots"))
+        # surd command
+        equation = tex_to_sympy.test_sympy(r"\surd")
+        self.assertTrue(self._equal(equation, "surd"))
+        # triangle command
+        equation = tex_to_sympy.test_sympy(r"\triangle")
+        self.assertTrue(self._equal(equation, "triangle"))
+
+    '''Testing for binary operation/relation symbols'''
+    def testing_binary_operation_relation_symbols(self):
+        # Times
+        equation = tex_to_sympy.test_sympy(r"3\times2")
+        self.assertTrue(self._equal(equation, "2*3"))
+        # Div
+        equation = tex_to_sympy.test_sympy(r"2\div3")
+        self.assertTrue(self._equal(equation, "2/3"))
+        # Cub
+        equation = tex_to_sympy.test_sympy(r"\cup")
+        self.assertTrue(self._equal(equation, "cup"))
+        # Less than equal
+# [ERROR] -> I don't want this to be False/True, I want leq to expand, not be evaluated
+        equation = tex_to_sympy.test_sympy(r"3\leq2")
+        self.assertTrue(self._equal(equation, "False"))
+        # In
+        equation = tex_to_sympy.test_sympy(r"\in")
+        self.assertTrue(self._equal(equation, "in"))
+        # Nottin
+        equation = tex_to_sympy.test_sympy(r"\notin")
+        self.assertTrue(self._equal(equation, "notin"))
+        # simeq
+        equation = tex_to_sympy.test_sympy(r"\simeq")
+        self.assertTrue(self._equal(equation, "simeq"))
+        # wedge
+        equation = tex_to_sympy.test_sympy(r"\wedge")
+        self.assertTrue(self._equal(equation, "wedge"))
+        # oplus
+        equation = tex_to_sympy.test_sympy(r"\oplus")
+        self.assertTrue(self._equal(equation, "oplus"))
+        # Box
+        equation = tex_to_sympy.test_sympy(r"\Box")
+        self.assertTrue(self._equal(equation, "Box"))
+        # equivalement
+        equation = tex_to_sympy.test_sympy(r"\equiv")
+        self.assertTrue(self._equal(equation, "equiv"))
+        # cap
+        equation = tex_to_sympy.test_sympy(r"\cap")
+        self.assertTrue(self._equal(equation, "cap"))
+        # not equal
+        equation = tex_to_sympy.test_sympy(r"\neq")
+        self.assertTrue(self._equal(equation, "neq"))
+        # greater than equal
+# [ERROR] -> Don't want this to be true/false want it to be expanded not evaluated
+        equation = tex_to_sympy.test_sympy(r"3\geq3")
+        self.assertTrue(self._equal(equation, "True"))
+        # perp
+        equation = tex_to_sympy.test_sympy(r"\perp")
+        self.assertTrue(self._equal(equation, "perp"))
+        # subset
+        equation = tex_to_sympy.test_sympy(r"\subset")
+        self.assertTrue(self._equal(equation, "subset"))
+        # approximately
+        equation = tex_to_sympy.test_sympy(r"\approx")
+        self.assertTrue(self._equal(equation, "approx"))
+        # vee
+        equation = tex_to_sympy.test_sympy(r"\vee")
+        self.assertTrue(self._equal(equation, "vee"))
+        # otimes
+        equation = tex_to_sympy.test_sympy(r"\otimes")
+        self.assertTrue(self._equal(equation, "otimes"))
+        # boxtimes
+        equation = tex_to_sympy.test_sympy(r"\boxtimes")
+        self.assertTrue(self._equal(equation, "boxtimes"))
+        # cong
+        equation = tex_to_sympy.test_sympy(r"\cong")
+        self.assertTrue(self._equal(equation, "cong"))
+
+    '''Testing test_sympy() function'''
+    def testing_test_sympy(self):
+
+        # Function two test
+        equationTwo = tex_to_sympy.test_sympy("\\frac{n!}{k!(n-k)!} = \\binom{n}{k}")
+        self.assertTrue(self._equal(equationTwo, "Eq(factorial(n)/((factorial(k)*factorial(-k + n))), binom*(k*n))"))
+        
+
+
+if __name__ == "__main__":
+    unittest.main()

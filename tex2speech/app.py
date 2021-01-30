@@ -14,7 +14,7 @@ def home():
 
 # Get file after download, feed it to parser
 # Display download.html file
-@app.route("/submit", methods = ['POST'])
+@app.route("/download", methods = ['POST'])
 def render_then_download():
     if request.method == 'POST':
         # Gets file, passes file to aws_polly_render

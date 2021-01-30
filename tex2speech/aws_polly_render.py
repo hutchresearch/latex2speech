@@ -88,7 +88,8 @@ def tts_of_file(file, contents):
 # Converts bytes to string
 def get_text_file(file):
     text = file.read()
-    return str(text, 'utf-8')
+    # return str(text, 'utf-8')
+    return text
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords
