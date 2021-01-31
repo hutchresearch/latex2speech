@@ -1,7 +1,7 @@
-import unittest, TexSoup
+import unittest
 from app import app 
 
-import tex2speech.expand_labels, tex2speech.tex_parser, tex2speech.expand_macros
+import tex2speech.expand_labels, tex2speech.tex_parser
 
 
 class TestExpandLabels(unittest.TestCase):
