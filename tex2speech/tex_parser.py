@@ -17,6 +17,7 @@ class TexParser:
 
         # text = file.read()
         docstr = None
+
         try:
             docstr = str(docContents, 'utf-8')
         except TypeError:
