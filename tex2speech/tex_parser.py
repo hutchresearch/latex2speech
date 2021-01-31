@@ -10,17 +10,17 @@ class TexParser:
         self.latex = ET.parse('./static/pronunciation.xml').getroot()
         self.mathmode = ET.parse('./static/mathmode_pronunciation.xml').getroot()
 
-    def parse(self, file):
+    def parse(self, docContents):
         self.output = ''
         self.envList = []
         self.inTable = False
 
-        text = file.read()
+        # text = file.read()
         docstr = None
         try:
-            docstr = str(text, 'utf-8')
+            docstr = str(docContents, 'utf-8')
         except TypeError:
-            docstr = text
+            docstr = docContents
         docstr = docstr.replace('\n', ' ')
         docstr = docstr.replace('\hline', '')
 
