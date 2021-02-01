@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage{epsfig}
+\usepackage{hyperref}
+\renewcommand{\baselinestretch}{1}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\topmargin}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\parindent}{.3in}
+\begin{document}
+
+\leftline{Pat Q.~Student}
+\leftline{AME 20231}
+\leftline{9 February 2021}
+
+\medskip
+This is a sample file in the text formatter \LaTeX.
+I require you to use it for the following reasons:
+
+\begin{itemize}
+
+\item{It produces the best output of text, figures,
+      and equations of any
+      program I've seen.}
+
+\item{It is machine-independent. It runs on Linux, Macintosh (see {\tt TeXShop}), and Windows (see {\tt MiKTeX}) machines.  There are web-based versions, \href{https://www.overleaf.com}{\tt https://www.overleaf.com}.
+     You can e-mail {\tt ASCII} text versions of most relevant files.}
+
+\item{It is the tool of choice for many research
+     scientists and engineers.
+     Many journals accept 
+     \LaTeX~ submissions, and many books
+     are written in \LaTeX.}
+
+\end{itemize}
+\medskip
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+{\small You can make the text smaller.}
+{\tiny You can make the text tiny.}
+
+Skip a line for a new paragraph.   
+You can use italics ({\em e.g.} {\em  Thermodynamics is everywhere}) or {\bf bold}.
+Greek letters are a snap: $\Psi$, $\psi$,
+$\Phi$, $\phi$.  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+$\left.{\partial T \over \partial P}\right|_{s} = 
+\left.{\partial v \over \partial s}\right|_{P}$.
+You can also set aside equations like so:
+\begin{eqnarray}
+du &=& T\ ds -P\ dv, \qquad \mbox{first law.}\label{fl}\\
+ds &\ge& {\delta q \over T}.\qquad  \qquad \mbox{second law.} \label{sl}
+\end{eqnarray}
+Eq.~(\ref{fl}) is the first law.
+Eq.~(\ref{sl}) is the second law.
+References\footnote{Lamport, L., 1986, {\em \LaTeX: User's Guide \& Reference Manual},
+    Addison-Wesley: Reading, Massachusetts.}
+are available. 
+If you have an postscript file, say {\tt sample.figure.eps}, in the same local directory,
+you can insert the file as a figure.  Figure \ref{sample}, below, plots an isotherm for air modeled as an ideal gas. 
+\begin{figure}[ht]
+\epsfxsize=2.5in
+\centerline{\epsffile{sample.figure.eps}}
+\caption{Sample figure plotting $T=300~{\rm K}$ isotherm for air when modeled as an ideal gas.}
+\label{sample}
+\end{figure}
+
+\medskip
+\leftline{\em Running \LaTeX}
+\medskip
+
+You can create a \LaTeX~ file with any text editor ({\tt vi}, {\tt emacs}, {\tt gedit}, 
+etc.). 
+To get a document, you need to run the \LaTeX~ application
+on the text file.  The text file must have the suffix ``{\tt .tex}''
+On a Linux cluster machine, this is done via the command
+
+\medskip
+{\tt latex file.tex}
+
+\medskip
+\noindent
+This generates three files: {\tt file.dvi}, {\tt file.aux},
+and {\tt file.log}.  The most important is {\tt file.dvi}. 
+
+\medskip
+\noindent
+The finished product can be previewed in the following way.
+Execute the commands:
+
+\medskip
+
+{\tt dvipdf file.dvi}\hspace{1.9in}{\em Linux System}
+
+\medskip
+\noindent
+This command generates {\tt file.pdf}.  
+Alternatively, you can use {\tt TeXShop} on a Macintosh or {\tt MiKTeX} on a Windows-based machine. {\em Another very good and modern option is the web-based} \href{https://www.overleaf.com}{\tt https://www.overleaf.com}.
+The {\tt .tex} file must have a closing statement as
+below.
+
+
+\end{document}

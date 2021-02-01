@@ -9,7 +9,24 @@ class TestExpandLabels(unittest.TestCase):
         return str(doc1) == str(doc2)
 
     def testing_hashContents(self):
-        print("TEST")
+        # Aux file containing single label
+        doc = (r"\newlabel{strings}{{1}{1}{}{equation.0.1}{}}")
+        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        self.assertTrue(self._docsEqual(hashContents['strings'], r"['1', '1', '', 'equation.0.1']"))
+
+        # Aux file contains new labels for equations - together
+        doc = (r"\newlabel{fl}{{1}{1}{}{equation.0.1}{}}" + "\n" +
+            r"\newlabel{sl}{{2}{1}{}{equation.0.1}{}}")
+        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        print(hashContents['fl'])
+        self.assertTrue(self._docsEqual(hashContents['fl'], r"['1', '1', '', 'equation.0.1']"))
+        self.assertTrue(self._docsEqual(hashContents['sl'], r"['2', '1', '', 'equation.0.1']"))
+
+        # Aux file contains new labels for a given figure
+        doc = (r"\newlabel{sample}{{1}{1}{Sample figure plotting $T=300~{\rm K}$ isotherm for air when modeled as an ideal gas}{figure.1}{}}")
+        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        print(hashContents['sample'])
+        self.assertTrue(self._docsEqual(hashContents['sample'], r"['1', '1', 'Sample figure plotting $T=300~\\rm K}$ isotherm for air when modeled as an ideal gas', 'figure.1']"))
 
     def testing_replace(self):
         print("TEST")
