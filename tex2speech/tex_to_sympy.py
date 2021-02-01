@@ -508,10 +508,6 @@ def get_differential_var_str(text):
     return text
 
 def test_sympy(mathmode):
-
-    print(process_sympy(r"x^{n} + y^{n} \ne z^{n}"))
-
-
     return process_sympy(mathmode)
 
 if __name__ == "__main__":
