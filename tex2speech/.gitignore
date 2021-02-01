@@ -133,4 +133,4 @@ dmypy.json
 .pyre/
 
 # IDE Exclusions
-.vscode
+.vscode/*
