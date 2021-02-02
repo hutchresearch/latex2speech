@@ -3,6 +3,9 @@ import unittest
 
 import expand_macros
 
+'''Unit tests for the classes. Since the expandMacro functionality is tested
+   thouroughly in TestExpandDocMacros these are just small tests to test
+   the classes expansion capabilities'''
 class TestCmdMacro(unittest.TestCase):
     def testRelativeExpansion(self):
         doc = TexSoup.TexSoup(r'\newcommand{\a}{\b}\newcommand{\c}{\a}\c')

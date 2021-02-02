@@ -1,5 +1,7 @@
 import unittest
 
+import tex_parser
+
 class TestParser(unittest.TestCase):
     pass
 
