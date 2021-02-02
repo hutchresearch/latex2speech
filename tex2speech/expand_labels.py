@@ -68,15 +68,15 @@ def auxFileHashTable(auxFile):
     # print(hash['sl'])
     # print(hash['tl'])
     # print(hash['sample'])
-    print(hash)
+
     return hash
 
 '''With the hash table that was created, use findall from TexSoup to replace file contents'''
-def replaceReferences(doc, myHash):
+def replaceReferences(contents, myHash):
     # Traverse doc file, replacing them, by looking into hashtable
-    contents = doc.read()
     myDoc = TexSoup.TexSoup(str(contents))
     for name in myHash:
+        print("Syst " + name)
         if (myHash[name][3][0:8] == "equation"):
             old = "Eq.~(\\ref{" + name + "})"
             new = "Equation " + myHash[name][0]
@@ -92,6 +92,7 @@ def replaceReferences(doc, myHash):
         contents = contents.replace(old, new)
 
     print(contents)
+    return contents
 
 def expandDocNewLabels(doc):
     # TODO
@@ -107,7 +108,7 @@ def expandDocNewLabels(doc):
     myHash = auxFileHashTable(auxFile)
 
     # Repalce all references to correct for figures and equations
-    replaceReferences(doc, myHash)
+    replaceReferences(doc.read(), myHash)
 
     # Delete .pdf, .out, .log, and .aux file
     os.remove(split_string[0] + ".log")
@@ -121,7 +122,6 @@ def hashTableTest(contents):
     contents = contents.splitlines()
 
     for line in contents:
-        print(line)
         if (line[0:9] == r"\newlabel"):
             hashObject = []
             count = 1
