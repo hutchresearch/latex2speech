@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ssmlfuncs>
+
+    <!-- User Defined -->
+    <userFunction>
+        <funcname />
+        <text> of </text>
+        <repeat />
+        <arg />
+        <text>, </text>
+    </userFunction>
+
+    <!-- Basic Operators -->
     <Add>
         <arg />
         <repeat />
@@ -20,5 +31,145 @@
         <text> to the power of </text>
         <arg />
     </Pow>
+
+    <!-- Trigonometry -->
+    <sin>
+        <text> sin of </text>
+        <arg />
+    </sin>
+
+    <cos>
+        <text> cosine of </text>
+        <arg />
+    </cos>
+
+    <tan>
+        <text> tangent of </text>
+        <arg />
+    </tan>
+
+    <cot>
+        <text> cotangent of </text>
+        <arg />
+    </cot>
+
+    <sec>
+        <text> secant of </text>
+        <arg />
+    </sec>
+
+    <csc>
+        <text> cosecant of </text>
+        <arg />
+    </csc>
+
+    <asin>
+        <text> arc sin of </text>
+        <arg />
+    </asin>
+
+    <acos>
+        <text> arc cosine of </text>
+        <arg />
+    </acos>
+
+    <atan>
+        <text> arc tangent of </text>
+        <arg />
+    </atan>
+
+    <acot>
+        <text> arc cotangent of </text>
+        <arg />
+    </acot>
+
+    <asec>
+        <text> arc secant of </text>
+        <arg />
+    </asec>
+
+    <acsc>
+        <text> arc cosecant of </text>
+        <arg />
+    </acsc>
+
+    <!-- Numerical -->
+    <ceiling>
+        <text> ceiling of </text>
+        <arg />
+    </ceiling>
+
+    <floor>
+        <text> floor of </text>
+        <arg />
+    </floor>
+
+    <sign>
+        <text> sign of </text>
+        <arg />
+    </sign>
+
+    <Abs>
+        <text> absolute value of </text>
+        <arg />
+    </Abs>
+
+    <Min>
+        <text> minuimum value among </text>
+        <repeat />
+        <arg />
+        <text>, </text>
+    </Min>
+ 
+    <Max>
+        <text> maximum value among </text>
+        <repeat />
+        <arg />
+        <text>, </text>
+    </Max>
+
+    <!-- Imaginary Numbers -->
+    <im>
+        <text> imaginary part of </text>
+        <arg />
+    </im>
+
+    <re>
+        <text> real part of </text>
+        <arg />
+    </re>
+
+    <conjugate>
+        <text> conjugate of </text>
+        <arg />
+    </conjugate>
+
+    <!-- Summation and Series-->
+    <summation>
+        <text> sum of </text>
+        <arg />
+        <text> from </text>
+        <arg />
+        <text> equals </text>
+        <arg />
+        <text> to </text>
+        <arg />
+    </summation>
+
+    <!-- Calculus-->
+    <diff>
+        <text> derivative of </text>
+        <arg />
+        <text> with respect to </text>
+        <arg />
+    </diff>
+    
+    <integrate>
+        <text> integral of </text>
+        <arg />
+        <text> d </text>
+        <arg />
+    </integrate>
+
 </ssmlfuncs>
     
