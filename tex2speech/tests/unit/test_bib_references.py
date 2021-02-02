@@ -1,18 +1,47 @@
-import unittest, TexSoup
+import unittest
 from app import app 
 
-import tex2speech.expand_labels, tex2speech.tex_parser, tex2speech.expand_macros
+import tex2speech.expand_labels, tex2speech.tex_parser
 
 
 class TestExpandLabels(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
         return str(doc1) == str(doc2)
 
+    '''This Unit Test, will test the contents of the hashtable when looking through .aux file contents'''
     def testing_hashContents(self):
-        print("TEST")
+        # Aux file containing single label
+        doc = (r"\newlabel{strings}{{1}{1}{}{equation.0.1}{}}")
+        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        self.assertTrue(self._docsEqual(hashContents['strings'], r"['1', '1', '', 'equation.0.1']"))
+
+        # Aux file contains new labels for equations - together
+        doc = (r"\newlabel{fl}{{1}{1}{}{equation.0.1}{}}" + "\n" +
+            r"\newlabel{sl}{{2}{1}{}{equation.0.1}{}}")
+        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        self.assertTrue(self._docsEqual(hashContents['fl'], r"['1', '1', '', 'equation.0.1']"))
+        self.assertTrue(self._docsEqual(hashContents['sl'], r"['2', '1', '', 'equation.0.1']"))
+
+        # Aux file contains new labels for a given figure
+        doc = (r"\newlabel{sample}{{1}{1}{Sample figure plotting $T=300~{\rm K}$ isotherm for air when modeled as an ideal gas}{figure.1}{}}")
+        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        self.assertTrue(self._docsEqual(hashContents['sample'], r"['1', '1', 'Sample figure plotting $T=300~\\rm K}$ isotherm for air when modeled as an ideal gas', 'figure.1']"))
 
     def testing_replace(self):
-        print("TEST")
+        # Testing single equation in file
+        aux = (r"\newlabel{strings}{{1}{1}{}{equation.0.1}{}}")
+        hash = tex2speech.expand_labels.hashTableTest(aux)
+        doc = r"Eq.~(\ref{strings}) is the first law."
+        replace = tex2speech.expand_labels.replaceReferences(doc, hash)
+        self.assertTrue(self._docsEqual(replace, r"Equation 1 is the first law."))
+
+        # Testing multiple figures
+        aux = (r"\newlabel{sample}{{1}{1}{Sample figure plotting $T=300~{\rm K}$ isotherm for air when modeled as an ideal gas}{figure.1}{}}")
+        hash = tex2speech.expand_labels.hashTableTest(aux)
+        # print(hash['sample'])
+        doc = r"Figure \ref{sample}, below, plots an isotherm for air modeled as an ideal gas."
+        replace = tex2speech.expand_labels.replaceReferences(doc, hash)
+        self.assertTrue(self._docsEqual(replace, r"Figure 1, below, plots an isotherm for air modeled as an ideal gas."))
 
 class TestEmbeddedBibliographies(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
