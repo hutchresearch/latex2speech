@@ -16,7 +16,7 @@
         <arg />
         <text>equals</text>
         <arg />
-    </Equality>
+    </Eq>
     
     <Ne>
         <arg />
