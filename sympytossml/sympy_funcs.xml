@@ -5,171 +5,171 @@
     <!-- User Defined -->
     <userFunction>
         <funcname />
-        <text> of </text>
+        <text>of</text>
         <repeat />
         <arg />
-        <text>, </text>
+        <text>,</text>
     </userFunction>
 
     <!-- Basic Operators -->
     <Add>
         <arg />
         <repeat />
-        <text> plus </text>
+        <text>plus</text>
         <arg />
     </Add>
 
     <Mul>
         <arg />
-        <repeat /> 
-        <text> times </text>
+        <repeat />
+        <text>times</text>
         <arg />
     </Mul>
 
     <Pow>
         <arg />
-        <text> to the power of </text>
+        <text>to the power of</text>
         <arg />
     </Pow>
 
     <!-- Trigonometry -->
     <sin>
-        <text> sin of </text>
+        <text>sin of</text>
         <arg />
     </sin>
 
     <cos>
-        <text> cosine of </text>
+        <text>cosine of</text>
         <arg />
     </cos>
 
     <tan>
-        <text> tangent of </text>
+        <text>tangent of</text>
         <arg />
     </tan>
 
     <cot>
-        <text> cotangent of </text>
+        <text>cotangent of</text>
         <arg />
     </cot>
 
     <sec>
-        <text> secant of </text>
+        <text>secant of</text>
         <arg />
     </sec>
 
     <csc>
-        <text> cosecant of </text>
+        <text>cosecant of</text>
         <arg />
     </csc>
 
     <asin>
-        <text> arc sin of </text>
+        <text>arc sin of</text>
         <arg />
     </asin>
 
     <acos>
-        <text> arc cosine of </text>
+        <text>arc cosine of</text>
         <arg />
     </acos>
 
     <atan>
-        <text> arc tangent of </text>
+        <text>arc tangent of</text>
         <arg />
     </atan>
 
     <acot>
-        <text> arc cotangent of </text>
+        <text>arc cotangent of</text>
         <arg />
     </acot>
 
     <asec>
-        <text> arc secant of </text>
+        <text>arc secant of</text>
         <arg />
     </asec>
 
     <acsc>
-        <text> arc cosecant of </text>
+        <text>arc cosecant of</text>
         <arg />
     </acsc>
 
     <!-- Numerical -->
     <ceiling>
-        <text> ceiling of </text>
+        <text>ceiling of</text>
         <arg />
     </ceiling>
 
     <floor>
-        <text> floor of </text>
+        <text>floor of</text>
         <arg />
     </floor>
 
     <sign>
-        <text> sign of </text>
+        <text>sign of</text>
         <arg />
     </sign>
 
     <Abs>
-        <text> absolute value of </text>
+        <text>absolute value of</text>
         <arg />
     </Abs>
 
     <Min>
-        <text> minuimum value among </text>
+        <text>minuimum value among</text>
         <repeat />
         <arg />
-        <text>, </text>
+        <text>,</text>
     </Min>
  
     <Max>
-        <text> maximum value among </text>
+        <text>maximum value among</text>
         <repeat />
         <arg />
-        <text>, </text>
+        <text>,</text>
     </Max>
 
     <!-- Imaginary Numbers -->
     <im>
-        <text> imaginary part of </text>
+        <text>imaginary part of</text>
         <arg />
     </im>
 
     <re>
-        <text> real part of </text>
+        <text>real part of</text>
         <arg />
     </re>
 
     <conjugate>
-        <text> conjugate of </text>
+        <text>conjugate of</text>
         <arg />
     </conjugate>
 
     <!-- Summation and Series-->
     <summation>
-        <text> sum of </text>
+        <text>sum of</text>
         <arg />
-        <text> from </text>
+        <text>from</text>
         <arg />
-        <text> equals </text>
+        <text>equals</text>
         <arg />
-        <text> to </text>
+        <text>to</text>
         <arg />
     </summation>
 
     <!-- Calculus-->
-    <diff>
-        <text> derivative of </text>
+    <Derivative>
+        <text>derivative of</text>
         <arg />
-        <text> with respect to </text>
+        <text>with respect to</text>
         <arg />
-    </diff>
+    </Derivative>
     
-    <integrate>
-        <text> integral of </text>
+    <Integral>
+        <text>integral of</text>
         <arg />
-        <text> d </text>
+        <text>d</text>
         <arg />
-    </integrate>
+    </Integral>
 
 </ssmlfuncs>
     
