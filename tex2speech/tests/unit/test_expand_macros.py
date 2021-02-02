@@ -5,15 +5,21 @@ import expand_macros
 
 class TestCmdMacro(unittest.TestCase):
     def testRelativeExpansion(self):
-        doc = TexSoup.TexSoup(r'\newcommand{\a}{\b}\newcommand{\b}{\c}\a\b')
+        doc = TexSoup.TexSoup(r'\newcommand{\a}{\b}\newcommand{\c}{\a}\c')
         cmd = expand_macros.CmdMacro(doc.contents[0], {}, {})
         cmdDict = {'a' : cmd}
         cmd = expand_macros.CmdMacro(doc.contents[1], cmdDict, {})
-        cmdOut = cmdDict['a'].expandMacro(doc.contents[2])
-        self.assertEqual(cmdOut, r'\c')
+        cmdOut = cmd.expandMacro(doc.contents[2])
+        self.assertEqual(cmdOut, r'\b')
 
 class TestEnvMacro(unittest.TestCase):
-    pass
+    def testRelativeExpansion(self):
+        doc = TexSoup.TexSoup(r'\newenvironment{a}{\b}{\b}\newenvironment{c}{\begin{a}\end{a}}{\begin{a}\end{a}}\begin{c}\end{c}')
+        env = expand_macros.EnvMacro(doc.contents[0], {}, {})
+        envDict = {'a' : env}
+        env = expand_macros.EnvMacro(doc.contents[1], {}, envDict)
+        envOut = env.expandMacro(doc.contents[2])
+        self.assertEqual(envOut, r'\b\b\b\b')
 
 '''Unit Testing class for the combined functionality'''
 class TestExpandDocMacros(unittest.TestCase):
