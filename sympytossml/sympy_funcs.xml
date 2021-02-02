@@ -16,6 +16,7 @@
         <arg />
         <text>equals</text>
         <arg />
+    </Eq>
     <Add>
         <arg />
         <repeat />

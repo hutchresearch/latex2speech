@@ -5,6 +5,7 @@ quantity_start = 'begin quantity'
 quantity_end = 'end quantity'
 
 def convert_sympy_ssml(expr):
+    print_tree(expr, assumptions = False)
     funcs_tree = ET.parse('sympy_funcs.xml')
     s = _convert(expr, funcs_tree)
     if s[0] == ' ':

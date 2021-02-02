@@ -23,3 +23,6 @@ def test_powmul():
 def test_recursive_basic():
     expr = a * (x + (b * y)) ** b
     assert convert_sympy_ssml(expr) == 'a times begin quantity begin quantity x plus begin quantity b times y end quantity end quantity to the power of b end quantity'
+def test_equals():
+    expr = x = n * a ** 2
+    assert convert_sympy_ssml(expr) == 'x equals begin quantity n times begin quantity a to the power of 2 end quantity end quantity'
