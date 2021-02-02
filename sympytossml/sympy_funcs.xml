@@ -12,6 +12,10 @@
     </userFunction>
 
     <!-- Basic Operators -->
+    <Eq>
+        <arg />
+        <text>equals</text>
+        <arg />
     <Add>
         <arg />
         <repeat />
@@ -31,6 +35,7 @@
         <text>to the power of</text>
         <arg />
     </Pow>
+    <!-- Notation -->
 
     <!-- Trigonometry -->
     <sin>
