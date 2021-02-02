@@ -10,13 +10,45 @@
         <arg />
         <text>,</text>
     </userFunction>
-
-    <!-- Basic Operators -->
+    
+    <!-- Equality -->
     <Eq>
         <arg />
         <text>equals</text>
         <arg />
-    </Eq>
+    </Equality>
+    
+    <Ne>
+        <arg />
+        <text>not equal to</text>
+        <arg />
+    </Ne>
+
+    <Lt>
+        <arg />
+        <text>less than</text>
+        <arg />
+    </Lt>
+
+    <Le>
+        <arg />
+        <text>less than or equal to</text>
+        <arg />
+    </Le>
+
+    <Gt>
+        <arg />
+        <text>greater than</text>
+        <arg />
+    </Gt>
+
+    <Ge>
+        <arg />
+        <text>greater than or equal to</text>
+        <arg />
+    </Ge>
+
+    <!-- Basic Operators -->
     <Add>
         <arg />
         <repeat />
