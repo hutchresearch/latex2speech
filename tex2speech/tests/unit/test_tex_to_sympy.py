@@ -6,6 +6,7 @@ Tai's 2 cents after writing all these unit tests. So far this doesn't like
 regular text. But I was looking at theorems on the wiki page which uses commands
 that requires regular text to sometimes be parsed into here. https://en.wikibooks.org/wiki/LaTeX/Algorithms 
 
+For english words, test if we find a string what happens when we put a \ infront of it
  '''
 
 class TestTexToSympy(unittest.TestCase):
@@ -27,6 +28,9 @@ class TestTexToSympy(unittest.TestCase):
         # Basic Addition and Subtration with negative numbers with 0
         equationThree = tex_to_sympy.test_sympy("-1 - -0 + 2 + 0 - 0 - -3 + -4 - 1")
         self.assertTrue(self._equal(equationThree, "-1 - 4 - 1 + 2 + 3"))
+
+        equation = tex_to_sympy.test_sympy(r"4 apples \times 3 apples")
+        self.assertTrue(self._equal(equation, "-1 - 4 - 1 + 2 + 3"))
 
     '''Testing basic multiplication/division in LaTeX'''
     def testing_multiplication_division(self):
