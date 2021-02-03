@@ -18,7 +18,7 @@ h1 {
     width: 300px;
     padding: 10px 50px;
     text-align: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 
     /* Centers div box */
     position: fixed;
@@ -51,4 +51,10 @@ h1 {
 #uploadButton {
     display: none;
     margin-left: 125px;
+}
+
+.dropzone {
+    border: 2px dashed #0087F7; 
+    margin: 10%; 
+    min-height: 400px;
 }
