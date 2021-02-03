@@ -1,5 +1,11 @@
 import re
 
+'''
+A final dummy clean function that simply removes all illegal 
+instances of <, > and & from an xml string. Absolutely does 
+NOT ensure broken xml will be made valid, but ensures
+valid xml won't break.
+'''
 def cleanXMLString(xmlStr):
     illegalAmpPat = r'(?:&(?!amp;|lt;|gt;|quot;|apos;))' # Finds all & that don't denote a legal entity reference
     illegalLtPat = r'(<)[^<>]*<' # Finds all < that appear before another <
