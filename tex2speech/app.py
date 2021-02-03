@@ -1,8 +1,9 @@
 # Run flask app: python3 -m flask run
 
-from flask import Flask, render_template, request, make_response, session, url_for
+from flask import Flask, render_template, request, make_response, session, url_for, redirect
 from aws_polly_render import start_polly
 from flask_dropzone import Dropzone
+import os
 
 app = Flask(__name__)
 dropzone = Dropzone(app)
@@ -10,63 +11,81 @@ dropzone = Dropzone(app)
 # Dropzone settings
 app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
 app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
-app.config['DROPZONE_ALLOWED_FILE_TYPE'] = '.tex'
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = '.tex, .bib'
+app.config['DROPZONE_REDIRECT_VIEW'] = 'results'
 
 app.config['SECRET_KEY'] = 'something_here'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # List to hold our files
-    file_holder = []
+    # # set session for results
+    if "file_holder" not in session:
+        session['file_holder'] = {}
+
+    if "bilb_holder" not in session:
+        session['bib_holder'] = {}
+
+    # # List to hold our files
+    file_holder = session['file_holder']
+    bib_holder = session['bib_holder']
+
+    file_holder = {}
 
     if request.method == 'POST':
         file_obj = request.files
         for f in file_obj:
-            tempFile = []
             file = request.files.get(f)
-            tempFile.append(file)
+            if os.path.splitext(file.filename)[1] == ".tex":
+                hashObject = []
+                hashObject.append(file.read())
+                file_holder[file.filename] = hashObject
+                print("Tex file")
 
-            # If radio == yes (has .bib)
-            # Append .bib file
-                # tempFile.append(bib)
+            elif os.path.splitext(file.filename)[1] == ".bib":
+                # Hashtable of bib files
+                hashObject = []
+                hashObject.append(file.read())
+                bib_holder[os.path.splitext(file.filename)[0]] = hashObject
+                print("Bib file")
 
-            file_holder.append(tempFile)
-            print (file.filename)
-        return "uploading..."
-    return render_template('index.html')
+        # Add files to session
+        session['file_holder'] = file_holder
+        session['bib_holder'] = bib_holder
+
+        for file in session['file_holder']:
+            print(file)
+
+        for file in session['bib_holder']:
+            print(file)
+
+        # return "uploading..."
+    print("Returned?")
+    return render_template(
+        'index.html'
+    )
     
 @app.route('/download')
 def results():
     print("Is this running??\n")
-    return 0
-    # return render_template('download.html')
+    # redirect to home if no images to display
+    if "file_holder" not in session or session['file_holder'] == []:
+        return redirect(url_for('index'))
+        
+    # set the file_urls and remove the session variable
+    file_holder = session['file_holder']
+    bib_holder = session['bib_holder']
 
-# # Render home page at start of use
-# @app.route("/")
-# def home():
-#     return render_template(
-#         "index.html"
-#     )
+    audio_links = start_polly(file_holder)
 
-# # Get file after download, feed it to parser
-# # Display download.html file
-# @app.route("/download", methods = ['POST'])
-# def render_then_download():
-#     if request.method == 'POST':
-#         # Gets file, passes file to aws_polly_render
-#         file = request.files['file']
-#         audio_link = start_polly(file)
+    return render_template(
+        'download.html',
+        file_holder = file_holder,
+        audio_links = audio_links)
 
-#         # Displays download page, with audio
-#         return render_template(
-#             "download.html",
-#             audio_download = audio_link
-#         )
-
-# # If usr tries going to random page on our web application
-# # through page does not exist
-# @app.route('/<page_name>')
-# def other_page(page_name):
-#     response = make_response('The page named %s does not exist.' \
-#                 % page_name, 404)
-#     return response
+# If usr tries going to random page on our web application
+# through page does not exist
+@app.route('/<page_name>')
+def other_page(page_name):
+    response = make_response('The page named %s does not exist.' \
+                % page_name, 404)
+    return response
