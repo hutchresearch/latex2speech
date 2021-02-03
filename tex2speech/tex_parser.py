@@ -22,8 +22,9 @@ class TexParser:
             docstr = str(docContents, 'utf-8')
         except TypeError:
             docstr = docContents
-        docstr = docstr.replace('\n', ' ')
-        docstr = docstr.replace('\hline', '')
+
+        docstr = str(docstr).replace('\n', ' ')
+        docstr = str(docstr).replace('\hline', '')
 
         doc = TexSoup.TexSoup(docstr)
         doc = expand_macros.expandDocMacros(doc)

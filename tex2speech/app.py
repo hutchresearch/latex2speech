@@ -39,34 +39,26 @@ def index():
                 hashObject = []
                 hashObject.append(file.read())
                 file_holder[file.filename] = hashObject
-                print("Tex file")
+                # print("Tex file")
 
             elif os.path.splitext(file.filename)[1] == ".bib":
                 # Hashtable of bib files
                 hashObject = []
                 hashObject.append(file.read())
                 bib_holder[os.path.splitext(file.filename)[0]] = hashObject
-                print("Bib file")
+                # print("Bib file")
 
         # Add files to session
         session['file_holder'] = file_holder
         session['bib_holder'] = bib_holder
+        return "uploading..."
 
-        for file in session['file_holder']:
-            print(file)
-
-        for file in session['bib_holder']:
-            print(file)
-
-        # return "uploading..."
-    print("Returned?")
     return render_template(
         'index.html'
     )
     
 @app.route('/download')
 def results():
-    print("Is this running??\n")
     # redirect to home if no images to display
     if "file_holder" not in session or session['file_holder'] == []:
         return redirect(url_for('index'))
@@ -75,12 +67,11 @@ def results():
     file_holder = session['file_holder']
     bib_holder = session['bib_holder']
 
-    audio_links = start_polly(file_holder)
+    audio_links = start_polly(file_holder, bib_holder, len(bib_holder))
 
     return render_template(
         'download.html',
-        file_holder = file_holder,
-        audio_links = audio_links)
+        file_audio = zip(file_holder, audio_links))
 
 # If usr tries going to random page on our web application
 # through page does not exist

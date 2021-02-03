@@ -21,10 +21,12 @@
             <!-- <button id = "downloadButton">
                 <a href="{{ audio_download }}">Audio Output</a>
             </button> -->
+
             <ul>
-                {% for file in file_holder %}
-                    <li>{{ file }}</li>
+                {% for file, audio in file_audio %}
+                    <li><a href="{{ audio }}">{{ file }}</a></li>
                 {% endfor %}
+
             </ul>
         </div>
     </div>
