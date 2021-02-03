@@ -59,6 +59,3 @@ def _convert(expr, funcs_tree):
                 repeat_index = j
                 j += 1
     return s
-# x, y, n, a, b = symbols('x y n a b')
-# expr = a + b + x + y
-# print(convert_sympy_ssml(expr))
