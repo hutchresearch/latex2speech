@@ -12,7 +12,7 @@ app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
 app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
 app.config['DROPZONE_ALLOWED_FILE_TYPE'] = '.tex'
 
-# app.config['SECRET_KEY'] = 'something_here'
+app.config['SECRET_KEY'] = 'something_here'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
