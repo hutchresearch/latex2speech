@@ -33,6 +33,7 @@ def index():
 
     if request.method == 'POST':
         file_obj = request.files
+
         for f in file_obj:
             file = request.files.get(f)
             if os.path.splitext(file.filename)[1] == ".tex":
@@ -67,8 +68,9 @@ def results():
     file_holder = session['file_holder']
     bib_holder = session['bib_holder']
 
-    audio_links = start_polly(file_holder, bib_holder, len(bib_holder))
-
+    audio_links = start_polly(file_holder, bib_holder)
+    session.pop('file_holder', None)
+    session.pop('bib_holder', None)
     return render_template(
         'download.html',
         file_audio = zip(file_holder, audio_links))

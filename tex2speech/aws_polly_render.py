@@ -95,14 +95,14 @@ def get_text_file(file):
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords
-def start_polly(fileContents, bibContents, bibLength):
+def start_polly(fileContents, bibContents):
     links = []
     latex_parser = TexParser()
 
     for file in fileContents:
         # Call parser here
-        parsed_contents = latex_parser.parse(fileContents[file][0])
-        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
+        parsed_contents = latex_parser.parse(fileContents[file][0], bibContents)
+        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(file, parsed_contents)

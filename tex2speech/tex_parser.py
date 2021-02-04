@@ -4,16 +4,18 @@ import enum
 import expand_macros, expand_labels
 from doc_cleanup import cleanXMLString
 from tex_soup_utils import seperateContents
+from bib_parser import check_bib
 
 class TexParser:
     def __init__(self):
         self.latex = ET.parse('./static/pronunciation.xml').getroot()
         self.mathmode = ET.parse('./static/mathmode_pronunciation.xml').getroot()
 
-    def parse(self, docContents):
+    def parse(self, docContents, bib):
         self.output = ''
         self.envList = []
         self.inTable = False
+        self.bibFile = bib
 
         # text = file.read()
         docstr = None
@@ -158,6 +160,15 @@ class TexParser:
                     self._parseCmdSub(cmdNode, cmdElem)
                     found = True
             i += 1
+
+        if cmdNode.name == 'bibliography':
+            bib_name = cmdNode.args[0].contents[0]
+            if len(self.bibFile) == 0:
+                self._concatOutput(" There is no corresponding bibliography (dot bib file) found. ")
+            else:
+                output = check_bib(bib_name, self.bibFile)
+                self._concatOutput(output)
+
 
         # Go down next recursive level, excluding arguments
         _,contents = seperateContents(cmdNode)
