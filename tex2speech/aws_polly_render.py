@@ -3,6 +3,7 @@ from typing import Optional
 import os
 import sys
 import requests
+import json
 
 # AWS Libraries
 import boto3
@@ -99,13 +100,9 @@ def start_polly(fileContents, bibContents, bibLength):
     latex_parser = TexParser()
 
     for file in fileContents:
-        content = str(fileContents[file])
-        content = content.lstrip("[")
-        content = content.rstrip("]")
-        print(content)
         # Call parser here
-        parsed_contents = latex_parser.parse(fileContents[file])
-        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
+        parsed_contents = latex_parser.parse(fileContents[file][0])
+        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(file, parsed_contents)

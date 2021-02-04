@@ -37,7 +37,7 @@ def index():
             file = request.files.get(f)
             if os.path.splitext(file.filename)[1] == ".tex":
                 hashObject = []
-                hashObject.append(file.read())
+                hashObject.append(str(file.read(), 'utf-8'))
                 file_holder[file.filename] = hashObject
                 # print("Tex file")
 
