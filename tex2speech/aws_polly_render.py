@@ -99,13 +99,17 @@ def start_polly(fileContents, bibContents, bibLength):
     latex_parser = TexParser()
 
     for file in fileContents:
+        content = str(fileContents[file])
+        content = content.lstrip("[")
+        content = content.rstrip("]")
+        print(content)
         # Call parser here
         parsed_contents = latex_parser.parse(fileContents[file])
-        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
+        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
 
         # Feed to Amazon Polly here
-        audio_link = tts_of_file(file, parsed_contents)
-        # audio_link = "hi"
+        # audio_link = tts_of_file(file, parsed_contents)
+        audio_link = "hi"
         links.append(audio_link)
 
     return links
