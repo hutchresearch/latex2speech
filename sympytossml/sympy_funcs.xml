@@ -12,41 +12,11 @@
     </userFunction>
     
     <!-- Equality -->
-    <Eq>
+    <Equality>
         <arg />
         <text>equals</text>
         <arg />
-    </Eq>
-    
-    <Ne>
-        <arg />
-        <text>not equal to</text>
-        <arg />
-    </Ne>
-
-    <Lt>
-        <arg />
-        <text>less than</text>
-        <arg />
-    </Lt>
-
-    <Le>
-        <arg />
-        <text>less than or equal to</text>
-        <arg />
-    </Le>
-
-    <Gt>
-        <arg />
-        <text>greater than</text>
-        <arg />
-    </Gt>
-
-    <Ge>
-        <arg />
-        <text>greater than or equal to</text>
-        <arg />
-    </Ge>
+    </Equality>
 
     <GreaterThan>
         <arg />
@@ -89,17 +59,54 @@
         <arg />
     </Pow>
 
-    <Xor>
-        <arg />
-        <text> to the power of </text>
-        <arg />
-    <Xor>
-
     <Mod>
         <arg />
         <text>modulus</text>
         <arg />
     </Mod>
+
+    <!-- Logic -->
+    <And>
+        <arg />
+        <repeat />
+        <text>and</text>
+        <arg />
+    </And>
+
+    <Or>
+        <arg />
+        <repeat />
+        <text>or</text>
+        <arg />
+    </Or>
+   
+    <Not>
+        <text>not</text>
+        <repeat />
+        <arg />
+        <text>,</text>
+    </Not>
+
+    <Xor>
+        <arg />
+        <repeat />
+        <text>exclusive or</text>
+        <arg />
+    </Xor>
+
+    <Nand>
+        <arg />
+        <repeat />
+        <text>nand</text>
+        <arg />
+    </Nand>
+
+    <Nor>
+        <arg />
+        <repeat />
+        <text>nor</text>
+        <arg />
+    </Nor>
 
     <!-- Notation -->
 
@@ -233,16 +240,16 @@
     </conjugate>
 
     <!-- Summation and Series-->
-    <summation>
+    <Sum>
         <text>sum of</text>
         <arg />
         <text>from</text>
-        <arg />
+        <subarg />
         <text>equals</text>
-        <arg />
+        <subarg />
         <text>to</text>
-        <arg />
-    </summation>
+        <subarg />
+    </Sum>
 
     <!-- Calculus-->
     <Derivative>

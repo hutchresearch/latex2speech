@@ -40,7 +40,7 @@ def _convert(expr, funcs_tree):
                 j = repeat_index
             
             if func[j].tag == 'arg':
-                if isinstance(expr.args[i], Atom || len(expr.args[i].args == 1):
+                if isinstance(expr.args[i], Atom) or len(expr.args[i].args) == 1:
                     s += _convert(expr.args[i], funcs_tree)
                 else:
                     s += ' ' + quantity_start + _convert(expr.args[i], funcs_tree) + quantity_end + ' '
@@ -48,9 +48,11 @@ def _convert(expr, funcs_tree):
                 i += 1
                 j += 1
             
-            elif func[j].tag == 'subarg'
-                s += _convert(expr.args[i].args[i_sub])
+            elif func[j].tag == 'subarg':
+                s += _convert(expr.args[i].args[i_sub], funcs_tree)
                 i_sub += 1
+                if i_sub == len(expr.args[i].args):
+                    i += 1
                 j += i
 
             elif func[j].tag == 'funcname':
