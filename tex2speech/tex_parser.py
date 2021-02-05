@@ -51,12 +51,21 @@ class TexParser:
     def _parse_bib_file(self, file):
         parser = bibtex.Parser()
         bib_data = parser.parse_string(file)
-        print(bib_data)
+        self._concatOutput("<emphasis level='strong'> References Section </emphasis> <break time='1s'/>")
+        
+        # Looks at bib contents
         for entry in bib_data.entries.values():
-            print(entry.key)
-            print(entry.type)
-            print(entry.persons.keys())
-            print(entry.fields.keys())
+            self._concatOutput("Bibliography item is read as: <break time='0.5s'/>" + entry.key + ". Type: " + entry.type + "<break time='0.5s'/>")
+
+            # Gets authors
+            for en in entry.persons.keys():
+                self._concatOutput("Authors: ")
+                for author in bib_data.entries[entry.key].persons[en]:
+                    self._concatOutput(str(author) + ", <break time='0.3s'/>")
+
+            # Gets all other key - value pairs and reads them out
+            for en in entry.fields.keys():
+                self._concatOutput(str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>"))
 
     # Flip switch for true/false in environment
     # This might be able to done better, when printing node
@@ -178,7 +187,6 @@ class TexParser:
                 self._concatOutput(" There is no corresponding bibliography (dot bib file) found. ")
             else:
                 if bib_name in self.bibFile:
-                    print("There is!")
                     bib_file = str(self.bibFile.get(bib_name)[0], 'utf-8')
                     self._parse_bib_file(bib_file)
                 else:
