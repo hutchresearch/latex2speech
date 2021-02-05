@@ -5,7 +5,7 @@ quantity_start = 'begin quantity'
 quantity_end = 'end quantity'
 
 def convert_sympy_ssml(expr):
-    print_tree(expr, assumptions = False)
+    #print_tree(expr, assumptions = False)
     funcs_tree = ET.parse('sympy_funcs.xml')
     s = _convert(expr, funcs_tree)
     if s[0] == ' ':
@@ -31,6 +31,7 @@ def _convert(expr, funcs_tree):
         s += ' ' + str(expr) + ' '
     else:
         i = 0
+        i_sub = 0
         j = 0
         repeat_index = 0
         
@@ -39,13 +40,19 @@ def _convert(expr, funcs_tree):
                 j = repeat_index
             
             if func[j].tag == 'arg':
-                if isinstance(expr.args[i], Atom):
+                if isinstance(expr.args[i], Atom || len(expr.args[i].args == 1):
                     s += _convert(expr.args[i], funcs_tree)
                 else:
                     s += ' ' + quantity_start + _convert(expr.args[i], funcs_tree) + quantity_end + ' '
+                i_sub = 0
                 i += 1
                 j += 1
             
+            elif func[j].tag == 'subarg'
+                s += _convert(expr.args[i].args[i_sub])
+                i_sub += 1
+                j += i
+
             elif func[j].tag == 'funcname':
                 s += ' ' + func_id + ' '
                 j += 1
