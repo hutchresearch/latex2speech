@@ -4,7 +4,7 @@ import enum
 import expand_macros, expand_labels
 from doc_cleanup import cleanXMLString
 from tex_soup_utils import seperateContents
-from bib_parser import check_bib
+from pybtex.database.input import bibtex
 
 class TexParser:
     def __init__(self):
@@ -46,6 +46,17 @@ class TexParser:
             self.output += string
         else:
             self.output += ' ' + string
+
+    # Parsing .bib files helper
+    def _parse_bib_file(self, file):
+        parser = bibtex.Parser()
+        bib_data = parser.parse_string(file)
+        print(bib_data)
+        for entry in bib_data.entries.values():
+            print(entry.key)
+            print(entry.type)
+            print(entry.persons.keys())
+            print(entry.fields.keys())
 
     # Flip switch for true/false in environment
     # This might be able to done better, when printing node
@@ -166,9 +177,12 @@ class TexParser:
             if len(self.bibFile) == 0:
                 self._concatOutput(" There is no corresponding bibliography (dot bib file) found. ")
             else:
-                output = check_bib(bib_name, self.bibFile)
-                self._concatOutput(output)
-
+                if bib_name in self.bibFile:
+                    print("There is!")
+                    bib_file = str(self.bibFile.get(bib_name)[0], 'utf-8')
+                    self._parse_bib_file(bib_file)
+                else:
+                    self._concatOutput(" There is no corresponding bibliography (dot bib file) found. ")
 
         # Go down next recursive level, excluding arguments
         _,contents = seperateContents(cmdNode)

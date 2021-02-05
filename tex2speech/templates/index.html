@@ -15,19 +15,24 @@
 </header>
 
 <body>
+    
     <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
 
     <!-- <div class="inputBox"> -->
 
         <!-- File to upload -->
-        <!-- <h3>Select file to upload</h3>
-        <form action = "/download" method = POST enctype = multipart/form-data> 
-            <div class="formBox">
-                <input type = file name = file accept = ".tex" id = "uploadFile">
-            </div>
-            <input id = "uploadButton" type = submit>
-        </form> -->
         {{ dropzone.create(action_view='index') }}
+        <!-- {{ dropzone.config(custom_init='dz = this;document.getElementById("sub").addEventListener("click", function handler(e) {dz.processQueue();});',
+        custom_options='autoProcessQueue: false, addRemoveLinks: true, parallelUploads: 20,') }} -->
+
+        <!-- <h3>Select file to upload</h3> -->
+        <!-- <form action = "/download" class = "submitForm" method = POST enctype = multipart/form-data>  -->
+            <!-- <div class="formBox">
+                <input type = file name = file accept = ".tex" id = "uploadFile">
+            </div> -->
+            <!-- <input id = "sub" type = submit> -->
+            <!-- <input id = "uploadButton" type = submit> -->
+        <!-- </form> -->
     <!-- </div> -->
     <br>
 </body>

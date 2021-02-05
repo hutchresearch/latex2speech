@@ -58,3 +58,8 @@ h1 {
     margin: 10%; 
     min-height: 400px;
 }
+
+#submitForm {
+    margin: 10%;
+    margin-top: 30%;
+}

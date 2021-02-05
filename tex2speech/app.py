@@ -18,24 +18,26 @@ app.config['SECRET_KEY'] = 'something_here'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # # set session for results
+    # set session for results
     if "file_holder" not in session:
         session['file_holder'] = {}
 
     if "bilb_holder" not in session:
         session['bib_holder'] = {}
 
-    # # List to hold our files
+    # List to hold our files
     file_holder = session['file_holder']
     bib_holder = session['bib_holder']
 
     file_holder = {}
+    bib_holder = {}
 
     if request.method == 'POST':
         file_obj = request.files
 
         for f in file_obj:
             file = request.files.get(f)
+            print(file.filename)
             if os.path.splitext(file.filename)[1] == ".tex":
                 hashObject = []
                 hashObject.append(str(file.read(), 'utf-8'))
@@ -74,6 +76,30 @@ def results():
     return render_template(
         'download.html',
         file_audio = zip(file_holder, audio_links))
+
+# Render home page at start of use
+# @app.route("/")
+# def index():
+#     return render_template(
+#         "index.html"
+#     )
+
+# # Get file after download, feed it to parser
+# # Display download.html file
+# @app.route("/download", methods = ['POST'])
+# def render_then_download():
+#     if request.method == 'POST':
+#         # Gets file, passes file to aws_polly_render
+#         # file = request.files['file']
+#         # audio_link = start_polly(file)
+#         file_obj = request.files
+#         print(len(file_obj))
+#         for f in file_obj:
+#             print(f.filename)
+#         # Displays download page, with audio
+#         return render_template(
+#             "download.html"
+#         )
 
 # If usr tries going to random page on our web application
 # through page does not exist
