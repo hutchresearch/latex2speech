@@ -1,13 +1,24 @@
+from SSMLParsing.ssml_element import SSMLElement
+
 class ConversionDB:
-    def getCmdConv(self, name: str) -> list[SSMLElement]:
+    def getCmdConv(self, name: str) -> list:
         raise NotImplementedError()
 
-    def getEnvConv(self, env: str) -> list[SSMLElement]:
+    def getEnvConv(self, name: str) -> list:
         raise NotImplementedError()
-
-class XMLConversionDB(ConversionDB):
-    def __init__(self, xmlFile: file):
+    
+    def getEnvCommands(self, name: str) -> dict:
         pass
 
-    def getCmdConv(self, name: str) -> list[SSMLElement]:
+class XMLConversionDB(ConversionDB):
+    def __init__(self, xmlFile):
+        pass
+
+    def getCmdConversion(self, name: str) -> list:
+        pass
+
+    def getEnvConversion(self, name: str) -> list:
+        pass
+
+    def getEnvCommands(self, name: str) -> dict:
         pass

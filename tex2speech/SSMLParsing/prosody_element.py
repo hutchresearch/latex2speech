@@ -1,4 +1,4 @@
-from ssml_element import SSMLElement
+from SSMLParsing.ssml_element import SSMLElement
 
 class ProsodyElement(SSMLElement):
     def __init__(self, parent):
