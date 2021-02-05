@@ -13,18 +13,18 @@ dropzone = Dropzone(app)
 app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
 app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
 app.config['DROPZONE_ALLOWED_FILE_TYPE'] = '.tex, .bib'
-# app.config['DROPZONE_REDIRECT_VIEW'] = 'results'
-# Uploads settings
+
+# Upload Settings
 app.config['UPLOAD_FOLDER'] = os.getcwd() + '/upload'
 
-app.config['SECRET_KEY'] = 'something_here'
-
+# Home page
 @app.route('/')
 def index():
     return render_template(
         'index.html'
     )
 
+# Redirected if post method to download page
 @app.route('/download', methods=['POST'])
 def results():
     file_obj = request.files
@@ -44,8 +44,8 @@ def results():
     audio_links = start_polly(file_holder, bib_holder)
 
     return render_template(
-        'download.html',
-        file_audio = zip(file_holder, audio_links))
+        'download.html')
+        # file_audio = zip(file_holder, audio_links))
 
 # If usr tries going to random page on our web application
 # through page does not exist
