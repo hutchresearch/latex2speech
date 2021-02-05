@@ -1,4 +1,4 @@
-from ssml_element import SSMLElement
+from SSMLParsing.ssml_element import SSMLElement
 
 class RootElement(SSMLElement):
     def __init__(self, parent):
