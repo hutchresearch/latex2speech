@@ -89,18 +89,18 @@
         <arg />
     </Pow>
 
+    <Xor>
+        <arg />
+        <text> to the power of </text>
+        <arg />
+    <Xor>
+
     <Mod>
         <arg />
         <text>modulus</text>
         <arg />
     </Mod>
 
-    <!-- Check later if this is correct -->
-    <sqrt> 
-        <arg />
-        <text>to the square root of</text>
-        <arg />
-    </sqrt>
     <!-- Notation -->
 
     <!-- Trigonometry -->
