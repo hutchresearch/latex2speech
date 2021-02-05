@@ -1,6 +1,7 @@
 Each sympy object supported by sympytossml is represented by an entry in sympy_funcs.xml.
 The tag of this entry must be the name of the sympy class, which can be found on docs.sympy.org.
-The program will use this entry to parse through the function in a linear fashion. It parses through the XML tags and the args array of the Sympy class in parallel, so the first instance of <arg /> in the XML element will be the first argument in the Sympy args array, unless it is after a <repeat /> tag.
+The program will use this entry to parse through the function in a linear fashion. 
+It parses through the XML tags and the args array of the Sympy class in parallel, so the first instance of <arg /> in the XML element is always the first argument in the Sympy args array, unless it is after a <repeat /> tag.
 
 XML Tags:
 
