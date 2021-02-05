@@ -16,7 +16,7 @@
         <arg />
         <text>equals</text>
         <arg />
-    </Equality>
+    </Eq>
     
     <Ne>
         <arg />
@@ -48,6 +48,26 @@
         <arg />
     </Ge>
 
+    <GreaterThan>
+        <arg />
+        <text>greater than or equal to</text>
+    </GreaterThan>
+
+    <LessThan>
+        <arg />
+        <text>less than or equal to</text>
+    </LessThan>
+
+    <StrictGreaterThan>
+        <arg />
+        <text>greater than</text>
+    </StrictGreaterThan>
+
+    <StrictLessThan>
+        <arg />
+        <text>less than</text>
+    </StrictLessThan>
+
     <!-- Basic Operators -->
     <Add>
         <arg />
@@ -68,6 +88,19 @@
         <text>to the power of</text>
         <arg />
     </Pow>
+
+    <Xor>
+        <arg />
+        <text> to the power of </text>
+        <arg />
+    <Xor>
+
+    <Mod>
+        <arg />
+        <text>modulus</text>
+        <arg />
+    </Mod>
+
     <!-- Notation -->
 
     <!-- Trigonometry -->
@@ -165,6 +198,23 @@
         <arg />
         <text>,</text>
     </Max>
+
+    <!-- Numbers -->
+    <NaN>
+        <text>Not a number</text>
+    </NaN>
+
+    <Infinity>
+        <text>Infinity</text>
+    </Infinity>
+
+    <NegativeInfinity>
+        <text>Negative Infinity</text>
+    </NegativeInfinity>
+
+    <Pi>
+        <text>Pi</text>
+    </Pi>
 
     <!-- Imaginary Numbers -->
     <im>

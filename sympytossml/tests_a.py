@@ -1,4 +1,4 @@
-from sympy import *
+from sympy import symbols
 import pytest
 from sympytossml import *
 
@@ -26,3 +26,4 @@ def test_recursive_basic():
 def test_equals():
     expr = x = n * a ** 2
     assert convert_sympy_ssml(expr) == 'x equals begin quantity n times begin quantity a to the power of 2 end quantity end quantity'
+

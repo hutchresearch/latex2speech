@@ -7,6 +7,7 @@ quantity_end = 'end quantity'
 def convert_sympy_ssml(expr):
     #print_tree(expr, assumptions = False)
     funcs_tree = ET.parse('sympy_funcs.xml')
+    print("TESTING EXP \n\n" + expr)
     s = _convert(expr, funcs_tree)
     if s[0] == ' ':
         s = s[1:]
@@ -65,4 +66,3 @@ def _convert(expr, funcs_tree):
                 repeat_index = j
                 j += 1
     return s
-                 
