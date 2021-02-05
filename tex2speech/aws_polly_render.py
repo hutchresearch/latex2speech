@@ -11,7 +11,6 @@ from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
 
 # Parsing Library
-from parser_manager import start_parsing
 from tex_parser import TexParser
 
 # Creates session of user using AWS credentials
@@ -20,6 +19,9 @@ session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_ke
 # Creates objects of use
 polly = session.client("polly")
 s3 = session.client("s3")
+
+# Path to upload
+path = os.getcwd() + '/upload'
 
 # Generate a presigned URL for the S3 object so any user can download
 def create_presigned_url(bucket_name, object_name, expiration=3600):    
@@ -100,9 +102,16 @@ def start_polly(fileContents, bibContents):
     latex_parser = TexParser()
 
     for file in fileContents:
+        myFile = path + "/" + file
+        fileObj = open(myFile, "r")
+
         # Call parser here
-        parsed_contents = latex_parser.parse(fileContents[file][0], bibContents)
-        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
+        parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
+
+        # Remove file
+        os.remove(myFile)
+
+        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(file, parsed_contents)

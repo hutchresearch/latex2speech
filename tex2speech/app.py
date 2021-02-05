@@ -19,54 +19,29 @@ app.config['UPLOAD_FOLDER'] = os.getcwd() + '/upload'
 
 app.config['SECRET_KEY'] = 'something_here'
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    # set session for results
-    if "file_holder" not in session:
-        session['file_holder'] = []
-
-    if "bilb_holder" not in session:
-        session['bib_holder'] = []
-
-    # List to hold our files
-    file_holder = session['file_holder']
-    bib_holder = session['bib_holder']
-
-    if request.method == 'POST':
-        file_obj = request.files
-
-        for f in file_obj:
-            file = request.files.get(f)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-
-            if os.path.splitext(file.filename)[1] == ".tex":
-                file_holder.append(file.filename)
-            elif os.path.splitext(file.filename)[1] == ".bib":
-                bib_holder.append(file.filename)
-
-        # Add files to session
-        session['file_holder'] = file_holder
-        session['bib_holder'] = bib_holder
-        return redirect(url_for('results'))
-        # return "uploading..."
-
     return render_template(
         'index.html'
     )
-    
-@app.route('/download')
+
+@app.route('/download', methods=['POST'])
 def results():
-    # redirect to home if no images to display
-    if "file_holder" not in session or session['file_holder'] == []:
-        return redirect(url_for('index'))
-        
-    # set the file_urls and remove the session variable
-    file_holder = session['file_holder']
-    bib_holder = session['bib_holder']
+    file_obj = request.files
+    file_holder = []
+    bib_holder = []
+
+    for f in file_obj:
+        file = request.files.get(f)
+        print(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+
+        if os.path.splitext(file.filename)[1] == ".tex":
+            file_holder.append(file.filename)
+        elif os.path.splitext(file.filename)[1] == ".bib":
+            bib_holder.append(file.filename)
 
     audio_links = start_polly(file_holder, bib_holder)
-    session.pop('file_holder', None)
-    session.pop('bib_holder', None)
 
     return render_template(
         'download.html',
