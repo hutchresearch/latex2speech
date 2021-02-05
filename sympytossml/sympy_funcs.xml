@@ -2,7 +2,7 @@
 
 <ssmlfuncs>
 
-    <!-- User Defined -->
+    <!-- User Defined or Unsupported Function -->
     <userFunction>
         <funcname />
         <text>of</text>
@@ -208,19 +208,19 @@
 
     <!-- Numbers -->
     <NaN>
-        <text>Not a number</text>
+        <text>not a number</text>
     </NaN>
 
     <Infinity>
-        <text>Infinity</text>
+        <text>infinity</text>
     </Infinity>
 
     <NegativeInfinity>
-        <text>Negative Infinity</text>
+        <text>negative infinity</text>
     </NegativeInfinity>
 
     <Pi>
-        <text>Pi</text>
+        <text>pi</text>
     </Pi>
 
     <!-- Imaginary Numbers -->
