@@ -23,8 +23,8 @@
     {{ dropzone.config(custom_init='dz = this;document.getElementById("sub").addEventListener("click", function handler(e) {e.preventDefault();dz.processQueue();});',
     custom_options='autoProcessQueue: false, addRemoveLinks: true, parallelUploads: 20,') }}
 
-    <form action = "/download" class = "submitForm" method = POST enctype = multipart/form-data> 
-        <input id = "sub" type = submit>
+    <form action = "" class = "submitForm" method = POST enctype = multipart/form-data> 
+        <input id = "sub" onclick = "direct()" type = submit>
     </form>
     <br>
 </body>

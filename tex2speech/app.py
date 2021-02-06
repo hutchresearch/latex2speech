@@ -24,8 +24,12 @@ def index():
         'index.html'
     )
 
+@app.route('/')
+def upload():
+    return "uploading..."
+
 # Redirected if post method to download page
-@app.route('/upload', methods=['POST'])
+@app.route('/download', methods=['POST'])
 def results():
     file_obj = request.files
     file_holder = []
@@ -33,7 +37,6 @@ def results():
 
     for f in file_obj:
         file = request.files.get(f)
-        print(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
 
         if os.path.splitext(file.filename)[1] == ".tex":
@@ -43,16 +46,14 @@ def results():
 
     audio_links = start_polly(file_holder, bib_holder)
     print(audio_links)
-    return redirect(url_for('download'))
-    return render_template(
-        'upload.html')
 
-@app.route('/download')
-def download():
-    print("RUNS HERE???")
+    file_audio = zip(file_holder, audio_links)
+    for file, audio in file_audio:
+        print(file + " " + str(audio))
+
     return render_template(
-        'download.html')
-        # file_audio = zip(file_holder, audio_links))
+        'download.html',
+        file_audio = zip(file_holder, audio_links))
 
 # If usr tries going to random page on our web application
 # through page does not exist
