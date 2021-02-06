@@ -10,22 +10,20 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}" />
 </head>
 
+<header>
+    {{ dropzone.load() }}
+</header>
+
 <body>
+    
     <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
 
-    <div class="inputBox">
-
-        <!-- File to upload -->
-        <h3>Select file to upload</h3>
-        <form action = "/download" method = POST enctype = multipart/form-data> 
-            <div class="formBox">
-                <input type = file name = file accept = ".tex" id = "uploadFile">
-            </div>
-            <input id = "uploadButton" type = submit>
-        </form>
-
-    </div>
-    <br>
+    <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post">
+        {{ dropzone.create() }}
+        <input type="submit" id="submit" value="Submit and Upload">
+    </form>
+    {{ dropzone.load_js() }}
+    {{ dropzone.config() }}
 </body>
 
 <!-- JavaScript Files -->

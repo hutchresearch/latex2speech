@@ -2,18 +2,22 @@ import TexSoup
 import xml.etree.ElementTree as ET
 import enum
 import expand_macros, expand_labels
+import os
 from doc_cleanup import cleanXMLString
 from tex_soup_utils import seperateContents
+from pybtex.database.input import bibtex
 
 class TexParser:
     def __init__(self):
         self.latex = ET.parse('./static/pronunciation.xml').getroot()
         self.mathmode = ET.parse('./static/mathmode_pronunciation.xml').getroot()
 
-    def parse(self, docContents):
+    def parse(self, docContents, bib):
         self.output = ''
         self.envList = []
         self.inTable = False
+        self.bibFile = bib
+        self.path = os.getcwd() + '/upload'
 
         # text = file.read()
         docstr = None
@@ -22,8 +26,9 @@ class TexParser:
             docstr = str(docContents, 'utf-8')
         except TypeError:
             docstr = docContents
-        docstr = docstr.replace('\n', ' ')
-        docstr = docstr.replace('\hline', '')
+
+        docstr = str(docstr).replace('\n', ' ')
+        docstr = str(docstr).replace('\hline', '')
 
         doc = TexSoup.TexSoup(docstr)
         doc = expand_macros.expandDocMacros(doc)
@@ -43,6 +48,34 @@ class TexParser:
             self.output += string
         else:
             self.output += ' ' + string
+
+    # Parsing .bib files helper
+    def _parse_bib_file(self, name):
+        for val in self.bibFile:
+            if val == name + ".bib":
+                fileObj = open(self.path + "/" + val, "r")
+                contents = fileObj.read()
+                
+                parser = bibtex.Parser()
+                bib_data = parser.parse_string(contents)
+                self._concatOutput("<emphasis level='strong'> References Section </emphasis> <break time='1s'/>")
+                
+                # Looks at bib contents
+                for entry in bib_data.entries.values():
+                    self._concatOutput("Bibliography item is read as: <break time='0.5s'/>" + entry.key + ". Type: " + entry.type + "<break time='0.5s'/>")
+
+                    # Gets authors
+                    for en in entry.persons.keys():
+                        self._concatOutput("Authors: ")
+                        for author in bib_data.entries[entry.key].persons[en]:
+                            self._concatOutput(str(author) + ", <break time='0.3s'/>")
+
+                    # Gets all other key - value pairs and reads them out
+                    for en in entry.fields.keys():
+                        self._concatOutput(str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>"))
+
+                os.remove(self.path + "/" + val)
+                break
 
     # Flip switch for true/false in environment
     # This might be able to done better, when printing node
@@ -157,6 +190,16 @@ class TexParser:
                     self._parseCmdSub(cmdNode, cmdElem)
                     found = True
             i += 1
+
+        if cmdNode.name == 'bibliography':
+            bib_name = cmdNode.args[0].contents[0]
+            if len(self.bibFile) == 0:
+                self._concatOutput(" There is no corresponding bibliography (dot bib file) found. ")
+            else:
+                if bib_name + ".bib" in self.bibFile:
+                    self._parse_bib_file(bib_name)
+                else:
+                    self._concatOutput(" There is no corresponding bibliography (dot bib file) found. ")
 
         # Go down next recursive level, excluding arguments
         _,contents = seperateContents(cmdNode)
