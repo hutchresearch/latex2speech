@@ -112,7 +112,7 @@
 
     <!-- Trigonometry -->
     <sin>
-        <text>sin of</text>
+        <text>sine of</text>
         <arg />
     </sin>
 
@@ -142,7 +142,7 @@
     </csc>
 
     <asin>
-        <text>arc sin of</text>
+        <text>arc sine of</text>
         <arg />
     </asin>
 
@@ -171,11 +171,64 @@
         <arg />
     </acsc>
 
+    <!-- Would we rather want this to be pronounced "shine of"? -->
+    <sinh>
+        <text>hyperbolic sine of</text>
+        <arg />
+    </sinh>
+
+    <!-- Would we rather want this to be pronounced "cosh of"? -->
+    <cosh>
+        <text>hyperbolic cosine of</text>
+        <arg />
+    </cosh>
+
+    <!-- Would we rather want this to be pronounced "than of"? -->
+    <tanh>
+        <text>hyperbolic tangent of</text>
+        <arg />
+    </tanh>
+
+    <coth>
+        <text>hyberbolic cotangent of</text>
+        <arg />
+    </coth>
+
+    <sech>
+        <text>hyberbolic secant of</text>
+        <arg />
+    </sech>
+
+    <csch>
+        <text>Hyperbolic cosecant</text>
+        <arg />
+    </csch>
+
+    <log>
+        <text>log of</text>
+        <arg />
+    </log>
+
+    <!-- Operators -->
+    <deg>
+        <arg />
+        <text>degrees</text>
+    </deg>
+
+    <gcd>
+        <text>greatest common divisor</text>
+    </gcd>
+
     <!-- Numerical -->
     <ceiling>
         <text>ceiling of</text>
         <arg />
     </ceiling>
+
+    <ceil>
+        <text>ceiling of</text>
+        <arg />
+    </ceil>
 
     <floor>
         <text>floor of</text>
@@ -205,6 +258,11 @@
         <arg />
         <text>,</text>
     </Max>
+
+    <!-- Greek -->
+    <Pi>
+        <text>pi</text>
+    </Pi>
 
     <!-- Imaginary Numbers -->
     <im>
