@@ -25,7 +25,7 @@ def index():
     )
 
 # Redirected if post method to download page
-@app.route('/download', methods=['POST'])
+@app.route('/upload', methods=['POST'])
 def results():
     file_obj = request.files
     file_holder = []
@@ -42,7 +42,14 @@ def results():
             bib_holder.append(file.filename)
 
     audio_links = start_polly(file_holder, bib_holder)
+    print(audio_links)
+    return redirect(url_for('download'))
+    return render_template(
+        'upload.html')
 
+@app.route('/download')
+def download():
+    print("RUNS HERE???")
     return render_template(
         'download.html')
         # file_audio = zip(file_holder, audio_links))
