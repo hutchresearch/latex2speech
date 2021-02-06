@@ -64,7 +64,11 @@ h1 {
     margin-top: 30%;
 }
 
-#sub {
-    height: 50px;
-    width: 100px;
+#submit {
+    margin-left: 10%
+}
+
+#dropzone {
+    margin-top: 5%;
+    margin-bottom: 5%
 }
