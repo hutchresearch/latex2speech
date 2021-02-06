@@ -2,7 +2,7 @@
 
 import os
 
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
 from aws_polly_render import start_polly
 
@@ -25,6 +25,7 @@ app.config.update(
 
 dropzone = Dropzone(app)
 app.config['SECRET_KEY'] = 'mah_key'
+app.config['CUSTOM_STATIC_PATH'] = os.path.join(basedir, 'upload')
 
 @app.route('/')
 def index():
@@ -68,8 +69,6 @@ def handle_form():
     # redirect to home if nothing in session
     if "file_holder" not in session or session['file_holder'] == []:
         return redirect(url_for('index'))
-
-    print("TEST")
 
     file_holder = session['file_holder']
     audio = session['audio']

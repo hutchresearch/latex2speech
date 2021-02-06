@@ -24,6 +24,9 @@ polly = session.client("polly")
 # Path to upload
 path = os.getcwd() + '/upload'
 
+# Path to static
+static_path = os.getcwd() + '/static'
+
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file, contents):
@@ -43,13 +46,11 @@ def tts_of_file(file, contents):
                 output = objectName
 
                 try:
-                    # Open a file for writing the output as a binary stream
-                    with open(output, "wb") as file:
-                        file.write(stream.read())  
+                    # Put audio in static file (Wnat to put it in uploads fiolder later)
+                    name = os.path.join(static_path, objectName)
+                    with open(name, "wb") as file:
+                        file.write(stream.read())
 
-                    # Download to user's local machine
-
-                    # Delete file
                 except IOError as error:
                     # Could not write to file, exit gracefully
                     print(error)
