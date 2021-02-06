@@ -30,6 +30,7 @@ app.config['SECRET_KEY'] = 'mah_key'
 def index():
     return render_template('index.html')
 
+# Upload middle man
 @app.route('/upload', methods=['POST'])
 def handle_upload():
     session.pop('file_holder', None)
@@ -61,7 +62,7 @@ def handle_upload():
 
     return '', 204
 
-
+# Download resulting output page
 @app.route('/form', methods=['POST'])
 def handle_form():
     # redirect to home if nothing in session
