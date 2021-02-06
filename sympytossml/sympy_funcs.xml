@@ -206,23 +206,6 @@
         <text>,</text>
     </Max>
 
-    <!-- Numbers -->
-    <NaN>
-        <text>not a number</text>
-    </NaN>
-
-    <Infinity>
-        <text>infinity</text>
-    </Infinity>
-
-    <NegativeInfinity>
-        <text>negative infinity</text>
-    </NegativeInfinity>
-
-    <Pi>
-        <text>pi</text>
-    </Pi>
-
     <!-- Imaginary Numbers -->
     <im>
         <text>imaginary part of</text>
