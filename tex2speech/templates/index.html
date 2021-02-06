@@ -18,15 +18,16 @@
     
     <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
 
-    <!-- File to upload -->
-    {{ dropzone.create(action_view='results') }}
-    {{ dropzone.config(custom_init='dz = this;document.getElementById("sub").addEventListener("click", function handler(e) {e.preventDefault();dz.processQueue();});',
-    custom_options='autoProcessQueue: false, addRemoveLinks: true, parallelUploads: 20,') }}
-
-    <form action = "" class = "submitForm" method = POST enctype = multipart/form-data> 
-        <input id = "sub" onclick = "direct()" type = submit>
+    <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title"/><br>
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description"/><br>
+        {{ dropzone.create() }}
+        <input type="submit" id="submit" value="Submit and Upload">
     </form>
-    <br>
+    {{ dropzone.load_js() }}
+    {{ dropzone.config() }}
 </body>
 
 <!-- JavaScript Files -->

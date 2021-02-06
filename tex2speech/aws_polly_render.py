@@ -4,6 +4,7 @@ import os
 import sys
 import requests
 import json
+import urllib.request
 
 # AWS Libraries
 import boto3
@@ -44,7 +45,7 @@ def tts_of_file(file, contents):
                 try:
                     # Open a file for writing the output as a binary stream
                     with open(output, "wb") as file:
-                        file.write(stream.read())
+                        file.write(stream.read())  
 
                     # Download to user's local machine
 
@@ -54,7 +55,7 @@ def tts_of_file(file, contents):
                     print(error)
                     sys.exit(-1)
 
-        # return audio_link
+        return objectName
 
     except (BotoCoreError, ClientError) as error:
         # Error and exit

@@ -21,7 +21,7 @@
                 <a href="{{ audio_download }}">Audio Output</a>
             </button> -->
             {% for file, audio in file_audio %}
-                <li>Link to audio download (Click to download): <a href="{{ audio }}">{{ file }}</a></li>
+                <li>Link to audio download (Click to download): <a href="/tex2speech/{{ audio }}" download>{{ file }}</a></li>
             {% endfor %}
         </div>
     </div>

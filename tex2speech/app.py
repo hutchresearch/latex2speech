@@ -1,64 +1,87 @@
-# Run flask app: python3 -m flask run
+# # Run flask app: python3 -m flask run
 
-from flask import Flask, render_template, request, make_response, session, url_for, redirect
-from aws_polly_render import start_polly
-from flask_dropzone import Dropzone
-from werkzeug.utils import secure_filename
 import os
 
+from flask import Flask, render_template, request, session, redirect, url_for
+from flask_dropzone import Dropzone
+from aws_polly_render import start_polly
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 app = Flask(__name__)
+
+app.config.update(
+    UPLOADED_PATH=os.path.join(basedir, 'upload'),
+    # Flask-Dropzone config:
+    DROPZONE_ALLOWED_FILE_CUSTOM=True,
+    DROPZONE_ALLOWED_FILE_TYPE='.tex',
+    DROPZONE_MAX_FILE_SIZE=3,
+    DROPZONE_MAX_FILES=30,
+    DROPZONE_IN_FORM=True,
+    DROPZONE_UPLOAD_ON_CLICK=True,
+    DROPZONE_UPLOAD_ACTION='handle_upload',  # URL or endpoint
+    DROPZONE_UPLOAD_BTN_ID='submit',
+)
+
 dropzone = Dropzone(app)
+app.config['SECRET_KEY'] = 'mah_key'
 
-# Dropzone settings
-app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
-app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
-app.config['DROPZONE_ALLOWED_FILE_TYPE'] = '.tex, .bib'
-
-# Upload Settings
-app.config['UPLOAD_FOLDER'] = os.getcwd() + '/upload'
-
-# Home page
 @app.route('/')
 def index():
-    return render_template(
-        'index.html'
-    )
+    return render_template('index.html')
 
-@app.route('/')
-def upload():
-    return "uploading..."
+@app.route('/upload', methods=['POST'])
+def handle_upload():
+    session.pop('file_holder', None)
+    session.pop('audio', None)
+    # Create session
+    if "file_holder" not in session:
+        session['file_holder'] = []
+    if "audio" not in session:
+        session['audio'] = []
 
-# Redirected if post method to download page
-@app.route('/download', methods=['POST'])
-def results():
-    file_obj = request.files
-    file_holder = []
-    bib_holder = []
+    # Grabbing obj
+    file_holder = session['file_holder']
+    bib_holder = session['audio']
 
-    for f in file_obj:
-        file = request.files.get(f)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    for key, f in request.files.items():
+        if key.startswith('file'):
+            f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
 
-        if os.path.splitext(file.filename)[1] == ".tex":
-            file_holder.append(file.filename)
-        elif os.path.splitext(file.filename)[1] == ".bib":
-            bib_holder.append(file.filename)
+            if os.path.splitext(f.filename)[1] == ".tex":
+                file_holder.append(f.filename)
+            elif os.path.splitext(f.filename)[1] == ".bib":
+                bib_holder.append(f.filename)
 
+    # Render
     audio_links = start_polly(file_holder, bib_holder)
-    print(audio_links)
+    session['file_holder'] = file_holder
+    session['audio'] = audio_links
 
-    file_audio = zip(file_holder, audio_links)
-    for file, audio in file_audio:
-        print(file + " " + str(audio))
+    return '', 204
+
+
+@app.route('/form', methods=['POST'])
+def handle_form():
+    # redirect to home if nothing in session
+    if "file_holder" not in session or session['file_holder'] == []:
+        return redirect(url_for('index'))
+
+    print("TEST")
+
+    file_holder = session['file_holder']
+    audio = session['audio']
+
+    # Pop sessions 
+    session.pop('file_holder', None)
+    session.pop('audio', None)
+
+    for file, audio in zip(file_holder, audio):
+        print(file + " " + audio)
 
     return render_template(
         'download.html',
-        file_audio = zip(file_holder, audio_links))
+        file_audio = zip(file_holder, audio))
 
-# If usr tries going to random page on our web application
-# through page does not exist
-@app.route('/<page_name>')
-def other_page(page_name):
-    response = make_response('The page named %s does not exist.' \
-                % page_name, 404)
-    return response
+if __name__ == '__main__':
+    app.run(debug=True)
