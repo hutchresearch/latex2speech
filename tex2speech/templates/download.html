@@ -18,7 +18,7 @@
         <div class="output">
             <h3>To Audio</h3>
             {% for file, aud in file_holder %}
-                <li>Link to audio download (Click to download): <a href="../static/{{ aud }}" download>{{ file }}</a></li>
+                <li>Link to audio download (Click to download): <a href="{{ aud }}" target = "_blank">{{ file }}</a></li>
             {% endfor %}
         </div>
     </div>

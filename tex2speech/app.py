@@ -1,6 +1,7 @@
 # # Run flask app: python3 -m flask run
 
 import os
+import glob
 
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
@@ -14,7 +15,7 @@ app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'upload'),
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_CUSTOM=True,
-    DROPZONE_ALLOWED_FILE_TYPE='.tex',
+    DROPZONE_ALLOWED_FILE_TYPE='.tex, .bib',
     DROPZONE_MAX_FILE_SIZE=3,
     DROPZONE_MAX_FILES=30,
     DROPZONE_IN_FORM=True,
@@ -78,6 +79,10 @@ def handle_form():
     session.pop('audio', None)
 
     file_audio = zip(file_holder, audio)
+
+    files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
+    for f in files:
+        os.remove(f)
 
     return render_template(
         'download.html',

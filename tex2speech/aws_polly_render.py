@@ -20,12 +20,41 @@ session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_ke
 
 # Creates objects of use
 polly = session.client("polly")
+s3 = session.client("s3")
 
 # Path to upload
 path = os.getcwd() + '/upload'
 
-# Path to static
-static_path = os.getcwd() + '/static'
+# Generate a presigned URL for the S3 object so any user can download
+def create_presigned_url(bucket_name, object_name, expiration=3600):    
+    try:
+        # Creates s3 client, passes in arguments
+        response = s3.generate_presigned_url('get_object', Params={
+                                                    'Bucket': bucket_name,
+                                                    'Key': object_name},
+                                                    ExpiresIn = expiration)
+    except ClientError as e:
+        # Error and exit
+        print(e)
+        return None
+
+    print("\n\n" + response + "\n\n")
+
+    # The response contains the presigned URL
+    return response
+
+# Function that will get bucket information
+# Then call helper to generate url
+def generate_presigned_url(objectURL):
+    bucket_name = "tex2speech"
+    bucket_resource_url = objectURL
+    url = create_presigned_url(
+        bucket_name,
+        bucket_resource_url
+    )
+
+    return url
+
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
@@ -33,30 +62,28 @@ def tts_of_file(file, contents):
 
     try:
         # Request speech synthesis
-        audio = polly.synthesize_speech(
+        audio = polly.start_speech_synthesis_task(
             VoiceId = "Joanna",
+            OutputS3BucketName = "tex2speech",
+            OutputS3KeyPrefix = file,
             OutputFormat = "mp3",
             TextType = "ssml",
             Text = contents)
 
-        objectName = file + ".mp3"
+        # ----- PRINT HELPERS FOR TESTING PURPOSES -----
+        # Output the task ID
+        taskId = audio['SynthesisTask']['TaskId']
+        # print(f'Task id is {taskId}')
 
-        if "AudioStream" in audio:
-            with closing(audio["AudioStream"]) as stream:
-                output = objectName
+        # Retrieve and output the current status of the task
+        # task_status = polly.get_speech_synthesis_task(TaskId = taskId)
+        # print(f'Status: {task_status}')
 
-                try:
-                    # Put audio in static file (Wnat to put it in uploads fiolder later)
-                    name = os.path.join(static_path, objectName)
-                    with open(name, "wb") as file:
-                        file.write(stream.read())
+        # Get audio link from bucket
+        objectName = file + "." + taskId + ".mp3"
+        audio_link = generate_presigned_url(objectName)
 
-                except IOError as error:
-                    # Could not write to file, exit gracefully
-                    print(error)
-                    sys.exit(-1)
-
-        return objectName
+        return audio_link
 
     except (BotoCoreError, ClientError) as error:
         # Error and exit
@@ -77,14 +104,12 @@ def start_polly(fileContents, bibContents):
     latex_parser = TexParser()
 
     for file in fileContents:
+
         myFile = path + "/" + file
         fileObj = open(myFile, "r")
 
         # Call parser here
         parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
-
-        # Remove file
-        os.remove(myFile)
 
         # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
@@ -92,5 +117,8 @@ def start_polly(fileContents, bibContents):
         audio_link = tts_of_file(file, parsed_contents)
         # audio_link = "hi"
         links.append(audio_link)
+
+        # Remove file
+        os.remove(myFile)
 
     return links
