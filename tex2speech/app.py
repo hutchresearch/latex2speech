@@ -42,7 +42,8 @@ def handle_upload():
 
     # Grabbing obj
     file_holder = session['file_holder']
-    bib_holder = session['audio']
+    bib_holder = []
+    audio_links = session['audio']
 
     for key, f in request.files.items():
         if key.startswith('file'):
@@ -76,12 +77,11 @@ def handle_form():
     session.pop('file_holder', None)
     session.pop('audio', None)
 
-    for file, audio in zip(file_holder, audio):
-        print(file + " " + audio)
+    file_audio = zip(file_holder, audio)
 
     return render_template(
         'download.html',
-        file_audio = zip(file_holder, audio))
+        file_holder = file_audio)
 
 if __name__ == '__main__':
     app.run(debug=True)

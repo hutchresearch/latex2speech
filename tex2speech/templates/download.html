@@ -17,11 +17,8 @@
         <!-- Download mp3/mp4 audio -->
         <div class="output">
             <h3>To Audio</h3>
-            <!-- <button id = "downloadButton">
-                <a href="{{ audio_download }}">Audio Output</a>
-            </button> -->
-            {% for file, audio in file_audio %}
-                <li>Link to audio download (Click to download): <a href="/tex2speech/{{ audio }}" download>{{ file }}</a></li>
+            {% for file, aud in file_holder %}
+                <li>Link to audio download (Click to download): <a href="../{{ aud }}" download>{{ file }}</a></li>
             {% endfor %}
         </div>
     </div>
