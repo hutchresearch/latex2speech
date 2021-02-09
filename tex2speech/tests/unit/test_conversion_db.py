@@ -1,14 +1,14 @@
 import unittest
 import tempfile
 import xml.etree.ElementTree as ET
-from conversion_db import XMLConversionDB
+from conversion_db import ConversionDB
 from SSMLParsing.text_element import TextElement
 from SSMLParsing.break_element import BreakElement
 from SSMLParsing.prosody_element import ProsodyElement
 from SSMLParsing.emphasis_element import EmphasisElement
 
 '''
-Unit tests for the xmlConversionDB class.
+Unit tests for the ConversionDB class.
 For most tags, the tests are typically divided as follows:
     -Behavior of tag in global command definition
     -Behavior of tag in global environment definition
@@ -19,7 +19,7 @@ Within these cases, attempts are made to test different combinations
   working correctly. The attributes/contents are also made unique
   to ensure we're inspecting the right elements.
 '''
-class testXMLConversionDB(unittest.TestCase):
+class testConversionDB(unittest.TestCase):
     '''
     Tests that solitary text is placed in the proper text wrapper
     '''
@@ -36,7 +36,7 @@ class testXMLConversionDB(unittest.TestCase):
                     </says>
                 </env>
             </latex>''')
-            db = XMLConversionDB(xmlFile)
+            db = ConversionDB(xmlFile)
             
             elems = db.getCmdConversion("text-test")
             self.assertEqual(len(elems), 1)
@@ -92,7 +92,7 @@ class testXMLConversionDB(unittest.TestCase):
                     </defines>
                 </env>
             </latex>''')
-            db = XMLConversionDB(xmlFile)
+            db = ConversionDB(xmlFile)
 
             # Global command definition
             elems = db.getCmdConversion('cmd1')
@@ -210,7 +210,7 @@ class testXMLConversionDB(unittest.TestCase):
                     </defines>
                 </env>
             </latex>''')
-            db = XMLConversionDB(xmlFile)
+            db = ConversionDB(xmlFile)
 
              # Global command definition
             elems = db.getCmdConversion('cmd1')
@@ -286,7 +286,7 @@ class testXMLConversionDB(unittest.TestCase):
                     </defines>
                 </env>
             </latex>''')
-            db = XMLConversionDB(xmlFile)
+            db = ConversionDB(xmlFile)
             
             elems = db.getCmdConversion("cmd1")
             self.assertEqual(len(elems), 1)
