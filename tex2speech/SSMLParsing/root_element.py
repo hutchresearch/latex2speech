@@ -1,8 +1,8 @@
 from SSMLParsing.ssml_element import SSMLElement
 
 class RootElement(SSMLElement):
-    def __init__(self, parent):
-        super.__init__(parent)
+    def __init__(self):
+        super.__init__()
 
     def _update(self, node: SSMLElement):
         pass

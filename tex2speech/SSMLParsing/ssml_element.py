@@ -2,8 +2,7 @@
 # NOTE: I can't give type hints here since most of these functions take 
 # SSML element objects as arguments, and python freaks out when I do that :/
 class SSMLElement:
-    def __init__(self, parent):
-        self.parent = parent
+    def __init__(self):
         self.children = []
         self.headText = None
         self.tailText = None

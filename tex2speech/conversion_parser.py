@@ -7,9 +7,6 @@ class ConversionParser:
         self.db = db
 
     def _generateSSMLTree(self):
-        # TODO: Confirm if this is true:
-        # If text is not in a text node, it must be in a tail node
-        # and the inverse as well
         pass
 
     def parse(self):

@@ -1,6 +1,6 @@
 class ArgElement(SSMLElement):
-    def __init__(self, parent, argNum):
-        super.__init__(parent)
+    def __init__(self, argNum):
+        super.__init__()
         self.argNum = argNum
 
     def _update(self, node):

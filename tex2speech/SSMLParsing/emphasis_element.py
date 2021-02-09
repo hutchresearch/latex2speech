@@ -1,8 +1,8 @@
 from SSMLParsing.ssml_element import SSMLElement
 
 class EmphasisElement(SSMLElement):
-    def __init__(self, parent, level=None):
-        super.__init__(parent)
+    def __init__(self, level=None):
+        super.__init__()
         self.level = level
 
     def _update(self, node: SSMLElement):

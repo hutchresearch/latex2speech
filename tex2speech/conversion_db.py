@@ -6,10 +6,10 @@ class ConversionDB:
         self.db = ET.parse(xmlFile)
 
     def getCmdConversion(self, name: str) -> list:
-        self.db.find('./'+name)
+        pass
 
     def getEnvConversion(self, name: str) -> list:
         pass
 
-    def getEnvCommands(self, name: str) -> dict:
+    def getEnvDefinition(self, name: str) -> dict:
         pass

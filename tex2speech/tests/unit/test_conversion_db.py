@@ -139,7 +139,7 @@ class testConversionDB(unittest.TestCase):
             self.assertEqual(elems[3].getStrength(), "x-weak")
 
             # Nested command definitions
-            elemDict = db.getEnvCommands('env')
+            elemDict = db.getEnvDefinition('env')
 
             # Overloaded command
             self.assertIsInstance(elemDict["cmd1"][0], BreakElement)
@@ -241,7 +241,7 @@ class testConversionDB(unittest.TestCase):
             self.assertIsEqual(elems[1].getHeadText(), "text 6")
 
             # Nested environment definition
-            elemDict = db.getEnvCommands('env')
+            elemDict = db.getEnvDefinition('env')
 
             # Overloaded command
             self.assertIsInstance(elemDict['cmd1'][0], EmphasisElement)
@@ -293,9 +293,12 @@ class testConversionDB(unittest.TestCase):
             self.assertIsInstance(elems[0], TextElement)
             self.assertEqual(elems[0].getHeadText(), "text1")
 
-            elemsDict = db.getEnvCommands("env")
+            elemsDict = db.getEnvDefinition("env")
             self.assertIsInstance(elemsDict["cmd1"][0], TextElement)
             self.assertEqual(elemsDict["cmd1"][0].getHeadText(), "text2")
 
             self.assertIsInstance(elemsDict["cmd2"][0], TextElement)
             self.assertEqual(elemsDict["cmd2"][0].getHeadText(), "text3")
+
+if __name__ == "__main__":
+    unittest.main()

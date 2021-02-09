@@ -1,8 +1,8 @@
 from SSMLParsing.ssml_element import SSMLElement
 
 class BreakElement(SSMLElement):
-    def __init__(self, parent, time=None, strength=None):
-        super.__init__(parent)
+    def __init__(self, time=None, strength=None):
+        super.__init__()
         self.time = time
         self.strength = strength
 
