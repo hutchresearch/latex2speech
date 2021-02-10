@@ -99,11 +99,17 @@ def get_text_file(file):
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords
-def start_polly(fileContents, bibContents):
+def start_polly(main, input, bibContents):
     links = []
     latex_parser = TexParser()
 
-    for file in fileContents:
+    for file in main:
+
+    # Here we will create master file (if applicable)
+        # Go through each file check 
+        # Find master (meaning it has /input command)
+            # If we find input command
+                # Shove everything in that spot
 
         myFile = path + "/" + file
         fileObj = open(myFile, "r")
@@ -114,9 +120,9 @@ def start_polly(fileContents, bibContents):
         # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        audio_link = tts_of_file(file, parsed_contents)
-        # audio_link = "hi"
-        links.append(audio_link)
+        # audio_link = tts_of_file(file, parsed_contents)
+        audio_link = "hi"
+        # links.append(audio_link)
 
         # Remove file
         os.remove(myFile)
