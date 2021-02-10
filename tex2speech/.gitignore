@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# VSCode
+.vscode
+../.vscode
+
 # C extensions
 *.so
 
@@ -127,3 +131,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IDE Exclusions
+.vscode/
+settings.json

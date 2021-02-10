@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<latex>
+    <cmd name = "title">
+        <prefix>Title: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>&lt;break time="0.3s"/&gt;</suffix>
+    </cmd>
+    <cmd name = "author">
+        <prefix>By: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>&lt;break time="0.3s"/&gt;</suffix>
+    </cmd>
+    <cmd name = "date">
+        <prefix>Published: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>&lt;break time="0.3s"/&gt;</suffix>
+    </cmd>
+    <cmd name="section">
+        <prefix>section </prefix>
+        <arg say_contents="true"/>
+    </cmd>
+    <cmd name="dots">
+        <say_as>&lt;break strength="strong"/&gt;</say_as>
+    </cmd>
+    <cmd name="em">
+        <prefix>&lt;emphasis level="strong"&gt;</prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name="emph">
+        <prefix>&lt;emphasis level="strong"&gt;</prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name="textit">
+        <prefix>&lt;emphasis level="strong"&gt;</prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name="textbf">
+        <prefix>&lt;emphasis level="strong"&gt;</prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name = "texttt">
+        <prefix>&lt;emphasis level="strong"&gt; </prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name = "cite">
+        <prefix>&lt;emphasis level="reduced"&gt; Cited in references as </prefix>
+        <arg say_contents="true"/>
+        <suffix>&lt;/emphasis&gt;</suffix>
+    </cmd>
+    <cmd name = "bibitem">
+        <prefix>&lt;break time="1s"/&gt;Bibliography item is read as: &lt;break time="0.5s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+    </cmd>
+    <cmd name = "LaTeX">
+        <prefix>LaTeX</prefix>
+    </cmd>
+    <cmd name = "caption">
+        <prefix>Caption: &lt;break time="0.3s"/&gt;</prefix>
+        <arg say_contents = "true"/>
+        <suffix>break time="0.5s"/&gt;</suffix>
+    </cmd>
+    <!-- This is incase user does \thebibliography -->
+    <cmd name = "thebibliography">
+        <prefix>&lt;emphasis level="strong"&gt; References Section &lt;/emphasis&gt;</prefix>
+    </cmd>
+    <!-- This is incase user does \begin{thebibliography} -->
+    <env name = "thebibliography">
+        <prefix>&lt;emphasis level="strong"&gt; References Section &lt;/emphasis&gt;</prefix>
+    </env>
+    <env name="equation" mathmode="true">
+        <prefix>the equation</prefix>
+    </env>
+    <env name="eqnarray" mathmode="true">
+    </env>
+    <env name="$" mathmode="true">
+    </env>
+    <env name="$$" mathmode="true">
+    </env>
+    <env name="displaymath" mathmode="true"> <!-- Also alias for \[...\] in TexSoup -->
+    </env>
+    <env name="math" mathmode="true"> <!-- Also alias for \(...\) in TexSoup-->
+    </env>
+    <env name="itemize">
+        <cmd name="item">
+            <prefix>&lt;break time="40ms"/&gt;</prefix>
+        </cmd>
+        <suffix>&lt;break strength="medium"/&gt;</suffix>
+    </env>
+    <env name="quotation">
+        <prefix>&lt;p&gt;</prefix>
+        <suffix>&lt;/p&gt;</suffix>
+    </env>
+    <env name="quote">
+        <prefix>&lt;p&gt;</prefix>
+        <suffix>&lt;/p&gt;</suffix>
+    </env>
+    <env name="center">
+        <prefix>&lt;p&gt;</prefix>
+        <suffix>&lt;/p&gt;</suffix>
+    </env>
+    <env name="flushleft">
+        <prefix>&lt;p&gt;</prefix>
+        <suffix>&lt;/p&gt;</suffix>
+    </env>
+    <env name="flushright">
+        <prefix>&lt;p&gt;</prefix>
+        <suffix>&lt;/p&gt;</suffix>
+    </env>
+    <env name="verse">
+        <prefix>&lt;p&gt;</prefix>
+        <suffix>&lt;/p&gt;</suffix>
+    </env>
+    <env name="enumerate">
+    </env>
+    <env name="description">
+    </env>
+    <env name="list">
+    </env>
+    <env name="array">
+    </env>
+    <env name="table">
+        <prefix>Start Table</prefix>
+    </env>
+    <env name="tabular" readTable = "true">
+        <prefix>Table Contents&lt;break time="40ms"/&gt;</prefix>
+    </env>
+    <env name="abstract">
+    </env>
+    <env name="minipage">
+    </env>
+    <env name="split">
+    </env>
+    <env name="tabbing">
+    </env>
+    <env name="titlepage">
+    </env>
+    <env name="figure">
+    </env>
+    <env name="picture">
+    </env>
+    <env name="verbatim">
+    </env>
+</latex>
