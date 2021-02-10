@@ -1,13 +1,29 @@
 from sympy import *
 import xml.etree.ElementTree as ET
+from enum import Enum
+import inflect
 
-quantity_start = 'begin quantity'
-quantity_end = 'end quantity'
+infl = inflect.engine()
 
-def convert_sympy_ssml(expr):
+class Quantity_Modes(Enum):
+    NO_INDICATOR = 0
+    QUANTITY = 1
+    QUANTITY_NUMBERED = 2
+    PARENTHESES = 3
+    PARENTHESES_NUMBERED = 4
+
+begin_str = 'begin'
+end_str = 'end'
+quantity_str = 'quantity'
+parentheses_str = 'parentheses'
+
+def ordinal_str(num):
+    return infl.number_to_words(infl.ordinal(num))
+
+def convert_sympy_ssml(expr, mode):
     #print_tree(expr, assumptions = False)
     funcs_tree = ET.parse('sympy_funcs.xml')
-    s = _convert(expr, funcs_tree)
+    s = _convert(expr, funcs_tree, mode, 1)
     if s[0] == ' ':
         s = s[1:]
     if s[len(s) - 1] == ' ':
@@ -16,7 +32,7 @@ def convert_sympy_ssml(expr):
 
 
     
-def _convert(expr, funcs_tree):
+def _convert(expr, funcs_tree, mode, quantity_index):
     
     func_id = expr.__class__.__name__
     r = funcs_tree.getroot()
@@ -40,16 +56,38 @@ def _convert(expr, funcs_tree):
                 j = repeat_index
             
             if func[j].tag == 'arg':
-                if isinstance(expr.args[i], Atom) or len(expr.args[i].args) == 1:
-                    s += _convert(expr.args[i], funcs_tree)
+                if isinstance(expr.args[i], Atom): 
+                    s += _convert(expr.args[i], funcs_tree, mode, quantity_index)
+                if len(expr.args[i].args) == 1:
+                    s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index) + ' '
                 else:
-                    s += ' ' + quantity_start + _convert(expr.args[i], funcs_tree) + quantity_end + ' '
+                    if mode == Quantity_Modes.PARENTHESES:
+                        s += ' ' + begin_str + ' ' + \
+                        parentheses_str + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
+                        end_str + ' ' + parentheses_str + ' '
+
+                    if mode == Quantity_Modes.QUANTITY:
+                        s += ' ' + begin_str + ' ' + \
+                        quantity_str +  _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
+                        end_str + ' ' +  quantity_str + ' '
+
+                    if mode == Quantity_Modes.PARENTHESES_NUMBERED:
+                        s += ' ' + begin_str + ' ' + ordinal_str(quantity_index) + ' ' + \
+                        parentheses_str + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
+                            end_str + ' ' + ordinal_str(quantity_index) + ' ' + parentheses_str + ' '
+
+                    if mode == Quantity_Modes.QUANTITY_NUMBERED:
+                        s += ' ' + begin_str + ' ' + ordinal_str(quantity_index) + ' ' + \
+                        quantity_str + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
+                        end_str + ' ' + ordinal_str(quantity_index) + ' ' + quantity_str + ' ' 
+                
+                quantity_index += 1
                 i_sub = 0
                 i += 1
                 j += 1
             
             elif func[j].tag == 'subarg':
-                s += _convert(expr.args[i].args[i_sub], funcs_tree)
+                s += _convert(expr.args[i].args[i_sub], funcs_tree, mode, quantity_index)
                 i_sub += 1
                 if i_sub == len(expr.args[i].args):
                     i += 1
