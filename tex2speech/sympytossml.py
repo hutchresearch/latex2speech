@@ -22,12 +22,14 @@ def ordinal_str(num):
 
 def convert_sympy_ssml(expr, mode):
     #print_tree(expr, assumptions = False)
-    funcs_tree = ET.parse('sympy_funcs.xml')
+    funcs_tree = ET.parse('./static/sympy_funcs.xml')
     s = _convert(expr, funcs_tree, mode, 1)
     if s[0] == ' ':
         s = s[1:]
     if s[len(s) - 1] == ' ':
         s = s[:(len(s) - 1)]
+
+    print("THIS IS s " + s)
     return s
 
 
@@ -58,7 +60,7 @@ def _convert(expr, funcs_tree, mode, quantity_index):
             if func[j].tag == 'arg':
                 if isinstance(expr.args[i], Atom): 
                     s += _convert(expr.args[i], funcs_tree, mode, quantity_index)
-                if len(expr.args[i].args) == 1:
+                elif len(expr.args[i].args) == 1:
                     s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index) + ' '
                 else:
                     if mode == Quantity_Modes.PARENTHESES:

@@ -7,6 +7,7 @@ from gen.PSLexer import PSLexer
 from gen.PSListener import PSListener
 
 from sympy.printing.str import StrPrinter
+from sympytossml import convert_sympy_ssml
 
 def process_sympy(sympy):
     matherror = MathErrorListener(sympy)
@@ -507,10 +508,15 @@ def get_differential_var_str(text):
         text = text[1:]
     return text
 
-def test_sympy():
-    print(process_sympy(r"4 \apples \times 3 \apples"))
-    print(process_sympy(r"\n_1"))
-    # return process_sympy(mathmode)
+def test_sympy(mathmode):
+    # print(process_sympy(r"4 \apples \times 3 \apples"))
+    # print(process_sympy(r"\n_1"))
+    return process_sympy(mathmode)
 
-if __name__ == "__main__":
-    test_sympy()
+def run_sympy(mathmode):
+    sympyObj = process_sympy(mathmode)
+    ssmlObj = convert_sympy_ssml(sympyObj, Quantity_Modes.QUANTITY)
+    return ssmlObj
+
+# if __name__ == "__main__":
+    # test_sympy()

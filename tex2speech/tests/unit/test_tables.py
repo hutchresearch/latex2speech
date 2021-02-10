@@ -19,7 +19,7 @@ class TestTables(unittest.TestCase):
                 r"a & b & c \\ "+
                 r"d & e & f   "+
                r"\end{tabular}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> Table Contents<break time='40ms'/> New Row: , Column 1, Value: a , Column 2, Value:  b , Column 3, Value:  c \\ New Row: , Column 1, Value:  d , Column 2, Value:  e , Column 3, Value:  f   </speak>"))
 
         # Basic table with \hline command
@@ -32,7 +32,7 @@ class TestTables(unittest.TestCase):
                         r"\hline"+
                     r"\end{tabular}"+
                 r"\end{center}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> <p> Table Contents<break time='40ms'/> New Row: , Column 1, Value:  oranges , Column 2, Value:  apples , Column 3, Value:  pears \\ New Row: , Column 1, Value:  red , Column 2, Value:  green , Column 3, Value:  blue \\ New Row: , Column 1, Value:  lettuce , Column 2, Value:  carrot , Column 3, Value:  brocoli \\ </p> </speak>"))
 
         # Basic table with \hline command 2
@@ -45,7 +45,7 @@ class TestTables(unittest.TestCase):
                         r"\hline"+
                     r"\end{tabular}"+
                 r"\end{center}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> <p> Table Contents<break time='40ms'/> New Row: , Column 1, Value:  yes , Column 2, Value:  no , Column 3, Value:  maybe \\ New Row: , Column 1, Value:  so , Column 2, Value:  testing , Column 3, Value:  more in one cell \\ New Row: , Column 1, Value:  this has a lot of words in it , Column 2, Value:  too many words for the table , Column 3, Value:  i can't take it any longer! \\ </p> </speak>"))
 
     def testing_tables_with_extra_commands(self):
@@ -61,7 +61,7 @@ class TestTables(unittest.TestCase):
                         r"\hline"+
                     r"\end{tabular}"+
                 r"\end{center}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> <p> Table Contents<break time='40ms'/> New Row: , Column 1, Value:  cell1 dummy text dummy text dummy text , Column 2, Value:  cell2 , Column 3, Value:  cell3 \\ New Row: , Column 1, Value:  cell1 dummy text dummy text dummy text , Column 2, Value:  cell5 , Column 3, Value:  cell6 \\ New Row: , Column 1, Value:  cell7 , Column 2, Value:  cell8 , Column 3, Value:  cell9 \\ </p> </speak>"))
 
         # This table uses tabularx and a bunch of random stuff, testing to see if this gets parsed/passed
@@ -77,7 +77,7 @@ class TestTables(unittest.TestCase):
                 r"item 21  & item 22  & item 23  \\"+
                 r"\hline"+
             r"\end{tabularx}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         # self.assertTrue(self._docsEqual(expand, r""))
 
         # Different table layout, testing to see if it parses there
@@ -97,7 +97,7 @@ class TestTables(unittest.TestCase):
                 r"Angola& AO  & AGO&024\\"+
                 r"\hline"+
             r"\end{tabular}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         # self.assertTrue(self._docsEqual(expand, r""))
 
         # Testing with different format, has two \hline and 0.5ex in the way
@@ -116,7 +116,7 @@ class TestTables(unittest.TestCase):
                     r" \hline"+
                 r"\end{tabular}"+
             r"\end{table}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         # self.assertTrue(self._docsEqual(expand, r""))
         # Testing big table function
 # [ERROR] -> Same as before, doesn't render properly
@@ -135,7 +135,7 @@ class TestTables(unittest.TestCase):
                 r"Angola & AO & AGO \\"+
                 r"\hline"+
             r"\end{tabular}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         # self.assertTrue(self._docsEqual(expand, r""))
 
     def testing_multiple_row(self):
@@ -152,7 +152,7 @@ class TestTables(unittest.TestCase):
                 r"\hline"+
                 r"\end{tabular}"+
                 r"\end{center}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> <p> Table Contents<break time='40ms'/> New Row: , Column 1, Value:  col1 , Column 2, Value:  col2 , Column 3, Value:  col3 \\ New Row: , Column 1, Value: , Column 2, Value:  cell2 , Column 3, Value:  cell3 \\ New Row: , Column 1, Value: , Column 2, Value:  cell5 , Column 3, Value:  cell6 \\ New Row: , Column 1, Value: , Column 2, Value:  cell8 , Column 3, Value:  cell9 \\ </p> </speak>"))        
 
     '''Unit test for testing captions in a table, and table name'''
@@ -169,7 +169,7 @@ class TestTables(unittest.TestCase):
             r"\caption{Table to test captions and labels}"+
             r"\label{table:1}"+
             r"\end{table}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         # self.assertTrue(self._docsEqual(expand, r""))  
         # Testing caption at top
         doc = (r"\begin{table}[h!]"+
@@ -183,5 +183,5 @@ class TestTables(unittest.TestCase):
                 r"\end{center}"+
                 r"\end{table}"+
                 r"\end{document}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> Start Table <p> Caption: <break time='0.3s'/> Your first table. break time='0.5s'/&gt; Table Contents<break time='40ms'/> New Row: , Column 1, Value:  a , Column 2, Value:  b , Column 3, Value:  c \\ New Row: , Column 1, Value:  d , Column 2, Value:  e , Column 3, Value:  f   </p> </speak>"))  
