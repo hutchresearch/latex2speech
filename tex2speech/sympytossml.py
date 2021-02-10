@@ -29,7 +29,6 @@ def convert_sympy_ssml(expr, mode):
     if s[len(s) - 1] == ' ':
         s = s[:(len(s) - 1)]
 
-    print("THIS IS s " + s)
     return s
 
 

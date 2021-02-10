@@ -7,7 +7,6 @@ f, g, h = Function('f'), Function('g'), Function('h')
 
 # Writing test to get rid of extra spaces for testing purposes
 def get_rid_of_extra_space(conversion):
-    print("NEW " + " ".join(conversion.split()))
     return " ".join(conversion.split())
 
 def test_add():
