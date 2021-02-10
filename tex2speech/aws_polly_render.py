@@ -104,7 +104,7 @@ def start_polly(main, input, bibContents):
     latex_parser = TexParser()
 
     for file in main:
-
+        # Jacob stuff
     # Here we will create master file (if applicable)
         # Go through each file check 
         # Find master (meaning it has /input command)
