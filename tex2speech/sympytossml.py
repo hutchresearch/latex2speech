@@ -68,6 +68,7 @@ def _convert(expr, funcs_tree, mode, quantity_index):
                         end_str + ' ' + parentheses_str + ' '
 
                     if mode == Quantity_Modes.QUANTITY:
+                        print("Yo " + str(expr.args[i]))
                         s += ' ' + begin_str + ' ' + \
                         quantity_str +  _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
                         end_str + ' ' +  quantity_str + ' '

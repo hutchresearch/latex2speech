@@ -7,7 +7,7 @@ from gen.PSLexer import PSLexer
 from gen.PSListener import PSListener
 
 from sympy.printing.str import StrPrinter
-from sympytossml import convert_sympy_ssml
+from sympytossml import *
 
 def process_sympy(sympy):
     matherror = MathErrorListener(sympy)
@@ -515,8 +515,22 @@ def test_sympy(mathmode):
 
 def run_sympy(mathmode):
     sympyObj = process_sympy(mathmode)
-    ssmlObj = convert_sympy_ssml(sympyObj, Quantity_Modes.QUANTITY)
+    print("OBJ " + str(sympyObj))
+    print_tree(sympyObj, assumptions = False)
+    ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.QUANTITY)
+    print("SSML " + ssmlObj)
     return ssmlObj
 
-# if __name__ == "__main__":
+def test_Walker(obj):
+    ssmlObj = convert_sympy_ssml(obj, Quantity_Modes.QUANTITY)
+
+if __name__ == "__main__":
+    run_sympy(r"3 + 2")
+    print("\nbreak\n")
+    run_sympy(r"3 + 2 + 5")
+    print("\nbreak\n")
+    run_sympy(r"3a + 2b + 3c")
+    print("\nbreak\n")
+    run_sympy(r"\lim_{x\to\infty} f(x)")
+    # test_Walker(r"3 + 2")
     # test_sympy()

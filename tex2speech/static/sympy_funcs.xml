@@ -280,7 +280,7 @@
         <arg />
     </conjugate>
 
-    <!-- Summation and Series-->
+    <!-- Summation and Series -->
     <Sum>
         <text>sum of</text>
         <arg />
@@ -291,6 +291,21 @@
         <text>to</text>
         <subarg />
     </Sum>
+
+    <factorial>
+        <arg />
+        <text>factorial</text>
+    </factorial>
+
+    <RisingFactorial>
+        <text>Rising factorial of</text>
+        <arg />
+    </RisingFactorial>
+
+    <FallingFactorial>
+        <text>Falling factorial of </text>
+        <arg />
+    </FallingFactorial>
 
     <!-- Calculus-->
     <Derivative>
@@ -306,6 +321,21 @@
         <text>d</text>
         <arg />
     </Integral>
+
+    <!-- I don't know if this is the proper of binomial -->
+    <binomial>
+        <text>binomial of</text>
+        <arg/>
+    </binomial>
+
+    <Limit>
+        <text>Limit of </text>
+        <arg />
+        <text>as </text>
+        <arg />
+        <text> goes to</text>
+        <arg />
+    </Limit>
 
 </ssmlfuncs>
     
