@@ -1,10 +1,19 @@
 $( document ).ready(function() {
     $(function() {
-        $('#addMoreUpload').click(function(){
+        $('#addMoreInput').click(function(){
             console.log("RUN")
-            var newDiv = $('<input type="file" id="myFile" name="filename" accept = ".tex"><br>');
+            var newDiv = $('<input type="file" id="input" name="inputFile" accept = ".tex"><br>');
           //newDiv.style.background = "#000";
-           $('.files').append(newDiv);
+           $('.multipleInputs').append(newDiv);
+        });
+    });
+
+    $(function() {
+        $('#addMoreMain').click(function(){
+            console.log("RUN")
+            var newDiv = $('<input type="file" id="input" name="inputFile" accept = ".tex"><br>');
+          //newDiv.style.background = "#000";
+           $('.multipleInputs').append(newDiv);
         });
     });
 });

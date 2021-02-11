@@ -14,61 +14,55 @@ h1 {
     color: var(--main-Color);
 }
 
-.inputBox {
-    width: 300px;
-    padding: 10px 50px;
+h3 {
+    margin-top: 10px;
+    color: var(--main-Color);
+    margin-bottom: 10px;
     text-align: center;
+}
+
+form {
     /* border: 1px solid black; */
-
-    /* Centers div box */
-    position: fixed;
-    margin-top: 75px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 2%;
 }
 
-.formBox {
-    width: 300px;
-    margin-top: 10px;
-    margin-left: 40px;
-    margin-bottom: 8px;
-}
-
-.output {
-    margin-top: 10px;
-}
-/* 
-.output button {
-    margin-top: 10px;
-    padding: 2px 4px;
-}
-
-.output button #link {
-    text-decoration: none;
+#addMoreInput, #addMoreMain {
+    background-color: white;
     color: black;
+    padding: 1%;
+    /* border: 2px solid var(--main-Color); */
+    border: transparent;
+    margin-top: 10px;
 }
 
-#uploadButton {
-    display: none;
-    margin-left: 125px;
-} */
-
-.dropzone {
-    border: 2px dashed #0087F7; 
-    margin: 10%; 
-    min-height: 400px;
+#addMoreInput:hover, #addMoreMain:hover  {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-#submitForm {
-    margin: 10%;
-    margin-top: 30%;
+#additional {
+    /* margin-left: 10%; */
 }
 
-#submit {
-    margin-left: 10%
+.single {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
 }
 
-#dropzone {
-    margin-top: 5%;
-    margin-bottom: 5%
+/* Main Tex File CSS */
+.main {
+    display: inline-block;
+}
+
+/* Bib File CSS */
+.bib {
+    display: inline-block;
+}
+
+/* Input File CSS */
+.input {
+    display: inline-block;
 }

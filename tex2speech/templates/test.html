@@ -5,14 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tex2Speech</title>
     <link rel="stylesheet" href="/tex2speech/static/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <form action="">
-        <input type="file" id="myFile" name="filename"><br>
+    <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
 
-        <button id = "addMoreUpload">Add Another File</button>
+    <form action="/upload" enctype="multipart/form-data" method="post">
+        <h3>Upload Files</h3>
+        <div id="additional">
+            <div class="files">
+                <div class="single">
+                    <div class="main">
+                        <h5>Main File (.tex)</h5>
+                        <input type="file" id="myFile" name="filename" accept = ".tex"><br>
+                    </div>
+
+                    <div class="bib">
+                        <h5>Bib File (.bib)</h5>
+                        <input type="file" id="bibFile" name="bibFile" accept = ".bib"><br>
+                    </div>
+
+                    <div class="input">
+                        <h5>Additional Input Tex Files (.tex)</h5>
+                        <div class="multipleInputs">
+                            <input type="file" id="input" name="inputFile" accept = ".tex"><br>
+                        </div>
+
+                        <button id = "addMoreInput" type = "button">&#43;&nbsp;&nbsp;&nbsp;Add Another Input File</button>
+                    </div>
+                </div>
+            </div>
+    
+            <button id = "addMoreMain" type = "button">&#43;&nbsp;&nbsp;&nbsp;Add Another File</button>
+        </div>
         <br>
         <input type="submit" id="submit" value="Submit and Upload">
     </form>
 </body>
+
+<script src = "/tex2speech/static/main.js"></script>
 </html>
