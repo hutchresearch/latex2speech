@@ -125,6 +125,12 @@ def start_polly(main, input, bibContents):
         # links.append(audio_link)
 
         # Remove file
-        os.remove(myFile)
+        # os.remove(myFile)
 
     return links
+
+if __name__ == '__main__':
+    main = ['filename1.tex', 'filename2.tex']
+    input = ['file.tex', 'file.tex']
+    bib = []
+    start_polly(main, input, bib)
