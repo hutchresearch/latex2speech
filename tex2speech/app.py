@@ -50,16 +50,17 @@ def handle_upload():
 
     # Grabs all main files
     file_holder = add_to_array('filename', '.tex')
-    print(file_holder)
+
     # Grabs all bib files
-    # bib_holder = add_to_array('bib', '.bib')
+    bib_holder = add_to_array('bibFile', '.bib')
+
     # Grabs all input files
-    # input_holder = add_to_array('extra', '.tex')
+    input_holder = add_to_array('inputFile', '.tex')
 
     # Render
-    # audio_links = start_polly(file_holder, bib_holder)
-    # session['file_holder'] = file_holder
-    # session['audio'] = audio_links
+    audio_links = start_polly(file_holder, input_holder, bib_holder)
+    session['file_holder'] = file_holder
+    session['audio'] = audio_links
     return render_template('download.html')
     # return '', 204
 
