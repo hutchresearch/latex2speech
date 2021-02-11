@@ -35,6 +35,7 @@ def index():
 # Upload middle man
 @app.route('/upload', methods=['POST'])
 def handle_upload():
+    print("THIS RAN??")
     session.pop('file_holder', None)
     session.pop('audio', None)
     # Create session
@@ -45,24 +46,31 @@ def handle_upload():
 
     # Grabbing obj
     file_holder = session['file_holder']
+    input_holder = []
     bib_holder = []
     audio_links = session['audio']
+    print("yo???")
 
-    for key, f in request.files.items():
-        if key.startswith('file'):
-            f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
+    req = request.form 
+    print(req)
+    for file in request.files.getlist('file'):
+        print(file.filename)
 
-            if os.path.splitext(f.filename)[1] == ".tex":
-                file_holder.append(f.filename)
-            elif os.path.splitext(f.filename)[1] == ".bib":
-                bib_holder.append(f.filename)
+    # for key, f in request.files.items():
+    #     if key.startswith('file'):
+    #         f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
+
+    #         if os.path.splitext(f.filename)[1] == ".tex":
+    #             file_holder.append(f.filename)
+    #         elif os.path.splitext(f.filename)[1] == ".bib":
+    #             bib_holder.append(f.filename)
 
     # Render
-    audio_links = start_polly(file_holder, bib_holder)
-    session['file_holder'] = file_holder
-    session['audio'] = audio_links
-
-    return '', 204
+    # audio_links = start_polly(file_holder, bib_holder)
+    # session['file_holder'] = file_holder
+    # session['audio'] = audio_links
+    return render_template('download.html')
+    # return '', 204
 
 # Download resulting output page
 @app.route('/form', methods=['POST'])

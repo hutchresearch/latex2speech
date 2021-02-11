@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Tex2Speech</title>
 
-    <!-- CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}" />
 </head>
 
@@ -27,7 +26,38 @@
     {{ dropzone.config() }}
 </body>
 
-<!-- JavaScript Files -->
+<script src="{{url_for('static', filename='main.js')}}"></script>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Tex2Speech</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    
+    <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
+
+    <!-- <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post"> -->
+    <form action="/upload" enctype="multipart/form-data" method="post">
+        <div class="files">
+            <input type="file" id="myFile" name="filename" accept = ".tex"><br>
+        </div>
+
+        <button id = "addMoreUpload" type = "button">Add Another File</button>
+        <br>
+        <input type="submit" id="submit" value="Submit and Upload">
+    </form>
+</body>
+
 <script src="{{url_for('static', filename='main.js')}}"></script>
 
 </html>
