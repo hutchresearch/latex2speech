@@ -102,17 +102,61 @@ def get_text_file(file):
 def start_polly(main, input, bibContents):
     links = []
     latex_parser = TexParser()
+    masterFiles = []
+    
+    #since every main file -> master file
+    #make a list of the resulting master files
+    #iterate through to send to parser
 
-    for file in main:
-        # Jacob stuff
-    # Here we will create master file (if applicable)
-        # Go through each file check 
-        # Find master (meaning it has /input command)
-            # If we find input command
-                # Shove everything in that spot
+    #masterFiles = multiFile(main,input)
 
-        myFile = path + "/" + file
-        fileObj = open(myFile, "r")
+    add = 0
+    add = add+1
+        with open("final"+str(add)+".tex", 'w') as outfile:
+            masterFiles.append(outfile)
+            with open(path + "\\"+mainFile, 'r') as infile:
+
+                for line in infile:
+                    tmp = ""
+                    contained = False  
+                    for i in range(len(line)):
+                    
+                        tmp = tmp + line[i]
+                        i = i + 1
+                    
+                        if(tmp == "\\include{" or tmp == "\\input{"):
+                            tmp = ""                                             
+                        
+
+                            while(line[i] != '}'):
+                                tmp = tmp + line[i]
+                                print(tmp)                            
+
+                                for inputFile in input:
+                                    append = tmp
+                                    if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
+                                        append = tmp + ".tex"
+                                    if(append == inputFile):
+                                        with open(inputFile,'r') as tmpInput:
+                                            outfile.write(tmpInput.read())
+                                            contained = True
+                                            tmpInput.close()
+
+                                i = i + 1
+
+                            if(contained == False):
+                                outfile.write(tmp + "File not found \n")
+                                contained = True
+                    
+                                
+                        
+
+                    if(contained == False):          
+                        outfile.write(line)
+                    
+        outfile.close()
+    for master in masterFiles: 
+        fileObj = open(master, "r")
 
         # Call parser here
         parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
@@ -130,7 +174,7 @@ def start_polly(main, input, bibContents):
     return links
 
 if __name__ == '__main__':
-    main = ['filename1.tex', 'filename2.tex']
-    input = ['file.tex', 'file.tex']
+    main = ['vision_and_scope.tex']
+    input = ['background.tex', 'vision.tex', "scope_limitations.tex", "busness_context.tex","schedule.tex","deliverables.tex",""]
     bib = []
     start_polly(main, input, bib)
