@@ -97,50 +97,48 @@ def get_text_file(file):
     # return str(text, 'utf-8')
     return text
 
-# Function that is called from app.py with file
-# Manages all tasks afterwords
-def start_polly(main, input, bibContents):
-    links = []
-    latex_parser = TexParser()
+# Creates master files list
+def create_master_files(main, input):
     masterFiles = []
-    
-    #since every main file -> master file
-    #make a list of the resulting master files
-    #iterate through to send to parser
-
-    # masterFiles = multiFile(main,input)
     add = 0
+
+    # For every uploaded main file
     for mainFile in main:
         print(mainFile)
         add = add+1
+
+        # Create new master file
         with open("final"+str(add)+".tex", 'w') as outfile:
             masterFiles.append("final"+str(add)+".tex")
-            print(outfile)
+            print(str(outfile))
             with open(path + "/" + mainFile, 'r') as infile:
-
+                # For each line, add to the master file
                 for line in infile:
                     tmp = ""
                     contained = False  
-                    for i in range(len(line)):
                     
+                    for i in range(len(line)):
                         tmp = tmp + line[i]
                         i = i + 1
-                    
+                        # Finds include or input file
                         if(tmp == "\\include{" or tmp == "\\input{"):
-                            tmp = ""                                             
+                            tmp = ""  
+
                             while(line[i] != '}'):
                                 tmp = tmp + line[i]                          
 
+                                # Checks if input/include keyword was found in list of fiels
                                 for inputFile in input:
                                     append = tmp
+
                                     if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
                                         append = tmp + ".tex"
+
                                     if(append == inputFile):
                                         with open(path + "/" + inputFile,'r') as tmpInput:
                                             outfile.write(tmpInput.read())
                                             contained = True
                                             tmpInput.close()
-
                                 i = i + 1
 
                             if(contained == False):
@@ -149,11 +147,19 @@ def start_polly(main, input, bibContents):
                     
                     if(contained == False):          
                         outfile.write(line)
-                
-    # outfile.close()
+        outfile.close()
+    return masterFiles
+
+# Function that is called from app.py with file
+# Manages all tasks afterwords
+def start_polly(main, input, bibContents):
+    links = []
+    latex_parser = TexParser()
+    masterFiles = []
+
+    masterFiles = create_master_files(main,input)
+
     for master in masterFiles:
-    # for master in masterFiles: 
-        print(master)
         fileObj = open(master, "r")
 
         # Call parser here
@@ -163,10 +169,7 @@ def start_polly(main, input, bibContents):
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(file, parsed_contents)
-        audio_link = "hi"
+        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
         links.append(audio_link)
-
-        # Remove file
-        # os.remove(fileObj)
 
     return links

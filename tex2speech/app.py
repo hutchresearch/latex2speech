@@ -10,7 +10,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
-app.config['CUSTOM_STATIC_PATH'] = os.path.join(basedir, 'upload')
+app.config['CUSTOM_STATIC_PATH'] = os.path.join(basedir, '')
 app.config['UPLOADED_PATH'] = os.path.join(basedir, 'upload')
 app.config['SECRET_KEY'] = 'my_key'
 
@@ -85,8 +85,12 @@ def handle_form():
     file_audio = zip(file_holder, audio)
 
     files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
-    
+    final = glob.glob(app.config['CUSTOM_STATIC_PATH'] + "/*.tex")
+
     for f in files:
+        os.remove(f)
+
+    for f in final:
         os.remove(f)
 
     return render_template(
