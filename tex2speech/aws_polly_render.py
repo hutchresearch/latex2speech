@@ -108,51 +108,53 @@ def start_polly(main, input, bibContents):
     #make a list of the resulting master files
     #iterate through to send to parser
 
-    #masterFiles = multiFile(main,input)
+    # masterFiles = multiFile(main,input)
+    add = 0
+    for mainFile in main:
+        print(mainFile)
+        add = add+1
+        with open("final"+str(add)+".tex", 'w') as outfile:
+            masterFiles.append("final"+str(add)+".tex")
+            print(outfile)
+            with open(path + "/" + mainFile, 'r') as infile:
 
-    # add = 0
-    # add = add+1
-    # with open("final"+str(add)+".tex", 'w') as outfile:
-    #     masterFiles.append(outfile)
-    #     with open(path + "\\" + mainFile, 'r') as infile:
+                for line in infile:
+                    tmp = ""
+                    contained = False  
+                    for i in range(len(line)):
+                    
+                        tmp = tmp + line[i]
+                        i = i + 1
+                    
+                        if(tmp == "\\include{" or tmp == "\\input{"):
+                            tmp = ""                                             
+                            while(line[i] != '}'):
+                                tmp = tmp + line[i]                          
 
-    #         for line in infile:
-    #             tmp = ""
-    #             contained = False  
-    #             for i in range(len(line)):
-                
-    #                 tmp = tmp + line[i]
-    #                 i = i + 1
-                
-    #                 if(tmp == "\\include{" or tmp == "\\input{"):
-    #                     tmp = ""                                             
-    #                     while(line[i] != '}'):
-    #                         tmp = tmp + line[i]
-    #                         print(tmp)                            
+                                for inputFile in input:
+                                    append = tmp
+                                    if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
+                                        append = tmp + ".tex"
+                                    if(append == inputFile):
+                                        with open(path + "/" + inputFile,'r') as tmpInput:
+                                            outfile.write(tmpInput.read())
+                                            contained = True
+                                            tmpInput.close()
 
-    #                         for inputFile in input:
-    #                             append = tmp
-    #                             if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
-    #                                 append = tmp + ".tex"
-    #                             if(append == inputFile):
-    #                                 with open(inputFile,'r') as tmpInput:
-    #                                     outfile.write(tmpInput.read())
-    #                                     contained = True
-    #                                     tmpInput.close()
+                                i = i + 1
 
-    #                         i = i + 1
-
-    #                     if(contained == False):
-    #                         outfile.write(tmp + "File not found \n")
-    #                         contained = True
-                
-    #             if(contained == False):          
-    #                 outfile.write(line)
+                            if(contained == False):
+                                outfile.write(tmp + "File not found \n")
+                                contained = True
+                    
+                    if(contained == False):          
+                        outfile.write(line)
                 
     # outfile.close()
-    for master in main:
+    for master in masterFiles:
     # for master in masterFiles: 
-        fileObj = open(path + "/" + master, "r")
+        print(master)
+        fileObj = open(master, "r")
 
         # Call parser here
         parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
@@ -165,6 +167,6 @@ def start_polly(main, input, bibContents):
         links.append(audio_link)
 
         # Remove file
-        # os.remove(myFile)
+        # os.remove(fileObj)
 
     return links

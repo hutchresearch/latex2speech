@@ -85,6 +85,7 @@ def handle_form():
     file_audio = zip(file_holder, audio)
 
     files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
+    
     for f in files:
         os.remove(f)
 

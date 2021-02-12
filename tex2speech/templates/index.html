@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -19,22 +20,32 @@
             <div class="files">
                 <div class="single">
                     <div class="main">
-                        <h5>Main File (.tex)</h5>
+                        <h5>Main File (.tex)&nbsp;&nbsp;
+                            <i class="fa fa-info-circle mainInfo" style="font-size:15px;color:#008080">
+                                <span class = "mainToolTip">The main file are files that have \begin document and \end document commands. Can upload a single file here.</span>
+                            </i>
+                        </h5>
                         <input type="file" id="myFile" name="filename" accept = ".tex"><br>
                     </div>
 
                     <div class="bib">
-                        <h5>Bib File (.bib)</h5>
+                        <h5>Bib File (.bib)&nbsp;&nbsp;
+                            <i class="fa fa-info-circle bibInfo" style="font-size:15px;color:#008080">
+                                <span class = "bibToolTip">(Optional upload) You can upload .bib files here that correspond to the main tex file that you have uploaded. Can upload a single file here.</span>
+                            </i>
+                        </h5>
                         <input type="file" id="bibFile" name="bibFile" accept = ".bib"><br>
                     </div>
 
                     <div class="input">
-                        <h5>Additional Input Tex Files (.tex)</h5>
+                        <h5>Associated Input Files (.tex)&nbsp;&nbsp;
+                            <i class="fa fa-info-circle inputInfo" style="font-size:15px;color:#008080">
+                                <span class = "inputToolTip">(Optional upload) You can upload extra input files here. These files correspond to the main tex file you have uploaded and do not have \begin or \end tags. Can upload multiple files here.</span>
+                            </i>
+                        </h5>
                         <div class="multipleInputs">
-                            <input type="file" id="input" name="inputFile" accept = ".tex"><br>
+                            <input type="file" id="input" name="inputFile" accept = ".tex" multiple><br>
                         </div>
-
-                        <button id = "addMoreInput" type = "button">&#43;&nbsp;&nbsp;&nbsp;Add Another Input File</button>
                     </div>
                 </div>
             </div>
@@ -42,7 +53,9 @@
             <button id = "addMoreMain" type = "button">&#43;&nbsp;&nbsp;&nbsp;Add Another File</button>
         </div>
         <br>
-        <input type="submit" id="submit" value="Submit and Upload">
+        <div class="center">
+            <input type="submit" id="submit" value="Submit and Upload">
+        </div>
     </form>
 </body>
 
