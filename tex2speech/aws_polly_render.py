@@ -97,7 +97,12 @@ def get_text_file(file):
     # return str(text, 'utf-8')
     return text
 
-# Creates master files list
+# Creates a list of master files to hold the uploaded main 
+# files and input files that are referenced into a single 
+# master file
+#
+# returns list of master files
+
 def create_master_files(main, input):
     masterFiles = []
     add = 0
