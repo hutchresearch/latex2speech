@@ -11,11 +11,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 
 app.config['CUSTOM_STATIC_PATH'] = os.path.join(basedir, 'upload')
+app.config['UPLOADED_PATH'] = os.path.join(basedir, 'upload')
+app.config['SECRET_KEY'] = 'my_key'
 
 # Helper function to add values to each array
 def add_to_array(uploadName, extension):
     array = []
-    for file in request.files.getlist('uploadName'):
+    for file in request.files.getlist(uploadName):
         if file.filename != '':
             # Save file to upload folder
             file.save(os.path.join(app.config['UPLOADED_PATH'], file.filename))
@@ -47,7 +49,7 @@ def handle_upload():
     input_holder = []
     bib_holder = []
     audio_links = session['audio']
-
+    
     # Grabs all main files
     file_holder = add_to_array('filename', '.tex')
 
@@ -61,11 +63,13 @@ def handle_upload():
     audio_links = start_polly(file_holder, input_holder, bib_holder)
     session['file_holder'] = file_holder
     session['audio'] = audio_links
-    return render_template('download.html')
+    
+    # return "uploading..."
+    return redirect(url_for('handle_form'))
     # return '', 204
 
 # Download resulting output page
-@app.route('/form', methods=['POST'])
+@app.route('/form')
 def handle_form():
     # redirect to home if nothing in session
     if "file_holder" not in session or session['file_holder'] == []:

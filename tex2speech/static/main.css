@@ -21,6 +21,10 @@ h3 {
     text-align: center;
 }
 
+.output {
+    text-align: center;
+}
+
 form {
     /* border: 1px solid black; */
     width: 70%;
@@ -55,14 +59,17 @@ form {
 /* Main Tex File CSS */
 .main {
     display: inline-block;
+    vertical-align: top;
 }
 
 /* Bib File CSS */
 .bib {
     display: inline-block;
+    vertical-align: top;
 }
 
 /* Input File CSS */
 .input {
     display: inline-block;
+    vertical-align: top;
 }

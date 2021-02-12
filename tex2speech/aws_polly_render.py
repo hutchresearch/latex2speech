@@ -110,71 +110,61 @@ def start_polly(main, input, bibContents):
 
     #masterFiles = multiFile(main,input)
 
-    add = 0
-    add = add+1
-        with open("final"+str(add)+".tex", 'w') as outfile:
-            masterFiles.append(outfile)
-            with open(path + "\\"+mainFile, 'r') as infile:
+    # add = 0
+    # add = add+1
+    # with open("final"+str(add)+".tex", 'w') as outfile:
+    #     masterFiles.append(outfile)
+    #     with open(path + "\\" + mainFile, 'r') as infile:
 
-                for line in infile:
-                    tmp = ""
-                    contained = False  
-                    for i in range(len(line)):
-                    
-                        tmp = tmp + line[i]
-                        i = i + 1
-                    
-                        if(tmp == "\\include{" or tmp == "\\input{"):
-                            tmp = ""                                             
-                        
+    #         for line in infile:
+    #             tmp = ""
+    #             contained = False  
+    #             for i in range(len(line)):
+                
+    #                 tmp = tmp + line[i]
+    #                 i = i + 1
+                
+    #                 if(tmp == "\\include{" or tmp == "\\input{"):
+    #                     tmp = ""                                             
+    #                     while(line[i] != '}'):
+    #                         tmp = tmp + line[i]
+    #                         print(tmp)                            
 
-                            while(line[i] != '}'):
-                                tmp = tmp + line[i]
-                                print(tmp)                            
+    #                         for inputFile in input:
+    #                             append = tmp
+    #                             if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
+    #                                 append = tmp + ".tex"
+    #                             if(append == inputFile):
+    #                                 with open(inputFile,'r') as tmpInput:
+    #                                     outfile.write(tmpInput.read())
+    #                                     contained = True
+    #                                     tmpInput.close()
 
-                                for inputFile in input:
-                                    append = tmp
-                                    if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
-                                        append = tmp + ".tex"
-                                    if(append == inputFile):
-                                        with open(inputFile,'r') as tmpInput:
-                                            outfile.write(tmpInput.read())
-                                            contained = True
-                                            tmpInput.close()
+    #                         i = i + 1
 
-                                i = i + 1
-
-                            if(contained == False):
-                                outfile.write(tmp + "File not found \n")
-                                contained = True
-                    
-                                
-                        
-
-                    if(contained == False):          
-                        outfile.write(line)
-                    
-        outfile.close()
-    for master in masterFiles: 
-        fileObj = open(master, "r")
+    #                     if(contained == False):
+    #                         outfile.write(tmp + "File not found \n")
+    #                         contained = True
+                
+    #             if(contained == False):          
+    #                 outfile.write(line)
+                
+    # outfile.close()
+    for master in main:
+    # for master in masterFiles: 
+        fileObj = open(path + "/" + master, "r")
 
         # Call parser here
         parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
 
-        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(file, parsed_contents)
         audio_link = "hi"
-        # links.append(audio_link)
+        links.append(audio_link)
 
         # Remove file
         # os.remove(myFile)
 
     return links
-
-if __name__ == '__main__':
-    main = []
-    input = []
-    bib = []
-    start_polly(main, input, bib)
