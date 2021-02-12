@@ -97,34 +97,82 @@ def get_text_file(file):
     # return str(text, 'utf-8')
     return text
 
+# Creates a list of master files to hold the uploaded main 
+# files and input files that are referenced into a single 
+# master file
+#
+# returns list of master files
+
+def create_master_files(main, input):
+    masterFiles = []
+    add = 0
+
+    # For every uploaded main file
+    for mainFile in main:
+        add = add+1
+
+        # Create new master file
+        with open("final"+str(add)+".tex", 'w') as outfile:
+            masterFiles.append("final"+str(add)+".tex")
+            with open(path + "/" + mainFile, 'r') as infile:
+                # For each line, add to the master file
+                for line in infile:
+                    tmp = ""
+                    contained = False  
+
+                    for i in range(len(line)):
+                        tmp = tmp + line[i]
+                        i = i + 1
+                        # Finds include or input file
+                        if(tmp == "\\include{" or tmp == "\\input{"):
+                            tmp = ""  
+
+                            while(line[i] != '}'):
+                                tmp = tmp + line[i]                          
+
+                                # Checks if input/include keyword was found in list of fiels
+                                for inputFile in input:
+                                    append = tmp
+
+                                    if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
+                                        append = tmp + ".tex"
+
+                                    if(append == inputFile):
+                                        with open(path + "/" + inputFile,'r') as tmpInput:
+                                            outfile.write(tmpInput.read())
+                                            contained = True
+                                            tmpInput.close()
+                                i = i + 1
+
+                            if(contained == False):
+                                outfile.write(tmp + "File not found \n")
+                                contained = True
+                    
+                    if(contained == False):          
+                        outfile.write(line)
+        outfile.close()
+    return masterFiles
+
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(main, input, bibContents):
     links = []
     latex_parser = TexParser()
+    masterFiles = []
 
-    for file in main:
+    masterFiles = create_master_files(main,input)
 
-    # Here we will create master file (if applicable)
-        # Go through each file check 
-        # Find master (meaning it has /input command)
-            # If we find input command
-                # Shove everything in that spot
-
-        myFile = path + "/" + file
-        fileObj = open(myFile, "r")
+    for master in masterFiles:
+        fileObj = open(master, "r")
 
         # Call parser here
         parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
 
-        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(file, parsed_contents)
-        audio_link = "hi"
-        # links.append(audio_link)
-
-        # Remove file
-        os.remove(myFile)
+        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
+        links.append(audio_link)
 
     return links

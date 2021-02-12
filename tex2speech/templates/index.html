@@ -6,28 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Tex2Speech</title>
 
-    <!-- CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<header>
-    {{ dropzone.style('margin-top: 5%; margin-bottom: 5%;') }}
-    {{ dropzone.load() }}
-</header>
-
 <body>
-    
     <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
 
-    <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post">
-        {{ dropzone.create() }}
-        <input type="submit" id="submit" value="Submit and Upload">
+    <form action="/upload" enctype="multipart/form-data" method="post">
+        <h3>Upload Files</h3>
+        <div id="additional">
+            <div class="files">
+                <div class="single">
+                    <div class="main">
+                        <h5>Main File (.tex)&nbsp;&nbsp;
+                            <i class="fa fa-info-circle mainInfo" style="font-size:15px;color:#008080">
+                                <span class = "mainToolTip">The main file are files that have \begin document and \end document commands. Can upload a single file here.</span>
+                            </i>
+                        </h5>
+                        <input type="file" id="myFile" name="filename" accept = ".tex"><br>
+                    </div>
+
+                    <div class="bib">
+                        <h5>Bib File (.bib)&nbsp;&nbsp;
+                            <i class="fa fa-info-circle bibInfo" style="font-size:15px;color:#008080">
+                                <span class = "bibToolTip">(Optional upload) You can upload .bib files here that correspond to the main tex file that you have uploaded. Can upload a single file here.</span>
+                            </i>
+                        </h5>
+                        <input type="file" id="bibFile" name="bibFile" accept = ".bib"><br>
+                    </div>
+
+                    <div class="input">
+                        <h5>Associated Input Files (.tex)&nbsp;&nbsp;
+                            <i class="fa fa-info-circle inputInfo" style="font-size:15px;color:#008080">
+                                <span class = "inputToolTip">(Optional upload) You can upload extra input files here. These files correspond to the main tex file you have uploaded and do not have \begin or \end tags. Can upload multiple files here.</span>
+                            </i>
+                        </h5>
+                        <div class="multipleInputs">
+                            <input type="file" id="input" name="inputFile" accept = ".tex" multiple><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <button id = "addMoreMain" type = "button">&#43;&nbsp;&nbsp;&nbsp;Add Another File</button>
+        </div>
+        <br>
+        <div class="center">
+            <input type="submit" id="submit" value="Submit and Upload">
+        </div>
     </form>
-    {{ dropzone.load_js() }}
-    {{ dropzone.config() }}
 </body>
 
-<!-- JavaScript Files -->
 <script src="{{url_for('static', filename='main.js')}}"></script>
 
 </html>

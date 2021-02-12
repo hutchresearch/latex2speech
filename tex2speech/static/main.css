@@ -1,3 +1,4 @@
+
 * {
     padding: 0;
     margin: 0;
@@ -14,61 +15,123 @@ h1 {
     color: var(--main-Color);
 }
 
-.inputBox {
-    width: 300px;
-    padding: 10px 50px;
-    text-align: center;
-    /* border: 1px solid black; */
-
-    /* Centers div box */
-    position: fixed;
-    margin-top: 75px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.formBox {
-    width: 300px;
+h3 {
     margin-top: 10px;
-    margin-left: 40px;
-    margin-bottom: 8px;
+    color: var(--main-Color);
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .output {
-    margin-top: 10px;
-}
-/* 
-.output button {
-    margin-top: 10px;
-    padding: 2px 4px;
+    text-align: center;
 }
 
-.output button #link {
-    text-decoration: none;
+form {
+    /* border: 1px solid black; */
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 2%;
+}
+
+#addMoreInput, #addMoreMain {
+    background-color: white;
     color: black;
+    padding: 1%;
+    /* border: 2px solid var(--main-Color); */
+    border: transparent;
+    margin-top: 10px;
 }
 
-#uploadButton {
-    display: none;
-    margin-left: 125px;
-} */
-
-.dropzone {
-    border: 2px dashed #0087F7; 
-    margin: 10%; 
-    min-height: 400px;
+#addMoreInput:hover, #addMoreMain:hover  {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-#submitForm {
-    margin: 10%;
-    margin-top: 30%;
+.fa:hover {
+    cursor: pointer;
+}
+
+#additional {
+    /* margin-left: 10%; */
 }
 
 #submit {
-    margin-left: 10%
+    margin-left: 10px;
 }
 
-#dropzone {
-    margin-top: 5%;
-    margin-bottom: 5%
+.single {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
 }
+
+.single h5 {
+    text-align: left;
+    padding: 5px;
+}
+
+/* Main Tex File CSS */
+.main {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Bib File CSS */
+.bib {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Input File CSS */
+.input {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Tooltip container */
+.mainInfo, .bibInfo, .inputInfo {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+/* Tooltip text */
+.mainInfo .mainToolTip, .bibInfo .bibToolTip, .inputInfo .inputToolTip {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--main-Color);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+  
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+  
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  /* Tooltip arrow */
+.mainInfo .mainToolTip::after, .bibInfo .bibToolTip::after, .inputInfo .inputToolTip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 27%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .mainInfo:hover .mainToolTip, .bibInfo:hover .bibToolTip, .inputInfo:hover .inputToolTip {
+    visibility: visible;
+    opacity: 1;
+  }
+
