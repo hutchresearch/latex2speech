@@ -104,19 +104,17 @@ def create_master_files(main, input):
 
     # For every uploaded main file
     for mainFile in main:
-        print(mainFile)
         add = add+1
 
         # Create new master file
         with open("final"+str(add)+".tex", 'w') as outfile:
             masterFiles.append("final"+str(add)+".tex")
-            print(str(outfile))
             with open(path + "/" + mainFile, 'r') as infile:
                 # For each line, add to the master file
                 for line in infile:
                     tmp = ""
                     contained = False  
-                    
+
                     for i in range(len(line)):
                         tmp = tmp + line[i]
                         i = i + 1

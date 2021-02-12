@@ -90,8 +90,8 @@ def handle_form():
     for f in files:
         os.remove(f)
 
-    for f in final:
-        os.remove(f)
+    # for f in final:
+        # os.remove(f)
 
     return render_template(
         'download.html',
