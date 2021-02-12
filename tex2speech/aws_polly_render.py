@@ -174,7 +174,7 @@ def start_polly(main, input, bibContents):
     return links
 
 if __name__ == '__main__':
-    main = ['vision_and_scope.tex']
-    input = ['background.tex', 'vision.tex', "scope_limitations.tex", "busness_context.tex","schedule.tex","deliverables.tex",""]
+    main = []
+    input = []
     bib = []
     start_polly(main, input, bib)
