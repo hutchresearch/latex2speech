@@ -2,12 +2,11 @@ import TexSoup
 from conversion_db import ConversionDB
 
 class ConversionParser:
-    def __init__(self, doc: TexSoup.data.TexNode, db: ConversionDB):
-        self.doc = doc
+    def __init__(self, db: ConversionDB):
         self.db = db
 
     def _generateSSMLTree(self):
         pass
 
-    def parse(self):
+    def parse(self, doc: TexSoup.data.TexNode):
         pass
