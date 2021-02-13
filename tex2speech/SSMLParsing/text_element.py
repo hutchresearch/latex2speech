@@ -5,9 +5,3 @@ class TextElement(SSMLElement):
     def __init__(self, text):
         super().__init__()
         self.setHeadText(text)
-
-    def _update(self, node: SSMLElement):
-        raise RuntimeError('Text element can\'t be in SSML tree')
-
-    def _getXMLElement(self):
-        raise RuntimeError('Text element can\'t be in SSML tree')

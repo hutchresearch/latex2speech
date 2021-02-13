@@ -1,12 +1,12 @@
-from SSMLParsing.ssml_element import SSMLElement
+from SSMLParsing.ssml_element_node import SSMLElementNode
 
-class BreakElement(SSMLElement):
+class BreakElement(SSMLElementNode):
     def __init__(self, time=None, strength=None):
         super().__init__()
         self.time = time
         self.strength = strength
 
-    def _update(self, node: SSMLElement):
+    def _update(self, node: SSMLElementNode):
         pass
 
     def _getXMLElement(self):
