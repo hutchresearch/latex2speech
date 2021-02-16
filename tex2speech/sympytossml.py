@@ -32,7 +32,6 @@ def remove_extra_spaces(str):
     return str
 
 def convert_sympy_ssml(expr, mode):
-    #print_tree(expr, assumptions = False)
     funcs_tree = ET.parse(sympy_funcs_file)
     s = _convert(expr, funcs_tree, mode, 1)
     s = remove_extra_spaces(s)
@@ -67,25 +66,17 @@ def _convert(expr, funcs_tree, mode, quantity_index):
                 elif len(expr.args[i].args) == 1:
                     s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index) + ' '
                 else:
-                    if mode == Quantity_Modes.PARENTHESES:
-                        s += ' ' + begin_str + ' ' + \
-                        parentheses_str + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
-                        end_str + ' ' + parentheses_str + ' '
+                    n_str = ''
+                    if mode == Quantity_Modes.PARENTHESES or mode == Quantity_Modes.PARENTHESES_NUMBERED:
+                        q_str = parentheses_str
+                    if mode == Quantity_Modes.QUANTITY or mode == Quantity_Modes.QUANTITY_NUMBERED:
+                        q_str = quantity_str
+                    if mode == Quantity_Modes.QUANTITY_NUMBERED or mode == Quantity_Modes.PARENTHESES_NUMBERED:
+                        n_str = ordinal_str(quantity_index)
 
-                    if mode == Quantity_Modes.QUANTITY:
-                        s += ' ' + begin_str + ' ' + \
-                        quantity_str +  _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
-                        end_str + ' ' +  quantity_str + ' '
-
-                    if mode == Quantity_Modes.PARENTHESES_NUMBERED:
-                        s += ' ' + begin_str + ' ' + ordinal_str(quantity_index) + ' ' + \
-                        parentheses_str + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
-                            end_str + ' ' + ordinal_str(quantity_index) + ' ' + parentheses_str + ' '
-
-                    if mode == Quantity_Modes.QUANTITY_NUMBERED:
-                        s += ' ' + begin_str + ' ' + ordinal_str(quantity_index) + ' ' + \
-                        quantity_str + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
-                        end_str + ' ' + ordinal_str(quantity_index) + ' ' + quantity_str + ' ' 
+                    s += ' ' + begin_str + ' ' + n_str + ' ' + q_str + \
+                    _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
+                    end_str + ' ' + n_str + ' ' + q_str + ' ' 
                 
                 quantity_index += 1
                 i_sub = 0
