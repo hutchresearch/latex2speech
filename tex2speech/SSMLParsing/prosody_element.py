@@ -9,3 +9,13 @@ class ProsodyElement(SSMLElementNode):
 
     def _getXMLElement(self):
         pass
+
+    def __str__(self):
+        a = "ProsodyElement"
+        if self.getHeadText() != "":
+            a = '"' + self.getHeadText() + '"' + " " + a
+        if self.getTailText() != "":
+            a += " " + '"' + self.getTailText() + '"'
+        return a
+
+    __repr__ = __str__

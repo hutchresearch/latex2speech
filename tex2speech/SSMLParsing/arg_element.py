@@ -7,3 +7,13 @@ class ArgElement(SSMLElement):
 
     def getArgNum(self):
         return self.argNum
+    
+    def __str__(self):
+        a = "ArgElement"
+        if self.getHeadText() != "":
+            a = '"' + self.getHeadText() + '"' + " " + a
+        if self.getTailText() != "":
+            a += " " + '"' + self.getTailText() + '"'
+        return a
+
+    __repr__ = __str__

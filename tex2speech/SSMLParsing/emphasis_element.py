@@ -13,3 +13,13 @@ class EmphasisElement(SSMLElementNode):
 
     def getLevel(self):
         return self.level
+
+    def __str__(self):
+        a = "EmphasisElement"
+        if self.getHeadText() != "":
+            a = '"' + self.getHeadText() + '"' + " " + a
+        if self.getTailText() != "":
+            a += " " + '"' + self.getTailText() + '"'
+        return a
+
+    __repr__ = __str__

@@ -17,3 +17,13 @@ class BreakElement(SSMLElementNode):
     
     def getStrength(self):
         return self.strength
+
+    def __str__(self):
+        a = "BreakElement"
+        if self.getHeadText() != "":
+            a = '"' + self.getHeadText() + '"' + " " + a
+        if self.getTailText() != "":
+            a += " " + '"' + self.getTailText() + '"'
+        return a
+
+    __repr__ = __str__
