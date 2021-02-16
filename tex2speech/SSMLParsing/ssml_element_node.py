@@ -1,3 +1,5 @@
+from SSMLParsing.ssml_element import SSMLElement
+
 class SSMLElementNode(SSMLElement):
     def __init__(self):
         super().__init__()

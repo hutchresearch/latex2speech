@@ -1,7 +1,7 @@
 class SSMLElement:
     def __init__(self):
-        self.headText = None
-        self.tailText = None
+        self.headText = ""
+        self.tailText = ""
 
     def setHeadText(self, text):
         self.headText = text
@@ -12,5 +12,5 @@ class SSMLElement:
     def setTailText(self, text):
         self.tailText = text
 
-    def getTail(self):
+    def getTailText(self):
         return self.tailText
