@@ -48,19 +48,9 @@ class testConversionParser(unittest.TestCase):
 
         # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
-        self.assertEqual(len(ssmlParseTree.children), 3)
+        self.assertEqual(len(ssmlParseTree.children), 0)
         
-        self.assertIsInstance(ssmlParseTree.children[0], TextElement)
-        self.assertEqual(ssmlParseTree.children[0].getHeadText(), 'text 1')
-
-        self.assertIsInstance(ssmlParseTree.children[1], TextElement)
-        self.assertEqual(ssmlParseTree.children[1].getHeadText(), 'text 2')
-
-        self.assertIsInstance(ssmlParseTree.children[2], ContentElement)
-        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
-        
-        self.assertIsInstance(ssmlParseTree.children[2].children[0], TextElement)
-        self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText, 'text 3')
+        self.assertEqual(ssmlParseTree.getHeadText(), 'text 1 text 2 text 3')
 
     @patch('conversion_db.ConversionDB')
     def testBreakElement(self, MockConversionDB):
@@ -107,13 +97,10 @@ class testConversionParser(unittest.TestCase):
         self.assertIsInstance(ssmlParseTree.children[1], BreakElement)
         self.assertEqual(ssmlParseTree.children[1].getTime(), None)
         self.assertEqual(ssmlParseTree.children[1].getStrength(), 'strong')
-
-        self.assertIsInstance(ssmlParseTree.children[2], ContentElement)
-        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
         
-        self.assertIsInstance(ssmlParseTree.children[2].children[0], BreakElement)
-        self.assertEqual(ssmlParseTree.children[2].children[0].getTime(), '5ms')
-        self.assertEqual(ssmlParseTree.children[2].children[0].getStrength(), 'x-weak')
+        self.assertIsInstance(ssmlParseTree.children[2], BreakElement)
+        self.assertEqual(ssmlParseTree.children[2].getTime(), '5ms')
+        self.assertEqual(ssmlParseTree.children[2].getStrength(), 'x-weak')
 
         self.assertIsInstance(ssmlParseTree.children[3], BreakElement)
         self.assertEqual(ssmlParseTree.children[3].getTime(), None)
@@ -173,6 +160,7 @@ class testConversionParser(unittest.TestCase):
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
+        parser.printTree(ssmlParseTree)
 
         # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
