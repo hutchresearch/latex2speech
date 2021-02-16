@@ -33,7 +33,7 @@ def remove_extra_spaces(str):
 
 def convert_sympy_ssml(expr, mode):
     funcs_tree = ET.parse(sympy_funcs_file)
-    s = _convert(expr, funcs_tree, mode, 1)
+    s = _convert(expr, funcs_tree, mode, 0)
     s = remove_extra_spaces(s)
     return s
     
