@@ -325,6 +325,46 @@
         <arg />
     </polar_lift>
 
+    <IdentityFunction>
+        <text>identity function of</text>
+        <arg />
+    </IdentityFunction>
+
+    <bell>
+        <text>bell number of </text>
+        <arg />
+    </bell>
+
+    <bernoulli>
+        <text>bernoulli number of </text>
+        <arg />
+    </bernoulli>
+
+    <catalan>
+        <text>catalan number of </text>
+        <arg />
+    </catalan>
+
+    <euler>
+        <text>euler number of </text>
+        <arg />
+    </euler>
+
+    <lucas>
+        <text>lucas number of </text>
+        <arg />
+    </lucas>
+
+    <genocchi>
+        <text>genocchi number of </text>
+        <arg />
+    </genocchi>
+
+    <partition>
+        <text>partition number of </text>
+        <arg />
+    </partition>
+
     <!-- Summation and Series -->
     <Sum>
         <text>sum of</text>
@@ -351,6 +391,16 @@
         <text>Falling factorial of </text>
         <arg />
     </FallingFactorial>
+
+    <subfactorial>
+        <arg />
+        <text>subfactorial</text>
+    </subfactorial>
+
+    <factorial2>
+        <text>double factorial of</text>
+        <arg />
+    </factorial2>
 
     <!-- Calculus-->
     <Derivative>
@@ -381,6 +431,34 @@
         <text> goes to</text>
         <arg />
     </Limit>
+
+    <exp>
+        <text>exponential function e to the </text>
+        <arg />
+        <text> power</text>
+    </exp>
+
+    <!-- Piecewise((expr, cond), (expr, cond), ... ) -->
+    <!-- Is this correct? -->
+    <Piecewise>
+        <text>Piecewise function</text>
+        <subarg />
+        <text>when </text>
+        <repeat/>
+    </Piecewise>
+
+    <ExprCondPair>
+        <arg />
+        <text>when </text>
+        <arg />
+    </ExprCondPair>
+
+    <!-- Not sure if this is entirely correct -->
+    <harmonic>
+        <text>harmonic series of </text>
+        </arg>
+        <repeat />
+    </harmonic>
 
 </ssmlfuncs>
     
