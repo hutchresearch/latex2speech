@@ -17,23 +17,23 @@ class testConversionParser(unittest.TestCase):
         # Set up mock database
         db = conversion_db.ConversionDB()
 
-        a = [TextElement('text 1')]
-        cmds = {'a': a}
         def mockCmdConversion(cmd):
-            nonlocal cmds
-            return cmds[cmd]
-        
-        b = [TextElement('text 2'), ContentElement()]
-        envs = {'b': b}
-        def mockEnvConversion(env):
-            nonlocal envs
-            return envs[env]
+            if cmd == 'a':
+                return [TextElement('text 1')]
+            else:
+                return None
 
-        a_override = [TextElement('text 3')]
-        envsDefn = {'b': {'a': a_override}}
+        def mockEnvConversion(env):
+            if env == 'b':
+                return [TextElement('text 2'), ContentElement()]
+            else:
+                return None
+
         def mockEnvDefinition(env):
-            nonlocal envsDefn
-            return envsDefn[env]
+            if env == 'b':
+                return {'a': [TextElement('text 3')]}
+            else:
+                return None
 
         db.getCmdConversion = Mock(side_effect=mockCmdConversion)
         db.getEnvConversion = Mock(side_effect=mockEnvConversion)
@@ -67,23 +67,23 @@ class testConversionParser(unittest.TestCase):
         # Set up mock database
         db = conversion_db.ConversionDB()
 
-        a = [BreakElement(time='3ms')]
-        cmds = {'a': a}
         def mockCmdConversion(cmd):
-            nonlocal cmds
-            return cmds[cmd]
+            if cmd == 'a':
+                return [BreakElement(time='3ms')]
+            else:
+                return None
         
-        b = [BreakElement(strength='strong'), ContentElement(), BreakElement(strength='weak')]
-        envs = {'b': b}
         def mockEnvConversion(env):
-            nonlocal envs
-            return envs[env]
+            if env == 'b':
+                return [BreakElement(strength='strong'), ContentElement(), BreakElement(strength='weak')]
+            else:
+                return None
 
-        a_override = [BreakElement(time='5ms', strength='x-weak')]
-        envsDefn = {'b': {'a': a_override}}
         def mockEnvDefinition(env):
-            nonlocal envsDefn
-            return envsDefn[env]
+            if env == 'b':
+                return {'a': [BreakElement(time='5ms', strength='x-weak')]}
+            else:
+                return None
 
         db.getCmdConversion = Mock(side_effect=mockCmdConversion)
         db.getEnvConversion = Mock(side_effect=mockEnvConversion)
@@ -124,43 +124,44 @@ class testConversionParser(unittest.TestCase):
         # Set up mock database
         db = conversion_db.ConversionDB()
 
-        # Testing basic nested emphasis resolution
-        a = [EmphasisElement(level='strong')]
-        a[0].appendChild(EmphasisElement(level='weak'))
-        
-        b = [EmphasisElement(level='x-strong'), EmphasisElement(level='default')]
-        b[0].appendChild(ContentElement())
-        b[1].appendChild(EmphasisElement(level='x-weak'))
-
-        a_override = [EmphasisElement(level='weak')]
-
-        # Testing more complex nested emphasis resolution
-        # \c will resolve to the text surrounded by strong emphasis, 
-        #   followed by another emphasis element with strong and weak
-        #   canceled out.
-        c = [EmphasisElement(level='strong')]
-        c[0].setHeadText('text 1')
-        c[0].appendChild(EmphasisElement(level='weak'))
-
-        d = [EmphasisElement(level='x-strong')]
-        d[0].appendChild(BreakElement())
-        d[0].appendChild(EmphasisElement(level='x-weak'))        
-        d[0].appendChild(ContentElement())
-
-        cmds = {'a': a, 'c': c}
         def mockCmdConversion(cmd):
-            nonlocal cmds
-            return cmds[cmd]
-            
-        envs = {'b': b, 'd': d}
-        def mockEnvConversion(env):
-            nonlocal envs
-            return envs[env]
+            # Testing basic nested emphasis resolution
+            if cmd == 'a':
+                a = [EmphasisElement(level='strong')]
+                a[0].appendChild(EmphasisElement(level='weak'))
+                return a
+            # Testing more complex nested emphasis resolution
+            elif cmd == 'c':
+                c = [EmphasisElement(level='strong')]
+                c[0].setHeadText('text 1')
+                c[0].appendChild(EmphasisElement(level='weak'))
+                return c
+            else:
+                return None
 
-        envsDefn = {'b': {'a': a_override}, 'd': {'a': a_override}}
+        def mockEnvConversion(env):
+            # Testing basic nested emphasis resolution
+            if env == 'b':
+                b = [EmphasisElement(level='x-strong'), EmphasisElement(level='default')]
+                b[0].appendChild(ContentElement())
+                b[1].appendChild(EmphasisElement(level='x-weak'))
+                return b
+            # Testing more complex nested emphasis resolution
+            elif env == 'd':
+                d = [EmphasisElement(level='x-strong')]
+                d[0].appendChild(BreakElement())
+                d[0].appendChild(EmphasisElement(level='x-weak'))        
+                d[0].appendChild(ContentElement())
+                return d
+            else:
+                return None
+
         def mockEnvDefinition(env):
-            nonlocal envsDefn
-            return envsDefn[env]
+            # Simple override for both environments
+            if env == 'b' or env == 'd':
+                return {'a': [EmphasisElement(level='weak')]}
+            else:
+                return None
 
         db.getCmdConversion = Mock(side_effect=mockCmdConversion)
         db.getEnvConversion = Mock(side_effect=mockEnvConversion)
