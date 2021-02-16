@@ -2,6 +2,7 @@ from sympy import *
 import xml.etree.ElementTree as ET
 from enum import Enum
 import inflect
+import re
 
 infl = inflect.engine()
 
@@ -12,6 +13,8 @@ class Quantity_Modes(Enum):
     PARENTHESES = 3
     PARENTHESES_NUMBERED = 4
 
+sympy_funcs_file = './static/sympy_funcs.xml' 
+
 begin_str = 'begin'
 end_str = 'end'
 quantity_str = 'quantity'
@@ -20,18 +23,20 @@ parentheses_str = 'parentheses'
 def ordinal_str(num):
     return infl.number_to_words(infl.ordinal(num))
 
+def remove_extra_spaces(str):
+    re.sub(' +', ' ', str)
+    if str[0] == ' ':
+        str = str[1:]
+    if str[len(str) - 1] == ' ':
+        str = str[:(len(str) - 1)]
+    return str
+
 def convert_sympy_ssml(expr, mode):
     #print_tree(expr, assumptions = False)
-    funcs_tree = ET.parse('./static/sympy_funcs.xml')
+    funcs_tree = ET.parse(sympy_funcs_file)
     s = _convert(expr, funcs_tree, mode, 1)
-    if s[0] == ' ':
-        s = s[1:]
-    if s[len(s) - 1] == ' ':
-        s = s[:(len(s) - 1)]
-
+    s = remove_extra_spaces(s)
     return s
-
-
     
 def _convert(expr, funcs_tree, mode, quantity_index):
     

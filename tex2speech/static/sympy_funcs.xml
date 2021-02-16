@@ -171,19 +171,16 @@
         <arg />
     </acsc>
 
-    <!-- Would we rather want this to be pronounced "shine of"? -->
     <sinh>
-        <text>hyperbolic sine of</text>
+        <text>hyperbolic sin of</text>
         <arg />
     </sinh>
 
-    <!-- Would we rather want this to be pronounced "cosh of"? -->
     <cosh>
         <text>hyperbolic cosine of</text>
         <arg />
     </cosh>
 
-    <!-- Would we rather want this to be pronounced "than of"? -->
     <tanh>
         <text>hyperbolic tangent of</text>
         <arg />
@@ -259,11 +256,6 @@
         <text>,</text>
     </Max>
 
-    <!-- Greek -->
-    <Pi>
-        <text>pi</text>
-    </Pi>
-
     <!-- Imaginary Numbers -->
     <im>
         <text>imaginary part of</text>
@@ -308,6 +300,7 @@
     </FallingFactorial>
 
     <!-- Calculus-->
+    <!-- For now calculus is handled by the default case, need to look into how to format this
     <Derivative>
         <text>derivative of</text>
         <arg />
@@ -321,13 +314,11 @@
         <text>d</text>
         <arg />
     </Integral>
+    -->
 
-    <!-- I don't know if this is the proper of binomial -->
-    <binomial>
-        <text>binomial of</text>
-        <arg/>
-    </binomial>
+    <!-- Statistics -->
 
+    <!-- Limits -->
     <Limit>
         <text>Limit of </text>
         <arg />
