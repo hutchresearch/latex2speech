@@ -175,38 +175,3 @@ class ConversionParser:
         tree = RootElement()
         self._parseNodes(doc.contents, tree)
         return tree
-
-import unittest
-from unittest.mock import patch, Mock
-import conversion_db
-
-class testLol(unittest.TestCase):
-    @patch('conversion_db.ConversionDB')
-    def testTextElement(self, MockConversionDB):
-        # Set up mock database
-        db = conversion_db.ConversionDB()
-
-        def mockCmdConversion(cmd):
-            if cmd == 'a':
-                return [TextElement('text 1'), BreakElement()]
-        
-        def mockEnvConversion(env):
-            if env == 'b':
-                return [BreakElement(), ContentElement()]
-
-        def mockEnvDefinition(env):
-            return {'a': [BreakElement(), TextElement('text 3')]}
-
-        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
-        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
-        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
-
-        # Set up TexSoup parse tree to be parsed
-        doc = TexSoup.TexSoup(r'text1a\a\begin{b}\a text2a\a\begin{b}\a text3a\a\end{b}\a text4a\a\end{b}')
-
-        # Parse on the given db and tree
-        parser = ConversionParser(db)
-        ssmlParseTree = parser.parse(doc)
-
-if __name__ == "__main__":
-    unittest.main()
