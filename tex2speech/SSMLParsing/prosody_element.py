@@ -1,4 +1,5 @@
 from SSMLParsing.ssml_element_node import SSMLElementNode
+import xml.etree.ElementTree as ET
 
 class ProsodyElement(SSMLElementNode):
     def __init__(self):

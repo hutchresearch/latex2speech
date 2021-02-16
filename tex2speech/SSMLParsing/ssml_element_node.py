@@ -19,6 +19,6 @@ class SSMLElementNode(SSMLElement):
 
     def getXMLTree(self):
         elem = self._getXMLElement()
-        for child in children:
+        for child in self.children:
             elem.append(child.getXMLTree())
         return elem
