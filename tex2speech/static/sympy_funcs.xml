@@ -204,6 +204,46 @@
         <arg />
     </csch>
 
+    <asinh>
+        <text>the inverse hyperbolic sine function of </text>
+        <arg />
+    </asinh>
+
+    <acosh>
+        <text>the inverse hyperbolic cosine function of </text>
+        <arg />
+    </acosh>
+
+    <atanh>
+        <text>the inverse hyperbolic tangent function of </text>
+        <arg />
+    </atanh>
+
+    <acoth>
+        <text>the inverse hyperbolic cotangent function of </text>
+        <arg />
+    </acoth>
+
+    <asech>
+        <text>the inverse hyperbolic secant function of </text>
+        <arg />
+    </asech>
+
+    <acsch>
+        <text>The inverse hyperbolic cosecant function of </text>
+        <arg />
+    </acsch>
+
+    <sinc>
+        <text>sinc of</text>
+        <arg />
+    </sinc>
+
+    <atan2>
+        <text>atan two of</text>
+        <arg />
+    </atan2>
+
     <log>
         <text>log of</text>
         <arg />
@@ -279,6 +319,11 @@
         <text>conjugate of</text>
         <arg />
     </conjugate>
+
+    <polar_lift>
+        <text>polar lift of</text>
+        <arg />
+    </polar_lift>
 
     <!-- Summation and Series -->
     <Sum>
