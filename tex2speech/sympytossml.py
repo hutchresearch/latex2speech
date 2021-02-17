@@ -32,13 +32,20 @@ def remove_extra_spaces(str):
     return str
 
 def convert_sympy_ssml(expr, mode):
+    '''
+    Convert SymPy object expr to english words.
+    Mode defines how quantities should be denoted.
+    '''
     funcs_tree = ET.parse(sympy_funcs_file)
     s = _convert(expr, funcs_tree, mode, 0)
     s = remove_extra_spaces(s)
     return s
     
 def _convert(expr, funcs_tree, mode, quantity_index):
-    
+    '''
+    Recursive conversion function.
+    User should call convert_sympy_ssml instead.
+    '''
     func_id = expr.__class__.__name__
     r = funcs_tree.getroot()
     func = r.find(func_id)
@@ -59,7 +66,7 @@ def _convert(expr, funcs_tree, mode, quantity_index):
         while i < len(expr.args):
             if j >= len(func):
                 j = repeat_index
-            
+
             if func[j].tag == 'arg':
                 if isinstance(expr.args[i], Atom): 
                     s += _convert(expr.args[i], funcs_tree, mode, quantity_index)
@@ -75,10 +82,9 @@ def _convert(expr, funcs_tree, mode, quantity_index):
                         n_str = ordinal_str(quantity_index)
 
                     s += ' ' + begin_str + ' ' + n_str + ' ' + q_str + \
-                    _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
+                    _convert(expr.args[i], funcs_tree, mode, quantity_index) + \
                     end_str + ' ' + n_str + ' ' + q_str + ' ' 
                 
-                quantity_index += 1
                 i_sub = 0
                 i += 1
                 j += 1

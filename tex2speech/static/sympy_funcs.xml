@@ -429,13 +429,11 @@
         <text> power</text>
     </exp>
 
-    <!-- Piecewise((expr, cond), (expr, cond), ... ) -->
-    <!-- Is this correct? -->
+    <!-- Piecewise -->
     <Piecewise>
         <text>Piecewise function</text>
-        <subarg />
-        <text>when </text>
-        <repeat/>
+        <repeat /> 
+        <arg />
     </Piecewise>
 
     <ExprCondPair>
@@ -447,8 +445,8 @@
     <!-- Not sure if this is entirely correct -->
     <harmonic>
         <text>harmonic series of </text>
-        </arg>
         <repeat />
+        <arg />
     </harmonic>
 
 </ssmlfuncs>
