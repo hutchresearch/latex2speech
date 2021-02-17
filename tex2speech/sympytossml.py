@@ -37,7 +37,7 @@ def convert_sympy_ssml(expr, mode):
     Mode defines how quantities should be denoted.
     '''
     funcs_tree = ET.parse(sympy_funcs_file)
-    s = _convert(expr, funcs_tree, mode, 0)
+    s = _convert(expr, funcs_tree, mode, 1)
     s = remove_extra_spaces(s)
     return s
     
