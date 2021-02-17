@@ -69,9 +69,9 @@ def _convert(expr, funcs_tree, mode, quantity_index):
 
             if func[j].tag == 'arg':
                 if isinstance(expr.args[i], Atom): 
-                    s += _convert(expr.args[i], funcs_tree, mode, quantity_index)
+                    s += _convert(expr.args[i], funcs_tree, mode, quantity_index + 1)
                 elif len(expr.args[i].args) == 1:
-                    s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index) + ' '
+                    s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + ' '
                 else:
                     n_str = ''
                     if mode == Quantity_Modes.PARENTHESES or mode == Quantity_Modes.PARENTHESES_NUMBERED:
