@@ -82,7 +82,7 @@ def _convert(expr, funcs_tree, mode, quantity_index):
                         n_str = ordinal_str(quantity_index)
 
                     s += ' ' + begin_str + ' ' + n_str + ' ' + q_str + \
-                    _convert(expr.args[i], funcs_tree, mode, quantity_index) + \
+                    _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
                     end_str + ' ' + n_str + ' ' + q_str + ' ' 
                 
                 i_sub = 0
