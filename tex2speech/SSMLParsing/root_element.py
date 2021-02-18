@@ -5,7 +5,7 @@ class RootElement(SSMLElementNode):
     def __init__(self):
         super().__init__()
 
-    def _update(self, node: SSMLElementNode):
+    def _update(self):
         pass
 
     def _getXMLElement(self):

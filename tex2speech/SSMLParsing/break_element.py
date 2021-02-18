@@ -7,7 +7,7 @@ class BreakElement(SSMLElementNode):
         self.time = time
         self.strength = strength
 
-    def _update(self, node: SSMLElementNode):
+    def _update(self):
         pass
 
     def _getXMLElement(self):

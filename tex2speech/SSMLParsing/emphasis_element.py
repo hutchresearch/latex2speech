@@ -5,9 +5,17 @@ class EmphasisElement(SSMLElementNode):
     def __init__(self, level=None):
         super().__init__()
         self.level = level
+        self.levels = ['none', 'reduced', 'moderate', 'strong']
+        self.levelIndex = {'none': 0, 'reduced': 1, 'moderate': 2, 'strong': 3}
 
-    def _update(self, node: SSMLElementNode):
-        pass
+    def _levelDiff(self, nestedLevel):
+        mid = (self.levelIndex[self.level] + self.levelIndex(nestedLevel))/2
+        return self.levels[mid]
+
+    def _update(self):
+        for i, child in enumerate(self.children):
+            if isinstance(child, EmphasisElement):
+                newLevel = self._levelDiff(child.getLevel())
 
     def _getXMLElement(self):
         attrib = {}
