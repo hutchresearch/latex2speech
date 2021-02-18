@@ -13,19 +13,21 @@ from SSMLParsing.text_element import TextElement
 
 from tex_soup_utils import exprTest, seperateContents
 
+'''
+Main parsing class. Parses TexSoup parse trees into SSMLElementNode
+    trees for future output. The conversion rules for every command 
+    and environment found in the tree is determined by the database
+    the class is initialized with.
+'''
 class ConversionParser:
     def __init__(self, db: ConversionDB):
         self.db = db
         self.envStack = []
-    
-        # DEBUG
-        self.resEnvCount = 0
-        self.parEnvCount = 0
-        self.resCmdCount = 0
-        self.parCmdCount = 0
-        self.parNodCount = 0
-        self.totalCount = 0
 
+    '''
+    Retrieves the correct argument node's list of arguments with respect to 
+        the format of the ArgElement class.
+    '''
     def _getArg(self, node, argElem):
         targetType = TexSoup.data.BraceGroup
         if argElem.getArgType() == 'bracket':
@@ -44,131 +46,106 @@ class ConversionParser:
 
         return arg
 
-    def _resolveEnvironmentElements(self, envNode, elemListParent, elemList, leftSibling):
-        self.resEnvCount += 1
-        self.totalCount += 1
+    '''
+    Recursively resolves non-node SSMLElements within elemList with respect to 
+        envNode. Also manages the envStack.
+    '''
+    def _resolveEnvironmentElements(self, envNode, elemListParent, elemList, leftChild):
         if len(elemList) > 0:
-            while isinstance(elemList[0], TextElement):
-                textElem = elemList.pop(0)
-                elemListParent.appendHeadText(textElem.getHeadText())
             offset = 0
+            i = 0
             for k in range(len(elemList)):
-                i = k + offset
-                nextOffset = 0
                 if not isinstance(elemList[i], SSMLElementNode):
                     elem = elemList.pop(i)
-                    nextOffset -= 1
+                    nextOffset = -1
                     newInd = i
+                    parseTarget = None
                     if isinstance(elem, ArgElement):
-                        contents = self._getArg(envNode, elem).contents
-                        if i > 0:
-                            while len(contents) > 0 and isinstance(contents[0], TexSoup.data.Token):
-                                text = str(contents.pop(0))
-                                elemList[i-1].appendTailText(text)
-                        elif leftSibling:
-                            while len(contents) > 0 and isinstance(contents[0], TexSoup.data.Token):
-                                text = str(contents.pop(0))
-                                leftSibling.appendTailText(text)
-                        self.envStack.append(self.db.getEnvDefinition(envNode.name))
-                        newInd = self._parseNodes(contents, elemListParent, ssmlChildren=elemList, insertIndex=i)
-                        self.envStack.pop()
+                        parseTarget = self._getArg(envNode, elem).contents
                     elif isinstance(elem, ContentElement):
-                        _, contents = seperateContents(envNode)
-                        if i > 0:
-                            while len(contents) > 0 and isinstance(contents[0], TexSoup.data.Token):
-                                text = str(contents.pop(0))
-                                elemList[i-1].appendTailText(text)
-                        elif leftSibling:
-                            while len(contents) > 0 and isinstance(contents[0], TexSoup.data.Token):
-                                text = str(contents.pop(0))
-                                leftSibling.appendTailText(text)
-                        self.envStack.append(self.db.getEnvDefinition(envNode.name))
-                        newInd = self._parseNodes(contents, elemListParent, ssmlChildren=elemList, insertIndex=i)
-                        self.envStack.pop()
+                        _, parseTarget = seperateContents(envNode)
                     elif isinstance(elem, TextElement):
-                        if i > 0:
-                            elemList[i-1].appendTailText(elem.getHeadText())
-                        elif leftSibling:
-                            leftSibling.appendTailText(elem.getHeadText())
+                        text = elem.getHeadText()
+                        if leftChild:
+                            leftChild.appendTailText(text)
                         else:
-                            elemListParent.appendHeadText(elem.getHeadText())
+                            elemListParent.appendHeadText(text)
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")
+                        
+                    if parseTarget:
+                        definition = self.db.getEnvDefinition(envNode.name)
+                        if definition:
+                            self.envStack.append(definition)
+                            newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
+                            self.envStack.pop()
+                        else:
+                            newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
+                    
                     nextOffset += newInd - i
+                    offset += nextOffset
                 else:
-                    newLeftSibling = leftSibling
-                    if i > 0:
-                        newLeftSibling = elemList[i-1]
-                    self._resolveEnvironmentElements(envNode, elemList[i], elemList[i].children, newLeftSibling)
-                offset += nextOffset
-        self.resEnvCount -= 1
-        self.totalCount -= 1
+                    self._resolveEnvironmentElements(envNode, elemList[i], elemList[i].children, leftChild)
+                
+                i = (k + 1) + offset
+                if i > 0:
+                    leftChild = elemList[i-1]
 
 
-    def _parseEnvironment(self, envNode, ssmlNode, ssmlChildren, insertIndex):
-        self.parEnvCount += 1
-        self.totalCount += 1
+    '''
+    Handles environment parsing, returning the result of its parsing or 
+        or none of no appropriate definition is found.
+    '''
+    def _parseEnvironment(self, envNode, ssmlParent, leftChild):
         args, contents = seperateContents(envNode)
 
         elemList = self.db.getEnvConversion(envNode.name)
         if not elemList:
-            self._parseNodes(contents, ssmlNode, ssmlChildren=ssmlChildren, insertIndex=insertIndex)
+            self._parseNodes(contents, ssmlParent, leftChild=leftChild)
         else:
-            leftSibling = None
-            if insertIndex > 0:
-                leftSibling = ssmlChildren[insertIndex-1]
-            self._resolveEnvironmentElements(envNode, ssmlNode, elemList, leftSibling)
-            for ssmlSubNode in elemList:
-                ssmlChildren.insert(insertIndex, ssmlSubNode)
-                insertIndex += 1
+            self._resolveEnvironmentElements(envNode, ssmlParent, elemList, leftChild)
 
-        self.parEnvCount -= 1
-        self.totalCount -= 1
-        return insertIndex
+        return elemList
 
-    def _resolveCmdElements(self, cmdNode, elemListParent, elemList, leftSibling):
-        self.resCmdCount += 1
-        self.totalCount += 1
+    '''
+    Recursively resolves non-node SSMLElements within elemList with respect to 
+        envNode.
+    '''
+    def _resolveCmdElements(self, cmdNode, elemListParent, elemList, leftChild):
         if len(elemList) > 0:
-            while len(elemList) > 0 and isinstance(elemList[0], TextElement):
-                textElem = elemList.pop(0)
-                elemListParent.appendHeadText(textElem.getHeadText())
             offset = 0
+            i = 0
             for k in range(len(elemList)):
-                i = k + offset
-                nextOffset = 0
                 if not isinstance(elemList[i], SSMLElementNode):
                     elem = elemList.pop(i)
-                    nextOffset -= 1
+                    nextOffset = -1
                     newInd = i
                     if isinstance(elem, ArgElement):
                         contents = self._getArg(cmdNode, elem).contents
-                        if i > 0:
-                            while len(contents) > 0 and isinstance(contents[0], TexSoup.data.Token):
-                                text = str(contents.pop(0))
-                                elemList[i-1].appendTailText(text)
-                        elif leftSibling:
-                            while len(contents) > 0 and isinstance(contents[0], TexSoup.data.Token):
-                                text = str(contents.pop(0))
-                                leftSibling.appendTailText(text)
-                        newInd = self._parseNodes(contents, elemListParent, ssmlChildren=elemList, insertIndex=i)
+                        newInd = self._parseNodes(contents, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
                     elif isinstance(elem, TextElement):
-                        elemList[i-1].appendTailText(elem.getHeadText())
+                        text = elem.getHeadText()
+                        if leftChild:
+                            leftChild.appendTailText(text)
+                        else:
+                            elemListParent.appendHeadText(text)
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")
-                    nextOffset += newInd - i
-                else:
-                    newLeftSibling = leftSibling
-                    if i > 0:
-                        newLeftSibling = elemList[i-1]
-                    self._resolveCmdElements(cmdNode, elemList[i], elemList[i].children, newLeftSibling)
-                offset += nextOffset
-        self.resCmdCount -= 1
-        self.totalCount -= 1
 
-    def _parseCommand(self, cmdNode, ssmlNode, ssmlChildren, insertIndex):
-        self.parCmdCount += 1
-        self.totalCount += 1
+                    nextOffset += newInd - i
+                    offset += nextOffset
+                else:
+                    self._resolveCmdElements(cmdNode, elemList[i], elemList[i].children, leftChild)
+                
+                i = (k + 1) + offset
+                if i > 0:
+                    leftChild = elemList[i-1]
+
+    '''
+    Handles command parsing, returning the result of its parsing or 
+        or none of no appropriate definition is found.
+    '''
+    def _parseCommand(self, cmdNode, ssmlParent, leftChild):
         args, _ = seperateContents(cmdNode)
         
         elemList = None
@@ -178,48 +155,42 @@ class ConversionParser:
             elemList = self.db.getCmdConversion(cmdNode.name)
         
         if elemList:
-            leftSibling = None
-            if insertIndex > 0:
-                leftSibling = ssmlChildren[insertIndex-1]
-            self._resolveCmdElements(cmdNode, ssmlNode, elemList, leftSibling)
-            for ssmlSubNode in elemList:
-                ssmlChildren.insert(insertIndex, ssmlSubNode)
-                insertIndex += 1
+            self._resolveCmdElements(cmdNode, ssmlParent, elemList, leftChild)
 
-        self.parCmdCount -= 1
-        self.totalCount -= 1
-        return insertIndex
+        return elemList
 
-    def _parseNodes(self, texNodes: list, ssmlNode: SSMLElementNode, ssmlChildren=None, insertIndex=0):
-        self.parNodCount += 1
-        self.totalCount += 1
-        print("BEFORE: " + str(self.parNodCount))
-        print(ssmlNode)
-        print(ssmlChildren)
-        print()
+    '''
+    Main entry point to all parsing. Parses wih respect to a list of TexSoup
+        nodes, a parent SSMLElementNode and its children. The children don't 
+        necessarily correspond to the parent's actual list of children in 
+        order to facilitate processing seperate lists of nodes.
+    '''
+    def _parseNodes(self, texNodes: list, ssmlParent: SSMLElementNode, ssmlChildren=None, insertIndex=0, leftChild=None):
         if ssmlChildren is None:
-            ssmlChildren = ssmlNode.children
+            ssmlChildren = ssmlParent.children
         for texNode in texNodes:
+            parseOut = None
+            if insertIndex > 0:
+                leftChild = ssmlChildren[insertIndex-1]
+
             if exprTest(texNode, TexSoup.data.TexEnv):
-                insertIndex = self._parseEnvironment(texNode, ssmlNode, ssmlChildren, insertIndex)
+                parseOut = self._parseEnvironment(texNode, ssmlParent, leftChild)
             elif exprTest(texNode, TexSoup.data.TexCmd):
-                insertIndex = self._parseCommand(texNode, ssmlNode, ssmlChildren, insertIndex)
+                parseOut = self._parseCommand(texNode, ssmlParent, leftChild)
             elif exprTest(texNode, TexSoup.data.Token):
-                if len(ssmlChildren) == 0 or insertIndex == 0:
-                    ssmlNode.appendHeadText(str(texNode))
+                text = str(texNode)
+                if leftChild:
+                    leftChild.appendTailText(text)
                 else:
-                    ssmlChildren[insertIndex-1].appendTailText(str(texNode))
+                    ssmlParent.appendHeadText(text)
             
-            print("LOOP IN " + str(self.parNodCount))
-            print(ssmlNode)
-            print(ssmlChildren)
-            print()
-        print("AFTER: " + str(self.parNodCount))
-        print(ssmlNode)
-        print(ssmlChildren)
-        print()
-        self.parNodCount -= 1
-        self.totalCount -= 1
+            if parseOut:
+                for ssmlChild in parseOut:
+                    ssmlChildren.insert(insertIndex, ssmlChild)
+                    insertIndex += 1
+
+            if insertIndex > 0:
+                leftChild = ssmlChildren[insertIndex-1]
         return insertIndex
 
     def _printTreeSub(self, tree, level, levelArr, atIndex, parentIndex):
@@ -229,16 +200,19 @@ class ConversionParser:
         for i, child in enumerate(tree.children):
             self._printTreeSub(child, level+1, levelArr, i, atIndex)
 
-    # Method for debugging
+    '''
+    Basic print method to see whats happening within the tree
+    '''
     def printTree(self, tree):
         levelArr = []
         self._printTreeSub(tree, 0, levelArr, 0, -1)
         for level in levelArr:
             print(level)
 
+    '''
+    Parse doc with respect to the database the parser was initialized with.
+    '''
     def parse(self, doc: TexSoup.data.TexNode):
         tree = RootElement()
         self._parseNodes(doc.contents, tree)
-        # TODO: Should avoid this by using insertChild always
-        # TODO: TODO: do the parent attaching
         return tree
