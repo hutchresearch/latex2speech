@@ -213,5 +213,85 @@ class testConversionParser(unittest.TestCase):
         self.assertIsEqual(ssmlParseTree.children[7].getlevel(), 'x-strong')
         self.assertIsEqual(len(ssmlParseTree.children[7].children), 0)
 
+    '''
+    Prosody <prosody attribute = "value"></prosody>
+        <prosody volume = ""></prosody>
+            - default (regular)
+            - silent, x-soft, soft, medium, loud, x-loud. Sets volume
+            - +ndB, -ndB : Changes volume relative to the current
+              level. A value of +0dB means no change, +6dB means
+              approximately twice the current volume and -6dB means
+              approsimately half the current volume
+        <prosody rate = ""></prosody>
+            - x-slow, slow, medium, fast, x-fast. Sets pitch  
+            - n% a non negative percentage change in the speaking rate
+              For example, a value of 100% means no change in speaking 
+              rate, a value of 200% means twice the default rate, value
+              of 50% means a speaking rate of half the default rate.
+              This value has a range of 20-200%
+        <prosody pitch = ""></prosody>
+            - deafult (regular)
+            - x-low, low, medium, high, x-hgih. Sets pitch
+            - +n% or -n% adjusts pitch by a relative percentage. For
+              example, a value of +0% means no baseline pitch change, +5%
+              gives a little higher baseline pitch, and -5% results in a lower
+              baseline pitch
+        <prosody amazon:max-duration = "2s"></prosody>
+            - "n"s maximum duration in seconds
+            - "n"ms maximum duration in milliseconds
+    '''
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElement(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+        # def mockCmdConversion(cmd):
+        #     # Testing basic nested prosody resolution
+        #     if cmd == 'a':
+        #         a = [EmphasisElement(level='strong')]
+        #         a[0].appendChild(EmphasisElement(level='weak'))
+        #         return a
+        #     # Testing more complex nested emphasis resolution
+        #     elif cmd == 'c':
+        #         c = [EmphasisElement(level='strong')]
+        #         c[0].setHeadText('text 1')
+        #         c[0].appendChild(EmphasisElement(level='weak'))
+        #         return c
+        #     else:
+        #         return None
+
+        # def mockEnvConversion(env):
+        #     # Testing basic nested prosody resolution
+        #     if env == 'b':
+        #         b = [EmphasisElement(level='x-strong'), EmphasisElement(level='default')]
+        #         b[0].appendChild(ContentElement())
+        #         b[1].appendChild(EmphasisElement(level='x-weak'))
+        #         return b
+        #     # Testing more complex nested prosody resolution
+        #     elif env == 'd':
+        #         d = [EmphasisElement(level='x-strong')]
+        #         d[0].appendChild(BreakElement())
+        #         d[0].appendChild(EmphasisElement(level='x-weak'))        
+        #         d[0].appendChild(ContentElement())
+        #         return d
+        #     else:
+        #         return None
+
+        # def mockEnvDefinition(env):
+        #     # Simple override for both environments
+        #     if env == 'b' or env == 'd':
+        #         return {'a': [EmphasisElement(level='weak')]}
+        #     else:
+        #         return None
+        # Test cases for prosody -> A lot (Might need a different function for each attribute) Only weird if there is nested resolution (not sure if we will impelement it yet, whatJacob is doing for emphasis). -> Assume we will be doing it since the custoemr asked us to do it
+
+        # When the mocks are happenign you have to return mock objects
+        # Convert previous janky xml into the new format
+        # Update XML
+            # Design XML documentation
+
+        # For each node
+            # Looks at child but if has emphasis fine
+            # Look at next, possibly creates new node, reaches up to the parent, modifies the list of children, then leave, now it's the parents turn
 if __name__ == "__main__":
     unittest.main()
