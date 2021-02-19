@@ -5,33 +5,39 @@ import xml.etree.ElementTree as ET
 class ProsodyElementVolume(SSMLElementNode):
     def __init__(self, volume = None):
         super().__init__()
-        self.volumes = ['silent', '-6dB', '-5dB', '-4dB', '-3dB', '-2dB', '-1dB', '0dB', '-0dB', '+1dB', '+2dB', '+3dB', '+4dB', '+5dB', '+6dB']
-        self.volumeIndex = {'silent': 0, '-6dB': 1, '-5dB': 2, '-4dB': 3, '-3dB': 4, '-2dB': 5, '-1dB': 6, '0dB': 7, '-0dB': 7, '+1dB': 8, '+2dB': 9, '+3dB': 10, '+4dB': 11, '+5dB': 12, '+6dB': 13}
         self.volume = self._assignVolume(volume)
 
     def _assignVolume(self, value):
         temp = ""
-        if value in self.volumes:
-            temp = value
+        if value[1].isnumeric():
+            tempVal = value[:-1]
+            temp= int(tempVal)
         else:
             if value == 'x-soft':
-                temp = '-6dB'
+                temp = -6
             elif value == 'soft':
-                temp= '-3dB'
+                temp= -3
             elif value == 'medium':
-                temp = '+0dB'
+                temp = 0
             elif value == 'loud':
-                temp= '+3dB'
+                temp= 3
             elif value == 'x-loud':
-                temp = '+6dB'
+                temp = 6
         return temp
 
     def _mediumVolume(self, nestedVolume):
-        mid = (self.volumeIndex[self.volume] + self.volumeIndex(self._assignVolume(nestedVolume)))/2
-        return self.volumes[mid]
+        mid = (self.volume + self._assignVolume(nestedVolume))/2
+
+        if str(mid[0]) == '-':
+            return mid + "dB"
+        else:
+            return "+" + mid + "dB"
 
     def _getVolume(self):
-        return self.volume
+        if str(self.volume[0]) == '-': 
+            return self.volume + "dB"
+        else:
+            return "+" + self.volume + "dB"
 
 # Prosody for Rate attribute
 class ProsodyElementRate(SSMLElementNode):
@@ -43,7 +49,14 @@ class ProsodyElementRate(SSMLElementNode):
         temp = ""
         if rate[0].isnumeric():
             tempVal = rate[:-1]
-            temp= int(tempVal)
+
+            # Rate is between 20% and 200%
+            if tempVal > 200:
+                temp = 200;
+            elif tempVal < 20:
+                temp = 20;
+            else:
+                temp= int(tempVal)
         else:
             if rate == 'x-slow':
                 temp = 60
@@ -58,11 +71,11 @@ class ProsodyElementRate(SSMLElementNode):
         return temp
 
     def _mediumRate(self, nestedRate):
-        mid = (self.volumeIndex[self.rate] + self._assignRate(nestedRate))/2;
+        mid = (self.rate + self._assignRate(nestedRate))/2;
         return str(mid) + "%"
 
     def _getRate(self):
-        return self.rate
+        return self.rate + "%"
 
 
 # Prosody for Pitch attribute
@@ -90,11 +103,18 @@ class ProsodyElementPitch(SSMLElementNode):
         return temp
 
     def _mediumPitch(self, nestedPitch):
-        mid = (self.volumeIndex[self.pitch] + self._assignRate(nestedPitch))/2;
-        return str(mid) + "%"
+        mid = (self.pitch + self._assignRate(nestedPitch))/2;
+
+        if mid[0] == '-':
+            return str(mid) + "%"
+        else:
+            return "+" + str(mid) + "%"
 
     def _getPitch(self):
-        return self.pitch
+        if self.pitch[0] == '-':
+            return self.pitch + "%"
+        else:
+            return "+" + self.pitch + "%"
 
 # Prosody for Duration attribute
 class ProsodyElementDuration(SSMLElementNode):
