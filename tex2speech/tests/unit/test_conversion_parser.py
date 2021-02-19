@@ -9,7 +9,7 @@ from SSMLParsing.root_element import RootElement
 from SSMLParsing.break_element import BreakElement
 from SSMLParsing.content_element import ContentElement
 from SSMLParsing.emphasis_element import EmphasisElement
-from SSMLParsing.prosody_element import ProsodyElement
+from SSMLParsing.prosody_element import ProsodyElementVolume
 import conversion_db
 from conversion_parser import ConversionParser
 
@@ -248,43 +248,100 @@ class testConversionParser(unittest.TestCase):
         db = conversion_db.ConversionDB()
 
         def mockCmdConversion(cmd):
-            # Testing basic nested prosody resolution
+            # Testing basic nested prosody volume resolution
             if cmd == 'a':
-                a = [ProsodyElement(level='strong')]
-                a[0].appendChild(EmphasisElement(level='weak'))
+                a = [ProsodyElementVolume(volume='x-loud')]
+                a[0].appendChild(ProsodyElementVolume(volume='medium'))
                 return a
-            # Testing more complex nested emphasis resolution
+            # Testing more complex nested prosody volume resolution
             elif cmd == 'c':
-                c = [EmphasisElement(level='strong')]
+                c = [ProsodyElementVolume(volume='x-loud')]
                 c[0].setHeadText('text 1')
-                c[0].appendChild(EmphasisElement(level='weak'))
+                c[0].appendChild(ProsodyElementVolume(level='medium'))
                 return c
             else:
                 return None
 
-        # def mockEnvConversion(env):
-        #     # Testing basic nested prosody resolution
-        #     if env == 'b':
-        #         b = [EmphasisElement(level='x-strong'), EmphasisElement(level='default')]
-        #         b[0].appendChild(ContentElement())
-        #         b[1].appendChild(EmphasisElement(level='x-weak'))
-        #         return b
-        #     # Testing more complex nested prosody resolution
-        #     elif env == 'd':
-        #         d = [EmphasisElement(level='x-strong')]
-        #         d[0].appendChild(BreakElement())
-        #         d[0].appendChild(EmphasisElement(level='x-weak'))        
-        #         d[0].appendChild(ContentElement())
-        #         return d
-        #     else:
-        #         return None
+        def mockEnvConversion(env):
+            # Testing basic nested prosody resolution
+            if env == 'b':
+                b = [ProsodyElementVolume(volume='x-strong'), ProsodyElementVolume(volume='default')]
+                b[0].appendChild(ContentElement())
+                b[1].appendChild(ProsodyElementVolume(volume='x-weak'))
+                return b
+            # Testing more complex nested prosody resolution
+            elif env == 'd':
+                d = [ProsodyElementVolume(volume='x-strong')]
+                d[0].appendChild(BreakElement())
+                d[0].appendChild(ProsodyElementVolume(volume='x-weak'))        
+                d[0].appendChild(ContentElement())
+                return d
+            else:
+                return None
 
-        # def mockEnvDefinition(env):
-        #     # Simple override for both environments
-        #     if env == 'b' or env == 'd':
-        #         return {'a': [EmphasisElement(level='weak')]}
-        #     else:
-        #         return None
+        def mockEnvDefinition(env):
+            # Simple override for both environments
+            if env == 'b' or env == 'd':
+                return {'a': [ProsodyElementVolume(volume='weak')]}
+            else:
+                return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a\begin{b}\a\end{b}\c\begin{d}\a\end{d}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
+        # TESTING REMOVE LATER
+        print()
+        ET.dump(ssmlParseTree.getXMLTree())
+
+        # Check resulting tree structure
+        self.assertIsInstance(ssmlParseTree, RootElement)
+        self.assertEqual(len(ssmlParseTree.children), 8)
+        
+        # \a
+        self.assertIsInstance(ssmlParseTree.children[0], ProsodyElementVolume)
+        self.assertEqual(ssmlParseTree.children[0].getVolume(), '+3dB')
+        self.assertEqual(len(ssmlParseTree.children[0].children), 0)
+
+        # \begin{b}\a\end{a}
+        self.assertIsInstance(ssmlParseTree.children[1], ProsodyElementVolume)
+        self.assertEqual(ssmlParseTree.children[1].getVolume(), 'strong')
+        self.assertEqual(len(ssmlParseTree.children[1].children), 0)
+
+        self.assertIsInstance(ssmlParseTree.children[2], ProsodyElementVolume)
+        self.assertEqual(ssmlParseTree.children[2].getVolume(), 'x-weak')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 0)
+
+        # \c
+        self.assertIsInstance(ssmlParseTree.children[3], ProsodyElementVolume)
+        self.assertIsEqual(ssmlParseTree.children[3].getVolume(), 'strong')
+        self.assertIsEqual(ssmlParseTree.children[3].getHeadText(), 'text 1')
+
+        self.assertIsInstance(ssmlParseTree.children[4], ProsodyElementVolume)
+        self.assertIsEqual(ssmlParseTree.children[4].getVolume(), 'default')
+        self.assertIsNone(ssmlParseTree.children[4].getHeadText())
+        self.assertIsEqual(len(ssmlParseTree.children[4].children), 0)
+
+        # \begin{d}\a\end{d}
+        self.assertIsInstance(ssmlParseTree.children[5], ProsodyElementVolume)
+        self.assertIsEqual(ssmlParseTree.children[5].getVolume(), 'x-strong')
+        self.assertIsEqual(len(ssmlParseTree.children[5].children), 1)
+        self.assertIsInstance(ssmlParseTree.children[5].children[0], BreakElement)
+
+        self.assertIsInstance(ssmlParseTree.children[6], ProsodyElementVolume)
+        self.assertIsEqual(ssmlParseTree.children[6].getVolume(), 'default')
+        self.assertIsEqual(len(ssmlParseTree.children[6].children), 0)
+
+        self.assertIsInstance(ssmlParseTree.children[7], ProsodyElementVolume)
+        self.assertIsEqual(ssmlParseTree.children[7].getVolume(), 'x-strong')
+        self.assertIsEqual(len(ssmlParseTree.children[7].children), 0)
+
         # Test cases for prosody -> A lot (Might need a different function for each attribute) Only weird if there is nested resolution (not sure if we will impelement it yet, whatJacob is doing for emphasis). -> Assume we will be doing it since the custoemr asked us to do it
 
         # When the mocks are happenign you have to return mock objects

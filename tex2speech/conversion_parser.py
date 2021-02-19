@@ -5,7 +5,7 @@ from SSMLParsing.arg_element import ArgElement
 from SSMLParsing.break_element import BreakElement
 from SSMLParsing.content_element import ContentElement
 from SSMLParsing.emphasis_element import EmphasisElement
-from SSMLParsing.prosody_element import ProsodyElement
+from SSMLParsing.prosody_element import ProsodyElementVolume
 from SSMLParsing.root_element import RootElement
 from SSMLParsing.ssml_element_node import SSMLElementNode
 from SSMLParsing.ssml_element import SSMLElement
