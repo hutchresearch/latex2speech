@@ -73,6 +73,8 @@ class ConversionParser:
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")
                         
+                    # TODO: Should args within an environment's arguments reference the environment
+                    # If not, stack operations should only occur in ContentElement
                     if parseTarget:
                         definition = self.db.getEnvDefinition(envNode.name)
                         if definition:
@@ -85,7 +87,7 @@ class ConversionParser:
                     nextOffset += newInd - i
                     offset += nextOffset
                 else:
-                    self._resolveEnvironmentElements(envNode, elemList[i], elemList[i].children, leftChild)
+                    self._resolveEnvironmentElements(envNode, elemList[i], elemList[i].children, None)
                 
                 i = (k + 1) + offset
                 if i > 0:
@@ -135,7 +137,7 @@ class ConversionParser:
                     nextOffset += newInd - i
                     offset += nextOffset
                 else:
-                    self._resolveCmdElements(cmdNode, elemList[i], elemList[i].children, leftChild)
+                    self._resolveCmdElements(cmdNode, elemList[i], elemList[i].children, None)
                 
                 i = (k + 1) + offset
                 if i > 0:
