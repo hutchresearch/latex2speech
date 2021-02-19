@@ -118,9 +118,29 @@ class ProsodyElementPitch(SSMLElementNode):
 
 # Prosody for Duration attribute
 class ProsodyElementDuration(SSMLElementNode):
-    print("yo")
     def __init__(self, duration = None):
         super().__init__()
+        self.duration = self._assignDuration(duration);
+
+    def _assignDuration(self, duration):
+        temp = ""
+
+        if duration.length - 3 >=0:
+            if duration[duration.length - 3].isnumeric():
+                temp = duration[:-2]
+            else:
+                temp = duration[:-1] * 1000
+        else:
+            temp = duration[:-1] * 1000
+
+        return temp
+
+    def _mediumPitch(self, nestedDuration):
+        mid = (self.duration + self._assignRate(nestedDuration))/2;
+        return str(mid) + "ms"
+
+    def _getDuration(self):
+        return self.duration + "ms"
 
     # def _update(self):
     #     pass
