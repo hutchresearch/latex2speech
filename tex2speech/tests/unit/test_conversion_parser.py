@@ -9,6 +9,7 @@ from SSMLParsing.root_element import RootElement
 from SSMLParsing.break_element import BreakElement
 from SSMLParsing.content_element import ContentElement
 from SSMLParsing.emphasis_element import EmphasisElement
+from SSMLParsing.prosody_element import ProsodyElement
 import conversion_db
 from conversion_parser import ConversionParser
 
@@ -246,20 +247,20 @@ class testConversionParser(unittest.TestCase):
         # Set up mock database
         db = conversion_db.ConversionDB()
 
-        # def mockCmdConversion(cmd):
-        #     # Testing basic nested prosody resolution
-        #     if cmd == 'a':
-        #         a = [EmphasisElement(level='strong')]
-        #         a[0].appendChild(EmphasisElement(level='weak'))
-        #         return a
-        #     # Testing more complex nested emphasis resolution
-        #     elif cmd == 'c':
-        #         c = [EmphasisElement(level='strong')]
-        #         c[0].setHeadText('text 1')
-        #         c[0].appendChild(EmphasisElement(level='weak'))
-        #         return c
-        #     else:
-        #         return None
+        def mockCmdConversion(cmd):
+            # Testing basic nested prosody resolution
+            if cmd == 'a':
+                a = [ProsodyElement(level='strong')]
+                a[0].appendChild(EmphasisElement(level='weak'))
+                return a
+            # Testing more complex nested emphasis resolution
+            elif cmd == 'c':
+                c = [EmphasisElement(level='strong')]
+                c[0].setHeadText('text 1')
+                c[0].appendChild(EmphasisElement(level='weak'))
+                return c
+            else:
+                return None
 
         # def mockEnvConversion(env):
         #     # Testing basic nested prosody resolution
@@ -309,6 +310,6 @@ class testConversionParser(unittest.TestCase):
     def testProsodyElementMaxDura(self, MockConversionDB):
         # Set up mock database
         db = conversion_db.ConversionDB()
-        
+
 if __name__ == "__main__":
     unittest.main()
