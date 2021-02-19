@@ -1,14 +1,20 @@
 from SSMLParsing.ssml_element_node import SSMLElementNode
+import xml.etree.ElementTree as ET
 
 class RootElement(SSMLElementNode):
     def __init__(self):
         super().__init__()
 
-    def _update(self, node: SSMLElementNode):
+    def _update(self):
         pass
 
     def _getXMLElement(self):
-        pass
+        elem = ET.Element('speak')
+        if self.getHeadText() != '':
+            elem.text = self.getHeadText()
+        if self.getTailText() != '':
+            elem.tail = self.getTailText()
+        return elem
 
     def __str__(self):
         a = "RootElement"

@@ -1,4 +1,5 @@
 from SSMLParsing.ssml_element_node import SSMLElementNode
+import xml.etree.ElementTree as ET
 
 class BreakElement(SSMLElementNode):
     def __init__(self, time=None, strength=None):
@@ -6,11 +7,21 @@ class BreakElement(SSMLElementNode):
         self.time = time
         self.strength = strength
 
-    def _update(self, node: SSMLElementNode):
+    def _update(self):
         pass
 
     def _getXMLElement(self):
-        pass
+        attrib = {}
+        if self.time:
+            attrib['time'] = self.time
+        if self.strength:
+            attrib['strength'] = self.strength
+        elem = ET.Element('break', attrib=attrib)
+        if self.getHeadText() != '':
+            elem.text = self.getHeadText()
+        if self.getTailText() != '':
+            elem.tail = self.getTailText()
+        return elem
 
     def getTime(self):
         return self.time

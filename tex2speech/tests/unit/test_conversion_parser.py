@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock
+import xml.etree.ElementTree as ET
 
 import TexSoup
 
@@ -45,6 +46,9 @@ class testConversionParser(unittest.TestCase):
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
+        # TESTING REMOVE LATER
+        print()
+        ET.dump(ssmlParseTree.getXMLTree())
 
         # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
@@ -85,6 +89,9 @@ class testConversionParser(unittest.TestCase):
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
+        # TESTING REMOVE LATER
+        print()
+        ET.dump(ssmlParseTree.getXMLTree())
 
         # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
@@ -160,7 +167,9 @@ class testConversionParser(unittest.TestCase):
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
-        parser.printTree(ssmlParseTree)
+        # TESTING REMOVE LATER
+        print()
+        ET.dump(ssmlParseTree.getXMLTree())
 
         # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
