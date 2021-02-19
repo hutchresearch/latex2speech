@@ -61,15 +61,40 @@ class ProsodyElementRate(SSMLElementNode):
         mid = (self.volumeIndex[self.rate] + self._assignRate(nestedRate))/2;
         return str(mid) + "%"
 
-    def _getVRate(self):
+    def _getRate(self):
         return self.rate
 
 
 # Prosody for Pitch attribute
 class ProsodyElementPitch(SSMLElementNode):
-    print("yo")
     def __init__(self, pitch = None):
         super().__init__()
+        self.pitch = self._assignPitch(pitch);
+
+    def _assignPitch(self, pitch):
+        temp = ""
+        if pitch[1].isnumeric():
+            tempVal = pitch[:-1]
+            temp= int(tempVal)
+        else:
+            if pitch == 'x-low':
+                temp = -20
+            elif pitch == 'low':
+                temp = -10
+            elif pitch == 'medium':
+                temp = 0
+            elif pitch == 'high':
+                temp = 10
+            elif pitch == 'x-high':
+                temp = 20
+        return temp
+
+    def _mediumPitch(self, nestedPitch):
+        mid = (self.volumeIndex[self.pitch] + self._assignRate(nestedPitch))/2;
+        return str(mid) + "%"
+
+    def _getPitch(self):
+        return self.pitch
 
 # Prosody for Duration attribute
 class ProsodyElementDuration(SSMLElementNode):
