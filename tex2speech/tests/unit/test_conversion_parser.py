@@ -89,6 +89,7 @@ class testConversionParser(unittest.TestCase):
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
+
         # TESTING REMOVE LATER
         print()
         ET.dump(ssmlParseTree.getXMLTree())
@@ -241,7 +242,7 @@ class testConversionParser(unittest.TestCase):
             - "n"ms maximum duration in milliseconds
     '''
     @patch('conversion_db.ConversionDB')
-    def testProsodyElement(self, MockConversionDB):
+    def testProsodyElementVolume(self, MockConversionDB):
         # Set up mock database
         db = conversion_db.ConversionDB()
 
@@ -293,5 +294,21 @@ class testConversionParser(unittest.TestCase):
         # For each node
             # Looks at child but if has emphasis fine
             # Look at next, possibly creates new node, reaches up to the parent, modifies the list of children, then leave, now it's the parents turn
+
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementRate(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementPitch(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementMaxDura(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+        
 if __name__ == "__main__":
     unittest.main()
