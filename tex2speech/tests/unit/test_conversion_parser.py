@@ -339,9 +339,6 @@ class testConversionParser(unittest.TestCase):
               level. A value of +0dB means no change, +6dB means
               approximately twice the current volume and -6dB means
               approsimately half the current volume
-        <prosody amazon:max-duration = "2s"></prosody>
-            - "n"s maximum duration in seconds
-            - "n"ms maximum duration in milliseconds
     '''
     @patch('conversion_db.ConversionDB')
     def testProsodyElementVolume(self, MockConversionDB):
@@ -471,10 +468,46 @@ class testConversionParser(unittest.TestCase):
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
 
+    '''<prosody amazon:max-duration = "2s"></prosody>
+            - "n"s maximum duration in seconds
+            - "n"ms maximum duration in milliseconds'''
     @patch('conversion_db.ConversionDB')
     def testProsodyElementMaxDura(self, MockConversionDB):
         # Set up mock database
         db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(duration='2000s'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(duration='1000s'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(duration='3000ms'), ArgElement(2), ProsodyElement(duration='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(duration='1000s'))
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
 
 
         # Test cases for prosody -> A lot (Might need a different function for each attribute) Only weird if there is nested resolution (not sure if we will impelement it yet, whatJacob is doing for emphasis). -> Assume we will be doing it since the custoemr asked us to do it
