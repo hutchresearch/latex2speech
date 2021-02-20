@@ -2,11 +2,15 @@ from SSMLParsing.ssml_element_node import SSMLElementNode
 import xml.etree.ElementTree as ET
 
 # Prosody for Volume attribute
-class ProsodyElementVolume(SSMLElementNode):
-    def __init__(self, volume = None):
+class ProsodyElement(SSMLElementNode):
+    def __init__(self, volume = None, rate = None, pitch = None, duration = None):
         super().__init__()
         self.volume = self._assignVolume(volume)
+        self.rate = self._assignRate(rate);
+        self.pitch = self._assignPitch(pitch);
+        self.duration = self._assignDuration(duration);
 
+    # Assigns volume depending on dB or actual words (e.g., x-soft, soft)
     def _assignVolume(self, value):
         temp = ""
         if value[1].isnumeric():
@@ -25,26 +29,8 @@ class ProsodyElementVolume(SSMLElementNode):
                 temp = 6
         return temp
 
-    def _mediumVolume(self, nestedVolume):
-        mid = (self.volume + self._assignVolume(nestedVolume))/2
-
-        if str(mid[0]) == '-':
-            return mid + "dB"
-        else:
-            return "+" + mid + "dB"
-
-    def _getVolume(self):
-        if str(self.volume[0]) == '-': 
-            return self.volume + "dB"
-        else:
-            return "+" + self.volume + "dB"
-
-# Prosody for Rate attribute
-class ProsodyElementRate(SSMLElementNode):
-    def __init__(self, rate = None):
-        super().__init__()
-        self.rate = self._assignRate(rate);
-
+    # Assigns rate depending on percentage between 20% and 200% or through
+    # words (e.g., x-slow, slow, etc)
     def _assignRate(self, rate):
         temp = ""
         if rate[0].isnumeric():
@@ -70,20 +56,7 @@ class ProsodyElementRate(SSMLElementNode):
                 temp = 140
         return temp
 
-    def _mediumRate(self, nestedRate):
-        mid = (self.rate + self._assignRate(nestedRate))/2;
-        return str(mid) + "%"
-
-    def _getRate(self):
-        return self.rate + "%"
-
-
-# Prosody for Pitch attribute
-class ProsodyElementPitch(SSMLElementNode):
-    def __init__(self, pitch = None):
-        super().__init__()
-        self.pitch = self._assignPitch(pitch);
-
+    # Assigns pitch depending on -20dB or +20dB or words (e.g., x-low, low etc)
     def _assignPitch(self, pitch):
         temp = ""
         if pitch[1].isnumeric():
@@ -102,26 +75,7 @@ class ProsodyElementPitch(SSMLElementNode):
                 temp = 20
         return temp
 
-    def _mediumPitch(self, nestedPitch):
-        mid = (self.pitch + self._assignRate(nestedPitch))/2;
-
-        if mid[0] == '-':
-            return str(mid) + "%"
-        else:
-            return "+" + str(mid) + "%"
-
-    def _getPitch(self):
-        if self.pitch[0] == '-':
-            return self.pitch + "%"
-        else:
-            return "+" + self.pitch + "%"
-
-# Prosody for Duration attribute
-class ProsodyElementDuration(SSMLElementNode):
-    def __init__(self, duration = None):
-        super().__init__()
-        self.duration = self._assignDuration(duration);
-
+    # Assigns duration in respect to using ms (converts s to ms)
     def _assignDuration(self, duration):
         temp = ""
 
@@ -135,25 +89,68 @@ class ProsodyElementDuration(SSMLElementNode):
 
         return temp
 
-    def _mediumPitch(self, nestedDuration):
+    # Gets medium volume of nested and self element
+    def _mediumVolume(self, nestedVolume):
+        mid = (self.volume + self._assignVolume(nestedVolume))/2
+
+        if str(mid[0]) == '-':
+            return mid + "dB"
+        else:
+            return "+" + mid + "dB"
+
+    # Gets medium rate of nested and self element
+    def _mediumRate(self, nestedRate):
+        mid = (self.rate + self._assignRate(nestedRate))/2;
+        return str(mid) + "%"
+
+    # Gets medium pitch of nested and self element
+    def _mediumPitch(self, nestedPitch):
+        mid = (self.pitch + self._assignRate(nestedPitch))/2;
+
+        if mid[0] == '-':
+            return str(mid) + "%"
+        else:
+            return "+" + str(mid) + "%"
+
+    # Gets medium duration depending on nested and self element
+    def _mediumDuration(self, nestedDuration):
         mid = (self.duration + self._assignRate(nestedDuration))/2;
         return str(mid) + "ms"
 
+    # Grabs self volume (+/- n dB)
+    def _getVolume(self):
+        if str(self.volume[0]) == '-': 
+            return self.volume + "dB"
+        else:
+            return "+" + self.volume + "dB"
+
+    # Grabs self rate (n%)
+    def _getRate(self):
+        return self.rate + "%"
+
+    # Grabs self pitch (+/- n%)
+    def _getPitch(self):
+        if self.pitch[0] == '-':
+            return self.pitch + "%"
+        else:
+            return "+" + self.pitch + "%"
+
+    # Grabs self duration (n ms)
     def _getDuration(self):
         return self.duration + "ms"
 
-    # def _update(self):
-    #     pass
+    def _update(self):
+        pass
 
-    # def _getXMLElement(self):
-    #     pass
+    def _getXMLElement(self):
+        pass
 
-    # def __str__(self):
-    #     a = "ProsodyElement"
-    #     if self.getHeadText() != "":
-    #         a = '"' + self.getHeadText() + '"' + " " + a
-    #     if self.getTailText() != "":
-    #         a += " " + '"' + self.getTailText() + '"'
-    #     return a
+    def __str__(self):
+        a = "ProsodyElement"
+        if self.getHeadText() != "":
+            a = '"' + self.getHeadText() + '"' + " " + a
+        if self.getTailText() != "":
+            a += " " + '"' + self.getTailText() + '"'
+        return a
 
-    # __repr__ = __str__
+    __repr__ = __str__

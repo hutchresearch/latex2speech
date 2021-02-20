@@ -10,7 +10,7 @@ from SSMLParsing.break_element import BreakElement
 from SSMLParsing.arg_element import ArgElement
 from SSMLParsing.content_element import ContentElement
 from SSMLParsing.emphasis_element import EmphasisElement
-from SSMLParsing.prosody_element import ProsodyElementVolume
+from SSMLParsing.prosody_element import ProsodyElement
 import conversion_db
 from conversion_parser import ConversionParser
 
