@@ -3,14 +3,17 @@ from typing import Optional
 import os
 import sys
 import requests
+import json
+import urllib.request
 
 # AWS Libraries
 import boto3
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
+from contextlib import closing
 
 # Parsing Library
-from parser_manager import start_parsing
+from tex_parser import TexParser
 
 # Creates session of user using AWS credentials
 session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
@@ -18,6 +21,9 @@ session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_ke
 # Creates objects of use
 polly = session.client("polly")
 s3 = session.client("s3")
+
+# Path to upload
+path = os.getcwd() + '/upload'
 
 # Generate a presigned URL for the S3 object so any user can download
 def create_presigned_url(bucket_name, object_name, expiration=3600):    
@@ -59,7 +65,7 @@ def tts_of_file(file, contents):
         audio = polly.start_speech_synthesis_task(
             VoiceId = "Joanna",
             OutputS3BucketName = "tex2speech",
-            OutputS3KeyPrefix = file.filename,
+            OutputS3KeyPrefix = file,
             OutputFormat = "mp3",
             TextType = "ssml",
             Text = contents)
@@ -74,7 +80,7 @@ def tts_of_file(file, contents):
         # print(f'Status: {task_status}')
 
         # Get audio link from bucket
-        objectName = file.filename + "." + taskId + ".mp3"
+        objectName = file + "." + taskId + ".mp3"
         audio_link = generate_presigned_url(objectName)
 
         return audio_link
@@ -93,13 +99,32 @@ def get_text_file(file):
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords
-def start_polly(file):
-    # Call parser here
-    parsed_contents = start_parsing(file)
+def start_polly(main, input, bibContents):
+    links = []
+    latex_parser = TexParser()
 
-    print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents)
+    for file in main:
 
-    # Feed to Amazon Polly here
-    # audio_link = tts_of_file(file, parsed_contents)
-    audio_link = "hi"
-    return audio_link
+    # Here we will create master file (if applicable)
+        # Go through each file check 
+        # Find master (meaning it has /input command)
+            # If we find input command
+                # Shove everything in that spot
+
+        myFile = path + "/" + file
+        fileObj = open(myFile, "r")
+
+        # Call parser here
+        parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
+
+        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+
+        # Feed to Amazon Polly here
+        # audio_link = tts_of_file(file, parsed_contents)
+        audio_link = "hi"
+        # links.append(audio_link)
+
+        # Remove file
+        os.remove(myFile)
+
+    return links

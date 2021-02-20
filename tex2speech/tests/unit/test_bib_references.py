@@ -59,7 +59,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
                         r"book \cite{latexcompanion}, the Einstein journal paper \cite{einstein}, and the "+
                         r"Donald Knuth's website \cite{knuthwebsite}. The \LaTeX\ related items are"+
                         r"\cite{latexcompanion,knuthwebsite}. ")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> Three items are cited: <emphasis level='strong'> The </emphasis> book <emphasis level='reduced'> Cited in references as latexcompanion </emphasis> , the Einstein journal paper <emphasis level='reduced'> Cited in references as einstein </emphasis> , and the Donald Knuth's website <emphasis level='reduced'> Cited in references as knuthwebsite </emphasis> . The LaTeX items are <emphasis level='reduced'> Cited in references as latexcompanion,knuthwebsite </emphasis> . </speak>"))
 
     '''Testing embedded bibliographies function at the bottom of tex file'''
@@ -71,7 +71,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
                                     r"\textit{The \LaTeX\ Companion}. "
                                     r"Addison-Wesley, Reading, Massachusetts, 1993."+
                             r"\end{thebibliography}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, "<speak> <emphasis level='strong'> References Section </emphasis> <break time='1s'/>Bibliography item is read as: <break time='0.5s'/> latexcompanion Michel Goossens, Frank Mittelbach, and Alexander Samarin. <emphasis level='strong'> The </emphasis> . Addison-Wesley, Reading, Massachusetts, 1993. </speak>"))
 
         #  Second test of bibliography output
@@ -82,7 +82,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
                                         r"[\textit{On the electrodynamics of moving bodies}]. "+
                                         r"Annalen der Physik, 322(10):891–921, 1905."+
                                 r"\end{thebibliography}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, "<speak> <emphasis level='strong'> References Section </emphasis> <break time='1s'/>Bibliography item is read as: <break time='0.5s'/> einstein Albert Einstein. <emphasis level='strong'> Zur Elektrodynamik bewegter K rper </emphasis> . (German) [ <emphasis level='strong'> On the electrodynamics of moving bodies </emphasis> ] . Annalen der Physik, 322(10):891–921, 1905. </speak>"))
 
         # Third test of bibliography output
@@ -91,7 +91,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
                                         r"Knuth: Computers and Typesetting,"+
                                         r"\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}"+
                                 r"\end{thebibliography}")
-        expand = tex2speech.tex_parser.TexParser().parse(doc)
+        expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> <emphasis level='strong'> References Section </emphasis> <break time='1s'/>Bibliography item is read as: <break time='0.5s'/> knuthwebsite Knuth: Computers and Typesetting, \\ <emphasis level='strong'> http://www-cs-faculty.stanford.edu/ \~ uno/abcde.html </emphasis> </speak>"))
 
 if __name__ == '__main__':

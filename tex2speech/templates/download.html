@@ -14,13 +14,12 @@
     <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
 
     <div class="inputBox">
-
         <!-- Download mp3/mp4 audio -->
         <div class="output">
             <h3>To Audio</h3>
-            <button id = "downloadButton">
-                <a href="{{ audio_download }}">Audio Output</a>
-            </button>
+            {% for file, aud in file_holder %}
+                <li>Link to audio download (Click to download): <a href="{{ aud }}" target = "_blank">{{ file }}</a></li>
+            {% endfor %}
         </div>
     </div>
     <br>
