@@ -27,6 +27,9 @@ class ProsodyElement(SSMLElementNode):
                 temp= 3
             elif value == 'x-loud':
                 temp = 6
+            else:
+                temp = 0
+
         return temp
 
     # Assigns rate depending on percentage between 20% and 200% or through
@@ -54,6 +57,9 @@ class ProsodyElement(SSMLElementNode):
                 temp = 120
             elif rate == 'x-fast':
                 temp = 140
+            else:
+                temp = 100
+
         return temp
 
     # Assigns pitch depending on -20dB or +20dB or words (e.g., x-low, low etc)
@@ -73,6 +79,9 @@ class ProsodyElement(SSMLElementNode):
                 temp = 10
             elif pitch == 'x-high':
                 temp = 20
+            else:
+                temp = 0;
+                
         return temp
 
     # Assigns duration in respect to using ms (converts s to ms)

@@ -7,12 +7,17 @@ import TexSoup
 from SSMLParsing.text_element import TextElement
 from SSMLParsing.root_element import RootElement
 from SSMLParsing.break_element import BreakElement
+from SSMLParsing.arg_element import ArgElement
 from SSMLParsing.content_element import ContentElement
 from SSMLParsing.emphasis_element import EmphasisElement
+from SSMLParsing.prosody_element import ProsodyElement
 import conversion_db
 from conversion_parser import ConversionParser
 
 class testConversionParser(unittest.TestCase):
+    '''
+    Tests basic text replacement in commands and environments.
+    '''
     @patch('conversion_db.ConversionDB')
     def testTextElement(self, MockConversionDB):
         # Set up mock database
@@ -46,9 +51,6 @@ class testConversionParser(unittest.TestCase):
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
-        # TESTING REMOVE LATER
-        print()
-        ET.dump(ssmlParseTree.getXMLTree())
 
         # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
@@ -56,6 +58,10 @@ class testConversionParser(unittest.TestCase):
         
         self.assertEqual(ssmlParseTree.getHeadText(), 'text 1 text 2 text 3')
 
+    '''
+    Tests the BreakElement with various attributes in both commands and
+        environments.
+    '''
     @patch('conversion_db.ConversionDB')
     def testBreakElement(self, MockConversionDB):
         # Set up mock database
@@ -85,13 +91,10 @@ class testConversionParser(unittest.TestCase):
 
         # Set up TexSoup parse tree to be parsed
         doc = TexSoup.TexSoup(r'\a\begin{b}\a\end{b}')
-        print("DOC " + doc);
+
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
-        # TESTING REMOVE LATER
-        print()
-        ET.dump(ssmlParseTree.getXMLTree())
 
         # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
@@ -113,47 +116,132 @@ class testConversionParser(unittest.TestCase):
         self.assertEqual(ssmlParseTree.children[3].getTime(), None)
         self.assertEqual(ssmlParseTree.children[3].getStrength(), 'weak')
 
+    '''
+    Tests the EmphasisElement with various attributes in both commands and
+        environments. One important test is here is ensuring the ContentElement 
+        and ArgElement work properly while being children of an EmphasisElement.
+    '''
     @patch('conversion_db.ConversionDB')
     def testEmphasisElement(self, MockConversionDB):
         # Set up mock database
         db = conversion_db.ConversionDB()
 
         def mockCmdConversion(cmd):
-            # Testing basic nested emphasis resolution
             if cmd == 'a':
-                a = [EmphasisElement(level='strong')]
-                a[0].appendChild(EmphasisElement(level='weak'))
+                a = [EmphasisElement(level='strong'), ArgElement(1)]
+                a[0].insertChild(0, EmphasisElement(level='reduced'))
+                a[0].children[0].insertChild(0, ArgElement(2))
                 return a
-            # Testing more complex nested emphasis resolution
-            elif cmd == 'c':
-                c = [EmphasisElement(level='strong')]
-                c[0].setHeadText('text 1')
-                c[0].appendChild(EmphasisElement(level='weak'))
-                return c
             else:
                 return None
 
         def mockEnvConversion(env):
-            # Testing basic nested emphasis resolution
             if env == 'b':
-                b = [EmphasisElement(level='x-strong'), EmphasisElement(level='default')]
-                b[0].appendChild(ContentElement())
-                b[1].appendChild(EmphasisElement(level='x-weak'))
+                b = [ContentElement(), EmphasisElement(level='moderate'), ArgElement(2), EmphasisElement(level='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, EmphasisElement(level='strong'))
                 return b
-            # Testing more complex nested emphasis resolution
-            elif env == 'd':
-                d = [EmphasisElement(level='x-strong')]
-                d[0].appendChild(BreakElement())
-                d[0].appendChild(EmphasisElement(level='x-weak'))        
-                d[0].appendChild(ContentElement())
-                return d
             else:
                 return None
 
         def mockEnvDefinition(env):
-            # Simple override for both environments
-            if env == 'b' or env == 'd':
-                return {'a': [EmphasisElement(level='weak')]}
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
+        
+        self.assertIsInstance(ssmlParseTree, RootElement)
+        self.assertEqual(len(ssmlParseTree.children), 4)
+
+        self.assertIsInstance(ssmlParseTree.children[0], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[0].getTailText(), '1')
+        self.assertEqual(ssmlParseTree.children[0].getLevel(), 'strong')
+        self.assertEqual(len(ssmlParseTree.children[0].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[0].children[0], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[0].children[0].getHeadText(), '2')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getLevel(), 'reduced')
+
+        self.assertIsInstance(ssmlParseTree.children[1], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[1].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[1].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[1].getLevel(), 'strong')
+        self.assertEqual(len(ssmlParseTree.children[1].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[1].children[0], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[1].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getLevel(), 'reduced')
+
+        self.assertIsInstance(ssmlParseTree.children[2], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[2].getHeadText(), '3')
+        self.assertEqual(ssmlParseTree.children[2].getTailText(), '4')
+        self.assertEqual(ssmlParseTree.children[2].getLevel(), 'moderate')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getLevel(), 'strong')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0].children[0], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getLevel(), 'reduced')
+        
+        self.assertIsInstance(ssmlParseTree.children[3], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[3].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getLevel(), 'none')
+        self.assertEqual(len(ssmlParseTree.children[3].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[3].children[0], EmphasisElement)
+        self.assertEqual(ssmlParseTree.children[3].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getLevel(), 'strong')
+
+    '''
+    Tests that arguments are properly expanded when the ArgElement object
+        is used in cmd/env definitions.
+    '''
+    @patch('conversion_db.ConversionDB')
+    def testArgElement(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ArgElement(2), ArgElement('1', argType='bracket')]
+                return a
+            elif cmd == 'd':
+                d = [BreakElement()]
+                return d
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ArgElement(1, 'bracket'), ArgElement(4, argType='brace'), ContentElement()]
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            if env == 'b':
+                return {'a': [ArgElement(1), ArgElement('2', argType='bracket')], \
+                        'c': [ArgElement(3)]}
             else:
                 return None
 
@@ -162,56 +250,85 @@ class testConversionParser(unittest.TestCase):
         db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
 
         # Set up TexSoup parse tree to be parsed
-        doc = TexSoup.TexSoup(r'\a\begin{b}\a\end{b}\c\begin{d}\a\end{d}')
+        doc = TexSoup.TexSoup(r'\a{1}{\a{2}[3]{\d}}[\d]\begin{b}{4}{5}[6]{7}{\a[8]{9}{10}[\d]}\d\a[11]{12}[13]\d\c{14}{15}{\d 16}\d\end{b}')
+        # Should be <speak> <break/> 3 <break/> 6 9 <break/> <break/> 12 13 <break/> <break/> 16 <break/> <speak/>
+        #                   ^ Cmd               ^ Env say    ^ Env contents
+
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
+        
+        self.assertIsInstance(ssmlParseTree, RootElement)
+        self.assertEqual(ssmlParseTree.getHeadText(), '')
+        self.assertEqual(len(ssmlParseTree.children), 7)
+
+        self.assertIsInstance(ssmlParseTree.children[0], BreakElement)
+        self.assertEqual(ssmlParseTree.children[0].getTailText(), '3')
+
+        self.assertIsInstance(ssmlParseTree.children[1], BreakElement)
+        self.assertEqual(ssmlParseTree.children[1].getTailText(), '6 9')
+
+        self.assertIsInstance(ssmlParseTree.children[2], BreakElement)
+        self.assertEqual(ssmlParseTree.children[2].getTailText(), '')
+
+        self.assertIsInstance(ssmlParseTree.children[3], BreakElement)
+        self.assertEqual(ssmlParseTree.children[3].getTailText(), '12 13')
+
+        self.assertIsInstance(ssmlParseTree.children[4], BreakElement)
+        self.assertEqual(ssmlParseTree.children[4].getTailText(), '')
+
+        self.assertIsInstance(ssmlParseTree.children[5], BreakElement)
+        self.assertEqual(ssmlParseTree.children[5].getTailText(), ' 16')
+
+        self.assertIsInstance(ssmlParseTree.children[6], BreakElement)
+        self.assertEqual(ssmlParseTree.children[6].getTailText(), '')
+    
+    '''
+    Testing environments and ensuring undefined environments still have
+        their contents read out, while defined environments without the content
+        tag are not.
+    '''
+    @patch('conversion_db.ConversionDB')
+    def testEnvironments(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [TextElement('text1')]
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'a':
+                a = [TextElement('text2')]
+                return a
+            if env == 'b':
+                b = [ContentElement()]
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            if env == 'b':
+                return {'a': [TextElement('text3')]}
+            else:
+                return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\begin{a}\a\end{a}\begin{c}\begin{a}\a\end{a}\end{c}\begin{c}\begin{b}\a\end{b}\end{c}')
 
         # Parse on the given db and tree
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
-        # TESTING REMOVE LATER
-        print()
-        ET.dump(ssmlParseTree.getXMLTree())
 
-        # Check resulting tree structure
         self.assertIsInstance(ssmlParseTree, RootElement)
-        self.assertEqual(len(ssmlParseTree.children), 8)
-        
-        # \a
-        self.assertIsInstance(ssmlParseTree.children[0], EmphasisElement)
-        self.assertEqual(ssmlParseTree.children[0].getLevel(), 'default')
-        self.assertEqual(len(ssmlParseTree.children[0].children), 0)
-
-        # \begin{b}\a\end{a}
-        self.assertIsInstance(ssmlParseTree.children[1], EmphasisElement)
-        self.assertEqual(ssmlParseTree.children[1].getLevel(), 'strong')
-        self.assertEqual(len(ssmlParseTree.children[1].children), 0)
-
-        self.assertIsInstance(ssmlParseTree.children[2], EmphasisElement)
-        self.assertEqual(ssmlParseTree.children[2].getLevel(), 'x-weak')
-        self.assertEqual(len(ssmlParseTree.children[2].children), 0)
-
-        # \c
-        self.assertIsInstance(ssmlParseTree.children[3], EmphasisElement)
-        self.assertIsEqual(ssmlParseTree.children[3].getLevel(), 'strong')
-        self.assertIsEqual(ssmlParseTree.children[3].getHeadText(), 'text 1')
-
-        self.assertIsInstance(ssmlParseTree.children[4], EmphasisElement)
-        self.assertIsEqual(ssmlParseTree.children[4].getLevel(), 'default')
-        self.assertIsNone(ssmlParseTree.children[4].getHeadText())
-        self.assertIsEqual(len(ssmlParseTree.children[4].children), 0)
-
-        # \begin{d}\a\end{d}
-        self.assertIsInstance(ssmlParseTree.children[5], EmphasisElement)
-        self.assertIsEqual(ssmlParseTree.children[5].getlevel(), 'x-strong')
-        self.assertIsEqual(len(ssmlParseTree.children[5].children), 1)
-        self.assertIsInstance(ssmlParseTree.children[5].children[0], BreakElement)
-
-        self.assertIsInstance(ssmlParseTree.children[6], EmphasisElement)
-        self.assertIsEqual(ssmlParseTree.children[6].getlevel(), 'default')
-        self.assertIsEqual(len(ssmlParseTree.children[6].children), 0)
-
-        self.assertIsInstance(ssmlParseTree.children[7], EmphasisElement)
-        self.assertIsEqual(ssmlParseTree.children[7].getlevel(), 'x-strong')
-        self.assertIsEqual(len(ssmlParseTree.children[7].children), 0)
+        self.assertEqual(len(ssmlParseTree.children), 0)
+        self.assertEqual(ssmlParseTree.getHeadText(), 'text2 text2 text3')
 
     '''
     Prosody <prosody attribute = "value"></prosody>
@@ -240,117 +357,58 @@ class testConversionParser(unittest.TestCase):
             - "n"s maximum duration in seconds
             - "n"ms maximum duration in milliseconds
     '''
-    # @patch('conversion_db.ConversionDB')
-    # def testProsodyElement(self, MockConversionDB):
-    #     # Set up mock database
-    #     db = conversion_db.ConversionDB()
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementVolume(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
 
-    #     def mockCmdConversion(cmd):
-    #         # Testing basic nested prosody volume resolution
-    #         if cmd == 'a':
-    #             a = [ProsodyElement(volume='x-loud')]
-    #             a[0].appendChild(ProsodyElement(volume='medium'))
-    #             return a
-    #         # Testing more complex nested prosody volume resolution
-    #         elif cmd == 'c':
-    #             c = [ProsodyElement(volume='x-loud')]
-    #             c[0].setHeadText('text 1')
-    #             c[0].appendChild(ProsodyElement(level='medium'))
-    #             return c
-    #         else:
-    #             return None
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(volume='x-loud'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(volume='medium'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
 
-    #     def mockEnvConversion(env):
-    #         # Testing basic nested prosody resolution
-    #         if env == 'b':
-    #             b = [ProsodyElement(volume='x-strong'), ProsodyElement(volume='default')]
-    #             b[0].appendChild(ContentElement())
-    #             b[1].appendChild(ProsodyElement(volume='x-weak'))
-    #             return b
-    #         # Testing more complex nested prosody resolution
-    #         elif env == 'd':
-    #             d = [ProsodyElement(volume='x-strong')]
-    #             d[0].appendChild(BreakElement())
-    #             d[0].appendChild(ProsodyElement(volume='x-weak'))        
-    #             d[0].appendChild(ContentElement())
-    #             return d
-    #         else:
-    #             return None
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(volume='-3dB'), ArgElement(2), ProsodyElement(volume='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(volume='loud'))
+                return b
+            else:
+                return None
 
-    #     def mockEnvDefinition(env):
-    #         # Simple override for both environments
-    #         if env == 'b' or env == 'd':
-    #             return {'a': [ProsodyElement(volume='medium')]}
-    #         else:
-    #             return None
+        def mockEnvDefinition(env):
+            return None
 
-    #     db.getCmdConversion = Mock(side_effect=mockCmdConversion)
-    #     db.getEnvConversion = Mock(side_effect=mockEnvConversion)
-    #     db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
 
-    #     # Set up TexSoup parse tree to be parsed
-    #     doc = TexSoup.TexSoup(r'\a\begin{b}\a\end{b}\c\begin{d}\a\end{d}')
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
 
-    #     # Parse on the given db and tree
-    #     parser = ConversionParser(db)
-    #     ssmlParseTree = parser.parse(doc)
-    #     # TESTING REMOVE LATER
-    #     print()
-    #     ET.dump(ssmlParseTree.getXMLTree())
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
 
-    #     # Testing with mix of dB and selected voice
-    #     def mockCmdConversion(cmd):
-    #             # Testing basic nested prosody volume resolution
-    #         if cmd == 'a':
-    #             a = [ProsodyElement(volume='x-soft')]
-    #             a[0].appendChild(ProsodyElement(volume='+4dB'))
-    #             return a
-    #         # Testing more complex nested prosody volume resolution
-    #         elif cmd == 'c':
-    #             c = [ProsodyElement(volume='silent')]
-    #             c[0].setHeadText('text 1')
-    #             c[0].appendChild(ProsodyElement(level='+5dB'))
-    #             return c
-    #         else:
-    #             return None
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementRate(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
 
-    #     def mockEnvConversion(env):
-    #         # Testing basic nested prosody resolution
-    #         if env == 'b':
-    #             b = [ProsodyElement(volume='+2dB'), ProsodyElement(volume='-1dB')]
-    #             b[0].appendChild(ContentElement())
-    #             b[1].appendChild(ProsodyElement(volume='-3dB'))
-    #             return b
-    #         # Testing more complex nested prosody resolution
-    #         elif env == 'd':
-    #             d = [ProsodyElement(volume='loud')]
-    #             d[0].appendChild(BreakElement())
-    #             d[0].appendChild(ProsodyElement(volume='-1dB'))        
-    #             d[0].appendChild(ContentElement())
-    #             return d
-    #         else:
-    #             return None
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementPitch(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
 
-    #     def mockEnvDefinition(env):
-    #         # Simple override for both environments
-    #         if env == 'b' or env == 'd':
-    #             return {'a': [ProsodyElement(volume='medium')]}
-    #         else:
-    #             return None
-
-    #     db.getCmdConversion = Mock(side_effect=mockCmdConversion)
-    #     db.getEnvConversion = Mock(side_effect=mockEnvConversion)
-    #     db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
-
-    #     # Set up TexSoup parse tree to be parsed
-    #     doc = TexSoup.TexSoup(r'\a\begin{b}\a\end{b}\c\begin{d}\a\end{d}')
-
-    #     # Parse on the given db and tree
-    #     parser = ConversionParser(db)
-    #     ssmlParseTree = parser.parse(doc)
-    #     # TESTING REMOVE LATER
-    #     print()
-    #     ET.dump(ssmlParseTree.getXMLTree())
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementMaxDura(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
 
 
         # Test cases for prosody -> A lot (Might need a different function for each attribute) Only weird if there is nested resolution (not sure if we will impelement it yet, whatJacob is doing for emphasis). -> Assume we will be doing it since the custoemr asked us to do it
@@ -363,21 +421,6 @@ class testConversionParser(unittest.TestCase):
         # For each node
             # Looks at child but if has emphasis fine
             # Look at next, possibly creates new node, reaches up to the parent, modifies the list of children, then leave, now it's the parents turn
-
-    # @patch('conversion_db.ConversionDB')
-    # def testProsodyElementRate(self, MockConversionDB):
-    #     # Set up mock database
-    #     db = conversion_db.ConversionDB()
-
-    # @patch('conversion_db.ConversionDB')
-    # def testProsodyElementPitch(self, MockConversionDB):
-    #     # Set up mock database
-    #     db = conversion_db.ConversionDB()
-
-    # @patch('conversion_db.ConversionDB')
-    # def testProsodyElementMaxDura(self, MockConversionDB):
-    #     # Set up mock database
-    #     db = conversion_db.ConversionDB()
 
 if __name__ == "__main__":
     unittest.main()
