@@ -1,4 +1,5 @@
 import TexSoup
+import sympy
 
 from conversion_db import ConversionDB
 from SSMLParsing.arg_element import ArgElement
@@ -11,7 +12,9 @@ from SSMLParsing.ssml_element_node import SSMLElementNode
 from SSMLParsing.ssml_element import SSMLElement
 from SSMLParsing.text_element import TextElement
 
+from sympytossml import convert_sympy_ssml, Quantity_Modes
 from tex_soup_utils import exprTest, seperateContents
+from tex_to_sympy import run_sympy
 
 '''
 Main parsing class. Parses TexSoup parse trees into SSMLElementNode
@@ -46,6 +49,12 @@ class ConversionParser:
 
         return arg
 
+    def _envContentsToString(env):
+        string = ''
+        for val in env.all:
+            string += str(val)
+        return string
+
     '''
     Recursively resolves non-node SSMLElements within elemList with respect to 
         envNode. Also manages the envStack.
@@ -77,10 +86,18 @@ class ConversionParser:
                     # If not, stack operations should only occur in ContentElement
                     if parseTarget:
                         definition = self.db.getEnvDefinition(envNode.name)
+
                         if definition:
-                            self.envStack.append(definition)
-                            newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
-                            self.envStack.pop()
+                            if definition["mathmode"] == True:
+                                output = run_sympy(self._envContentsToString(envNode))
+                                if leftChild:
+                                    leftChild.appendTailText(output)
+                                else:
+                                    elemListParent.appendHeadText(output)
+                            else:
+                                self.envStack.append(definition)
+                                newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
+                                self.envStack.pop()
                         else:
                             newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
                     
