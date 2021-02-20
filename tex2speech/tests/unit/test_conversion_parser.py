@@ -339,13 +339,6 @@ class testConversionParser(unittest.TestCase):
               level. A value of +0dB means no change, +6dB means
               approximately twice the current volume and -6dB means
               approsimately half the current volume
-        <prosody pitch = ""></prosody>
-            - deafult (regular)
-            - x-low, low, medium, high, x-hgih. Sets pitch
-            - +n% or -n% adjusts pitch by a relative percentage. For
-              example, a value of +0% means no baseline pitch change, +5%
-              gives a little higher baseline pitch, and -5% results in a lower
-              baseline pitch
         <prosody amazon:max-duration = "2s"></prosody>
             - "n"s maximum duration in seconds
             - "n"ms maximum duration in milliseconds
@@ -433,10 +426,50 @@ class testConversionParser(unittest.TestCase):
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
 
+    '''<prosody pitch = ""></prosody>
+            - deafult (regular)
+            - x-low, low, medium, high, x-hgih. Sets pitch
+            - +n% or -n% adjusts pitch by a relative percentage. For
+              example, a value of +0% means no baseline pitch change, +5%
+              gives a little higher baseline pitch, and -5% results in a lower
+              baseline pitch'''
     @patch('conversion_db.ConversionDB')
     def testProsodyElementPitch(self, MockConversionDB):
         # Set up mock database
         db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(pitch='x-low'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(pitch='high'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(pitch='-40%'), ArgElement(2), ProsodyElement(pitch='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(pitch='90%'))
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
 
     @patch('conversion_db.ConversionDB')
     def testProsodyElementMaxDura(self, MockConversionDB):
