@@ -339,13 +339,6 @@ class testConversionParser(unittest.TestCase):
               level. A value of +0dB means no change, +6dB means
               approximately twice the current volume and -6dB means
               approsimately half the current volume
-        <prosody rate = ""></prosody>
-            - x-slow, slow, medium, fast, x-fast. Sets pitch  
-            - n% a non negative percentage change in the speaking rate
-              For example, a value of 100% means no change in speaking 
-              rate, a value of 200% means twice the default rate, value
-              of 50% means a speaking rate of half the default rate.
-              This value has a range of 20-200%
         <prosody pitch = ""></prosody>
             - deafult (regular)
             - x-low, low, medium, high, x-hgih. Sets pitch
@@ -395,10 +388,50 @@ class testConversionParser(unittest.TestCase):
         parser = ConversionParser(db)
         ssmlParseTree = parser.parse(doc)
 
+    ''' <prosody rate = ""></prosody>
+            - x-slow, slow, medium, fast, x-fast. Sets pitch  
+            - n% a non negative percentage change in the speaking rate
+              For example, a value of 100% means no change in speaking 
+              rate, a value of 200% means twice the default rate, value
+              of 50% means a speaking rate of half the default rate.
+              This value has a range of 20-200%'''
     @patch('conversion_db.ConversionDB')
     def testProsodyElementRate(self, MockConversionDB):
         # Set up mock database
         db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(rate='slow'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(rate='x-fast'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(rate='40%'), ArgElement(2), ProsodyElement(rate='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(rate='180%'))
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
 
     @patch('conversion_db.ConversionDB')
     def testProsodyElementPitch(self, MockConversionDB):
