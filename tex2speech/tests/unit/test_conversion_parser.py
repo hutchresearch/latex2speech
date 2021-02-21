@@ -37,7 +37,7 @@ class testConversionParser(unittest.TestCase):
 
         def mockEnvDefinition(env):
             if env == 'b':
-                return {'a': [TextElement('text 3')]}
+                return {'a': [TextElement('text 3')], 'mathmode': False}
             else:
                 return None
 
@@ -81,7 +81,7 @@ class testConversionParser(unittest.TestCase):
 
         def mockEnvDefinition(env):
             if env == 'b':
-                return {'a': [BreakElement(time='5ms', strength='x-weak')]}
+                return {'a': [BreakElement(time='5ms', strength='x-weak')], 'mathmode': False}
             else:
                 return None
 
@@ -241,7 +241,7 @@ class testConversionParser(unittest.TestCase):
         def mockEnvDefinition(env):
             if env == 'b':
                 return {'a': [ArgElement(1), ArgElement('2', argType='bracket')], \
-                        'c': [ArgElement(3)]}
+                        'c': [ArgElement(3)], 'mathmode': False}
             else:
                 return None
 
@@ -311,7 +311,7 @@ class testConversionParser(unittest.TestCase):
 
         def mockEnvDefinition(env):
             if env == 'b':
-                return {'a': [TextElement('text3')]}
+                return {'a': [TextElement('text3')], 'mathmode': False}
             else:
                 return None
 
@@ -329,7 +329,7 @@ class testConversionParser(unittest.TestCase):
         self.assertIsInstance(ssmlParseTree, RootElement)
         self.assertEqual(len(ssmlParseTree.children), 0)
         self.assertEqual(ssmlParseTree.getHeadText(), 'text2 text2 text3')
-
+    
     '''
     Prosody <prosody attribute = "value"></prosody>
         <prosody volume = ""></prosody>

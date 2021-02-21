@@ -7,6 +7,7 @@ from gen.PSLexer import PSLexer
 from gen.PSListener import PSListener
 
 from sympy.printing.str import StrPrinter
+from sympytossml import *
 
 def process_sympy(sympy):
     matherror = MathErrorListener(sympy)
@@ -507,10 +508,29 @@ def get_differential_var_str(text):
         text = text[1:]
     return text
 
-def test_sympy():
-    print(process_sympy(r"4 \apples \times 3 \apples"))
-    print(process_sympy(r"\n_1"))
-    # return process_sympy(mathmode)
+def test_sympy(mathmode):
+    # print(process_sympy(r"4 \apples \times 3 \apples"))
+    # print(process_sympy(r"\n_1"))
+    return process_sympy(mathmode)
+
+def run_sympy(mathmode):
+    sympyObj = process_sympy(mathmode)
+    print("OBJ " + str(sympyObj))
+    print_tree(sympyObj, assumptions = False)
+    ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.QUANTITY)
+    print("SSML " + ssmlObj)
+    return ssmlObj
+
+def test_Walker(obj):
+    ssmlObj = convert_sympy_ssml(obj, Quantity_Modes.QUANTITY)
 
 if __name__ == "__main__":
-    test_sympy()
+    run_sympy(r"3 + 2")
+    print("\nbreak\n")
+    run_sympy(r"3 + 2 + 5")
+    print("\nbreak\n")
+    run_sympy(r"3a + 2b + 3c")
+    print("\nbreak\n")
+    run_sympy(r"\lim_{x\to\infty} f(x)")
+    # test_Walker(r"3 + 2")
+    # test_sympy()

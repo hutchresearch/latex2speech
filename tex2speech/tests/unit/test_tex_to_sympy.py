@@ -29,9 +29,6 @@ class TestTexToSympy(unittest.TestCase):
         equationThree = tex_to_sympy.test_sympy("-1 - -0 + 2 + 0 - 0 - -3 + -4 - 1")
         self.assertTrue(self._equal(equationThree, "-1 - 4 - 1 + 2 + 3"))
 
-        equation = tex_to_sympy.test_sympy(r"4 apples \times 3 apples")
-        self.assertTrue(self._equal(equation, "-1 - 4 - 1 + 2 + 3"))
-
     '''Testing basic multiplication/division in LaTeX'''
     def testing_multiplication_division(self):
         # Basic Multiplication
