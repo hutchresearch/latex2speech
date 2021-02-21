@@ -10,6 +10,7 @@ from SSMLParsing.break_element import BreakElement
 from SSMLParsing.arg_element import ArgElement
 from SSMLParsing.content_element import ContentElement
 from SSMLParsing.emphasis_element import EmphasisElement
+from SSMLParsing.prosody_element import ProsodyElement
 import conversion_db
 from conversion_parser import ConversionParser
 
@@ -328,6 +329,409 @@ class testConversionParser(unittest.TestCase):
         self.assertIsInstance(ssmlParseTree, RootElement)
         self.assertEqual(len(ssmlParseTree.children), 0)
         self.assertEqual(ssmlParseTree.getHeadText(), 'text2 text2 text3')
+    
+    '''
+    Prosody <prosody attribute = "value"></prosody>
+        <prosody volume = ""></prosody>
+            - default (regular)
+            - silent, x-soft, soft, medium, loud, x-loud. Sets volume
+            - +ndB, -ndB : Changes volume relative to the current
+              level. A value of +0dB means no change, +6dB means
+              approximately twice the current volume and -6dB means
+              approsimately half the current volume
+    '''
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementVolume(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(volume='x-loud'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(volume='medium'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(volume='-3dB'), ArgElement(2), ProsodyElement(volume='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(volume='loud'))
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
+
+        self.assertIsInstance(ssmlParseTree, RootElement)
+        self.assertEqual(len(ssmlParseTree.children), 4)
+
+        self.assertIsInstance(ssmlParseTree.children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[0].getTailText(), '1')
+        self.assertEqual(ssmlParseTree.children[0].getVolume(), '+6dB')
+        self.assertEqual(len(ssmlParseTree.children[0].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].children[0].getHeadText(), '2')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getVolume(), '+0dB')
+
+        self.assertIsInstance(ssmlParseTree.children[1], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[1].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[1].getVolume(), '+6dB')
+        self.assertEqual(len(ssmlParseTree.children[1].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[1].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getVolume(), '+0dB')
+
+        self.assertIsInstance(ssmlParseTree.children[2], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].getHeadText(), '3')
+        self.assertEqual(ssmlParseTree.children[2].getTailText(), '4')
+        self.assertEqual(ssmlParseTree.children[2].getVolume(), '-3dB')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getVolume(), '+6dB')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getVolume(), '+0dB')
+        
+        self.assertIsInstance(ssmlParseTree.children[3], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getVolume(), '+0dB')
+        self.assertEqual(len(ssmlParseTree.children[3].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[3].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getVolume(), '+3dB')
+
+    ''' <prosody rate = ""></prosody>
+            - x-slow, slow, medium, fast, x-fast. Sets pitch  
+            - n% a non negative percentage change in the speaking rate
+              For example, a value of 100% means no change in speaking 
+              rate, a value of 200% means twice the default rate, value
+              of 50% means a speaking rate of half the default rate.
+              This value has a range of 20-200%'''
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementRate(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(rate='slow'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(rate='x-fast'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(rate='40%'), ArgElement(2), ProsodyElement(rate='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(rate='180%'))
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
+
+        self.assertIsInstance(ssmlParseTree, RootElement)
+        self.assertEqual(len(ssmlParseTree.children), 4)
+
+        self.assertIsInstance(ssmlParseTree.children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[0].getTailText(), '1')
+        self.assertEqual(ssmlParseTree.children[0].getRate(), '80%')
+        self.assertEqual(len(ssmlParseTree.children[0].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].children[0].getHeadText(), '2')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getRate(), '140%')
+
+        self.assertIsInstance(ssmlParseTree.children[1], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[1].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[1].getRate(), '80%')
+        self.assertEqual(len(ssmlParseTree.children[1].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[1].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getRate(), '140%')
+
+        self.assertIsInstance(ssmlParseTree.children[2], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].getHeadText(), '3')
+        self.assertEqual(ssmlParseTree.children[2].getTailText(), '4')
+        self.assertEqual(ssmlParseTree.children[2].getRate(), '40%')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getRate(), '80%')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getRate(), '140%')
+        
+        self.assertIsInstance(ssmlParseTree.children[3], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getRate(), '100%')
+        self.assertEqual(len(ssmlParseTree.children[3].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[3].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getRate(), '180%')
+
+    '''<prosody pitch = ""></prosody>
+            - deafult (regular)
+            - x-low, low, medium, high, x-hgih. Sets pitch
+            - +n% or -n% adjusts pitch by a relative percentage. For
+              example, a value of +0% means no baseline pitch change, +5%
+              gives a little higher baseline pitch, and -5% results in a lower
+              baseline pitch'''
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementPitch(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(pitch='x-low'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(pitch='high'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(pitch='-40%'), ArgElement(2), ProsodyElement(pitch='none')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(pitch='90%'))
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
+
+        self.assertIsInstance(ssmlParseTree, RootElement)
+        self.assertEqual(len(ssmlParseTree.children), 4)
+
+        self.assertIsInstance(ssmlParseTree.children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[0].getTailText(), '1')
+        self.assertEqual(ssmlParseTree.children[0].getPitch(), '-20%')
+        self.assertEqual(len(ssmlParseTree.children[0].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].children[0].getHeadText(), '2')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getPitch(), '+10%')
+
+        self.assertIsInstance(ssmlParseTree.children[1], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[1].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[1].getPitch(), '-20%')
+        self.assertEqual(len(ssmlParseTree.children[1].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[1].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getPitch(), '+10%')
+
+        self.assertIsInstance(ssmlParseTree.children[2], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].getHeadText(), '3')
+        self.assertEqual(ssmlParseTree.children[2].getTailText(), '4')
+        self.assertEqual(ssmlParseTree.children[2].getPitch(), '-40%')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getPitch(), '-20%')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getPitch(), '+10%')
+        
+        self.assertIsInstance(ssmlParseTree.children[3], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getPitch(), '+0%')
+        self.assertEqual(len(ssmlParseTree.children[3].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[3].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getPitch(), '+90%')
+
+    '''<prosody amazon:max-duration = "2s"></prosody>
+            - "n"s maximum duration in seconds
+            - "n"ms maximum duration in milliseconds'''
+    @patch('conversion_db.ConversionDB')
+    def testProsodyElementMaxDura(self, MockConversionDB):
+        # Set up mock database
+        db = conversion_db.ConversionDB()
+
+        def mockCmdConversion(cmd):
+            if cmd == 'a':
+                a = [ProsodyElement(duration='2000s'), ArgElement(1)]
+                a[0].insertChild(0, ProsodyElement(duration='1000s'))
+                a[0].children[0].insertChild(0, ArgElement(2))
+                return a
+            else:
+                return None
+
+        def mockEnvConversion(env):
+            if env == 'b':
+                b = [ContentElement(), ProsodyElement(duration='3000ms'), ArgElement(2), ProsodyElement(duration='5000ms')]
+                b[1].insertChild(0, ContentElement())
+                b[1].insertChild(0, ArgElement(1))
+                b[3].insertChild(0, ProsodyElement(duration='9000s'))
+                return b
+            else:
+                return None
+
+        def mockEnvDefinition(env):
+            return None
+
+        db.getCmdConversion = Mock(side_effect=mockCmdConversion)
+        db.getEnvConversion = Mock(side_effect=mockEnvConversion)
+        db.getEnvDefinition = Mock(side_effect=mockEnvDefinition)
+
+        # Set up TexSoup parse tree to be parsed
+        doc = TexSoup.TexSoup(r'\a{1}{2}\begin{b}{3}{4}\a{5}{6}\end{b}')
+
+        # Parse on the given db and tree
+        parser = ConversionParser(db)
+        ssmlParseTree = parser.parse(doc)
+
+        self.assertIsInstance(ssmlParseTree, RootElement)
+        self.assertEqual(len(ssmlParseTree.children), 4)
+
+        self.assertIsInstance(ssmlParseTree.children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[0].getTailText(), '1')
+        self.assertEqual(ssmlParseTree.children[0].getDuration(), '2000000ms')
+        self.assertEqual(len(ssmlParseTree.children[0].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[0].children[0].getHeadText(), '2')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getDuration(), '1000000ms')
+
+        self.assertIsInstance(ssmlParseTree.children[1], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[1].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[1].getDuration(), '2000000ms')
+        self.assertEqual(len(ssmlParseTree.children[1].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[1].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[1].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getDuration(), '1000000ms')
+
+        self.assertIsInstance(ssmlParseTree.children[2], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].getHeadText(), '3')
+        self.assertEqual(ssmlParseTree.children[2].getTailText(), '4')
+        self.assertEqual(ssmlParseTree.children[2].getDuration(), '3000ms')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getDuration(), '2000000ms')
+        self.assertEqual(len(ssmlParseTree.children[2].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[2].children[0].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getDuration(), '1000000ms')
+        
+        self.assertIsInstance(ssmlParseTree.children[3], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].getDuration(), '5000ms')
+        self.assertEqual(len(ssmlParseTree.children[3].children), 1)
+
+        self.assertIsInstance(ssmlParseTree.children[3].children[0], ProsodyElement)
+        self.assertEqual(ssmlParseTree.children[3].children[0].getHeadText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getTailText(), '')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getDuration(), '9000000ms')
+
+
+        # Test cases for prosody -> A lot (Might need a different function for each attribute) Only weird if there is nested resolution (not sure if we will impelement it yet, whatJacob is doing for emphasis). -> Assume we will be doing it since the custoemr asked us to do it
+
+        # When the mocks are happenign you have to return mock objects
+        # Convert previous janky xml into the new format
+        # Update XML
+            # Design XML documentation
+
+        # For each node
+            # Looks at child but if has emphasis fine
+            # Look at next, possibly creates new node, reaches up to the parent, modifies the list of children, then leave, now it's the parents turn
 
 if __name__ == "__main__":
     unittest.main()
