@@ -45,7 +45,7 @@ class ProsodyElement(SSMLElementNode):
     def _assignRate(self, rate):
         temp = ""
         if rate[0].isnumeric():
-            tempVal = rate[:-2]
+            tempVal = int(rate[:-1])
 
             # Rate is between 20% and 200%
             if tempVal > 200:
@@ -74,7 +74,7 @@ class ProsodyElement(SSMLElementNode):
     def _assignPitch(self, pitch):
         temp = ""
         if pitch[1].isnumeric():
-            tempVal = pitch[:-2]
+            tempVal = pitch[:-1]
             temp= int(tempVal)
         else:
             if pitch == 'x-low':
@@ -98,9 +98,9 @@ class ProsodyElement(SSMLElementNode):
 
         if duration.length - 3 >=0:
             if duration[duration.length - 3].isnumeric():
-                temp = duration[:-3]
+                temp = duration[:-2]
             else:
-                temp = duration[:-2] * 1000
+                temp = duration[:-1] * 1000
         else:
             temp = duration[:-1] * 1000
 
