@@ -5,16 +5,24 @@ import xml.etree.ElementTree as ET
 class ProsodyElement(SSMLElementNode):
     def __init__(self, volume = None, rate = None, pitch = None, duration = None):
         super().__init__()
-        self.volume = self._assignVolume(volume)
-        self.rate = self._assignRate(rate);
-        self.pitch = self._assignPitch(pitch);
-        self.duration = self._assignDuration(duration);
+        
+        if volume is not None:
+            self.volume = self._assignVolume(volume)
+        
+        if rate is not None:
+            self.rate = self._assignRate(rate);
+
+        if pitch is not None:
+            self.pitch = self._assignPitch(pitch);
+
+        if duration is not None:
+            self.duration = self._assignDuration(duration);
 
     # Assigns volume depending on dB or actual words (e.g., x-soft, soft)
     def _assignVolume(self, value):
         temp = ""
         if value[1].isnumeric():
-            tempVal = value[:-1]
+            tempVal = value[:-2]
             temp= int(tempVal)
         else:
             if value == 'x-soft':
@@ -37,7 +45,7 @@ class ProsodyElement(SSMLElementNode):
     def _assignRate(self, rate):
         temp = ""
         if rate[0].isnumeric():
-            tempVal = rate[:-1]
+            tempVal = rate[:-2]
 
             # Rate is between 20% and 200%
             if tempVal > 200:
@@ -66,7 +74,7 @@ class ProsodyElement(SSMLElementNode):
     def _assignPitch(self, pitch):
         temp = ""
         if pitch[1].isnumeric():
-            tempVal = pitch[:-1]
+            tempVal = pitch[:-2]
             temp= int(tempVal)
         else:
             if pitch == 'x-low':
@@ -81,7 +89,7 @@ class ProsodyElement(SSMLElementNode):
                 temp = 20
             else:
                 temp = 0;
-                
+
         return temp
 
     # Assigns duration in respect to using ms (converts s to ms)
@@ -90,9 +98,9 @@ class ProsodyElement(SSMLElementNode):
 
         if duration.length - 3 >=0:
             if duration[duration.length - 3].isnumeric():
-                temp = duration[:-2]
+                temp = duration[:-3]
             else:
-                temp = duration[:-1] * 1000
+                temp = duration[:-2] * 1000
         else:
             temp = duration[:-1] * 1000
 
@@ -127,26 +135,26 @@ class ProsodyElement(SSMLElementNode):
         return str(mid) + "ms"
 
     # Grabs self volume (+/- n dB)
-    def _getVolume(self):
-        if str(self.volume[0]) == '-': 
-            return self.volume + "dB"
+    def getVolume(self):
+        if str(self.volume)[0] == '-': 
+            return str(self.volume) + "dB"
         else:
-            return "+" + self.volume + "dB"
+            return "+" + str(self.volume) + "dB"
 
     # Grabs self rate (n%)
-    def _getRate(self):
-        return self.rate + "%"
+    def getRate(self):
+        return str(self.rate) + "%"
 
     # Grabs self pitch (+/- n%)
-    def _getPitch(self):
+    def getPitch(self):
         if self.pitch[0] == '-':
-            return self.pitch + "%"
+            return str(self.pitch) + "%"
         else:
-            return "+" + self.pitch + "%"
+            return "+" + str(self.pitch) + "%"
 
     # Grabs self duration (n ms)
-    def _getDuration(self):
-        return self.duration + "ms"
+    def getDuration(self):
+        return str(self.duration) + "ms"
 
     def _update(self):
         pass
