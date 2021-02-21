@@ -157,10 +157,44 @@ class ProsodyElement(SSMLElementNode):
         return str(self.duration) + "ms"
 
     def _update(self):
-        pass
+        for i, child in enumerate(self.children):
+            if isinstance(child, ProsodyElement):
+                if self.volume:
+                    newVol = self._mediumVolume(child.getVolume())
+
+                if self.rate:
+                    newRate = self._mediumRate(child.getRate())
+
+                if self.pitch:
+                    newPitch = self._mediumPitch(child.getPitch())
+
+                if self.duration:
+                    newDuration = self._mediumDuration(child.getDuration())
 
     def _getXMLElement(self):
-        pass
+        attrib = {}
+
+        if self.volume:
+            attrib['volume'] = self.volume
+
+        if self.rate:
+            attrib['rate'] = self.rate
+
+        if self.pitch:
+            attrib['pitch'] = self.pitch 
+
+        if self.duration:
+            attrib['duration'] = self.duration
+
+        elem = ET.Element('prosody', attrib=attrib)
+
+        if self.getHeadText() != '':
+            elem.text = self.getHeadText()
+
+        if self.getTailText() != '':
+            elem.tail = self.getTailText()
+
+        return elem
 
     def __str__(self):
         a = "ProsodyElement"
