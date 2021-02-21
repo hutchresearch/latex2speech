@@ -23,7 +23,7 @@ class ProsodyElement(SSMLElementNode):
         temp = ""
         if value[1].isnumeric():
             tempVal = value[:-2]
-            temp= int(tempVal)
+            temp = int(tempVal)
         else:
             if value == 'x-soft':
                 temp = -6
@@ -75,7 +75,7 @@ class ProsodyElement(SSMLElementNode):
         temp = ""
         if pitch[1].isnumeric():
             tempVal = pitch[:-1]
-            temp= int(tempVal)
+            temp = int(tempVal)
         else:
             if pitch == 'x-low':
                 temp = -20
