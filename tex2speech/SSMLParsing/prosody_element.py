@@ -147,7 +147,7 @@ class ProsodyElement(SSMLElementNode):
 
     # Grabs self pitch (+/- n%)
     def getPitch(self):
-        if self.pitch[0] == '-':
+        if str(self.pitch)[0] == '-':
             return str(self.pitch) + "%"
         else:
             return "+" + str(self.pitch) + "%"
