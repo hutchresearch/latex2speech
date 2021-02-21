@@ -96,11 +96,11 @@ class ProsodyElement(SSMLElementNode):
     def _assignDuration(self, duration):
         temp = ""
 
-        if duration.length - 3 >=0:
-            if duration[duration.length - 3].isnumeric():
-                temp = duration[:-2]
+        if len(duration) - 3 >= 0:
+            if duration[len(duration) - 2].isnumeric():
+                temp = int(duration[:-1]) * 1000
             else:
-                temp = duration[:-1] * 1000
+                temp = duration[:-2]
         else:
             temp = duration[:-1] * 1000
 
