@@ -14,14 +14,13 @@ class TexParser:
 
     def parse(self, docContents, bib):
         self.output = ''
-        self.envList = []
+        self.envStack = []
+        self.ssmlStack = []
         self.inTable = False
         self.bibFile = bib
         self.path = os.getcwd() + '/upload'
 
-        # text = file.read()
         docstr = None
-
         try:
             docstr = str(docContents, 'utf-8')
         except TypeError:
@@ -81,7 +80,7 @@ class TexParser:
     # This might be able to done better, when printing node
     # in _nodeparseNodeContents that single node is the \begin to \end tabular
     def _checkIfInTableEnvionment(self):
-        if len(self.envList) > 0 and (self.envList[-1].get('readTable') == 'true'):
+        if len(self.envStack) > 0 and (self.envStack[-1].get('readTable') == 'true'):
             self.inTable = not self.inTable
         elif (self.inTable == True):
             self.inTable = not self.inTable
@@ -98,90 +97,11 @@ class TexParser:
                 self._concatOutput(", Column " + str(column) + ", Value: " + word)
                 column += 1
 
-    def _parseMathModeToken(self, tokenNode):
-        mathTokens = self._getMathTokens(tokenNode.text)
-        for t in mathTokens:
-            found = False
-            for s in self.mathmode.findall('symb'):
-                if s.get('name') == t:
-                    if s.find('say_as') is not None:
-                        self._concatOutput(str(s.find('say_as').text))
-                    found = True
-            if not found:
-                self._concatOutput(str(t))
-
-    def _getMathTokens(self, mathStr):
-        class tState(enum.Enum):
-            null = -1
-            number = 0
-            mathChar = 1
-        state = -1 
-        next = ""
-        for c in mathStr:
-            if c.isdigit() or c == '.':
-                if state != tState.number:
-                    if len(next):
-                        yield next
-                        next = "" 
-                    state = tState.number
-                next = next + c
-            elif c.isspace() or c == '&':
-                if len(next):
-                    yield next
-                    next = ""
-                state = tState.null
-            #FIX ME: This list should be obtained from mathmode somehow, not hard-coded 
-            elif c in [r"*", r"+", r"-", r"/", r"=", r"<", r">", r"!"]:
-                if len(next):
-                    yield next
-                    next = ""
-                state = tState.mathChar
-                yield c
-            else:
-                next = next + c
-        
-    def _parseCmdSub(self, cmdNode, cmdElem):
-        if cmdElem.find('prefix') is not None:
-            self._concatOutput(cmdElem.find('prefix').text)
-
-        argIndex = 0
-        for arg in cmdElem.findall('arg'):
-            while argIndex < len(cmdNode.args) and not isinstance(cmdNode.args[argIndex], TexSoup.data.BraceGroup):
-                argIndex += 1
-
-            if argIndex == len(cmdNode.args):
-                print("Error: Expected more arguments then given in command")
-                break
-
-            if arg.find('prefix') is not None:
-                self._concatOutput(arg.find('prefix').text)
-        
-            if arg.get('say_contents') == 'true':
-                self._parseNodeContents(cmdNode.args[argIndex].contents)
-                
-            if arg.find('suffix') is not None:
-                self._concatOutput(arg.find('suffix').text)
-        
-            argIndex += 1
-
-        if cmdElem.find('say_as') is not None:
-            self._concatOutput(cmdElem.find('say_as').text)
-
-        if cmdElem.find('suffix') is not None:
-            self._concatOutput(cmdElem.find('suffix').text)
-
-    def _parseCmd(self, cmdNode):
-        found = False
-        searchEnvs = []
-
-        if len(self.envList) > 0:
-            searchEnvs.append(self.envList[-1])
-            if self.envList[-1].get('mathmode') == 'true':
-                searchEnvs.append(self.mathmode)
-            else:
-                searchEnvs.append(self.latex)
-        else: 
-            searchEnvs.append(self.latex)
+    def _parseEnv(self, node):
+        envElem = None
+        for envElem in self.latex.findall("env"):
+            if envElem.name == node.name:
+                break 
 
         i = 0
         while i < len(searchEnvs) and not found:
@@ -227,14 +147,14 @@ class TexParser:
                 self.envList.pop()
                 break
 
-        if not found:
-            self._parseNodeContents(contents)
+    def _parseCmd(self, node):
+        pass
 
     def _parseNodeContents(self, nodeContents):
         if len(nodeContents) > 0:
             for node in nodeContents:
                 if isinstance(node, TexSoup.utils.Token):
-                    if len(self.envList) > 0 and (self.envList[-1].get('mathmode') == 'true'):
+                    if len(self.envStack) > 0 and (self.envStack[-1].get('mathmode') == 'true'):
                         self._parseMathModeToken(node)
                     else:
                         self._checkIfInTableEnvionment() # Could be more efficient

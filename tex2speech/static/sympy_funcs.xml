@@ -171,19 +171,16 @@
         <arg />
     </acsc>
 
-    <!-- Would we rather want this to be pronounced "shine of"? -->
     <sinh>
-        <text>hyperbolic sine of</text>
+        <text>hyperbolic sin of</text>
         <arg />
     </sinh>
 
-    <!-- Would we rather want this to be pronounced "cosh of"? -->
     <cosh>
         <text>hyperbolic cosine of</text>
         <arg />
     </cosh>
 
-    <!-- Would we rather want this to be pronounced "than of"? -->
     <tanh>
         <text>hyperbolic tangent of</text>
         <arg />
@@ -203,6 +200,46 @@
         <text>Hyperbolic cosecant</text>
         <arg />
     </csch>
+
+    <asinh>
+        <text>the inverse hyperbolic sine function of </text>
+        <arg />
+    </asinh>
+
+    <acosh>
+        <text>the inverse hyperbolic cosine function of </text>
+        <arg />
+    </acosh>
+
+    <atanh>
+        <text>the inverse hyperbolic tangent function of </text>
+        <arg />
+    </atanh>
+
+    <acoth>
+        <text>the inverse hyperbolic cotangent function of </text>
+        <arg />
+    </acoth>
+
+    <asech>
+        <text>the inverse hyperbolic secant function of </text>
+        <arg />
+    </asech>
+
+    <acsch>
+        <text>The inverse hyperbolic cosecant function of </text>
+        <arg />
+    </acsch>
+
+    <sinc>
+        <text>sinc of</text>
+        <arg />
+    </sinc>
+
+    <atan2>
+        <text>atan two of</text>
+        <arg />
+    </atan2>
 
     <log>
         <text>log of</text>
@@ -259,11 +296,6 @@
         <text>,</text>
     </Max>
 
-    <!-- Greek -->
-    <Pi>
-        <text>pi</text>
-    </Pi>
-
     <!-- Imaginary Numbers -->
     <im>
         <text>imaginary part of</text>
@@ -279,6 +311,51 @@
         <text>conjugate of</text>
         <arg />
     </conjugate>
+
+    <polar_lift>
+        <text>polar lift of</text>
+        <arg />
+    </polar_lift>
+
+    <IdentityFunction>
+        <text>identity function of</text>
+        <arg />
+    </IdentityFunction>
+
+    <bell>
+        <text>bell number of </text>
+        <arg />
+    </bell>
+
+    <bernoulli>
+        <text>bernoulli number of </text>
+        <arg />
+    </bernoulli>
+
+    <catalan>
+        <text>catalan number of </text>
+        <arg />
+    </catalan>
+
+    <euler>
+        <text>euler number of </text>
+        <arg />
+    </euler>
+
+    <lucas>
+        <text>lucas number of </text>
+        <arg />
+    </lucas>
+
+    <genocchi>
+        <text>genocchi number of </text>
+        <arg />
+    </genocchi>
+
+    <partition>
+        <text>partition number of </text>
+        <arg />
+    </partition>
 
     <!-- Summation and Series -->
     <Sum>
@@ -307,7 +384,18 @@
         <arg />
     </FallingFactorial>
 
+    <subfactorial>
+        <arg />
+        <text>subfactorial</text>
+    </subfactorial>
+
+    <factorial2>
+        <text>double factorial of</text>
+        <arg />
+    </factorial2>
+
     <!-- Calculus-->
+    <!-- For now calculus is handled by the default case, need to look into how to format this
     <Derivative>
         <text>derivative of</text>
         <arg />
@@ -321,13 +409,11 @@
         <text>d</text>
         <arg />
     </Integral>
+    -->
 
-    <!-- I don't know if this is the proper of binomial -->
-    <binomial>
-        <text>binomial of</text>
-        <arg/>
-    </binomial>
+    <!-- Statistics -->
 
+    <!-- Limits -->
     <Limit>
         <text>Limit of </text>
         <arg />
@@ -336,6 +422,32 @@
         <text> goes to</text>
         <arg />
     </Limit>
+
+    <exp>
+        <text>exponential function e to the </text>
+        <arg />
+        <text> power</text>
+    </exp>
+
+    <!-- Piecewise -->
+    <Piecewise>
+        <text>Piecewise function</text>
+        <repeat /> 
+        <arg />
+    </Piecewise>
+
+    <ExprCondPair>
+        <arg />
+        <text>when </text>
+        <arg />
+    </ExprCondPair>
+
+    <!-- Not sure if this is entirely correct -->
+    <harmonic>
+        <text>harmonic series of </text>
+        <repeat />
+        <arg />
+    </harmonic>
 
 </ssmlfuncs>
     
