@@ -18,8 +18,8 @@ sympy_funcs_file = './static/sympy_funcs.xml'
 
 begin_str = '<prosody pitch=\"+25%\"><break time=\"0.3ms\"/>begin'
 end_str = '<prosody pitch=\"+25%\"><break time=\"0.3ms\"/>end'
-quantity_str = 'quantity</prosody><break time=\"0.3ms\"/>1'
-parentheses_str = 'parentheses</prosody><break time=\"0.3ms\"/>1'
+quantity_str = 'quantity</prosody><break time=\"0.3ms\"/>'
+parentheses_str = 'parentheses</prosody><break time=\"0.3ms\"/>'
 
 def ordinal_str(num):
     return infl.number_to_words(infl.ordinal(num))
