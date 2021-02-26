@@ -1,16 +1,16 @@
-# Requirements
+# TeX2Speech
+A web app for converting LaTeX documents to spoken audio mp3 using Flask, AWS Polly, ANTLR, and SymPy
 
-- AWS Account
-- Python
-- Flask
+## Features
+- Quickly and conveniently upload LaTeX and download mp3
+- Convert .bib files along with LaTeX
+- Upload and convert multiple LaTeX files at a time
+- Unambiguous spoken math equations
 
-# Description
+## Contributors
+Taichen Rose  
+Connor Barlow  
+Jacob Nameth  
+Walker Herring  
+Dylon Rajah  
 
-This is a project using Flask, decided to use Flask so I can easily communicate between HTML and Python scripts. 
-
-app.py is the overall web page distributor, depending on certain events, this page will direct you to different pages
-
-aws_polly_render.py is the script which will grab the .tex file and call another script which will convert it all into ssml. This script will feed it to Amazon Polly and return the presigned url 
-
-# latex-parser
-Usage: python3 latex-parser inputFileTeX outputFileSSML
