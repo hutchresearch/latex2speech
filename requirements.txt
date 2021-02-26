@@ -1,8 +1,11 @@
+#pip3 install -r requirements.txt
 certifi==2020.12.5
+antlr4-python3-runtime==4.9
 boto3==1.16.47
 botocore==1.19.47
 sympy==1.6.2
 pybtex==0.24.0
+pytest==6.1.1
 inflect==5.0.2
 Flask==1.1.2
 requests==2.24.0
