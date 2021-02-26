@@ -1,5 +1,5 @@
 # TeX2Speech
-A web app for converting LaTeX documents to spoken audio mp3.
+A web app for converting LaTeX documents to spoken audio mp3 using Flask, AWS Polly, ANTLR, and SymPy
 
 ## Features
 - Quickly and conveniently upload LaTeX and download mp3
