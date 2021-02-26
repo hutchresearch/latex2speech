@@ -1,4 +1,6 @@
+#pip3 install -r requirements.txt
 boto3==1.16.47
+pytest==6.1.1
 botocore==1.19.47
 sympy==1.6.2
 pybtex==0.24.0
