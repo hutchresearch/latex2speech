@@ -1,0 +1,9 @@
+boto3==1.16.47
+pytest==0.0.0
+botocore==1.19.47
+sympy==1.6.2
+pybtex==0.24.0
+inflect==5.0.2
+Flask==1.1.2
+requests==2.24.0
+TexSoup==0.3.1
