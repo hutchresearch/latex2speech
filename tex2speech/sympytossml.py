@@ -109,5 +109,9 @@ def _convert(expr, funcs_tree, mode, quantity_index):
             elif func[j].tag == 'repeat':
                 repeat_index = j
                 j += 1
+
+            elif func[j].tag == 'end':
+                i = len(expr.args)
+
     return s
                  

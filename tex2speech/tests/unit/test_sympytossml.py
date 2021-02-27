@@ -56,3 +56,7 @@ def test_sum():
 def test_derivative():
     expr = Derivative(a, x)
     assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'the derivative of a with respect to x'
+
+def test_integrals():
+    expr = Integral(x, x)
+    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'integral of x d x'

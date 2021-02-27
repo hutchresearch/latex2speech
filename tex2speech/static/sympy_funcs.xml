@@ -401,13 +401,15 @@
         <arg />
         <text>with respect to</text>
         <subarg />
+        <end />
     </Derivative>
     
     <Integral>
         <text>integral of</text>
         <arg />
         <text>d</text>
-        <arg />
+        <subarg />
+        <end />
     </Integral>
    
 
