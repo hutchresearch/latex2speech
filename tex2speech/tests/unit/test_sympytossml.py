@@ -23,15 +23,15 @@ def test_power():
 
 def test_powmul():
     expr = a ** (a * b)
-    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'a to the power of begin quantity a times b end quantity'
+    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'a to the power of <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> a times b <prosody pitch="+25%"><break time="0.3ms"/>end quantity</prosody><break time="0.3ms"/>'
 
 def test_begin_end_quantity():
     expr = cos(x) + f(x) + g(x + y)
-    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'cosine of x plus f of x plus g of begin quantity x plus y end quantity'
+    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'cosine of x plus f of x plus g of <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> x plus y <prosody pitch="+25%"><break time="0.3ms"/>end quantity</prosody><break time="0.3ms"/>'
 
 def test_recursive_basic():
     expr = a * (x + (b * y)) ** b
-    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'a times begin quantity begin quantity x plus begin quantity b times y end quantity end quantity to the power of b end quantity'
+    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'a times <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> x plus <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> b times y <prosody pitch="+25%"><break time="0.3ms"/>end quantity</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end quantity</prosody><break time="0.3ms"/> to the power of b <prosody pitch="+25%"><break time="0.3ms"/>end quantity</prosody><break time="0.3ms"/>'
 
 def test_equality():
     expr = Eq(x, n)
@@ -43,7 +43,7 @@ def test_inequality():
 
 def test_logic():
     expr = Or(And(x, y), Not(n))
-    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'not n or begin quantity x and y end quantity'
+    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'not n or <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> x and y <prosody pitch="+25%"><break time="0.3ms"/>end quantity</prosody><break time="0.3ms"/>'
 
 def test_function_notation():
     expr = f(g(h(x)))
@@ -51,4 +51,8 @@ def test_function_notation():
 
 def test_sum():
     expr = Sum(x**2, (a, 1, n))
-    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'sum of begin quantity x to the power of 2 end quantity from a equals 1 to n'
+    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'sum of <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> x to the power of 2 <prosody pitch="+25%"><break time="0.3ms"/>end quantity</prosody><break time="0.3ms"/> from a equals 1 to n'
+
+def test_derivative():
+    expr = Derivative(a, x)
+    assert get_rid_of_extra_space(convert_sympy_ssml(expr, Quantity_Modes.QUANTITY)) == 'the derivative of a with respect to x'

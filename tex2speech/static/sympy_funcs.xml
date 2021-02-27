@@ -395,12 +395,12 @@
     </factorial2>
 
     <!-- Calculus-->
-    <!-- For now calculus is handled by the default case, need to look into how to format this
+    <!-- For now calculus is handled by the default case, need to look into how to format this -->
     <Derivative>
-        <text>derivative of</text>
+        <text>the derivative of</text>
         <arg />
         <text>with respect to</text>
-        <arg />
+        <subarg />
     </Derivative>
     
     <Integral>
@@ -409,7 +409,7 @@
         <text>d</text>
         <arg />
     </Integral>
-    -->
+   
 
     <!-- Statistics -->
 
