@@ -98,8 +98,8 @@ def get_text_file(file):
     return text
 
 # Parsing .bib files helper
-def parse_bib_file(name):
-    fileObj = open(path + "/" + name, "r")
+def parse_bib_file(name, thePath):
+    fileObj = open(thePath, "r")
     contents = fileObj.read()
     returnObj = ""
     
@@ -121,7 +121,7 @@ def parse_bib_file(name):
         for en in entry.fields.keys():
             returnObj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
 
-    os.remove(path + "/" + name)
+    os.remove(thePath)
 
     return returnObj
 
@@ -169,7 +169,8 @@ def found_bibliography_file(line, outfile, i, bib):
                 append = tmp + ".bib"
 
             if(append == bibFile):
-                outfile.write(parse_bib_file(bibFile))
+                thePath = path + "/" + bibFile
+                outfile.write(parse_bib_file(bibFile, thePath))
                 contained = True
 
         i = i + 1

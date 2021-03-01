@@ -1,7 +1,7 @@
 import unittest
 from app import app 
 
-import tex2speech.tex_parser
+import tex2speech.conversion_parser
 
 '''Need to find better way of testing tables, this will do for now'''
 

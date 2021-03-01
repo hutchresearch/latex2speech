@@ -1,8 +1,8 @@
 import unittest
 from app import app 
+import os
 
-import tex2speech.expand_labels, tex2speech.tex_parser
-
+import tex2speech.expand_labels, tex2speech.conversion_parser, tex2speech.aws_polly_render
 
 class TestExpandLabels(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
@@ -93,6 +93,30 @@ class TestEmbeddedBibliographies(unittest.TestCase):
                                 r"\end{thebibliography}")
         expand = tex2speech.tex_parser.TexParser().parse(doc, "")
         self.assertTrue(self._docsEqual(expand, r"<speak> <emphasis level='strong'> References Section </emphasis> <break time='1s'/>Bibliography item is read as: <break time='0.5s'/> knuthwebsite Knuth: Computers and Typesetting, \\ <emphasis level='strong'> http://www-cs-faculty.stanford.edu/ \~ uno/abcde.html </emphasis> </speak>"))
+
+class TestExternalBibliographies(unittest.TestCase):
+    def _docsEqual(self, doc1, doc2):
+        doc1 = doc1.replace("'", '"')
+        doc2 = doc2.replace("'", '"')
+        return str(doc1) == str(doc2)
+
+    # First test to test parse bib files for external
+    def testing_external_bib_file(self):
+        # Create new file
+        with open("testingBib.bib", 'w') as outfile:
+            outfile.write('@Book{gG07,'+
+                            'author = "Gratzer, George A.",'+
+                            'title = "More Math Into LaTeX",'+
+                            'publisher = "Birkhauser",'+
+                            'address = "Boston",'+
+                            'year = 2007,'+
+                            'edition = "4th"'+
+                        '}');
+
+        path = os.getcwd() + "/testingBib.bib"
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(outfile, path);
+        print(bibContent)
+        self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/>  Authors: Gratzer, George A., <break time='0.3s'/> title: More Math Into LaTeX<break time='0.3s'/>publisher: Birkhauser<break time='0.3s'/>address: Boston<break time='0.3s'/>year: 2007<break time='0.3s'/>edition: 4th<break time='0.3s'/>"))
 
 if __name__ == '__main__':
     unittest.main()
