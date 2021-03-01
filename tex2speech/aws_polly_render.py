@@ -97,12 +97,38 @@ def get_text_file(file):
     # return str(text, 'utf-8')
     return text
 
+# Helper method used if found a corresponding input file
+def found_input_file(line, outfile, i):
+    tmp = ""  
+
+    while(line[i] != '}'):
+        tmp = tmp + line[i]                          
+
+        # Checks if input/include keyword was found in list of fiels
+        for inputFile in input:
+            append = tmp
+
+            if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
+                append = tmp + ".tex"
+
+            if(append == inputFile):
+                with open(path + "/" + inputFile,'r') as tmpInput:
+                    outfile.write(tmpInput.read())
+                    contained = True
+                    tmpInput.close()
+        i = i + 1
+
+    if(contained == False):
+        outfile.write(tmp + "Input file not found \n")
+        contained = True
+
+    return contained
+
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
 # master file
 #
 # returns list of master files
-
 def create_master_files(main, input):
     masterFiles = []
     add = 0
@@ -112,8 +138,8 @@ def create_master_files(main, input):
         add = add+1
 
         # Create new master file
-        with open("final"+str(add)+".tex", 'w') as outfile:
-            masterFiles.append("final"+str(add)+".tex")
+        with open("final" + str(add) + ".tex", 'w') as outfile:
+            masterFiles.append("final" + str(add) + ".tex")
             with open(path + "/" + mainFile, 'r') as infile:
                 # For each line, add to the master file
                 for line in infile:
@@ -125,28 +151,11 @@ def create_master_files(main, input):
                         i = i + 1
                         # Finds include or input file
                         if(tmp == "\\include{" or tmp == "\\input{"):
-                            tmp = ""  
+                            contained = found_input_file(line, outfile, i)
 
-                            while(line[i] != '}'):
-                                tmp = tmp + line[i]                          
-
-                                # Checks if input/include keyword was found in list of fiels
-                                for inputFile in input:
-                                    append = tmp
-
-                                    if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
-                                        append = tmp + ".tex"
-
-                                    if(append == inputFile):
-                                        with open(path + "/" + inputFile,'r') as tmpInput:
-                                            outfile.write(tmpInput.read())
-                                            contained = True
-                                            tmpInput.close()
-                                i = i + 1
-
-                            if(contained == False):
-                                outfile.write(tmp + "File not found \n")
-                                contained = True
+                        # Finds bibliography file
+                        if(tmp == "\\bibliography{"):
+                            contained = found_bibliography_file(line, outfile, i)
                     
                     if(contained == False):          
                         outfile.write(line)
