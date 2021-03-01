@@ -98,7 +98,7 @@ def get_text_file(file):
     return text
 
 # Helper method used if found a corresponding input file
-def found_input_file(line, outfile, i):
+def found_input_file(line, outfile, i, input):
     tmp = ""  
 
     while(line[i] != '}'):
@@ -124,12 +124,38 @@ def found_input_file(line, outfile, i):
 
     return contained
 
+def found_bibliography_file(line, outfile, i, bib):
+    tmp = ""  
+
+    while(line[i] != '}'):
+        tmp = tmp + line[i]                          
+
+        # Checks if bibliography keyword was found in list of fiels
+        for bibFile in bib:
+            append = tmp
+
+            if(tmp[len(tmp)-3:len(tmp)] != ".bib"):
+                append = tmp + ".bib"
+
+            if(append == bibFile):
+                with open(path + "/" + bibFile,'r') as tmpInput:
+                    outfile.write(tmpInput.read())
+                    contained = True
+                    tmpInput.close()
+        i = i + 1
+
+    if(contained == False):
+        outfile.write(tmp + "Bibliography file not found \n")
+        contained = True
+
+    return contained
+
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
 # master file
 #
 # returns list of master files
-def create_master_files(main, input):
+def create_master_files(main, input, bib):
     masterFiles = []
     add = 0
 
@@ -151,11 +177,11 @@ def create_master_files(main, input):
                         i = i + 1
                         # Finds include or input file
                         if(tmp == "\\include{" or tmp == "\\input{"):
-                            contained = found_input_file(line, outfile, i)
+                            contained = found_input_file(line, outfile, i, input)
 
                         # Finds bibliography file
                         if(tmp == "\\bibliography{"):
-                            contained = found_bibliography_file(line, outfile, i)
+                            contained = found_bibliography_file(line, outfile, i, bib)
                     
                     if(contained == False):          
                         outfile.write(line)
