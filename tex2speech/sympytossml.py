@@ -71,6 +71,7 @@ def _convert(expr, funcs_tree, mode, quantity_index):
             if func[j].tag == 'arg':
                 if isinstance(expr.args[i], Atom): 
                     s += _convert(expr.args[i], funcs_tree, mode, quantity_index + 1)
+                    # s += ' ' + str(expr.args[i]) + ' '
                 elif len(expr.args[i].args) == 1:
                     s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + ' '
                 else:
@@ -108,5 +109,9 @@ def _convert(expr, funcs_tree, mode, quantity_index):
             elif func[j].tag == 'repeat':
                 repeat_index = j
                 j += 1
+
+            elif func[j].tag == 'end':
+                i = len(expr.args)
+
     return s
                  
