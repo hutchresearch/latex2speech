@@ -27,6 +27,27 @@ class ConversionParser:
         self.db = db
         self.envStack = []
 
+    '''Function that will take in new table contents, and parse
+    each column'''
+    def _parseTableContents(self, contentsNode, elemListParent, leftChild=None):
+        if leftChild:
+            leftChild.appendTailText("New Row: ")
+        else:
+            elemListParent.appendHeadText("New Row: ")
+
+        split = str(contentsNode).split('&') 
+        column = 1
+        for word in split: 
+            if word != "&":
+                text = ", Column " + str(column) + ", Value: " + word;
+
+                if leftChild:
+                    leftChild.appendTailText(text)
+                else:
+                    elemListParent.appendHeadText(text)
+
+                column += 1
+
     '''
     Retrieves the correct argument node's list of arguments with respect to 
         the format of the ArgElement class.
@@ -49,7 +70,7 @@ class ConversionParser:
 
         return arg
 
-    def _envContentsToString(env):
+    def _envContentsToString(self, env):
         string = ''
         for val in env.all:
             string += str(val)
@@ -94,6 +115,8 @@ class ConversionParser:
                                     leftChild.appendTailText(output)
                                 else:
                                     elemListParent.appendHeadText(output)
+                            elif definition["readTable"] == True:
+                                self._parseTableContents(self._envContentsToString(envNode), elemListParent, leftChild)
                             else:
                                 self.envStack.append(definition)
                                 newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
@@ -198,11 +221,12 @@ class ConversionParser:
                 parseOut = self._parseCommand(texNode, ssmlParent, leftChild)
             elif exprTest(texNode, TexSoup.data.Token):
                 text = str(texNode)
+
                 if leftChild:
                     leftChild.appendTailText(text)
                 else:
                     ssmlParent.appendHeadText(text)
-            
+
             if parseOut:
                 for ssmlChild in parseOut:
                     ssmlChildren.insert(insertIndex, ssmlChild)

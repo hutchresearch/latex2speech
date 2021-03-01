@@ -211,6 +211,8 @@
             Begin Table:
             <break time = "0.3s"/>
             <content/>
+            End Table
+            <break time = "0.3s"/>
         </says>
     </env>
 
@@ -219,6 +221,8 @@
             Table Contents:
             <break time = "40ms"/>
             <content/>
+            End Table Contents
+            <break time = "40ms"/>
         </says>
     </env>
 
