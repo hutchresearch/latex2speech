@@ -13,7 +13,7 @@ from botocore.exceptions import BotoCoreError, ClientError
 from contextlib import closing
 
 # Parsing Library
-from tex_parser import TexParser
+from pybtex.database.input import bibtex
 
 # Creates session of user using AWS credentials
 session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
@@ -98,32 +98,32 @@ def get_text_file(file):
     return text
 
 # Parsing .bib files helper
-def _parse_bib_file(self, name):
-    for val in self.bibFile:
-        if val == name + ".bib":
-            fileObj = open(self.path + "/" + val, "r")
-            contents = fileObj.read()
-            
-            parser = bibtex.Parser()
-            bib_data = parser.parse_string(contents)
-            self._concatOutput("<emphasis level='strong'> References Section </emphasis> <break time='1s'/>")
-            
-            # Looks at bib contents
-            for entry in bib_data.entries.values():
-                self._concatOutput("Bibliography item is read as: <break time='0.5s'/>" + entry.key + ". Type: " + entry.type + "<break time='0.5s'/>")
+def parse_bib_file(name):
+    fileObj = open(path + "/" + name, "r")
+    contents = fileObj.read()
+    returnObj = ""
+    
+    parser = bibtex.Parser()
+    bib_data = parser.parse_string(contents)
+    returnObj += "<emphasis level='strong'> References Section </emphasis> <break time='1s'/> "
+    
+    # Looks at bib contents
+    for entry in bib_data.entries.values():
+        returnObj += " Bibliography item is read as: <break time='0.5s'/>" + entry.key + ". Type: " + entry.type + "<break time='0.5s'/> "
 
-                # Gets authors
-                for en in entry.persons.keys():
-                    self._concatOutput("Authors: ")
-                    for author in bib_data.entries[entry.key].persons[en]:
-                        self._concatOutput(str(author) + ", <break time='0.3s'/>")
+        # Gets authors
+        for en in entry.persons.keys():
+            returnObj += " Authors: "
+            for author in bib_data.entries[entry.key].persons[en]:
+                returnObj += str(author) + ", <break time='0.3s'/> "
 
-                # Gets all other key - value pairs and reads them out
-                for en in entry.fields.keys():
-                    self._concatOutput(str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>"))
+        # Gets all other key - value pairs and reads them out
+        for en in entry.fields.keys():
+            returnObj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
 
-            os.remove(self.path + "/" + val)
-            break
+    os.remove(path + "/" + name)
+
+    return returnObj
 
 # Helper method used if found a corresponding input file
 def found_input_file(line, outfile, i, input):
@@ -140,10 +140,10 @@ def found_input_file(line, outfile, i, input):
                 append = tmp + ".tex"
 
             if(append == inputFile):
-                with open(path + "/" + inputFile,'r') as tmpInput:
-                    outfile.write(tmpInput.read())
-                    contained = True
-                    tmpInput.close()
+                # with open(path + "/" + inputFile,'r') as tmpInput:
+                #     outfile.write(tmpInput.read())
+                contained = True
+                tmpInput.close()
         i = i + 1
 
     if(contained == False):
@@ -168,10 +168,9 @@ def found_bibliography_file(line, outfile, i, bib):
                 append = tmp + ".bib"
 
             if(append == bibFile):
-                with open(path + "/" + bibFile,'r') as tmpInput:
-                    outfile.write(tmpInput.read())
-                    contained = True
-                    tmpInput.close()
+                outfile.write(parse_bib_file(bibFile))
+                contained = True
+
         i = i + 1
 
     if(contained == False):
@@ -222,7 +221,6 @@ def create_master_files(main, input, bib):
 # Manages all tasks afterwords
 def start_polly(main, input, bibContents):
     links = []
-    latex_parser = TexParser()
     masterFiles = []
 
     masterFiles = create_master_files(main,input)
@@ -231,9 +229,9 @@ def start_polly(main, input, bibContents):
         fileObj = open(master, "r")
 
         # Call parser here
-        parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
+        # parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
 
-        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(file, parsed_contents)
