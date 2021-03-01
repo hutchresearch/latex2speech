@@ -128,6 +128,7 @@ def parse_bib_file(name):
 # Helper method used if found a corresponding input file
 def found_input_file(line, outfile, i, input):
     tmp = ""  
+    contained = False
 
     while(line[i] != '}'):
         tmp = tmp + line[i]                          
@@ -147,7 +148,7 @@ def found_input_file(line, outfile, i, input):
         i = i + 1
 
     if(contained == False):
-        outfile.write(tmp + "Input file not found \n")
+        outfile.write(tmp + " Input file not found \n")
         contained = True
 
     return contained
@@ -174,7 +175,7 @@ def found_bibliography_file(line, outfile, i, bib):
         i = i + 1
 
     if(contained == False):
-        outfile.write(tmp + "Bibliography file not found \n")
+        outfile.write(tmp + " Bibliography file not found \n")
         contained = True
 
     return contained
