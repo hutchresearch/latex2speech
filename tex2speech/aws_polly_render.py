@@ -97,6 +97,34 @@ def get_text_file(file):
     # return str(text, 'utf-8')
     return text
 
+# Parsing .bib files helper
+def _parse_bib_file(self, name):
+    for val in self.bibFile:
+        if val == name + ".bib":
+            fileObj = open(self.path + "/" + val, "r")
+            contents = fileObj.read()
+            
+            parser = bibtex.Parser()
+            bib_data = parser.parse_string(contents)
+            self._concatOutput("<emphasis level='strong'> References Section </emphasis> <break time='1s'/>")
+            
+            # Looks at bib contents
+            for entry in bib_data.entries.values():
+                self._concatOutput("Bibliography item is read as: <break time='0.5s'/>" + entry.key + ". Type: " + entry.type + "<break time='0.5s'/>")
+
+                # Gets authors
+                for en in entry.persons.keys():
+                    self._concatOutput("Authors: ")
+                    for author in bib_data.entries[entry.key].persons[en]:
+                        self._concatOutput(str(author) + ", <break time='0.3s'/>")
+
+                # Gets all other key - value pairs and reads them out
+                for en in entry.fields.keys():
+                    self._concatOutput(str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>"))
+
+            os.remove(self.path + "/" + val)
+            break
+
 # Helper method used if found a corresponding input file
 def found_input_file(line, outfile, i, input):
     tmp = ""  
@@ -124,6 +152,8 @@ def found_input_file(line, outfile, i, input):
 
     return contained
 
+# Helper method used if found a corresponding bib file
+# Will parse contents using pybtex
 def found_bibliography_file(line, outfile, i, bib):
     tmp = ""  
 
