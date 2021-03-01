@@ -87,11 +87,11 @@ def handle_form():
     files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
     final = glob.glob(app.config['CUSTOM_STATIC_PATH'] + "/*.tex")
 
-    for f in files:
-        os.remove(f)
+    # for f in files:
+    #     os.remove(f)
 
-    for f in final:
-        os.remove(f)
+    # for f in final:
+    #     os.remove(f)
 
     return render_template(
         'download.html',

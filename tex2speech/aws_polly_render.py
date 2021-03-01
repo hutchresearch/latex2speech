@@ -140,10 +140,10 @@ def found_input_file(line, outfile, i, input):
                 append = tmp + ".tex"
 
             if(append == inputFile):
-                # with open(path + "/" + inputFile,'r') as tmpInput:
-                #     outfile.write(tmpInput.read())
-                contained = True
-                tmpInput.close()
+                with open(path + "/" + inputFile,'r') as tmpInput:
+                    outfile.write(tmpInput.read())
+                    contained = True
+                    tmpInput.close()
         i = i + 1
 
     if(contained == False):
@@ -223,7 +223,7 @@ def start_polly(main, input, bibContents):
     links = []
     masterFiles = []
 
-    masterFiles = create_master_files(main,input)
+    masterFiles = create_master_files(main, input, bibContents)
 
     for master in masterFiles:
         fileObj = open(master, "r")
