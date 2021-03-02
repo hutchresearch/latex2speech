@@ -15,6 +15,8 @@ from contextlib import closing
 # Parsing Library
 from pybtex.database.input import bibtex
 
+import tex2speech.expand_labels
+
 # Creates session of user using AWS credentials
 session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
 
@@ -228,6 +230,9 @@ def start_polly(main, input, bibContents):
     masterFiles = create_master_files(main, input, bibContents)
 
     for master in masterFiles:
+        # Expand labels command (might move this somewhere else later)
+        # tex2speech.expand_labels.expandDocNewLabels(master)
+
         fileObj = open(master, "r")
 
         # Call parser here

@@ -1,5 +1,6 @@
 import TexSoup
 import os
+from keyboard import press
 
 '''Function that will travers aux file for \\newlabel
 Create a hashtable to store in these values
@@ -97,10 +98,12 @@ def replaceReferences(contents, myHash):
 def expandDocNewLabels(doc):
     # TODO
     # Create .aux file
+    os.system("pdflatex " + doc)
+    press("enter")
 
     # Get appropriate .aux file to corresponding document
     # Open .aux file (Assuming it's been generated)
-    split_string = doc.name.split(".tex", 1)
+    split_string = doc.split(".tex", 1)
     docName = split_string[0] + ".aux"
 
     # Traverse .aux file, create hashtable for commands -> vallues
