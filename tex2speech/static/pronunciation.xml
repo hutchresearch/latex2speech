@@ -31,7 +31,7 @@
     </cmd>
 
     <cmd name="dots">
-        <break strength="strong">
+        <break strength="strong"/>
     </cmd>
 
     <cmd name="em">
@@ -76,7 +76,7 @@
         <break time = "1s"/>
         Bibliography item is read as:
         <break time = "0.5s"/>
-        <arg num = "1">
+        <arg num = "1"/>
     </cmd>
 
     <cmd name = "LaTeX">
