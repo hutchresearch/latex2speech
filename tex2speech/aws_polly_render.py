@@ -15,6 +15,10 @@ from contextlib import closing
 # Parsing Library
 from pybtex.database.input import bibtex
 
+# Internal classes
+from conversion_db import ConversionDB
+from conversion_parser import ConversionParser
+
 # Creates session of user using AWS credentials
 session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
 
@@ -227,17 +231,22 @@ def start_polly(main, input, bibContents):
 
     masterFiles = create_master_files(main, input, bibContents)
 
+    # Create database/parser
+    dbSource = open('static/pronunciation.xml')
+    db = ConversionDB(dbSource.read())
+    parser = ConversionParser(db)
+
     for master in masterFiles:
-        fileObj = open(master, "r")
+        texFile = open(master, "r")
 
-        # Call parser here
-        # parsed_contents = latex_parser.parse(fileObj.read(), bibContents)
+        # Call parsing here
+        parsed_contents = parser.parse(texFile.read())
 
-        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(file, parsed_contents)
-        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
+        audio_link = tts_of_file(master, parsed_contents)
+        # audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
         links.append(audio_link)
 
     return links

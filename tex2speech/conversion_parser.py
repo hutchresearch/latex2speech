@@ -1,5 +1,6 @@
 import TexSoup
 import sympy
+import xml.etree.ElementTree as ET
 
 from conversion_db import ConversionDB
 from SSMLParsing.arg_element import ArgElement
@@ -257,5 +258,9 @@ class ConversionParser:
     '''
     def parse(self, doc: TexSoup.data.TexNode):
         tree = RootElement()
+        if isinstance(doc, str):
+            doc = TexSoup.TexSoup(doc)
         self._parseNodes(doc.contents, tree)
-        return tree
+        xmlTree = tree.getXMLTree()
+
+        return ET.tostring(xmlTree, encoding="unicode")
