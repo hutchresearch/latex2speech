@@ -66,12 +66,6 @@ def auxFileHashTable(auxFile):
             # Adding to hashtable
             hash[name] = hashObject
 
-    # Print helpers
-    # print(hash['fl'])
-    # print(hash['sl'])
-    # print(hash['tl'])
-    # print(hash['sample'])
-
     return hash
 
 '''With the hash table that was created, use findall from TexSoup to replace file contents'''
@@ -111,17 +105,17 @@ def expandDocNewLabels(doc):
     replaceReferences(doc.read(), myHash)
 
     # Delete .pdf, .out, .log, and .aux file
-    # if path.exists(split_string[0] + ".log"):
-    #     os.remove(split_string[0] + ".log")
+    if path.exists(split_string[0] + ".log"):
+        os.remove(split_string[0] + ".log")
 
-    # if path.exists(split_string[0] + ".out"):
-    #     os.remove(split_string[0] + ".out")
+    if path.exists(split_string[0] + ".out"):
+        os.remove(split_string[0] + ".out")
 
-    # if path.exists(split_string[0] + ".pdf"):
-    #     os.remove(split_string[0] + ".pdf")
+    if path.exists(split_string[0] + ".pdf"):
+        os.remove(split_string[0] + ".pdf")
 
-    # if path.exists(split_string[0] + ".aux"):
-    #     os.remove(split_string[0] + ".aux")
+    if path.exists(split_string[0] + ".aux"):
+        os.remove(split_string[0] + ".aux")
 
 '''This function is to help test, since the main function expects a file, while this has contents'''
 def hashTableTest(contents):
@@ -178,10 +172,3 @@ def hashTableTest(contents):
             # Adding to hashtable
             hash[name] = hashObject
     return hash
-
-# file = open("sample.aux", "r")
-# hash = hashTableTest((r"\newlabel{fl}{{1}{1}{}{equation.0.1}{}}" + "\n" +
-#             r"\newlabel{sl}{{2}{1}{}{equation.0.1}{}}"))
-
-# print(hash['fl'])
-# print(hash['sl'])

@@ -60,7 +60,6 @@ def generate_presigned_url(objectURL):
 
     return url
 
-
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file, contents):
@@ -75,14 +74,8 @@ def tts_of_file(file, contents):
             TextType = "ssml",
             Text = contents)
 
-        # ----- PRINT HELPERS FOR TESTING PURPOSES -----
         # Output the task ID
         taskId = audio['SynthesisTask']['TaskId']
-        # print(f'Task id is {taskId}')
-
-        # Retrieve and output the current status of the task
-        # task_status = polly.get_speech_synthesis_task(TaskId = taskId)
-        # print(f'Status: {task_status}')
 
         # Get audio link from bucket
         objectName = file + "." + taskId + ".mp3"
