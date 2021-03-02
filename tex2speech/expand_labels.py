@@ -97,25 +97,26 @@ def expandDocNewLabels(doc):
     docName = split_string[0] + ".aux"
 
     # Traverse .aux file, create hashtable for commands -> vallues
-    auxFile = open(docName, "r")
-    myHash = auxFileHashTable(auxFile)
-
-    # Repalce all references to correct for figures and equations
-    doc = open(doc, "r")
-    replaceReferences(doc.read(), myHash)
-
-    # Delete .pdf, .out, .log, and .aux file
-    if path.exists(split_string[0] + ".log"):
-        os.remove(split_string[0] + ".log")
-
-    if path.exists(split_string[0] + ".out"):
-        os.remove(split_string[0] + ".out")
-
-    if path.exists(split_string[0] + ".pdf"):
-        os.remove(split_string[0] + ".pdf")
-
     if path.exists(split_string[0] + ".aux"):
-        os.remove(split_string[0] + ".aux")
+        auxFile = open(docName, "r")
+        myHash = auxFileHashTable(auxFile)
+
+        # Repalce all references to correct for figures and equations
+        doc = open(doc, "r")
+        replaceReferences(doc.read(), myHash)
+
+        # Delete .pdf, .out, .log, and .aux file
+        if path.exists(split_string[0] + ".log"):
+            os.remove(split_string[0] + ".log")
+
+        if path.exists(split_string[0] + ".out"):
+            os.remove(split_string[0] + ".out")
+
+        if path.exists(split_string[0] + ".pdf"):
+            os.remove(split_string[0] + ".pdf")
+
+        if path.exists(split_string[0] + ".aux"):
+            os.remove(split_string[0] + ".aux")
 
 '''This function is to help test, since the main function expects a file, while this has contents'''
 def hashTableTest(contents):
