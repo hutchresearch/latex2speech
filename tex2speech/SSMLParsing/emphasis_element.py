@@ -21,7 +21,7 @@ class EmphasisElement(SSMLElementNode):
         attrib = {}
         if self.level:
             attrib['level'] = self.level
-        elem = ET.Element('emph', attrib=attrib)
+        elem = ET.Element('emphasis', attrib=attrib)
         if self.getHeadText() != '':
             elem.text = self.getHeadText()
         if self.getTailText() != '':

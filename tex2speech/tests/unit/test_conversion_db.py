@@ -183,24 +183,24 @@ class testConversionDB(unittest.TestCase):
         <latex>
             <cmd name="cmd1">
                 text 1
-                <emph>text 2</emph>
-                <emph level="weak">text 3</emph>
+                <emphasis>text 2</emph>
+                <emphasis level="weak">text 3</emph>
             </cmd>
             <env name="env">
                 <says>
-                    <emph>text 4</emph>
+                    <emphasis>text 4</emph>
                     text 5
-                    <emph level="strong">text 6</emph>
+                    <emphasis level="strong">text 6</emph>
                 </says>
                 <defines>
                     <cmd name="cmd1">
-                        <emph>text 7</emph>
-                        <emph level="x-strong">text 8</emph>
+                        <emphasis>text 7</emph>
+                        <emphasis level="x-strong">text 8</emph>
                         text 9
                     </cmd>
                     <cmd name="cmd2">
-                        <emph>text 10</emph>
-                        <emph level="strong">text 11</emph>
+                        <emphasis>text 10</emph>
+                        <emphasis level="strong">text 11</emph>
                     </cmd>
                 </defines>
             </env>

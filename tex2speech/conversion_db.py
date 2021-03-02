@@ -23,7 +23,7 @@ class ConversionDB:
             if 'strength' in xmlNode.attrib:
                 args['strength'] = xmlNode.attrib['strength']
             element = BreakElement(**args)
-        elif xmlNode.tag == 'emph':
+        elif xmlNode.tag == 'emphasis':
             args = {}
             if 'level' in xmlNode.attrib:
                 args['level'] = xmlNode.attrib['level']
@@ -40,14 +40,14 @@ class ConversionDB:
                 args['duration'] = xmlNode.attrib['duration']
             element = ProsodyElement(**args)
         elif xmlNode.tag == 'arg':
-            if 'argType' in xmlNode.attrib['argType']:
+            if 'argType' in xmlNode.attrib:
                 element = ArgElement(xmlNode.attrib['num'], argType=xmlNode.attrib['argType'])
             else:
                 element = ArgElement(xmlNode.attrib['num'])
         elif xmlNode.tag == 'content':
             element = ContentElement()
         else:
-            raise RuntimeError('Unhandled tag encountered in conversion database')
+            raise RuntimeError('Unhandled tag "' + xmlNode.tag + '"encountered in conversion database')
 
         if element:
             if xmlNode.text and not xmlNode.text.isspace():
@@ -74,12 +74,13 @@ class ConversionDB:
         conversion = None
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
-                conversion = []
                 envConv = env.find('says')
-                if envConv.text and not envConv.text.isspace():
-                    conversion.append(TextElement(envConv.text.strip(" \t\n\r")))
-                for elem in envConv.findall('./*'):
-                    conversion.append(self._getSSMLElement(elem))
+                if envConv:
+                    conversion = []
+                    if envConv.text and not envConv.text.isspace():
+                        conversion.append(TextElement(envConv.text.strip(" \t\n\r")))
+                    for elem in envConv.findall('./*'):
+                        conversion.append(self._getSSMLElement(elem))
                 break
         return conversion
 
@@ -90,6 +91,15 @@ class ConversionDB:
                 envDef = env.find('defines')
                 if envDef:
                     definition = {}
+
+                    # Encode global attributes into environment definition
+                    definition['mathmode'] = False
+                    definition['readTable'] = False
+                    if 'mathmode' in env.attrib and env.attrib['mathmode'] == 'true':
+                        definition['mathmode'] = True
+                    if 'readTable' in env.attrib and env.attrib['readTable'] == 'true':
+                        definition['readTable'] = True
+                    
                     for cmd in envDef.findall('cmd'):
                         cmdDef = []
                         if cmd.text and not cmd.text.isspace():
