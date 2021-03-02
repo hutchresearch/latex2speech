@@ -1,6 +1,8 @@
 import TexSoup
 import os
+from os import path
 from keyboard import press
+import time
 
 '''Function that will travers aux file for \\newlabel
 Create a hashtable to store in these values
@@ -84,12 +86,7 @@ def replaceReferences(contents, myHash):
         else:
             old = "\\ref{" + name + "}"
             new = myHash[name][0]
-        # FUTURE TODO
-            # Talk to Connor about this, currently
-            # We are just updating the contents of the page
-            # The actual file needs to be updated...
-        # myDoc.ref.replace_with(new)
-        # myDoc.itemize
+
         contents = contents.replace(old, new)
 
     print(contents)
@@ -98,8 +95,7 @@ def replaceReferences(contents, myHash):
 def expandDocNewLabels(doc):
     # TODO
     # Create .aux file
-    os.system("pdflatex " + doc)
-    press("enter")
+    os.system("pdflatex -interaction=nonstopmode " + doc)
 
     # Get appropriate .aux file to corresponding document
     # Open .aux file (Assuming it's been generated)
@@ -111,13 +107,21 @@ def expandDocNewLabels(doc):
     myHash = auxFileHashTable(auxFile)
 
     # Repalce all references to correct for figures and equations
+    doc = open(doc, "r")
     replaceReferences(doc.read(), myHash)
 
     # Delete .pdf, .out, .log, and .aux file
-    os.remove(split_string[0] + ".log")
-    os.remove(split_string[0] + ".out")
-    os.remove(split_string[0] + ".pdf")
-    os.remove(split_string[0] + ".aux")
+    # if path.exists(split_string[0] + ".log"):
+    #     os.remove(split_string[0] + ".log")
+
+    # if path.exists(split_string[0] + ".out"):
+    #     os.remove(split_string[0] + ".out")
+
+    # if path.exists(split_string[0] + ".pdf"):
+    #     os.remove(split_string[0] + ".pdf")
+
+    # if path.exists(split_string[0] + ".aux"):
+    #     os.remove(split_string[0] + ".aux")
 
 '''This function is to help test, since the main function expects a file, while this has contents'''
 def hashTableTest(contents):
