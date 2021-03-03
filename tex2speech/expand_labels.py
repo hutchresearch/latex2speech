@@ -1,8 +1,6 @@
 import TexSoup
 import os
 from os import path
-from keyboard import press
-import time
 
 '''Function that will travers aux file for \\newlabel
 Create a hashtable to store in these values
