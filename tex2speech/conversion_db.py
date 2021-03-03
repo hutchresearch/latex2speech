@@ -5,6 +5,7 @@ from SSMLParsing.break_element import BreakElement
 from SSMLParsing.content_element import ContentElement
 from SSMLParsing.emphasis_element import EmphasisElement
 from SSMLParsing.prosody_element import ProsodyElement
+from SSMLParsing.paragraph_element import ParagraphElement
 from SSMLParsing.root_element import RootElement
 from SSMLParsing.ssml_element_node import SSMLElementNode
 from SSMLParsing.ssml_element import SSMLElement
@@ -39,6 +40,8 @@ class ConversionDB:
             if 'duration' in xmlNode.attrib:
                 args['duration'] = xmlNode.attrib['duration']
             element = ProsodyElement(**args)
+        elif xmlNode.tag == 'p':
+            element = ParagraphElement()
         elif xmlNode.tag == 'arg':
             if 'argType' in xmlNode.attrib:
                 element = ArgElement(xmlNode.attrib['num'], argType=xmlNode.attrib['argType'])

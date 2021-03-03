@@ -148,49 +148,49 @@
 
     <env name="quotation">
         <says>
-            &lt;p&gt;
+            <p>
                 <content/>
-            &lt;/p&gt;
+            </p>
         </says>
     </env>
 
     <env name="quote">
         <says>
-            &lt;p&gt;
+            <p>
                 <content/>
-            &lt;/p&gt;
+            </p>
         </says>
     </env>
 
     <env name="center">
         <says>
-            &lt;p&gt;
+            <p>
                 <content/>
-            &lt;/p&gt;
+            </p>
         </says>
     </env>
 
     <env name="flushleft">
         <says>
-            &lt;p&gt;
+            <p>
                 <content/>
-            &lt;/p&gt;
+            </p>
         </says>
     </env>
 
     <env name="flushright">
         <says>
-            &lt;p&gt;
+            <p>
                 <content/>
-            &lt;/p&gt;
+            </p>
         </says>
     </env>
 
     <env name="verse">
         <says>
-            &lt;p&gt;
+            <p>
                 <content/>
-            &lt;/p&gt;
+            </p>
         </says>
     </env>
 
