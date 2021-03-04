@@ -92,17 +92,16 @@ class ConversionDB:
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
                 envDef = env.find('defines')
-                mathmode = env.attrib['type']
-                readTable = env.attrib['type']
+                type = env.attrib['type']
 
                 definition = {}
                 definition['readTable'] = False
                 definition['mathmode'] = False
 
-                if str(mathmode) == "true":
+                if str(type) == "mathmode":
                     definition['mathmode'] = True
 
-                if readTable:
+                if str(type) == "readTable":
                     definition['readTable'] = True
 
                 if envDef:

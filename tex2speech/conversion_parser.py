@@ -31,7 +31,7 @@ class ConversionParser:
     '''Function that will take in new table contents, and parse
     each column'''
     def _parseTableContents(self, contentsNode, elemListParent, leftChild=None):
-        print("YO IS THIS RUNNING??? \n")
+        print("TESTING HEREH HEREHR HERHERH HERHERH HERHER ")
         if leftChild:
             leftChild.appendTailText("New Row: ")
         else:
@@ -115,13 +115,17 @@ class ConversionParser:
 
                         if definition:
                             if definition["mathmode"] == True:
+                                print("Mathmode???")
                                 output = run_sympy(self._envContentsToString(envNode))
                                 if leftChild:
                                     leftChild.appendTailText(output)
                                 else:
                                     elemListParent.appendHeadText(output)
                             elif definition["readTable"] == True:
-                                self._parseTableContents(self._envContentsToString(envNode), elemListParent, leftChild)
+                                print("THIS IS RUNNIGN")
+                                # print(str(envNode))
+                                self._parseTableContents(str(envNode), elemListParent, leftChild)
+                                print("YO WHATS UP MYDUDE")
                             else:
                                 self.envStack.append(definition)
                                 newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
