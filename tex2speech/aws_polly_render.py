@@ -155,7 +155,8 @@ def found_input_file(line, outfile, i, input):
 # Will parse contents using pybtex
 def found_bibliography_file(line, outfile, i, bib):
     tmp = ""  
-
+    contained = False
+    
     while(line[i] != '}'):
         tmp = tmp + line[i]                          
 
@@ -232,7 +233,7 @@ def start_polly(main, input, bibContents):
 
     for master in masterFiles:
         # Expand Labels then open document
-        tex2speech.expand_labels.expandDocNewLabels(master)
+        # tex2speech.expand_labels.expandDocNewLabels(master)
         texFile = open(master, "r")
 
         # Call parsing here

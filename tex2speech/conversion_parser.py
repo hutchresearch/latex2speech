@@ -31,6 +31,7 @@ class ConversionParser:
     '''Function that will take in new table contents, and parse
     each column'''
     def _parseTableContents(self, contentsNode, elemListParent, leftChild=None):
+        print("YO IS THIS RUNNING??? \n")
         if leftChild:
             leftChild.appendTailText("New Row: ")
         else:
@@ -68,6 +69,9 @@ class ConversionParser:
 
         if num == argElem.getArgNum():
             arg = node.args[i]
+
+        if arg == None:
+            print("Node: " + str(node))
 
         return arg
 
@@ -133,7 +137,6 @@ class ConversionParser:
                 i = (k + 1) + offset
                 if i > 0:
                     leftChild = elemList[i-1]
-
 
     '''
     Handles environment parsing, returning the result of its parsing or 

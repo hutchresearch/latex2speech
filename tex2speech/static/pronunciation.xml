@@ -2,69 +2,69 @@
 
 <latex>
 <!-- LaTeX Commands -->
-    <cmd name = "title">
+    <cmd name = "title" type = "none">
         Title 
         <break time = "0.3s"/>
         <arg num = "1"/>
         <break time = "0.3s"/>
     </cmd>
 
-    <cmd name = "author">
+    <cmd name = "author" type = "none">
         By:
         <break time = "0.3s"/>
         <arg num = "1"/>
         <break time = "0.3s"/>
     </cmd>
 
-    <cmd name = "date">
+    <cmd name = "date" type = "none">
         Published:
         <break time = "0.3s"/>
         <arg num = "1"/>
         <break time = "0.3s"/>
     </cmd>
 
-    <cmd name="section">
+    <cmd name="section" type = "none">
         Section: 
         <break time = "0.3s"/>
         <arg num = "1"/>
         <break time = "0.3s"/>
     </cmd>
 
-    <cmd name="dots">
+    <cmd name="dots" type = "none">
         <break strength="strong"/>
     </cmd>
 
-    <cmd name="em">
+    <cmd name="em" type = "none">
         <emphasis level = "strong">
             <arg num = "1"/>
         </emphasis>
     </cmd>
 
-    <cmd name="emph">
+    <cmd name="emph" type = "none">
         <emphasis level = "strong">
             <arg num = "1"/>
         </emphasis>
     </cmd>
 
-    <cmd name="textit">
+    <cmd name="textit" type = "none">
         <emphasis level = "strong">
             <arg num = "1"/>
         </emphasis>
     </cmd>
 
-    <cmd name="textbf">
+    <cmd name="textbf" type = "none">
         <emphasis level = "strong">
             <arg num = "1"/>
         </emphasis>
     </cmd>
 
-    <cmd name = "texttt">
+    <cmd name = "texttt" type = "none">
         <emphasis level = "strong">
             <arg num = "1"/>
         </emphasis>
     </cmd>
 
-    <cmd name = "cite">
+    <cmd name = "cite" type = "none">
         <emphasis level = "reduced">
             Cited in reference as:
             <break time = "0.3s"/>
@@ -72,18 +72,18 @@
         </emphasis>
     </cmd>
 
-    <cmd name = "bibitem">
+    <cmd name = "bibitem" type = "none">
         <break time = "1s"/>
         Bibliography item is read as:
         <break time = "0.5s"/>
         <arg num = "1"/>
     </cmd>
 
-    <cmd name = "LaTeX">
+    <cmd name = "LaTeX" type = "none">
         LaTeX
     </cmd>
 
-    <cmd name = "caption">
+    <cmd name = "caption" type = "none">
         Caption:
         <break time = "0.3s"/>
         <arg num = "1"/>
@@ -91,7 +91,7 @@
     </cmd>
 
     <!-- This is incase user does \thebibliography -->
-    <cmd name = "thebibliography">
+    <cmd name = "thebibliography" type = "none">
         <emphasis level = "strong">
             Reference Section: 
         </emphasis>
@@ -99,7 +99,7 @@
 
 <!-- Latex Environments -->
     <!-- This is incase user does \begin{thebibliography} -->
-    <env name = "thebibliography">
+    <env name = "thebibliography" type = "none">
         <says>
             <emphasis level = "strong">
                 Reference Section: 
@@ -108,36 +108,36 @@
         </says>
     </env>
 
-    <env name="equation" mathmode="true">
+    <env name="equation" type="mathmode">
         <says>
             the equation
             <content/>
         </says>
     </env>
 
-    <env name="eqnarray" mathmode="true">
+    <env name="eqnarray" type="mathmode">
     </env>
 
-    <env name="$" mathmode="true">
+    <env name="$" type="mathmode">
     </env>
 
-    <env name="$$" mathmode="true">
+    <env name="$$" type="mathmode">
     </env>
 
-    <env name="displaymath" mathmode="true"> <!-- Also alias for \[...\] in TexSoup -->
+    <env name="displaymath" type="mathmode"> <!-- Also alias for \[...\] in TexSoup -->
     </env>
 
-    <env name="math" mathmode="true"> <!-- Also alias for \(...\) in TexSoup-->
+    <env name="math" type="mathmode"> <!-- Also alias for \(...\) in TexSoup-->
     </env>
 
-    <env name="itemize">
+    <env name="itemize" type = "none">
         <says>
             <content/>
         </says>
 
         <!-- This might be wrong, because we want the contents to be read with break time infront? -->
         <defines>
-            <cmd name="item">
+            <cmd name="item" type = "none">
                 <break time = "40ms"/>
             </cmd>
 
@@ -146,7 +146,7 @@
         <break time = "medium"/>
     </env>
 
-    <env name="quotation">
+    <env name="quotation" type = "none">
         <says>
             <p>
                 <content/>
@@ -154,7 +154,7 @@
         </says>
     </env>
 
-    <env name="quote">
+    <env name="quote" type = "none">
         <says>
             <p>
                 <content/>
@@ -162,7 +162,7 @@
         </says>
     </env>
 
-    <env name="center">
+    <env name="center" type = "none">
         <says>
             <p>
                 <content/>
@@ -170,7 +170,7 @@
         </says>
     </env>
 
-    <env name="flushleft">
+    <env name="flushleft" type = "none">
         <says>
             <p>
                 <content/>
@@ -178,7 +178,7 @@
         </says>
     </env>
 
-    <env name="flushright">
+    <env name="flushright" type = "none">
         <says>
             <p>
                 <content/>
@@ -186,7 +186,7 @@
         </says>
     </env>
 
-    <env name="verse">
+    <env name="verse" type = "none">
         <says>
             <p>
                 <content/>
@@ -194,19 +194,19 @@
         </says>
     </env>
 
-    <env name="enumerate">
+    <env name="enumerate" type = "none">
     </env>
 
-    <env name="description">
+    <env name="description" type = "none">
     </env>
 
-    <env name="list">
+    <env name="list" type = "none">
     </env>
 
-    <env name="array">
+    <env name="array" type = "none">
     </env>
 
-    <env name="table">
+    <env name="table" type = "none">
         <says>
             Begin Table:
             <break time = "0.3s"/>
@@ -216,7 +216,7 @@
         </says>
     </env>
 
-    <env name="tabular" readTable = "true">
+    <env name="tabular" type = "readTable">
         <says>
             Table Contents:
             <break time = "40ms"/>
@@ -226,27 +226,27 @@
         </says>
     </env>
 
-    <env name="abstract">
+    <env name="abstract" type = "none">
     </env>
 
-    <env name="minipage">
+    <env name="minipage" type = "none">
     </env>
 
-    <env name="split">
+    <env name="split" type = "none">
     </env>
 
-    <env name="tabbing">
+    <env name="tabbing" type = "none">
     </env>
 
-    <env name="titlepage">
+    <env name="titlepage" type = "none">
     </env>
 
-    <env name="figure">
+    <env name="figure" type = "none">
     </env>
 
-    <env name="picture">
+    <env name="picture" type = "none">
     </env>
 
-    <env name="verbatim">
+    <env name="verbatim" type = "none">
     </env>
 </latex>

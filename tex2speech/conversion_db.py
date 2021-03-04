@@ -92,16 +92,21 @@ class ConversionDB:
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
                 envDef = env.find('defines')
+                mathmode = env.attrib['type']
+                readTable = env.attrib['type']
+
+                definition = {}
+                definition['readTable'] = False
+                definition['mathmode'] = False
+
+                if str(mathmode) == "true":
+                    definition['mathmode'] = True
+
+                if readTable:
+                    definition['readTable'] = True
+
                 if envDef:
                     definition = {}
-
-                    # Encode global attributes into environment definition
-                    definition['mathmode'] = False
-                    definition['readTable'] = False
-                    if 'mathmode' in env.attrib and env.attrib['mathmode'] == 'true':
-                        definition['mathmode'] = True
-                    if 'readTable' in env.attrib and env.attrib['readTable'] == 'true':
-                        definition['readTable'] = True
                     
                     for cmd in envDef.findall('cmd'):
                         cmdDef = []
@@ -112,4 +117,5 @@ class ConversionDB:
 
                         definition[cmd.attrib['name']] = cmdDef
                 break
+
         return definition
