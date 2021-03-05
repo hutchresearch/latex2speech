@@ -96,7 +96,7 @@ def get_text_file(file):
     return text
 
 # Parsing .bib files helper
-def parse_bib_file(name, thePath):
+def parse_bib_file(thePath):
     fileObj = open(thePath, "r")
     contents = fileObj.read()
     returnObj = ""
@@ -173,16 +173,15 @@ def found_bibliography_file(line, outfile, i, bib, innerFile):
                 # outfile.write(parse_bib_file(bibFile, thePath))
                 innerFile.append(str(thePath))
                 contained = True
-            else:
-                innerFile.append("")
 
         i = i + 1
 
     if(contained == False):
         outfile.write(tmp + " Bibliography file not found \n")
+        innerFile.append("")
 
     innerFile.append(str(contained))
-
+    print("TESTING " + str(innerFile))
     return innerFile
 
 # Creates a list of master files to hold the uploaded main 
@@ -218,9 +217,10 @@ def create_master_files(main, input, bib):
                         # Finds bibliography file
                         if(tmp == "\\bibliography{"):
                             innerFile = found_bibliography_file(line, outfile, i, bib, innerFile)
+                            contained = innerFile[2]
                     
                     # Attach true or false of file if has corresponding bib
-                    if(innerFile[2] == "False"):          
+                    if(contained == "False"):          
                         outfile.write(line)
                         
             masterFiles.append(innerFile)
@@ -236,6 +236,8 @@ def start_polly(main, input, bibContents):
 
     masterFiles = create_master_files(main, input, bibContents)
 
+    print(str(masterFiles))
+
     # Create database/parser
     dbSource = open('static/pronunciation.xml')
     db = ConversionDB(dbSource.read())
@@ -244,10 +246,13 @@ def start_polly(main, input, bibContents):
     for master in masterFiles:
         # Expand Labels then open document
         # tex2speech.expand_labels.expandDocNewLabels(master)
-        texFile = open(master, "r")
+        texFile = open(master[0], "r")
 
         # Call parsing here
         parsed_contents = parser.parse(texFile.read())
+
+        if (master[2] == "True"):
+            parsed_contents += parse_bib_file(master[1])
 
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
