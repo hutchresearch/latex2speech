@@ -152,8 +152,9 @@ def found_input_file(line, outfile, i, input):
     return contained
 
 # Helper method used if found a corresponding bib file
-# Will parse contents using pybtex
-def found_bibliography_file(line, outfile, i, bib):
+# Will return inner file which records corresponding bib file,
+# master file and if there was a bib or not
+def found_bibliography_file(line, outfile, i, bib, innerFile):
     tmp = ""  
     contained = False
     
@@ -169,16 +170,20 @@ def found_bibliography_file(line, outfile, i, bib):
 
             if(append == bibFile):
                 thePath = path + "/" + bibFile
-                outfile.write(parse_bib_file(bibFile, thePath))
+                # outfile.write(parse_bib_file(bibFile, thePath))
+                innerFile.append(str(thePath))
                 contained = True
+            else:
+                innerFile.append("")
 
         i = i + 1
 
     if(contained == False):
         outfile.write(tmp + " Bibliography file not found \n")
-        contained = True
 
-    return contained
+    innerFile.append(str(contained))
+
+    return innerFile
 
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
@@ -195,7 +200,8 @@ def create_master_files(main, input, bib):
 
         # Create new master file
         with open("final" + str(add) + ".tex", 'w') as outfile:
-            masterFiles.append("final" + str(add) + ".tex")
+            innerFile = []
+            innerFile.append("final" + str(add) + ".tex")
             with open(path + "/" + mainFile, 'r') as infile:
                 # For each line, add to the master file
                 for line in infile:
@@ -211,10 +217,14 @@ def create_master_files(main, input, bib):
 
                         # Finds bibliography file
                         if(tmp == "\\bibliography{"):
-                            contained = found_bibliography_file(line, outfile, i, bib)
+                            innerFile = found_bibliography_file(line, outfile, i, bib, innerFile)
                     
-                    if(contained == False):          
+                    # Attach true or false of file if has corresponding bib
+                    if(innerFile[2] == "False"):          
                         outfile.write(line)
+                        
+            masterFiles.append(innerFile)
+
         outfile.close()
     return masterFiles
 
