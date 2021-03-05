@@ -31,26 +31,27 @@ class ConversionParser:
     '''Function that will take in new table contents, and parse
     each column'''
     def _parseTableContents(self, contentsNode, elemListParent, leftChild=None):
-        if leftChild:
-            leftChild.appendTailText("New Row: ")
-        else:
-            elemListParent.appendHeadText("New Row: ")
+        split = str(contentsNode).split("\n")
 
-        split = str(contentsNode).split("\\")
-        print(str(split))
+        for row in split:
+            if leftChild:
+                leftChild.appendTailText("New Row: ")
+            else:
+                elemListParent.appendHeadText("New Row: ")
 
-        # split = str(contentsNode).split('&') 
-        # column = 1
-        # for word in split: 
-        #     if word != "&":
-        #         text = ", Column " + str(column) + ", Value: " + word;
+            innerSplit = row.split('&')
 
-        #         if leftChild:
-        #             leftChild.appendTailText(text)
-        #         else:
-        #             elemListParent.appendHeadText(text)
+            column = 1
+            for word in innerSplit: 
+                if word != "&":
+                    text = ", Column " + str(column) + ", Value: " + word;
 
-        #         column += 1
+                    if leftChild:
+                        leftChild.appendTailText(text)
+                    else:
+                        elemListParent.appendHeadText(text)
+
+                    column += 1
 
     '''This function strips out unnecessary environments from table node
         TexSoup doesn't delete \begin{tabular} or \end{tabular} tags
