@@ -32,7 +32,7 @@ class ConversionParser:
     each column'''
     def _parseTableContents(self, contentsNode, elemListParent, leftChild=None):
         split = str(contentsNode).split("\n")
-
+        # Go through each row
         for row in split:
             if leftChild:
                 leftChild.appendTailText("New Row: ")
@@ -40,8 +40,9 @@ class ConversionParser:
                 elemListParent.appendHeadText("New Row: ")
 
             innerSplit = row.split('&')
-
             column = 1
+
+            # Go through each value in the row
             for word in innerSplit: 
                 if word != "&":
                     text = ", Column " + str(column) + ", Value: " + word;
