@@ -65,7 +65,6 @@ class ConversionParser:
         tableContents = tableContents.lstrip()
         tableContents = tableContents.split("\end{tabular}", 1)[0]
         tableContents = tableContents.rstrip()
-        print("YES\n" + tableContents + "\nOhYeah\n")
         return tableContents
 
     '''
