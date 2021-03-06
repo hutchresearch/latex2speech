@@ -147,9 +147,6 @@ def found_input_file(line, outfile, i, input):
 
     if(contained == False):
         outfile.write(tmp + " Input file not found \n")
-        contained = True
-
-    return contained
 
 # Helper method used if found a corresponding bib file
 # Will return inner file which records corresponding bib file,
@@ -210,27 +207,22 @@ def create_master_files(main, input, bib):
                 # For each line, add to the master file
                 for line in infile:
                     tmp = ""
-                    contained = False
   
                     for i in range(len(line)):
                         tmp = tmp + line[i]
 
                         if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
+                            outfile.write(tmp)
                             tmp = ""
 
                         i = i + 1
                         # Finds include or input file
                         if (tmp == "\\include{" or tmp == "\\input{"):
-                            contained = found_input_file(line, outfile, i, input)
+                            found_input_file(line, outfile, i, input)
 
                         # Finds bibliography file
                         if (tmp == "\\bibliography{"):
                             innerFile = found_bibliography_file(line, outfile, i, bib, innerFile)
-                            contained = innerFile[2]
-                    
-                    # Attach true or false of file if has corresponding bib
-                    if (contained == "False" or contained == False):          
-                        outfile.write(line)
                         
             masterFiles.append(innerFile)
 
