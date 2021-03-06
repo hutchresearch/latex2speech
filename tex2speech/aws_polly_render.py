@@ -183,6 +183,12 @@ def found_bibliography_file(line, outfile, i, bib, innerFile):
     innerFile.append(str(contained))
     return innerFile
 
+# Function to check if the command is equal
+def check(tmp, cmd):
+    if tmp == cmd[:len(tmp)]:
+        return True 
+    return False
+
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
 # master file
@@ -204,11 +210,14 @@ def create_master_files(main, input, bib):
                 # For each line, add to the master file
                 for line in infile:
                     tmp = ""
-                    contained = False  
-                    print("TESTING UP HERE " + tmp)
+                    contained = False
+  
                     for i in range(len(line)):
                         tmp = tmp + line[i]
-                        print("HELLO " + tmp)
+
+                        if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
+                            tmp = ""
+
                         i = i + 1
                         # Finds include or input file
                         if (tmp == "\\include{" or tmp == "\\input{"):
@@ -231,6 +240,11 @@ def create_master_files(main, input, bib):
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(main, input, bibContents):
+    # NOTE FOR TAI
+    # WHEN YOU DO ZIPPED FILES JUST DO 
+    # if "/begin{document}" in str(file) and "/end{document}" in str(file):
+    #     is main file
+
     links = []
     masterFiles = []
 
