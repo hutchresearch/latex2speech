@@ -210,16 +210,16 @@ def create_master_files(main, input, bib):
                         tmp = tmp + line[i]
                         i = i + 1
                         # Finds include or input file
-                        if(tmp == "\\include{" or tmp == "\\input{"):
+                        if (tmp == "\\include{" or tmp == "\\input{"):
                             contained = found_input_file(line, outfile, i, input)
 
                         # Finds bibliography file
-                        if(tmp == "\\bibliography{"):
+                        if (tmp == "\\bibliography{"):
                             innerFile = found_bibliography_file(line, outfile, i, bib, innerFile)
                             contained = innerFile[2]
                     
                     # Attach true or false of file if has corresponding bib
-                    if(contained == "False"):          
+                    if (contained == "False" or contained == False):          
                         outfile.write(line)
                         
             masterFiles.append(innerFile)
@@ -245,11 +245,8 @@ def start_polly(main, input, bibContents):
     for master in masterFiles:
         # Expand Labels then open document
         tex2speech.expand_labels.expandDocNewLabels(master[0])
-        # texFile = open(master[0], "r")
-        texFile = open("final1.tex", "r")
-        print(os.getcwd())
+        texFile = open(master[0], "r")
 
-        print(texFile.read())
         # Call parsing here
         parsed_contents = parser.parse(texFile.read())
 
