@@ -96,7 +96,7 @@ def get_text_file(file):
     return text
 
 # Parsing .bib files helper
-def parse_bib_file(name, thePath):
+def parse_bib_file(thePath):
     fileObj = open(thePath, "r")
     contents = fileObj.read()
     returnObj = ""
@@ -152,8 +152,9 @@ def found_input_file(line, outfile, i, input):
     return contained
 
 # Helper method used if found a corresponding bib file
-# Will parse contents using pybtex
-def found_bibliography_file(line, outfile, i, bib):
+# Will return inner file which records corresponding bib file,
+# master file and if there was a bib or not
+def found_bibliography_file(line, outfile, i, bib, innerFile):
     tmp = ""  
     contained = False
     
@@ -169,16 +170,18 @@ def found_bibliography_file(line, outfile, i, bib):
 
             if(append == bibFile):
                 thePath = path + "/" + bibFile
-                outfile.write(parse_bib_file(bibFile, thePath))
+                # outfile.write(parse_bib_file(bibFile, thePath))
+                innerFile.append(str(thePath))
                 contained = True
 
         i = i + 1
 
     if(contained == False):
         outfile.write(tmp + " Bibliography file not found \n")
-        contained = True
+        innerFile.append("")
 
-    return contained
+    innerFile.append(str(contained))
+    return innerFile
 
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
@@ -195,7 +198,8 @@ def create_master_files(main, input, bib):
 
         # Create new master file
         with open("final" + str(add) + ".tex", 'w') as outfile:
-            masterFiles.append("final" + str(add) + ".tex")
+            innerFile = []
+            innerFile.append("final" + str(add) + ".tex")
             with open(path + "/" + mainFile, 'r') as infile:
                 # For each line, add to the master file
                 for line in infile:
@@ -206,15 +210,20 @@ def create_master_files(main, input, bib):
                         tmp = tmp + line[i]
                         i = i + 1
                         # Finds include or input file
-                        if(tmp == "\\include{" or tmp == "\\input{"):
+                        if (tmp == "\\include{" or tmp == "\\input{"):
                             contained = found_input_file(line, outfile, i, input)
 
                         # Finds bibliography file
-                        if(tmp == "\\bibliography{"):
-                            contained = found_bibliography_file(line, outfile, i, bib)
+                        if (tmp == "\\bibliography{"):
+                            innerFile = found_bibliography_file(line, outfile, i, bib, innerFile)
+                            contained = innerFile[2]
                     
-                    if(contained == False):          
+                    # Attach true or false of file if has corresponding bib
+                    if (contained == "False" or contained == False):          
                         outfile.write(line)
+                        
+            masterFiles.append(innerFile)
+
         outfile.close()
     return masterFiles
 
@@ -226,6 +235,8 @@ def start_polly(main, input, bibContents):
 
     masterFiles = create_master_files(main, input, bibContents)
 
+    print(masterFiles)
+
     # Create database/parser
     dbSource = open('static/pronunciation.xml')
     db = ConversionDB(dbSource.read())
@@ -233,11 +244,14 @@ def start_polly(main, input, bibContents):
 
     for master in masterFiles:
         # Expand Labels then open document
-        # tex2speech.expand_labels.expandDocNewLabels(master)
-        texFile = open(master, "r")
+        tex2speech.expand_labels.expandDocNewLabels(master[0])
+        texFile = open(master[0], "r")
 
         # Call parsing here
         parsed_contents = parser.parse(texFile.read())
+
+        if (len(master) > 1):
+            parsed_contents += parse_bib_file(master[1])
 
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
