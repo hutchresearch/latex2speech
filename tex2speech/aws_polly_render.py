@@ -235,10 +235,7 @@ def start_polly(main, input, bibContents):
 
     masterFiles = create_master_files(main, input, bibContents)
 
-    print(str(masterFiles))
-    print(main[0])
-    testing = open(path + "/" + main[0], "r")
-    print(testing)
+    print(masterFiles)
 
     # Create database/parser
     dbSource = open('static/pronunciation.xml')
@@ -247,9 +244,10 @@ def start_polly(main, input, bibContents):
 
     for master in masterFiles:
         # Expand Labels then open document
-        # tex2speech.expand_labels.expandDocNewLabels(master)
+        tex2speech.expand_labels.expandDocNewLabels(master[0])
         # texFile = open(master[0], "r")
         texFile = open("final1.tex", "r")
+        print(os.getcwd())
 
         print(texFile.read())
         # Call parsing here
