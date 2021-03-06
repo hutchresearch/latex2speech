@@ -133,7 +133,6 @@ class ConversionParser:
                         if definition:
                             if 'mathmode' in definition and definition['mathmode'] == True:
                                 output = run_sympy(self._envContentsToString(envNode))
-                                print("HERE IS THE OUTPUT " + str(output))
                                 if leftChild:
                                     leftChild.appendTailText(str(output))
                                 else:
@@ -151,7 +150,7 @@ class ConversionParser:
                     offset += nextOffset
                 else:
                     self._resolveEnvironmentElements(envNode, elemList[i], elemList[i].children, None)
-                
+
                 i = (k + 1) + offset
                 if i > 0:
                     leftChild = elemList[i-1]
@@ -256,6 +255,7 @@ class ConversionParser:
 
             if insertIndex > 0:
                 leftChild = ssmlChildren[insertIndex-1]
+
         return insertIndex
 
     def _printTreeSub(self, tree, level, levelArr, atIndex, parentIndex):
@@ -283,5 +283,4 @@ class ConversionParser:
             doc = TexSoup.TexSoup(doc)
         self._parseNodes(doc.contents, tree)
         xmlTree = tree.getXMLTree()
-
-        return ET.tostring(xmlTree, encoding="unicode")
+        return ET.tostring(xmlTree, encoding="unicode", method = "text")
