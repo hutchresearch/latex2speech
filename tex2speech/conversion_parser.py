@@ -133,10 +133,11 @@ class ConversionParser:
                         if definition:
                             if 'mathmode' in definition and definition['mathmode'] == True:
                                 output = run_sympy(self._envContentsToString(envNode))
+                                print("HERE IS THE OUTPUT " + str(output))
                                 if leftChild:
-                                    leftChild.appendTailText(output)
+                                    leftChild.appendTailText(str(output))
                                 else:
-                                    elemListParent.appendHeadText(output)
+                                    elemListParent.appendHeadText(str(output))
                             elif 'readTable' in definition and definition['readTable'] == True:
                                 self._parseTableContents(self._parseTableNode(envNode), elemListParent, leftChild)
                             else:
