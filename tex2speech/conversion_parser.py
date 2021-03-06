@@ -131,13 +131,13 @@ class ConversionParser:
                         definition = self.db.getEnvDefinition(envNode.name)
 
                         if definition:
-                            if definition["mathmode"] == True:
+                            if 'mathmode' in definition and definition['mathmode'] == True:
                                 output = run_sympy(self._envContentsToString(envNode))
                                 if leftChild:
                                     leftChild.appendTailText(output)
                                 else:
                                     elemListParent.appendHeadText(output)
-                            elif definition["readTable"] == True:
+                            elif 'readTable' in definition and definition['readTable'] == True:
                                 self._parseTableContents(self._parseTableNode(envNode), elemListParent, leftChild)
                             else:
                                 self.envStack.append(definition)

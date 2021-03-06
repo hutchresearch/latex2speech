@@ -98,10 +98,10 @@ class ConversionDB:
                 definition['readTable'] = False
                 definition['mathmode'] = False
 
-                if str(envType) == "mathmode":
+                if str(envType) == 'mathmode':
                     definition['mathmode'] = True
 
-                if str(envType) == "readTable":
+                if str(envType) == 'readTable':
                     definition['readTable'] = True
 
                 if envDef:
