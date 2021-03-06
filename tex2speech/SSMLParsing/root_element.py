@@ -14,6 +14,7 @@ class RootElement(SSMLElementNode):
             elem.text = self.getHeadText()
         if self.getTailText() != '':
             elem.tail = self.getTailText()
+
         return elem
 
     def __str__(self):
@@ -22,6 +23,7 @@ class RootElement(SSMLElementNode):
             a = '"' + self.getHeadText() + '"' + " " + a
         if self.getTailText() != "":
             a += " " + '"' + self.getTailText() + '"'
+
         return a
 
     __repr__ = __str__
