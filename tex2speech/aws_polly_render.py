@@ -205,9 +205,10 @@ def create_master_files(main, input, bib):
                 for line in infile:
                     tmp = ""
                     contained = False  
-
+                    print("TESTING UP HERE " + tmp)
                     for i in range(len(line)):
                         tmp = tmp + line[i]
+                        print("HELLO " + tmp)
                         i = i + 1
                         # Finds include or input file
                         if (tmp == "\\include{" or tmp == "\\input{"):
@@ -244,7 +245,7 @@ def start_polly(main, input, bibContents):
 
     for master in masterFiles:
         # Expand Labels then open document
-        tex2speech.expand_labels.expandDocNewLabels(master[0])
+        # tex2speech.expand_labels.expandDocNewLabels(master[0])
         texFile = open(master[0], "r")
 
         # Call parsing here
