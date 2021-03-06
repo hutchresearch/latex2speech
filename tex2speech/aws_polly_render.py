@@ -181,7 +181,6 @@ def found_bibliography_file(line, outfile, i, bib, innerFile):
         innerFile.append("")
 
     innerFile.append(str(contained))
-    print("TESTING " + str(innerFile))
     return innerFile
 
 # Creates a list of master files to hold the uploaded main 
@@ -237,6 +236,9 @@ def start_polly(main, input, bibContents):
     masterFiles = create_master_files(main, input, bibContents)
 
     print(str(masterFiles))
+    print(main[0])
+    testing = open(path + "/" + main[0], "r")
+    print(testing)
 
     # Create database/parser
     dbSource = open('static/pronunciation.xml')
@@ -246,12 +248,14 @@ def start_polly(main, input, bibContents):
     for master in masterFiles:
         # Expand Labels then open document
         # tex2speech.expand_labels.expandDocNewLabels(master)
-        texFile = open(master[0], "r")
+        # texFile = open(master[0], "r")
+        texFile = open("final1.tex", "r")
 
+        print(texFile.read())
         # Call parsing here
         parsed_contents = parser.parse(texFile.read())
 
-        if (master[2] == "True"):
+        if (len(master) > 1):
             parsed_contents += parse_bib_file(master[1])
 
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
