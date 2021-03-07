@@ -98,9 +98,88 @@ class TestExternalBibliographies(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
         doc1 = doc1.replace("'", '"')
         doc2 = doc2.replace("'", '"')
-        return str(doc1) == str(doc2)
 
-    # First test to test parse bib files for external
+        return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
+
+    # Testing single function of author being read correctly
+    def testing_external_author(self):
+        # Create new file
+        with open("testingBib.bib", 'w') as outfile:
+            outfile.write('@Book{gG07,'+
+                            'author = "Gratzer, George A."'
+                        '}');
+
+        path = os.getcwd() + "/testingBib.bib"
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(path);
+
+        self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/>  Authors: Gratzer, George A., <break time='0.3s'/>"))
+
+    # Testing single function of title being read correctly
+    def testing_external_title(self):
+        # Create new file
+        with open("testingBib.bib", 'w') as outfile:
+            outfile.write('@Book{gG07,'+
+                            'title = "More Math Into LaTeX"'
+                        '}');
+
+        path = os.getcwd() + "/testingBib.bib"
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(path);
+
+        self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> title: More Math Into LaTeX<break time='0.3s'/>"))
+
+    # Testing single function of publisher being read correctly
+    def testing_external_publisher(self):
+        # Create new file
+        with open("testingBib.bib", 'w') as outfile:
+            outfile.write('@Book{gG07,'+
+                            'publisher = "Birkhauser"'
+                        '}');
+
+        path = os.getcwd() + "/testingBib.bib"
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(path);
+
+        self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> publisher: Birkhauser<break time='0.3s'/>"))
+
+    # Testing single function of address being read correctly
+    def testing_external_address(self):
+        # Create new file
+        with open("testingBib.bib", 'w') as outfile:
+            outfile.write('@Book{gG07,'+
+                            'address = "Boston"'
+                        '}');
+
+        path = os.getcwd() + "/testingBib.bib"
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(path);
+
+        self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> address: Boston<break time='0.3s'/>"))
+
+    # Testing single function of year being read correctly
+    def testing_external_year(self):
+        # Create new file
+        with open("testingBib.bib", 'w') as outfile:
+            outfile.write('@Book{gG07,'+
+                            'year = 2007'
+                        '}');
+
+        path = os.getcwd() + "/testingBib.bib"
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(path);
+
+        self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> year: 2007<break time='0.3s'/>"))
+
+    # Testing single function of edition being read correctly
+    def testing_external_edition(self):
+        # Create new file
+        with open("testingBib.bib", 'w') as outfile:
+            outfile.write('@Book{gG07,'+
+                            'edition = "4th"'
+                        '}');
+
+        path = os.getcwd() + "/testingBib.bib"
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(path);
+
+        self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> edition: 4th<break time='0.3s'/>"))
+
+    # test to test parse bib files for external, gives overall
     def testing_external_bib_file(self):
         # Create new file
         with open("testingBib.bib", 'w') as outfile:
@@ -114,8 +193,8 @@ class TestExternalBibliographies(unittest.TestCase):
                         '}');
 
         path = os.getcwd() + "/testingBib.bib"
-        bibContent = tex2speech.aws_polly_render.parse_bib_file(outfile, path);
-        print(bibContent)
+        bibContent = tex2speech.aws_polly_render.parse_bib_file(path);
+
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/>  Authors: Gratzer, George A., <break time='0.3s'/> title: More Math Into LaTeX<break time='0.3s'/>publisher: Birkhauser<break time='0.3s'/>address: Boston<break time='0.3s'/>year: 2007<break time='0.3s'/>edition: 4th<break time='0.3s'/>"))
 
 if __name__ == '__main__':
