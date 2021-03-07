@@ -278,7 +278,6 @@ class ConversionParser:
     Parse doc with respect to the database the parser was initialized with.
     '''
     def parse(self, doc: TexSoup.data.TexNode):
-        print("DOC " + str(doc))
         tree = RootElement()
         if isinstance(doc, str):
             doc = TexSoup.TexSoup(doc)
