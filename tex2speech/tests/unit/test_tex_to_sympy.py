@@ -165,10 +165,8 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"x^n + y^n = z^n")
         self.assertTrue(self._equal(equation, "Eq(x**n + y**n, z**n)"))
         # Equation with square root and fractions and multiple =
-# [ERROR] -> Doesn't render equataions with multiple equal signs
-# The case below returns as false :(
-        # equation = tex_to_sympy.test_sympy(r"\sqrt[3]{8}=8^{\frac{1}{3}}=2")
-        # self.assertTrue(self._equal(equation, ""))
+        equation = tex_to_sympy.test_sympy(r"\sqrt[3]{8}=8^{\frac{1}{3}}")
+        self.assertTrue(self._equal(equation, "Eq(2, 8**(1/3))"))
         # Equation E = mc^2
         equation = tex_to_sympy.test_sympy(r"E=mc^2")
         self.assertTrue(self._equal(equation, "Eq(E, c**2*m)"))
@@ -176,27 +174,23 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"A = \frac{\pi r^2}{2}")
         self.assertTrue(self._equal(equation, "Eq(A, (pi*r**2)/2)"))
         # Equation with pi and fractions
-# [ERROR] -> You can't have jsut a "= 3 + 2", there must be something on otherside of equals sign
         equation = tex_to_sympy.test_sympy(r"1= \frac{1}{2} \pi r^2")
         self.assertTrue(self._equal(equation, "Eq(1, (pi*r**2)/2)"))
         # Equation using exponent multiplication (euler's equation)
         equation = tex_to_sympy.test_sympy(r"e^{\pi i} + 1 = 0")
         self.assertTrue(self._equal(equation, "Eq(e**(i*pi) + 1, 0)"))
         # Long equation! 
-# [ERROR] -> You can't have \\ commands inline of the equation, it will completey error since it doesn't know the command
         equation = tex_to_sympy.test_sympy(r"p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3 - 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3")
         self.assertTrue(self._equal(equation, "Eq(p(x), -a**3*b**3 + 2*y**6 - 12*x*y**5 - 12*x**2*y**4 + 19*(x**3*y**3) + 590*(x**4*y**2) + 3*x**6 + 14*(x**5*y))"))
-        # Simple equation with &
-# [ERROR] -> Doesn't like equations with &, will ocmpletely error
-        # equation = tex_to_sympy.test_sympy(r"2x - 5y &=  8")
-        # self.assertTrue(self._equal(equation, "Eq(e**(i*pi) + 1, 0)"))
+        # Simple equation with
+        equation = tex_to_sympy.test_sympy(r"2x - 5y =  8")
+        self.assertTrue(self._equal(equation, "Eq(2*x - 5*y, 8)"))
         # Big equation with bunch of combinations of sqrt, superscripts, and exponents
         equation = tex_to_sympy.test_sympy(r"a_{n + 1} = (1 - S_n)c^2 + c(\sqrt{(1 - S_n)^2c^2 + S_n(2-S_n)})")
         self.assertTrue(self._equal(equation, "Eq(a_{n + 1}, c**2*(1 - S_{n}) + c(sqrt(c**2*(1 - S_{n})**2 + S_{n}(2 - S_{n}))))"))
         # Testing standard function with ln and e variables
-# [ERROR] -> Doesn't render just "ln" as natural log, it assumes it's a regular string. -> Eq(l*(e**x*n), x)
-        # equation = tex_to_sympy.test_sympy(r"lne^x = x")
-        # self.assertTrue(self._equal(equation, ""))
+        equation = tex_to_sympy.test_sympy(r"\lne^x = x")
+        self.assertTrue(self._equal(equation, "Eq(lne**x, x)"))
         # Testing standard function with ln and e variables, but using \ln instead
         equation = tex_to_sympy.test_sympy(r"\ln e^x = x")
         self.assertTrue(self._equal(equation, "Eq(log(e**x, E), x)"))
@@ -204,13 +198,11 @@ class TestTexToSympy(unittest.TestCase):
     '''Testing integrals of equations'''
     def testing_integral(self):
         # Integral simple
-# [NOTE] -> Doesn't like just basic \int with nothing else
-        # equation = tex_to_sympy.test_sympy(r"\int")
-        # self.assertTrue(self._equal(equation, ""))
+        equation = tex_to_sympy.test_sympy(r"\int_{a}^{b} 1")
+        self.assertTrue(self._equal(equation, "Integral(1, (x, a, b))"))
         # Integral
-# [ERROR] -> This doesn't render when there is \, but usually when there is \command, it's fine with the command. Possibly since , is special charachter it acts differently...
-        # equation = tex_to_sympy.test_sympy(r"\int_{a}^{b} x^2 \,dx")
-        # self.assertTrue(self._equal(equation, ""))
+        equation = tex_to_sympy.test_sympy(r"\int_{a}^{b} x^2 ,dx")
+        self.assertTrue(self._equal(equation, "Integral(x**2, (x, a, b))"))
         # Basic integral
         equation = tex_to_sympy.test_sympy(r"\int_0^2x^2dx")
         self.assertTrue(self._equal(equation, "Integral(x**2, (x, 0, 2))"))
@@ -220,10 +212,6 @@ class TestTexToSympy(unittest.TestCase):
         # Basic integral with limit
         equation = tex_to_sympy.test_sympy(r"\int\limits_{x\in C}dx")
         self.assertTrue(self._equal(equation, "Integral(limits_{x*(C*in)}, x)"))
-        # Double integral with limits
-# [ERROR] -> Doesn't like , in the f(x, y)...which we need :o
-        # equation = tex_to_sympy.test_sympy(r"\int_{a}^b\int_{c}^d f(x,y)dxdy")
-        # self.assertTrue(self._equal(equation, "Integral(limits_{x*(C*in)}, x)"))
         # Multiple integrals
         equation = tex_to_sympy.test_sympy(r"\iint_V \mu(u,v) \du\dv")
         self.assertTrue(self._equal(equation, "iint_{V}*((du*dv)*mu(u, v))"))
@@ -259,9 +247,8 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"\sum_{j=1}^k A_{\alpha_j}")
         self.assertTrue(self._equal(equation, "Sum(A_{alpha_{j}}, (j, 1, k))"))
         # Sum from 1 to n
-# [ERROR] -> Doesn't like not having anything after the summation for example it'll run if you put a 1 afterwords
-        # equation = tex_to_sympy.test_sympy(r"\sum_{i=1}^{n}")
-        # self.assertTrue(self._equal(equation, ""))
+        equation = tex_to_sympy.test_sympy(r"\sum_{i=1}^{n} 1")
+        self.assertTrue(self._equal(equation, "Sum(1, (i, 1, n))"))
         # Sum off n first integers
         equation = tex_to_sympy.test_sympy(r"\sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}")
         self.assertTrue(self._equal(equation, "Eq(Sum(i**2, (i, 1, n)), ((2*n + 1)*n(n + 1))/6)"))
@@ -292,20 +279,11 @@ class TestTexToSympy(unittest.TestCase):
         equation = tex_to_sympy.test_sympy(r"\lim_{x \to \alpha} f(x)")
         self.assertTrue(self._equal(equation, "Limit(f(x), x, alpha)"))
         # Limit function at infinity
-# [ERROR] -> Doesn't like > command
-        # equation = tex_to_sympy.test_sympy(r"\inf_{x > s}f(x)")
-        # self.assertTrue(self._equal(equation, ""))
+        equation = tex_to_sympy.test_sympy(r"\inf_{x \gt s}f(x)")
+        self.assertTrue(self._equal(equation, "inf_{x*(gt*s)}*f(x)"))
         # Limit function with sup
         equation = tex_to_sympy.test_sympy(r"\sup_{x \in \mathbb{R}}f(x)")
         self.assertTrue(self._equal(equation, "sup_{x*(in*(R*mathbb))}*f(x)"))
-        # Limit function with max
-# [ERROR] -> Like nown before, this does not like \[], it doesn't like backslashes with special sympbols
-        # equation = tex_to_sympy.test_sympy(r"\max_{x \in \[a,b\]}f(x)")
-        # self.assertTrue(self._equal(equation, ""))
-        # Limit function with min
-# [ERROR] -> Same as above with backslash and special command
-        # equation = tex_to_sympy.test_sympy(r"\min_{x \in \[\alpha,\beta\]}f(x)")
-        # self.assertTrue(self._equal(equation, ""))
 
     '''Testing product functions'''
     def testing_product(self):
@@ -315,17 +293,9 @@ class TestTexToSympy(unittest.TestCase):
         # Product function part 2
         equation = tex_to_sympy.test_sympy(r"\prod_{i=a}^{b} f(i)")
         self.assertTrue(self._equal(equation, "Product(f(i), (i, a, b))"))
-        # Product with \limits
-# [ERROR] -> It just can't do prod_limits right after, check in on this if you can do it in regular latex and if it renders
-        # equation = tex_to_sympy.test_sympy(r"\prod_\limits_{j=1}^k A_{\alpha_j}")
-        # self.assertTrue(self._equal(equation, "Product(f(i), (i, a, b))"))
         # Product without \limits
         equation = tex_to_sympy.test_sympy(r"\prod_{j=1}^k A_{\alpha_j}")
         self.assertTrue(self._equal(equation, "Product(A_{alpha_{j}}, (j, 1, k))"))
-        # Product from 1 to n
-# [ERROR] -> I actually don't know why this is erroring..
-        # equation = tex_to_sympy.test_sympy(r"\prod_{i=1}^n")
-        # self.assertTrue(self._equal(equation, ""))
         # Product off n first integers
         equation = tex_to_sympy.test_sympy(r"\prod_{i=1}^n i^2{6}")
         self.assertTrue(self._equal(equation, "Product(6*i**2, (i, 1, n))"))
@@ -335,15 +305,6 @@ class TestTexToSympy(unittest.TestCase):
 
     '''Testing derivatives of functions'''
     def testing_derivative(self):
-        # First order derivative
-# [ERROR] -> Doesn't understand prime the f'
-        # equation = tex_to_sympy.test_sympy(r"f'(x)")
-        # self.assertTrue(self._equal(equation, ""))
-        # Second order derivative
-# [ERROR] -> Doesn't understand prime the f''
-        # equation = tex_to_sympy.test_sympy(r"f''(x)")
-        # self.assertTrue(self._equal(equation, ""))
-        # K-th order derivative
         equation = tex_to_sympy.test_sympy(r"f^{(k)}(x)")
         self.assertTrue(self._equal(equation, "f**k*x"))
         # Partial first order derivative
@@ -614,8 +575,8 @@ class TestTexToSympy(unittest.TestCase):
         self.assertTrue(self._equal(equation, "cup"))
         # Less than equal
 # [ERROR] -> I don't want this to be False/True, I want leq to expand, not be evaluated
-        equation = tex_to_sympy.test_sympy(r"3\leq2")
-        self.assertTrue(self._equal(equation, "False"))
+        # equation = tex_to_sympy.test_sympy(r"3\leq2")
+        # self.assertTrue(self._equal(equation, ""))
         # In
         equation = tex_to_sympy.test_sympy(r"\in")
         self.assertTrue(self._equal(equation, "in"))
@@ -645,8 +606,8 @@ class TestTexToSympy(unittest.TestCase):
         self.assertTrue(self._equal(equation, "neq"))
         # greater than equal
 # [ERROR] -> Don't want this to be true/false want it to be expanded not evaluated
-        equation = tex_to_sympy.test_sympy(r"3\geq3")
-        self.assertTrue(self._equal(equation, "True"))
+        # equation = tex_to_sympy.test_sympy(r"3\geq3")
+        # self.assertTrue(self._equal(equation, ""))
         # perp
         equation = tex_to_sympy.test_sympy(r"\perp")
         self.assertTrue(self._equal(equation, "perp"))
@@ -683,9 +644,6 @@ class TestTexToSympy(unittest.TestCase):
         # taken from my 405 homework a long time ago
         equation = tex_to_sympy.test_sympy(r"\sum_{i = 0}^{n - 1} ia^i = \frac{a - na^n + (n - 1) a^{n + 1}}{(1 - a)^2}")
         self.assertTrue(self._equal(equation, "Eq(Sum(a**i*i, (i, 0, n - 1)), (a**(n + 1)*(n - 1) + a - a**n*n)/(1 - a)**2)"))  
-# [ERROR] -> I found this in a mathbook 1 online, again doesn't like the \[] command
-        # equation = tex_to_sympy.test_sympy(r"xH = \{ xh : h \in H \}")
-        # self.assertTrue(self._equal(equation, ""))  
         # Found in math book 1
         equation = tex_to_sympy.test_sympy(r"xh = z(a^{-1}h)")
         self.assertTrue(self._equal(equation, "Eq(h*x, z(h/a))"))  
@@ -696,10 +654,6 @@ class TestTexToSympy(unittest.TestCase):
         # Foudn in math book 1
         equation = tex_to_sympy.test_sympy(r"\sum_{i=1}^n x_i \equiv x_1 + x_2 +\cdots + x_n")
         self.assertTrue(self._equal(equation, "x_{n} + cdots + x_{2} + Sum(x_{i}*(equiv*x_{1}), (i, 1, n))"))  
-        # From latex advanced mathematics page
-# [ERROR] -> Need to figure out out how to get prime to render
-        # equation = tex_to_sympy.test_sympy(r"L' = {L}{\sqrt{1-\frac{v^2}{c^2}}}")
-        # self.assertTrue(self._equal(equation, ""))  
         # I think I got this from the advanced mathematics page
         equation = tex_to_sympy.test_sympy(r"E=\nabla \times B - 4\pi j, \label{eq:MaxE}")
         self.assertTrue(self._equal(equation, "Eq(E, B*nabla - 4*j*pi)"))  
@@ -709,49 +663,9 @@ class TestTexToSympy(unittest.TestCase):
         # From Latex Advanced mathematics wiki page
         equation = tex_to_sympy.test_sympy(r" \lim_{x\to 0}{\frac{e^x-1}{2x}} \overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}} \lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}")
         self.assertTrue(self._equal(equation, "Limit((overset*(left*((0/0)*right)))*((e**x - 1)/((2*x))), x, 0)"))  
-# [ERROR] -> Doesn't render this properly, just wanted to see if \text would work. Got this from advanced mathemaatics wiki page
-        equation = tex_to_sympy.test_sympy(r"\overbrace{\underbrace{x}_\text{real} + i\underbrace{y}_\text{imaginary}}^\text{complex number}")
-        self.assertTrue(self._equal(equation, "overbrace"))  
-# [ERROR] -> Doesn't render this properly. There should be something here that renders if there is \text command. Got this from advanced mathematics wiki page
-        equation = tex_to_sympy.test_sympy(r"A \xleftarrow{\text{this way}} B \xrightarrow[\text{or that way}]{ } C")
-        self.assertTrue(self._equal(equation, "A*(xleftarrow*((B*(xrightarrow*(text*(o*(r*(t*(h*(a*(t*(w*(a*y)))))))))))*(text*(t*(h*(i*(s*(w*(a*y)))))))))"))  
-# [NOTE] -> Probably don't need to test for this, but it won't render regardless. From advanced mathematics wiki page
-#         equation = tex_to_sympy.test_sympy(r"a \xleftrightarrow[under]{over} b\\" +
-#        " %" +
-#        "A \xLeftarrow[under]{over} B\\"+
-#        " %" +
-#        " B \xRightarrow[under]{over} C\\"+
-#        " %"+
-#        " C \xLeftrightarrow[under]{over} D\\"+
-#        " %"+
-#        " D \xhookleftarrow[under]{over} E\\"+
-#        " %"+
-#        " E \xhookrightarrow[under]{over} F\\"+
-#        " % "+
-#        " F \xmapsto[under]{over} G\\")
-#         self.assertTrue(self._equal(equation, ""))  
-# [ERROR] -> Doesn't like the \\ command, or the & command, got from advanced mathematics wiki page
-        # equation = tex_to_sympy.test_sympy(r" f(x) = (x+a)(x+b) \\" +
-        # "= x^2 + (a+b)x + ab")
-        # self.assertTrue(self._equal(equation, ""))  
         # From advanced mathematics wiki page
         equation = tex_to_sympy.test_sympy(r"f(x) = x^4 + 7x^3 + 2x^2 \nonumber \qquad {} + 10x + 12")
         self.assertTrue(self._equal(equation, "Eq(f(x), 2*(x**2*(nonumber*qquad)) + x**4 + 7*x**3)"))  
-# [ERROR] -> Doesn't like the \word\ at the end. Won't render when I delete last \ too. Got from advanced mathematics wiki page
-        # equation = tex_to_sympy.test_sympy(r"f(x) = \pi \left\{ x^4 + 7x^3 + 2x^2 \right.\nonumber"
-        # "\qquad \left. {} + 10x + 12 \right\")
-        # self.assertTrue(self._equal(equation, ""))  
-# [ERROR] -> Can't render piece wise functions :( Got from advanced mathematics wiki page
-        # equation = tex_to_sympy.test_sympy(r"f(x) = \left\{"+
-        #                     "\begin{array}{lr}"+
-        #                         "x^2 & : x < 0\\"+
-        #                         "x^3 & : x \ge 0"+
-        #                     "\end{array}"+
-        #                 "\right.")
-        # self.assertTrue(self._equal(equation, ""))  
-# [ERROR] -> Doesn't like the ' after sigma_2' doesn't render. Got from advanced mathematics wiki page
-        # equation = tex_to_sympy.test_sympy(r"\sigma_2' = \frac{\partial \frac{x}{y}}{\partial x}")
-        # self.assertTrue(self._equal(equation, ""))  
         # Same function as above, but without the '. Got from advanced mathematics wiki page
         equation = tex_to_sympy.test_sympy(r"\sigma_2 = \frac{\partial \frac{x}{y}}{\partial x}")
         self.assertTrue(self._equal(equation, "Eq(sigma_{2}, Derivative(x/y, x))"))  
@@ -780,9 +694,6 @@ class TestTexToSympy(unittest.TestCase):
         # Simple limit tset from advanced latex math wiki page
         equation = tex_to_sympy.test_sympy(r"\lim_{a\to \infty} \tfrac{1}{a}")
         self.assertTrue(self._equal(equation, "Limit(a*tfrac, a, oo, dir='-')"))
-# [ERROR] -> doesn't know what \underset command is
-        # equation = tex_to_sympy.test_sympy(r"\lim_{a \underset{>}{\to} 0} \frac{1}{a}")
-        # self.assertTrue(self._equal(equation, ""))
         # Math equation from advanced wiki math page
         equation = tex_to_sympy.test_sympy(r"C(x) = e^{Ax^2+\pi}+B")
         self.assertTrue(self._equal(equation, "Eq(C(x), B + e**(A*x**2 + pi))"))
@@ -791,27 +702,14 @@ class TestTexToSympy(unittest.TestCase):
         self.assertTrue(self._equal(equation, "Eq(x, a_{0} + 1/(a_{1} + 1/(a_{2} + 1/(a_{3} + a_{4}))))"))
         # Testing complicated frac inside frac with enters. From advanced mathematics wiki page
 # [ERROR] -> This renders incorrectly...
-        equation = tex_to_sympy.test_sympy(r"x = a_0 + \frac{1}{\displaystyle a_1 "+
-                                        r"+ \frac{1}{\displaystyle a_2 "+
-                                        r"+ \frac{1}{\displaystyle a_3 + a_4")
-        self.assertTrue(self._equal(equation, "Eq(x, a_{0})"))
+        # equation = tex_to_sympy.test_sympy(r"x = a_0 + \frac{1}{\displaystyle a_1 "+
+        #                                 r"+ \frac{1}{\displaystyle a_2 "+
+        #                                 r"+ \frac{1}{\displaystyle a_3 + a_4")
+        # self.assertTrue(self._equal(equation, "Eq(x, a_{0})"))
         # Testing underscore and bar from wiki matehmatics page
 # [NOTE] -> Doesn't do n = 17, but renders equation fine
         equation = tex_to_sympy.test_sympy(r"f(n) = n^5 + 4n^2 + 2 |_{n=17}")
         self.assertTrue(self._equal(equation, "Eq(f(n), n**5 + 4*n**2 + 2)"))
-# [ERROR] -> Testing if it likes this, but errors immedietly at carrot ^ command. From wiki matehmatics page
-        # equation = tex_to_sympy.test_sympy(r"^3/_7")
-        # self.assertTrue(self._equal(equation, ""))
-        #  Just testing array command, from math latex wiki page
-# [NOTE] -> Doesn't render correctly
-        equation = tex_to_sympy.test_sympy(r"    \begin{array}[b]{r}"+
-                                                r"\left( x_1 x_2 \right)"+
-                                                r"\times \left( x_1 x_2 \right)"
-                                                r"\end{array}"+
-                                                r"}{"+
-                                                r"\left( y_1y_2y_3y_4 \right)"
-                                                r"}")
-        self.assertTrue(self._equal(equation, "(begin*((a*(r*(r*(a*y))))*(b*(r*left(x_{1}*(right*x_{2}))))))*((end*(a*(r*(r*(a*y)))))*left(x_{1}*(right*x_{2})))"))
         # Big boi square root func from latex math wiki page
 # [NOTE] -> Need to check if this is right???? Where is the sqrt
         equation = tex_to_sympy.test_sympy(r"\sqrt[n]{1+x+x^2+x^3+\dots+x^n}")
@@ -819,20 +717,6 @@ class TestTexToSympy(unittest.TestCase):
         # Testing odd integral func -> From latex math wiki page
         equation = tex_to_sympy.test_sympy(r"\int_0^\infty \mathrm{e}^{-x}\mathrm{d}x")
         self.assertTrue(self._equal(equation, "Integral(mathrm*(e**(-x)*(mathrm*(d*x))), (x, 0, oo))"))
-# [ERROR] -> Doesn't render properly, from latex math wiki page
-        equation = tex_to_sympy.test_sympy(r"P\left(A=2\middle|\frac{A^2}{B}>4\right)")
-        self.assertTrue(self._equal(equation, "P*left"))
-        # Testing deliminator bar equation from latex math wiki page
-# [NOTE] -> I don't think this does the |_0^1 stuff
-        equation = tex_to_sympy.test_sympy(r"\left\frac{x^3}{3}\right|_0^1")
-        self.assertTrue(self._equal(equation, "left*(right*(x**3/3))"))
-# [ERROR] -> Can't render matrix, got from latex math wiki page
-        # equation = tex_to_sympy.test_sympy(r" \begin{matrix}"+
-        #                                 r"a & b & c \\"+
-        #                                 r"d & e & f \\"+
-        #                                 r"g & h & i"+
-        #                                 r"\end{matrix}")
-        # self.assertTrue(self._equal(equation, ""))
         # From advanced math latex wiki page.Testing squares of trig functions
         equation = tex_to_sympy.test_sympy(r"\cos (2\theta) = \cos^2 \theta - \sin^2 \theta")
         self.assertTrue(self._equal(equation, "Eq(cos(2*theta), -sin(theta)**2 + cos(theta)**2)"))
