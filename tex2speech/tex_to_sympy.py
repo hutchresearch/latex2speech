@@ -509,48 +509,38 @@ def get_differential_var_str(text):
         text = text[1:]
     return text
 
+# Helper method for preprocessing
+def helper_pre_process(illegal, mathmode):
+    ampSplit = re.split(illegal, mathmode)
+    mathmode = ''
+    for s in ampSplit[:-1]:
+        mathmode += s + r''
+    mathmode += ampSplit[-1]
+
+    return mathmode
+
 # Gets rids of special charachters that this 
 # parser can't handle
 def pre_process(mathmode):
     # Gets rid of illegal & commands
     illegalAmpPat = r'(?:&(?!amp;|lt;|gt;|quot;|apos;))'
-    ampSplit = re.split(illegalAmpPat, mathmode)
-    mathmode = ''
-    for s in ampSplit[:-1]:
-        mathmode += s + r''
-    mathmode += ampSplit[-1]
+    mathmode = helper_pre_process(illegalAmpPat, mathmode)
 
     # Gets rid of \
     illegalSlash = ""
-    ampSplit = re.split(illegalSlash, mathmode)
-    mathmode = ''
-    for s in ampSplit[:-1]:
-        mathmode += s + r''
-    mathmode += ampSplit[-1]
+    mathmode = helper_pre_process(illegalSlash, mathmode)
 
     # Gets rid of [
     illegalLeftSquareTag = ""
-    ampSplit = re.split(illegalLeftSquareTag, mathmode)
-    mathmode = ''
-    for s in ampSplit[:-1]:
-        mathmode += s + r''
-    mathmode += ampSplit[-1]
+    mathmode = helper_pre_process(illegalLeftSquareTag, mathmode)
 
     # Gets rid of ]
     illegalRightSquareTag = ""
-    ampSplit = re.split(illegalRightSquareTag, mathmode)
-    mathmode = ''
-    for s in ampSplit[:-1]:
-        mathmode += s + r''
-    mathmode += ampSplit[-1]
+    mathmode = helper_pre_process(illegalRightSquareTag, mathmode)
 
     # Gets rid of .
     illegalPeriod = ""
-    ampSplit = re.split(illegalPeriod, mathmode)
-    mathmode = ''
-    for s in ampSplit[:-1]:
-        mathmode += s + r''
-    mathmode += ampSplit[-1]
+    mathmode = helper_pre_process(illegalPeriod, mathmode)
 
     print("AFTER " + mathmode)
     return mathmode
