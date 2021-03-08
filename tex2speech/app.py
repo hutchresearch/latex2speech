@@ -28,6 +28,17 @@ def add_to_array(uploadName, extension):
 
     return array
 
+# Helepr function to delete files
+def delete_from_folder():
+    files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
+    final = glob.glob(app.config['CUSTOM_STATIC_PATH'] + "/*.tex")
+
+    for f in files:
+        os.remove(f)
+
+    for f in final:
+        os.remove(f)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -35,9 +46,12 @@ def index():
 # Upload middle man
 @app.route('/upload', methods=['POST'])
 def handle_upload():
-
     session.pop('file_holder', None)
     session.pop('audio', None)
+
+    if not os.path.exists('upload'):
+        os.makedirs('upload')
+
     # Create session
     if "file_holder" not in session:
         session['file_holder'] = []
@@ -64,15 +78,14 @@ def handle_upload():
     session['file_holder'] = file_holder
     session['audio'] = audio_links
     
-    # return "uploading..."
     return redirect(url_for('handle_form'))
-    # return '', 204
 
 # Download resulting output page
 @app.route('/form')
 def handle_form():
     # redirect to home if nothing in session
     if "file_holder" not in session or session['file_holder'] == []:
+        delete_from_folder()
         return redirect(url_for('index'))
 
     file_holder = session['file_holder']
@@ -83,15 +96,7 @@ def handle_form():
     session.pop('audio', None)
 
     file_audio = zip(file_holder, audio)
-
-    files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
-    final = glob.glob(app.config['CUSTOM_STATIC_PATH'] + "/*.tex")
-
-    for f in files:
-        os.remove(f)
-
-    for f in final:
-        os.remove(f)
+    delete_from_folder()
 
     return render_template(
         'download.html',

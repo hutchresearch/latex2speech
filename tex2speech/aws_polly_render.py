@@ -264,7 +264,8 @@ def start_polly(main, input, bibContents):
         # Call parsing here
         parsed_contents = start_conversion(texFile.read())
 
-        if (len(master) > 1):
+        if (len(master) > 1 and master[2] == True):
+            print(master)
             parsed_contents += parse_bib_file(master[1])
 
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
