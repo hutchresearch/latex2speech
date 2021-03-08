@@ -521,11 +521,37 @@ def pre_process(mathmode):
     mathmode += ampSplit[-1]
 
     # Gets rid of \
+    illegalSlash = ""
+    ampSplit = re.split(illegalSlash, mathmode)
+    mathmode = ''
+    for s in ampSplit[:-1]:
+        mathmode += s + r''
+    mathmode += ampSplit[-1]
 
-    # Gets rid of [ ]
+    # Gets rid of [
+    illegalLeftSquareTag = ""
+    ampSplit = re.split(illegalLeftSquareTag, mathmode)
+    mathmode = ''
+    for s in ampSplit[:-1]:
+        mathmode += s + r''
+    mathmode += ampSplit[-1]
+
+    # Gets rid of ]
+    illegalRightSquareTag = ""
+    ampSplit = re.split(illegalRightSquareTag, mathmode)
+    mathmode = ''
+    for s in ampSplit[:-1]:
+        mathmode += s + r''
+    mathmode += ampSplit[-1]
 
     # Gets rid of .
-    
+    illegalPeriod = ""
+    ampSplit = re.split(illegalPeriod, mathmode)
+    mathmode = ''
+    for s in ampSplit[:-1]:
+        mathmode += s + r''
+    mathmode += ampSplit[-1]
+
     print("AFTER " + mathmode)
     return mathmode
 
