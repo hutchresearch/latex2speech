@@ -207,9 +207,15 @@ def create_master_files(main, input, bib):
                 # For each line, add to the master file
                 for line in infile:
                     tmp = ""
-  
+
                     for i in range(len(line)):
                         tmp = tmp + line[i]
+
+                        # Handle comments
+                        if tmp == "%":
+                            if len(line) > 2:
+                                outfile.write("Start of comment " + line[1:].replace("%", ""))
+                            break
 
                         if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
                             outfile.write(tmp)
