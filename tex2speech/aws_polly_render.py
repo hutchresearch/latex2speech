@@ -140,7 +140,7 @@ def found_input_file(line, outfile, i, input):
 
             if(append == inputFile):
                 with open(path + "/" + inputFile,'r') as tmpInput:
-                    outfile.write(tmpInput.read())
+                    outfile.write(tmpInput.read().replace("%", "Begin Comment "))
                     contained = True
                     tmpInput.close()
         i = i + 1
