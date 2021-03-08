@@ -15,48 +15,45 @@ class TestTables(unittest.TestCase):
     '''Unit test for basic table elements'''
     def testing_basic_tables(self):
         # Testing basic table in LaTeX
-        doc = (r"\begin{tabular}{ c c c }"
-                r"a & b & c \\ "+
-                r"d & e & f   "+
-               r"\end{tabular}")
+        doc = ("\\begin{tabular}{ c c c }\n"
+                "a & b & c \n"+
+                "d & e & f \n"+
+               "\\end{tabular}")
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
-
-        self.assertTrue(self._docsEqual(expand, r""))
+        self.assertTrue(self._docsEqual(expand, r"Table Contents:New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value: d  , Column 2, Value:  e  , Column 3, Value:  f"))
 
         # Basic table with \hline command
         doc = (r"\begin{center}"+
-                    r"\begin{tabular}{ |c|c|c| } "+
-                        r"\hline"+
-                        r"oranges & apples & pears \\ "+
-                        r"red & green & blue \\ "+
-                        r"lettuce & carrot & brocoli \\ "+
-                        r"\hline"+
-                    r"\end{tabular}"+
-                r"\end{center}")
+                    "\\begin{tabular}{ |c|c|c| } \n"+
+                        "\\hline \n"+
+                        "oranges & apples & pears \n "+
+                        "red & green & blue \n"+
+                        "lettuce & carrot & brocoli \n"+
+                        "\\hline \n"+
+                    "\\end{tabular} \n"+
+                "\\end{center}\n")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
-
-        self.assertTrue(self._docsEqual(expand, r""))
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
+        self.assertTrue(self._docsEqual(expand, r"Table Contents:New Row:  , Column 1, Value: oranges  , Column 2, Value:  apples  , Column 3, Value:  pears  New Row:  , Column 1, Value:  red  , Column 2, Value:  green  , Column 3, Value:  blue  New Row:  , Column 1, Value: lettuce  , Column 2, Value:  carrot  , Column 3, Value:  brocoli"))
 
         # Basic table with \hline command 2
-        doc = (r"\begin{center}"+
-                    r"\begin{tabular}{ |c|c|c| } "+
-                        r"\hline"+
-                        r"yes & no & maybe \\ "+
-                        r"so & testing & more in one cell \\ "+
-                        r"this has a lot of words in it & too many words for the table & i can't take it any longer! \\ "+
-                        r"\hline"+
-                    r"\end{tabular}"+
-                r"\end{center}")
+        doc = ("\\begin{center}\n"+
+                    "\\begin{tabular}{ |c|c|c| } \n"+
+                        "\\hline \n"+
+                        "yes & no & maybe \n "+
+                        "so & testing & more in one cell \n "+
+                        "this has a lot of words in it & too many words for the table & i can't take it any longer! \n "+
+                        "\\hline \n"+
+                    "\\end{tabular} \n"+
+                "\\end{center}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
-
-        self.assertTrue(self._docsEqual(expand, r""))
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
+        self.assertTrue(self._docsEqual(expand, r"Table Contents:New Row:  , Column 1, Value: yes  , Column 2, Value:  no  , Column 3, Value:  maybe  New Row:  , Column 1, Value:  so  , Column 2, Value:  testing  , Column 3, Value:  more in one cell  New Row:  , Column 1, Value:  this has a lot of words in it  , Column 2, Value:  too many words for the table  , Column 3, Value:  i can"t take it any longer!"))
 
     def testing_tables_with_extra_commands(self):
         # Checking to see if the extra commands get parsed
-        doc = (r"\begin{center}"+
+        doc = ("\begin{center}"+
                     r"\begin{tabular}{ | m{5em} | m{1cm}| m{1cm} | } "+
                         r"\hline"+
                         r"cell1 dummy text dummy text dummy text& cell2 & cell3 \\ "+
@@ -68,9 +65,8 @@ class TestTables(unittest.TestCase):
                     r"\end{tabular}"+
                 r"\end{center}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
-
-        self.assertTrue(self._docsEqual(expand, r""))
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
+        # self.assertTrue(self._docsEqual(expand, r""))
 
         # This table uses tabularx and a bunch of random stuff, testing to see if this gets parsed/passed
 # [ERROR] -> Doesn't render tabularx
@@ -86,7 +82,7 @@ class TestTables(unittest.TestCase):
                 r"\hline"+
             r"\end{tabularx}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         # self.assertTrue(self._docsEqual(expand, r""))
 
         # Different table layout, testing to see if it parses there
@@ -107,7 +103,7 @@ class TestTables(unittest.TestCase):
                 r"\hline"+
             r"\end{tabular}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         # self.assertTrue(self._docsEqual(expand, r""))
 
         # Testing with different format, has two \hline and 0.5ex in the way
@@ -127,7 +123,7 @@ class TestTables(unittest.TestCase):
                 r"\end{tabular}"+
             r"\end{table}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
 
         # self.assertTrue(self._docsEqual(expand, r""))
         # Testing big table function
@@ -148,7 +144,7 @@ class TestTables(unittest.TestCase):
                 r"\hline"+
             r"\end{tabular}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
 
         # self.assertTrue(self._docsEqual(expand, r""))
 
@@ -167,9 +163,9 @@ class TestTables(unittest.TestCase):
                 r"\end{tabular}"+
                 r"\end{center}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, r""))        
+        # self.assertTrue(self._docsEqual(expand, r""))        
 
     '''Unit test for testing captions in a table, and table name'''
     def testing_captions_table_name(self):
@@ -186,7 +182,7 @@ class TestTables(unittest.TestCase):
             r"\label{table:1}"+
             r"\end{table}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
 
         # self.assertTrue(self._docsEqual(expand, r""))  
         # Testing caption at top
@@ -202,6 +198,6 @@ class TestTables(unittest.TestCase):
                 r"\end{table}"+
                 r"\end{document}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, r""))  
+        # self.assertTrue(self._docsEqual(expand, r""))  
