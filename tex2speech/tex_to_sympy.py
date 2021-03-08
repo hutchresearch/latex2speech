@@ -512,7 +512,6 @@ def get_differential_var_str(text):
 # Helper method for preprocessing
 def helper_pre_process(illegal, mathmode):
     split = re.split(illegal, mathmode)
-    # print("SPLIT " + str(split))
     mathmode = ''
     for s in split[:-1]:
         mathmode += s + r''
@@ -525,7 +524,7 @@ def helper_pre_process_first(illegal, mathmode):
     split = re.findall(illegal, mathmode)
     mainSplit = mathmode.split()
 
-    mathmode = ""
+    mathmode = ''
     for word in mainSplit:
         if word in split:
             word = word[1:]
@@ -541,27 +540,21 @@ def pre_process(mathmode):
     # mathmode = helper_pre_process(illegalAmpPat, mathmode)
 
     # Gets rid of \
-    # illegalSlask = r"^\\[\\]*|\\[\\]*$"
-    # mathmode = helper_pre_process(illegalSlask, mathmode)
     illegalSlask = r"\\\W"
     mathmode = helper_pre_process(illegalSlask, mathmode)
     illegalSlask = r"\\\d"
     mathmode = helper_pre_process_first(illegalSlask, mathmode)
 
-    # Gets rid of [
-    illegalLeftSquareTag = ""
-    # mathmode = helper_pre_process(illegalLeftSquareTag, mathmode)
-
-    # Gets rid of ]
-    illegalRightSquareTag = ""
-    # mathmode = helper_pre_process(illegalRightSquareTag, mathmode)
-
     # Gets rid of .
-    illegalPeriod = ""
-    # mathmode = helper_pre_process(illegalPeriod, mathmode)
+    mathmode = mathmode.replace('.', '')
+
+    # Gets rid of ,
+    mathmode = mathmode.replace(',', '')
+
+    # Gets rid of ;
+    mathmode = mathmode.replace(';', '')
 
     mathmode = re.sub(r"\s+"," ", mathmode, flags = re.I)
-    print("AFTER " + mathmode)
     return mathmode
 
 def test_sympy(mathmode):
@@ -580,8 +573,8 @@ def test_Walker(obj):
     ssmlObj = convert_sympy_ssml(obj, Quantity_Modes.PARENTHESES_NUMBERED)
 
 if __name__ == "__main__":
-    run_sympy(r"\3 + \2 + 5 \ + \cosine")
-    print("\nbreak\n")
+    # run_sympy(r".3 + . \[2 + 5\]")
+    # print("\nbreak\n")
     # run_sympy(r"3 + 2 + \ 5")
     # print("\nbreak\n")
     # run_sympy(r"3a + 2b + 3c")
