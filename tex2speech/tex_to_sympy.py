@@ -1,5 +1,6 @@
 import sympy
 import antlr4
+import re
 from antlr4.error.ErrorListener import ErrorListener
 
 from gen.PSParser import PSParser
@@ -508,14 +509,32 @@ def get_differential_var_str(text):
         text = text[1:]
     return text
 
+# Gets rids of special charachters that this 
+# parser can't handle
+def pre_process(mathmode):
+    # Gets rid of illegal & commands
+    illegalAmpPat = r'(?:&(?!amp;|lt;|gt;|quot;|apos;))'
+    ampSplit = re.split(illegalAmpPat, mathmode)
+    mathmode = ''
+    for s in ampSplit[:-1]:
+        mathmode += s + r''
+    mathmode += ampSplit[-1]
+
+    # Gets rid of \
+
+    # Gets rid of [ ]
+
+    # Gets rid of .
+    
+    print("AFTER " + mathmode)
+    return mathmode
+
 def test_sympy(mathmode):
-    # print(process_sympy(r"4 \apples \times 3 \apples"))
-    print(process_sympy(r"f(x) = (x+a)(x+b) " +
-        "= x^2 + (a+b)x + ab"))
     return process_sympy(mathmode)
 
 def run_sympy(mathmode):
-    sympyObj = process_sympy(mathmode)
+    cleanedMathmode = pre_process(mathmode)
+    sympyObj = process_sympy(cleanedMathmode)
     print("OBJ " + str(sympyObj))
     print_tree(sympyObj, assumptions = False)
     ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.PARENTHESES_NUMBERED)
@@ -528,10 +547,8 @@ def test_Walker(obj):
 if __name__ == "__main__":
     run_sympy(r"3 + 2")
     print("\nbreak\n")
-    run_sympy(r"3 + 2 + 5")
-    print("\nbreak\n")
-    run_sympy(r"3a + 2b + 3c")
-    print("\nbreak\n")
-    run_sympy(r"\lim_{x\to\infty} f(x)")
-    # test_Walker(r"3 + 2")
-    # test_sympy()
+    # run_sympy(r"3 + 2 + \ 5")
+    # print("\nbreak\n")
+    # run_sympy(r"3a + 2b + 3c")
+    # print("\nbreak\n")
+    # run_sympy(r"\lim_{x\to\infty} f(x)")
