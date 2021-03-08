@@ -561,13 +561,16 @@ def test_sympy(mathmode):
     return process_sympy(mathmode)
 
 def run_sympy(mathmode):
-    cleanedMathmode = pre_process(mathmode)
-    sympyObj = process_sympy(cleanedMathmode)
-    print("OBJ " + str(sympyObj))
-    print_tree(sympyObj, assumptions = False)
-    ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.PARENTHESES_NUMBERED)
-    print("SSML " + ssmlObj)
-    return ssmlObj
+    try:
+        cleanedMathmode = pre_process(mathmode)
+        sympyObj = process_sympy(cleanedMathmode)
+        print("OBJ " + str(sympyObj))
+        print_tree(sympyObj, assumptions = False)
+        ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.PARENTHESES_NUMBERED)
+        print("SSML " + ssmlObj)
+        return ssmlObj
+    except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
+        return " math mode equation did not render "
 
 def test_Walker(obj):
     ssmlObj = convert_sympy_ssml(obj, Quantity_Modes.PARENTHESES_NUMBERED)
@@ -578,5 +581,8 @@ if __name__ == "__main__":
     # run_sympy(r"3 + 2 + \ 5")
     # print("\nbreak\n")
     # run_sympy(r"3a + 2b + 3c")
-    # print("\nbreak\n")
-    # run_sympy(r"\lim_{x\to\infty} f(x)")
+    print("\nbreak\n")
+    try:
+        run_sympy(r"C^i_j = {\textstyle \sum_k} A^i_k B^k_j")
+    except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
+        print("OH NO")
