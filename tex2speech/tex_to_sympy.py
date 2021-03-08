@@ -1,5 +1,6 @@
 import sympy
 import antlr4
+import re
 from antlr4.error.ErrorListener import ErrorListener
 
 from gen.PSParser import PSParser
@@ -508,30 +509,80 @@ def get_differential_var_str(text):
         text = text[1:]
     return text
 
+# Helper method for preprocessing
+def helper_pre_process(illegal, mathmode):
+    split = re.split(illegal, mathmode)
+    mathmode = ''
+    for s in split[:-1]:
+        mathmode += s + r''
+    mathmode += split[-1]
+
+    return mathmode
+
+# Gets rid of first charachter
+def helper_pre_process_first(illegal, mathmode):
+    split = re.findall(illegal, mathmode)
+    mainSplit = mathmode.split()
+
+    mathmode = ''
+    for word in mainSplit:
+        if word in split:
+            word = word[1:]
+        mathmode += word + r' '
+
+    return mathmode
+
+# Gets rids of special charachters that this 
+# parser can't handle
+def pre_process(mathmode):
+    # Gets rid of illegal & commands
+    illegalAmpPat = r'(?:&(?!amp;|lt;|gt;|quot;|apos;))'
+    # mathmode = helper_pre_process(illegalAmpPat, mathmode)
+
+    # Gets rid of \
+    illegalSlask = r"\\\W"
+    mathmode = helper_pre_process(illegalSlask, mathmode)
+    illegalSlask = r"\\\d"
+    mathmode = helper_pre_process_first(illegalSlask, mathmode)
+
+    # Gets rid of .
+    mathmode = mathmode.replace('.', '')
+
+    # Gets rid of ,
+    mathmode = mathmode.replace(',', '')
+
+    # Gets rid of ;
+    mathmode = mathmode.replace(';', '')
+
+    mathmode = re.sub(r"\s+"," ", mathmode, flags = re.I)
+    return mathmode
+
 def test_sympy(mathmode):
-    # print(process_sympy(r"4 \apples \times 3 \apples"))
-    print(process_sympy(r"f(x) = (x+a)(x+b) " +
-        "= x^2 + (a+b)x + ab"))
     return process_sympy(mathmode)
 
 def run_sympy(mathmode):
-    sympyObj = process_sympy(mathmode)
-    print("OBJ " + str(sympyObj))
-    print_tree(sympyObj, assumptions = False)
-    ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.PARENTHESES_NUMBERED)
-    print("SSML " + ssmlObj)
-    return ssmlObj
+    try:
+        cleanedMathmode = pre_process(mathmode)
+        sympyObj = process_sympy(cleanedMathmode)
+        print("OBJ " + str(sympyObj))
+        print_tree(sympyObj, assumptions = False)
+        ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.PARENTHESES_NUMBERED)
+        print("SSML " + ssmlObj)
+        return ssmlObj
+    except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
+        return " math mode equation did not render "
 
 def test_Walker(obj):
     ssmlObj = convert_sympy_ssml(obj, Quantity_Modes.PARENTHESES_NUMBERED)
 
 if __name__ == "__main__":
-    run_sympy(r"3 + 2")
+    # run_sympy(r".3 + . \[2 + 5\]")
+    # print("\nbreak\n")
+    # run_sympy(r"3 + 2 + \ 5")
+    # print("\nbreak\n")
+    # run_sympy(r"3a + 2b + 3c")
     print("\nbreak\n")
-    run_sympy(r"3 + 2 + 5")
-    print("\nbreak\n")
-    run_sympy(r"3a + 2b + 3c")
-    print("\nbreak\n")
-    run_sympy(r"\lim_{x\to\infty} f(x)")
-    # test_Walker(r"3 + 2")
-    # test_sympy()
+    try:
+        run_sympy(r"C^i_j = {\textstyle \sum_k} A^i_k B^k_j")
+    except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
+        print("OH NO")
