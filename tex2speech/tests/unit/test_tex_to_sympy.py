@@ -1,14 +1,6 @@
 import unittest
 import tex_to_sympy
 
-''' 
-Tai's 2 cents after writing all these unit tests. So far this doesn't like 
-regular text. But I was looking at theorems on the wiki page which uses commands
-that requires regular text to sometimes be parsed into here. https://en.wikibooks.org/wiki/LaTeX/Algorithms 
-
-For english words, test if we find a string what happens when we put a \ infront of it
- '''
-
 class TestTexToSympy(unittest.TestCase):
 
     def _equal(self, one, two):
