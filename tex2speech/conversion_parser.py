@@ -60,13 +60,9 @@ class ConversionParser:
         to parseTableContents function
     '''
     def _parseTableNode(self, contents):
-        print("CONTENTS " + str(contents))
         tableContents = str(contents).replace('\hline', '')
-        print("HLINE STRIP " + tableContents)
         tableContents = tableContents[tableContents.find('\n'):]
-        print("FINDING slash N " + tableContents)
         tableContents = tableContents.lstrip()
-        print("STRIP LEFT " + tableContents)
         tableContents = tableContents.split("\end{tabular}", 1)[0]
         tableContents = tableContents.rstrip()
         return tableContents

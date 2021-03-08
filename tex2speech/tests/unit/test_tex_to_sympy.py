@@ -2,7 +2,7 @@ import unittest
 import tex_to_sympy
 
 class TestTexToSympy(unittest.TestCase):
-
+    
     def _equal(self, one, two):
         return str(one) == str(two)
 
