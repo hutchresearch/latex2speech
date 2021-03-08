@@ -4,6 +4,8 @@ from pathlib import Path
 
 import aws_polly_render
 
+'''Work in progress tests -- Will change layout to handle zips in quarter 3'''
+
 class BasicTestCase(unittest.TestCase):
         
         def _docsEqual(self, doc1, doc2):

@@ -237,6 +237,16 @@ def create_master_files(main, input, bib):
         outfile.close()
     return masterFiles
 
+# Pass off to parser
+def start_conversion(contents):
+    # Create database/parser
+    dbSource = open('static/pronunciation.xml')
+    db = ConversionDB(dbSource.read())
+    parser = ConversionParser(db)
+
+    parsed_contents = parser.parse(contents)
+    return parsed_contents
+
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(main, input, bibContents):
@@ -244,16 +254,9 @@ def start_polly(main, input, bibContents):
     # WHEN YOU DO ZIPPED FILES JUST DO 
     # if "/begin{document}" in str(file) and "/end{document}" in str(file):
     #     is main file
-
     links = []
     masterFiles = []
-
     masterFiles = create_master_files(main, input, bibContents)
-
-    # Create database/parser
-    dbSource = open('static/pronunciation.xml')
-    db = ConversionDB(dbSource.read())
-    parser = ConversionParser(db)
 
     for master in masterFiles:
         # Expand Labels then open document
@@ -261,7 +264,7 @@ def start_polly(main, input, bibContents):
         texFile = open(master[0], "r")
 
         # Call parsing here
-        parsed_contents = parser.parse(texFile.read())
+        parsed_contents = start_conversion(texFile.read())
 
         if (len(master) > 1):
             parsed_contents += parse_bib_file(master[1])

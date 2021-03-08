@@ -510,7 +510,8 @@ def get_differential_var_str(text):
 
 def test_sympy(mathmode):
     # print(process_sympy(r"4 \apples \times 3 \apples"))
-    # print(process_sympy(r"\n_1"))
+    print(process_sympy(r"f(x) = (x+a)(x+b) " +
+        "= x^2 + (a+b)x + ab"))
     return process_sympy(mathmode)
 
 def run_sympy(mathmode):
