@@ -112,8 +112,9 @@ class TestEmbeddedBibliographies(unittest.TestCase):
         print(doc1)
         doc1 = doc1.replace("'", '"')
         doc2 = doc2.replace("'", '"')
-        print(set(str(doc1).split(' ')))
-        print(set(str(doc2).split(' ')))
+        doc1 = doc1.replace("\\", "")
+        doc2 = doc2.replace("\\", "")
+
         # print(doc1 + "\n" + doc2 + "\n" + doc1 == doc2)
         return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
 
@@ -145,17 +146,17 @@ class TestEmbeddedBibliographies(unittest.TestCase):
         self.assertTrue(self._docsEqual(expand, "Reference Section:Bibliography item is read as:latexcompanion Michel Goossens, Frank Mittelbach, and Alexander Samarin.The  LaTeX. Addison-Wesley, Reading, Massachusetts, 1993."))
 
         #  Second test of bibliography output
-        # doc = (r"\begin{thebibliography}{9}"+
-        #                             r"\bibitem{einstein} "+
-        #                                 r"Albert Einstein. "+ 
-        #                                 r"\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) "+
-        #                                 r"[\textit{On the electrodynamics of moving bodies}]. "+
-        #                                 r"Annalen der Physik, 322(10):891–921, 1905."+
-        #                         r"\end{thebibliography}")
+        doc = (r"\begin{thebibliography}{9}"+
+                                    r"\bibitem{einstein} "+
+                                        r"Albert Einstein. "+ 
+                                        r"\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) "+
+                                        r"[\textit{On the electrodynamics of moving bodies}]. "+
+                                        r"Annalen der Physik, 322(10):891–921, 1905."+
+                                r"\end{thebibliography}")
 
-        # expand = tex2speech.aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
 
-        # self.assertTrue(self._docsEqual(expand, "Reference Section:Bibliography item is read as:einstein  Albert Einstein. Zur Elektrodynamik bewegter K \" o rper. (German)  [On the electrodynamics of moving bodies] . Annalen der Physik, 322(10):891–921, 1905."))
+        self.assertTrue(self._docsEqual(expand, "Reference Section:Bibliography item is read as:einstein  Albert Einstein. Zur Elektrodynamik bewegter K \" o rper. (German)  [On the electrodynamics of moving bodies] . Annalen der Physik, 322(10):891–921, 1905."))
 
         # Third test of bibliography output
         doc = (r"\begin{thebibliography}{9}"+
