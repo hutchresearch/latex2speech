@@ -511,11 +511,25 @@ def get_differential_var_str(text):
 
 # Helper method for preprocessing
 def helper_pre_process(illegal, mathmode):
-    ampSplit = re.split(illegal, mathmode)
+    split = re.split(illegal, mathmode)
+    # print("SPLIT " + str(split))
     mathmode = ''
-    for s in ampSplit[:-1]:
+    for s in split[:-1]:
         mathmode += s + r''
-    mathmode += ampSplit[-1]
+    mathmode += split[-1]
+
+    return mathmode
+
+# Gets rid of first charachter
+def helper_pre_process_first(illegal, mathmode):
+    split = re.findall(illegal, mathmode)
+    mainSplit = mathmode.split()
+
+    mathmode = ""
+    for word in mainSplit:
+        if word in split:
+            word = word[1:]
+        mathmode += word + r' '
 
     return mathmode
 
@@ -524,24 +538,29 @@ def helper_pre_process(illegal, mathmode):
 def pre_process(mathmode):
     # Gets rid of illegal & commands
     illegalAmpPat = r'(?:&(?!amp;|lt;|gt;|quot;|apos;))'
-    mathmode = helper_pre_process(illegalAmpPat, mathmode)
+    # mathmode = helper_pre_process(illegalAmpPat, mathmode)
 
     # Gets rid of \
-    illegalSlash = ""
-    mathmode = helper_pre_process(illegalSlash, mathmode)
+    # illegalSlask = r"^\\[\\]*|\\[\\]*$"
+    # mathmode = helper_pre_process(illegalSlask, mathmode)
+    illegalSlask = r"\\\W"
+    mathmode = helper_pre_process(illegalSlask, mathmode)
+    illegalSlask = r"\\\d"
+    mathmode = helper_pre_process_first(illegalSlask, mathmode)
 
     # Gets rid of [
     illegalLeftSquareTag = ""
-    mathmode = helper_pre_process(illegalLeftSquareTag, mathmode)
+    # mathmode = helper_pre_process(illegalLeftSquareTag, mathmode)
 
     # Gets rid of ]
     illegalRightSquareTag = ""
-    mathmode = helper_pre_process(illegalRightSquareTag, mathmode)
+    # mathmode = helper_pre_process(illegalRightSquareTag, mathmode)
 
     # Gets rid of .
     illegalPeriod = ""
-    mathmode = helper_pre_process(illegalPeriod, mathmode)
+    # mathmode = helper_pre_process(illegalPeriod, mathmode)
 
+    mathmode = re.sub(r"\s+"," ", mathmode, flags = re.I)
     print("AFTER " + mathmode)
     return mathmode
 
@@ -561,7 +580,7 @@ def test_Walker(obj):
     ssmlObj = convert_sympy_ssml(obj, Quantity_Modes.PARENTHESES_NUMBERED)
 
 if __name__ == "__main__":
-    run_sympy(r"3 + 2")
+    run_sympy(r"\3 + \2 + 5 \ + \cosine")
     print("\nbreak\n")
     # run_sympy(r"3 + 2 + \ 5")
     # print("\nbreak\n")
