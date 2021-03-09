@@ -280,10 +280,13 @@ class ConversionParser:
     '''
     Parse doc with respect to the database the parser was initialized with.
     '''
-    def parse(self, doc: TexSoup.data.TexNode):
+    def parse(self, doc: TexSoup.data.TexNode, test=False):
         tree = RootElement()
         if isinstance(doc, str):
             doc = TexSoup.TexSoup(doc)
         self._parseNodes(doc.contents, tree)
 
-        return tree.getString()
+        if not test:
+            return tree.getString()
+        else:
+            return tree
