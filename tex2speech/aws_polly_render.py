@@ -265,18 +265,18 @@ def start_conversion(contents):
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords
-def start_polly(main, input, bibContents):
+def start_polly(main, input, bib_contents):
     # NOTE FOR TAI
     # WHEN YOU DO ZIPPED FILES JUST DO 
     # if "/begin{document}" in str(file) and "/end{document}" in str(file):
     #     is main file
     links = []
     master_files = []
-    master_files = create_master_files(main, input, bibContents)
+    master_files = create_master_files(main, input, bib_contents)
 
     for master in master_files:
         # Expand Labels then open document
-        tex2speech.expand_labels.expandDocNewLabels(master[0])
+        tex2speech.expand_labels.expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
 
         # Call parsing here

@@ -13,12 +13,12 @@ Create a hashtable to store in these values
             List[1] = Section Num
             List[2] = Caption (optional)
             List[3] = Type (equation, figure, etc) '''
-def auxFileHashTable(auxFile):
+def aux_file_hash_table(aux_file):
     hash = {}
 
-    for line in auxFile:
+    for line in aux_file:
         if (line[0:9] == r"\newlabel"):
-            hashObject = []
+            hash_object = []
             count = 1
             name = ""
 
@@ -35,7 +35,7 @@ def auxFileHashTable(auxFile):
             page = ""
             section = ""
             caption = ""
-            labelType = ""
+            label_type = ""
             index = count
 
             # Adding .aux information to corresponding
@@ -53,38 +53,38 @@ def auxFileHashTable(auxFile):
                 elif (obj == 3):
                     caption += char
                 elif (obj == 4):
-                    labelType += char
+                    label_type += char
 
             # Adding object information to hash array object 
-            hashObject.append(page)
-            hashObject.append(section)
-            hashObject.append(caption)
-            hashObject.append(labelType)
+            hash_object.append(page)
+            hash_object.append(section)
+            hash_object.append(caption)
+            hash_object.append(label_type)
 
             # Adding to hashtable
-            hash[name] = hashObject
+            hash[name] = hash_object
 
     return hash
 
 '''With the hash table that was created, use findall from TexSoup to replace file contents'''
-def replaceReferences(contents, myHash):
+def replace_references(contents, my_hash):
     # Traverse doc file, replacing them, by looking into hashtable
     myDoc = TexSoup.TexSoup(str(contents))
-    for name in myHash:
-        print("Syst " + name)
-        if (myHash[name][3][0:8] == "equation"):
+    for name in my_hash:
+        # print("Syst " + name)
+        if (my_hash[name][3][0:8] == "equation"):
             old = "Eq.~(\\ref{" + name + "})"
-            new = "Equation " + myHash[name][0]
+            new = "Equation " + my_hash[name][0]
         else:
             old = "\\ref{" + name + "}"
-            new = myHash[name][0]
+            new = my_hash[name][0]
 
         contents = contents.replace(old, new)
 
     print(contents)
     return contents
 
-def expandDocNewLabels(doc):
+def expand_doc_new_labels(doc):
     # TODO
     # Create .aux file
     os.system("pdflatex -interaction=nonstopmode " + doc)
@@ -92,16 +92,16 @@ def expandDocNewLabels(doc):
     # Get appropriate .aux file to corresponding document
     # Open .aux file (Assuming it's been generated)
     split_string = doc.split(".tex", 1)
-    docName = split_string[0] + ".aux"
+    doc_name = split_string[0] + ".aux"
 
     # Traverse .aux file, create hashtable for commands -> vallues
     if path.exists(split_string[0] + ".aux"):
-        auxFile = open(docName, "r")
-        myHash = auxFileHashTable(auxFile)
+        auxFile = open(doc_name, "r")
+        myHash = aux_file_hash_table(auxFile)
 
         # Repalce all references to correct for figures and equations
         doc = open(doc, "r")
-        replaceReferences(doc.read(), myHash)
+        replace_references(doc.read(), myHash)
 
         # Delete .pdf, .out, .log, and .aux file
         if path.exists(split_string[0] + ".log"):
@@ -117,13 +117,13 @@ def expandDocNewLabels(doc):
             os.remove(split_string[0] + ".aux")
 
 '''This function is to help test, since the main function expects a file, while this has contents'''
-def hashTableTest(contents):
+def hash_table_test(contents):
     hash = {}
     contents = contents.splitlines()
 
     for line in contents:
         if (line[0:9] == r"\newlabel"):
-            hashObject = []
+            hash_object = []
             count = 1
             name = ""
 
@@ -140,7 +140,7 @@ def hashTableTest(contents):
             page = ""
             section = ""
             caption = ""
-            labelType = ""
+            label_type = ""
             index = count
 
             # Adding .aux information to corresponding
@@ -160,14 +160,14 @@ def hashTableTest(contents):
                 elif (obj == 3):
                     caption += char
                 elif (obj == 4):
-                    labelType += char
+                    label_type += char
 
             # Adding object information to hash array object 
-            hashObject.append(page)
-            hashObject.append(section)
-            hashObject.append(caption)
-            hashObject.append(labelType)
+            hash_object.append(page)
+            hash_object.append(section)
+            hash_object.append(caption)
+            hash_object.append(label_type)
 
             # Adding to hashtable
-            hash[name] = hashObject
+            hash[name] = hash_object
     return hash
