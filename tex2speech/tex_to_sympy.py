@@ -564,10 +564,10 @@ def run_sympy(mathmode):
     try:
         cleanedMathmode = pre_process(mathmode)
         sympyObj = process_sympy(cleanedMathmode)
-        print("OBJ " + str(sympyObj))
-        print_tree(sympyObj, assumptions = False)
+        # print("OBJ " + str(sympyObj))
+        # print_tree(sympyObj, assumptions = False)
         ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.PARENTHESES_NUMBERED)
-        print("SSML " + ssmlObj)
+        # print("SSML " + ssmlObj)
         return ssmlObj
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
         return " math mode equation did not render "
