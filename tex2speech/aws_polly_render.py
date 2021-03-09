@@ -194,6 +194,7 @@ def check(tmp, cmd):
 def create_master_files(main, input, bib):
     masterFiles = []
     add = 0
+    potential = False
 
     # For every uploaded main file
     for mainFile in main:
@@ -210,6 +211,17 @@ def create_master_files(main, input, bib):
 
                     for i in range(len(line)):
                         tmp = tmp + line[i]
+
+                        # Get end of line slashes out
+                        if i > 0 and line[i - 1] == ' ' and line[i] == '\\':
+                            potential = True
+
+                        if line[i] == ' ':
+                            potential = False
+
+                        if i < len(line) and potential == True and line[i] == '\\' and line[i + 1] == ' ':
+                            i = i + 1
+                            potential = False
 
                         # Handle comments
                         if tmp == "%":
