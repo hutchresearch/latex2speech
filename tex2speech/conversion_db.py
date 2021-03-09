@@ -65,6 +65,7 @@ class ConversionDB:
         conversion = None
         for cmd in self.db.findall('./cmd'):
             if cmd.attrib['name'] == name:
+                print("COMMAND " + name)
                 conversion = []
                 if cmd.text and not cmd.text.isspace():
                     conversion.append(TextElement(cmd.text.strip(" \t\n\r")))
@@ -77,6 +78,7 @@ class ConversionDB:
         conversion = None
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
+                print("ENVIRONMENT " + name)
                 envConv = env.find('says')
                 if envConv:
                     conversion = []
