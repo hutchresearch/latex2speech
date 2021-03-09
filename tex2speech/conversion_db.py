@@ -74,7 +74,7 @@ class ConversionDB:
                 break
         return conversion
 
-    def getenv_conversion(self, name: str) -> list:
+    def getEnvConversion(self, name: str) -> list:
         conversion = None
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
