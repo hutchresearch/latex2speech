@@ -186,6 +186,21 @@ def check(tmp, cmd):
         return True 
     return False
 
+# Get rid of extra \ at end of words
+def rid_of_back_backslash(line, i, potential):
+    # Get end of line slashes out
+    if i > 0 and line[i - 1] == ' ' and line[i] == '\\':
+        potential = True
+
+    if line[i] == ' ':
+        potential = False
+
+    if i < len(line) and potential == True and line[i] == '\\' and line[i + 1] == ' ':
+        i = i + 1
+        potential = False
+        
+    return potential
+
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
 # master file
@@ -212,16 +227,7 @@ def create_master_files(main, input, bib):
                     for i in range(len(line)):
                         tmp = tmp + line[i]
 
-                        # Get end of line slashes out
-                        if i > 0 and line[i - 1] == ' ' and line[i] == '\\':
-                            potential = True
-
-                        if line[i] == ' ':
-                            potential = False
-
-                        if i < len(line) and potential == True and line[i] == '\\' and line[i + 1] == ' ':
-                            i = i + 1
-                            potential = False
+                        potential = rid_of_back_backslash(line, i, potential)
 
                         # Handle comments
                         if tmp == "%":
