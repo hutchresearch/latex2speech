@@ -1,4 +1,6 @@
 from SSMLParsing.ssml_element import SSMLElement
+import xml.etree.ElementTree as ET
+import copy
 
 class SSMLElementNode(SSMLElement):
     def __init__(self):
@@ -39,3 +41,13 @@ class SSMLElementNode(SSMLElement):
         for child in self.children:
             elem.append(child.getXMLTree())
         return elem
+
+    def __str__(self):
+        out = ""
+        for child in self.children:
+            out += child.__str__()
+        temp = copy.deepcopy(self)
+        temp.appendHeadText(out)
+        return ET.tostring(temp.getXMLTree())
+        
+        
