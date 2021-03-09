@@ -49,7 +49,7 @@ def _convert(expr, funcs_tree, mode, quantity_index):
     
     s = str()
     
-    if func == None:
+    if func is None:
         func = r.find('userFunction')
         
     if len(expr.args) == 0:

@@ -6,41 +6,41 @@ instances of <, > and & from an xml string. Absolutely does
 NOT ensure broken xml will be made valid, but ensures
 valid xml won't break.
 '''
-def cleanXMLString(xmlStr):
-    illegalAmpPat = r'(?:&(?!amp;|lt;|gt;|quot;|apos;))' # Finds all & that don't denote a legal entity reference
-    illegalLtPat = r'(<)[^<>]*<' # Finds all < that appear before another <
-    illegalLtPatTrailing = r'(<)[^>]*$' # Finds all < that are unmatched at the end of the text
-    illegalGtPat = r'>[^<>]*(>)' # Finds all > that appear after another >
-    illegalGtPatLeading = r'^[^<]*(>)' # Finds all > that are unmatched at the beginning of the text
+def cleanxml_string(xml_str):
+    illegal_amp_pat = r'(?:&(?!amp;|lt;|gt;|quot;|apos;))' # Finds all & that don't denote a legal entity reference
+    illegal_lt_pat = r'(<)[^<>]*<' # Finds all < that appear before another <
+    illegal_lt_pat_trailing = r'(<)[^>]*$' # Finds all < that are unmatched at the end of the text
+    illegal_gt_pat = r'>[^<>]*(>)' # Finds all > that appear after another >
+    illegal_gt_pat_leading = r'^[^<]*(>)' # Finds all > that are unmatched at the beginning of the text
     
-    ampSplit = re.split(illegalAmpPat, xmlStr)
-    xmlStr = ''
-    for s in ampSplit[:-1]:
-        xmlStr += s + r'&amp;'
-    xmlStr += ampSplit[-1]
+    amp_split = re.split(illegal_amp_pat, xml_str)
+    xml_str = ''
+    for s in amp_split[:-1]:
+        xml_str += s + r'&amp;'
+    xml_str += amp_split[-1]
 
-    match = re.search(illegalLtPat, xmlStr)
+    match = re.search(illegal_lt_pat, xml_str)
     while match:
-        xmlStr = xmlStr[0:match.start(1)] + '&lt;' + xmlStr[match.end(1):]
-        match = re.search(illegalLtPat, xmlStr)
+        xml_str = xml_str[0:match.start(1)] + '&lt;' + xml_str[match.end(1):]
+        match = re.search(illegal_lt_pat, xml_str)
     
-    match = re.search(illegalLtPatTrailing, xmlStr)
+    match = re.search(illegal_lt_pat_trailing, xml_str)
     while match:
-        xmlStr = xmlStr[0:match.start(1)] + '&lt;' + xmlStr[match.end(1):]
-        match = re.search(illegalLtPatTrailing, xmlStr)
+        xml_str = xml_str[0:match.start(1)] + '&lt;' + xml_str[match.end(1):]
+        match = re.search(illegal_lt_pat_trailing, xml_str)
 
-    match = re.search(illegalGtPat, xmlStr)
+    match = re.search(illegal_gt_pat, xml_str)
     while match:
-        xmlStr = xmlStr[0:match.start(1)] + '&gt;' + xmlStr[match.end(1):]
-        match = re.search(illegalGtPat, xmlStr)
+        xml_str = xml_str[0:match.start(1)] + '&gt;' + xml_str[match.end(1):]
+        match = re.search(illegal_gt_pat, xml_str)
 
-    match = re.search(illegalGtPatLeading, xmlStr)
+    match = re.search(illegal_gt_pat_leading, xml_str)
     while match:
-        xmlStr = xmlStr[0:match.start(1)] + '&gt;' + xmlStr[match.end(1):]
-        match = re.search(illegalGtPatLeading, xmlStr)
+        xml_str = xml_str[0:match.start(1)] + '&gt;' + xml_str[match.end(1):]
+        match = re.search(illegal_gt_pat_leading, xml_str)
 
-    return xmlStr
+    return xml_str
 
 if __name__ == '__main__':
-    print(cleanXMLString(r'<>>>><&haha&amp;'))
-    print(cleanXMLString(r'<whats < the deal > with> xml tags! &&&&&&&&&amp; <  kjlsdkf <<, < jklj > <<<<>>>>>> messed up man'))
+    print(cleanxml_string(r'<>>>><&haha&amp;'))
+    print(cleanxml_string(r'<whats < the deal > with> xml tags! &&&&&&&&&amp; <  kjlsdkf <<, < jklj > <<<<>>>>>> messed up man'))
