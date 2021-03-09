@@ -83,7 +83,7 @@ class ConversionDB:
             if env.attrib['name'] == name:
                 print("ENVIRONMENT " + name)
                 envConv = env.find('says')
-                if envConv:
+                if envConv is not None:
                     conversion = []
                     if envConv.text and not envConv.text.isspace():
                         conversion.append(TextElement(envConv.text.strip(" \t\n\r")))
