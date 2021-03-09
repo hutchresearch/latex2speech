@@ -34,7 +34,7 @@ class EmphasisElement(SSMLElementNode):
     def _getHeadTag(self):
         string = "<emphasis"
         if self.level:
-            string += " level=" + str(self.level)
+            string += ' level="' + str(self.level + '"')
         string += ">"
         return string
 

@@ -284,5 +284,4 @@ class ConversionParser:
             doc = TexSoup.TexSoup(doc)
         self._parseNodes(doc.contents, tree)
 
-        # print("Here!!!! " + tree.getString())
         return tree.getString()
