@@ -42,6 +42,7 @@ class testConversionDB(unittest.TestCase):
         self.assertEqual(elems[0].getHeadText(), "text1")
 
         elems = db.getEnvConversion("text-test")
+        print(str(elems))
         self.assertEqual(len(elems), 1)
         self.assertIsInstance(elems[0], TextElement)
         self.assertEqual(elems[0].getHeadText(), "text2")
@@ -183,24 +184,24 @@ class testConversionDB(unittest.TestCase):
         <latex>
             <cmd name="cmd1" type = "none">
                 text 1
-                <emphasis>text 2</emph>
-                <emphasis level="weak">text 3</emph>
+                <emphasis>text 2</emphasis>
+                <emphasis level="weak">text 3</emphasis>
             </cmd>
             <env name="env" type = "none">
                 <says>
-                    <emphasis>text 4</emph>
+                    <emphasis>text 4</emphasis>
                     text 5
-                    <emphasis level="strong">text 6</emph>
+                    <emphasis level="strong">text 6</emphasis>
                 </says>
                 <defines>
                     <cmd name="cmd1" type = "none">
-                        <emphasis>text 7</emph>
-                        <emphasis level="x-strong">text 8</emph>
+                        <emphasis>text 7</emphasis>
+                        <emphasis level="x-strong">text 8</emphasis>
                         text 9
                     </cmd>
                     <cmd name="cmd2" type = "none">
-                        <emphasis>text 10</emph>
-                        <emphasis level="strong">text 11</emph>
+                        <emphasis>text 10</emphasis>
+                        <emphasis level="strong">text 11</emphasis>
                     </cmd>
                 </defines>
             </env>
