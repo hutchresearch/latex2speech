@@ -26,11 +26,7 @@ def ordinal_str(num):
 
 def remove_extra_spaces(str):
     re.sub(' +', ' ', str)
-    if str[0] == ' ':
-        str = str[1:]
-    if str[len(str) - 1] == ' ':
-        str = str[:(len(str) - 1)]
-    return str
+    return str.strip()
 
 def convert_sympy_ssml(expr, mode):
     '''
