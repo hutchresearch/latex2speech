@@ -26,31 +26,31 @@ Main parsing class. Parses TexSoup parse trees into SSMLElementNode
 class ConversionParser:
     def __init__(self, db: ConversionDB):
         self.db = db
-        self.envStack = []
+        self.env_stack = []
 
     '''Function that will take in new table contents, and parse
     each column'''
-    def _parseTableContents(self, contentsNode, elemListParent, leftChild=None):
-        split = str(contentsNode).split("\n")
+    def _parseTableContents(self, contents_node, elem_list_parent, left_child=None):
+        split = str(contents_node).split("\n")
         # Go through each row
         for row in split:
-            if leftChild:
-                leftChild.appendTailText("New Row: ")
+            if left_child:
+                left_child.appendTailText("New Row: ")
             else:
-                elemListParent.appendHeadText("New Row: ")
+                elem_list_parent.appendHeadText("New Row: ")
 
-            innerSplit = row.split('&')
+            inner_split = row.split('&')
             column = 1
 
             # Go through each value in the row
-            for word in innerSplit: 
+            for word in inner_split: 
                 if word != "&":
                     text = ", Column " + str(column) + ", Value: " + word;
 
-                    if leftChild:
-                        leftChild.appendTailText(text)
+                    if left_child:
+                        left_child.appendTailText(text)
                     else:
-                        elemListParent.appendHeadText(text)
+                        elem_list_parent.appendHeadText(text)
 
                     column += 1
 
@@ -60,31 +60,31 @@ class ConversionParser:
         to parseTableContents function
     '''
     def _parseTableNode(self, contents):
-        tableContents = str(contents).replace('\hline', '')
-        tableContents = tableContents[tableContents.find('\n'):]
-        tableContents = tableContents.lstrip()
-        tableContents = tableContents.split("\end{tabular}", 1)[0]
-        tableContents = tableContents.rstrip()
-        return tableContents
+        table_contents = str(contents).replace('\hline', '')
+        table_contents = table_contents[table_contents.find('\n'):]
+        table_contents = table_contents.lstrip()
+        table_contents = table_contents.split("\end{tabular}", 1)[0]
+        table_contents = table_contents.rstrip()
+        return table_contents
 
     '''
     Retrieves the correct argument node's list of arguments with respect to 
         the format of the ArgElement class.
     '''
-    def _getArg(self, node, argElem):
-        targetType = TexSoup.data.BraceGroup
-        if argElem.getArgType() == 'bracket':
-            targetType = TexSoup.data.BracketGroup
+    def _getArg(self, node, arg_elem):
+        target_type = TexSoup.data.BraceGroup
+        if arg_elem.getArgType() == 'bracket':
+            target_type = TexSoup.data.BracketGroup
         
         i = -1
         num = 0
         arg = None
-        while num < argElem.getArgNum() and i+1 < len(node.args):
+        while num < arg_elem.getArgNum() and i+1 < len(node.args):
             i += 1
-            if isinstance(node.args[i], targetType):
+            if isinstance(node.args[i], target_type):
                 num += 1
 
-        if num == argElem.getArgNum():
+        if num == arg_elem.getArgNum():
             arg = node.args[i]
 
         return arg
@@ -96,134 +96,134 @@ class ConversionParser:
         return string
 
     '''
-    Recursively resolves non-node SSMLElements within elemList with respect to 
-        envNode. Also manages the envStack.
+    Recursively resolves non-node SSMLElements within elem_list with respect to 
+        env_node. Also manages the env_stack.
     '''
-    def _resolveEnvironmentElements(self, envNode, elemListParent, elemList, leftChild):
-        if len(elemList) > 0:
+    def _resolveEnvironmentElements(self, env_node, elem_list_parent, elem_list, left_child):
+        if len(elem_list) > 0:
             offset = 0
             i = 0
-            for k in range(len(elemList)):
-                if not isinstance(elemList[i], SSMLElementNode):
-                    elem = elemList.pop(i)
-                    nextOffset = -1
-                    newInd = i
-                    parseTarget = None
+            for k in range(len(elem_list)):
+                if not isinstance(elem_list[i], SSMLElementNode):
+                    elem = elem_list.pop(i)
+                    next_offset = -1
+                    new_ind = i
+                    parse_target = None
                     if isinstance(elem, ArgElement):
-                        arg = self._getArg(envNode, elem)
+                        arg = self._getArg(env_node, elem)
                         if arg:
-                            parseTarget = arg.contents
-                            newInd = self._parseNodes(arg.contents, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
+                            parse_target = arg.contents
+                            new_ind = self._parseNodes(arg.contents, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
                     elif isinstance(elem, ContentElement):
-                        _, parseTarget = seperateContents(envNode)
+                        _, parse_target = seperateContents(env_node)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
-                        if leftChild:
-                            leftChild.appendTailText(text)
+                        if left_child:
+                            left_child.appendTailText(text)
                         else:
-                            elemListParent.appendHeadText(text)
+                            elem_list_parent.appendHeadText(text)
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")
                         
                     # TODO: Should args within an environment's arguments reference the environment
                     # If not, stack operations should only occur in ContentElement
-                    if parseTarget:
-                        definition = self.db.getEnvDefinition(envNode.name)
+                    if parse_target:
+                        definition = self.db.getEnvDefinition(env_node.name)
 
                         if definition:
                             if 'mathmode' in definition and definition['mathmode'] == True:
-                                output = run_sympy(self._envContentsToString(envNode))
+                                output = run_sympy(self._envContentsToString(env_node))
                                 print("MATHMODE OUTPUT: " + output)
-                                if leftChild:
-                                    leftChild.appendTailText(str(output))
+                                if left_child:
+                                    left_child.appendTailText(str(output))
                                 else:
-                                    elemListParent.appendHeadText(str(output))
+                                    elem_list_parent.appendHeadText(str(output))
                             elif 'readTable' in definition and definition['readTable'] == True:
-                                self._parseTableContents(self._parseTableNode(envNode), elemListParent, leftChild)
+                                self._parseTableContents(self._parseTableNode(env_node), elem_list_parent, left_child)
                             else:
-                                self.envStack.append(definition)
-                                newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
-                                self.envStack.pop()
+                                self.env_stack.append(definition)
+                                new_ind = self._parseNodes(parse_target, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
+                                self.env_stack.pop()
                         else:
-                            newInd = self._parseNodes(parseTarget, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
+                            new_ind = self._parseNodes(parse_target, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
                     
-                    nextOffset += newInd - i
-                    offset += nextOffset
+                    next_offset += new_ind - i
+                    offset += next_offset
                 else:
-                    self._resolveEnvironmentElements(envNode, elemList[i], elemList[i].children, None)
+                    self._resolveEnvironmentElements(env_node, elem_list[i], elem_list[i].children, None)
 
                 i = (k + 1) + offset
                 if i > 0:
-                    leftChild = elemList[i-1]
+                    left_child = elem_list[i-1]
 
     '''
     Handles environment parsing, returning the result of its parsing or 
         or none of no appropriate definition is found.
     '''
-    def _parseEnvironment(self, envNode, ssmlParent, leftChild):
-        args, contents = seperateContents(envNode)
+    def _parseEnvironment(self, env_node, ssml_parent, left_child):
+        args, contents = seperateContents(env_node)
 
-        elemList = self.db.getEnvConversion(envNode.name)
-        if not elemList:
-            self._parseNodes(contents, ssmlParent, leftChild=leftChild)
+        elem_list = self.db.getEnvConversion(env_node.name)
+        if not elem_list:
+            self._parseNodes(contents, ssml_parent, left_child=left_child)
         else:
-            self._resolveEnvironmentElements(envNode, ssmlParent, elemList, leftChild)
+            self._resolveEnvironmentElements(env_node, ssml_parent, elem_list, left_child)
 
-        return elemList
+        return elem_list
 
     '''
-    Recursively resolves non-node SSMLElements within elemList with respect to 
-        envNode.
+    Recursively resolves non-node SSMLElements within elem_list with respect to 
+        env_node.
     '''
-    def _resolveCmdElements(self, cmdNode, elemListParent, elemList, leftChild):
-        if len(elemList) > 0:
+    def _resolveCmdElements(self, cmd_node, elem_list_parent, elem_list, left_child):
+        if len(elem_list) > 0:
             offset = 0
             i = 0
-            for k in range(len(elemList)):
-                if not isinstance(elemList[i], SSMLElementNode):
-                    elem = elemList.pop(i)
-                    nextOffset = -1
-                    newInd = i
+            for k in range(len(elem_list)):
+                if not isinstance(elem_list[i], SSMLElementNode):
+                    elem = elem_list.pop(i)
+                    next_offset = -1
+                    new_ind = i
                     if isinstance(elem, ArgElement):
-                        arg = self._getArg(cmdNode, elem)
+                        arg = self._getArg(cmd_node, elem)
                         if arg:
-                            parseTarget = arg.contents
-                            newInd = self._parseNodes(arg.contents, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
+                            parse_target = arg.contents
+                            new_ind = self._parseNodes(arg.contents, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
-                        if leftChild:
-                            leftChild.appendTailText(text)
+                        if left_child:
+                            left_child.appendTailText(text)
                         else:
-                            elemListParent.appendHeadText(text)
+                            elem_list_parent.appendHeadText(text)
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")
 
-                    nextOffset += newInd - i
-                    offset += nextOffset
+                    next_offset += new_ind - i
+                    offset += next_offset
                 else:
-                    self._resolveCmdElements(cmdNode, elemList[i], elemList[i].children, None)
+                    self._resolveCmdElements(cmd_node, elem_list[i], elem_list[i].children, None)
                 
                 i = (k + 1) + offset
                 if i > 0:
-                    leftChild = elemList[i-1]
+                    left_child = elem_list[i-1]
 
     '''
     Handles command parsing, returning the result of its parsing or 
         or none of no appropriate definition is found.
     '''
-    def _parseCommand(self, cmdNode, ssmlParent, leftChild):
-        args, _ = seperateContents(cmdNode)
+    def _parseCommand(self, cmd_node, ssml_parent, left_child):
+        args, _ = seperateContents(cmd_node)
         
-        elemList = None
-        if len(self.envStack) > 0 and cmdNode.name in self.envStack[-1]:
-            elemList = self.envStack[-1][cmdNode.name]
+        elem_list = None
+        if len(self.env_stack) > 0 and cmd_node.name in self.env_stack[-1]:
+            elem_list = self.env_stack[-1][cmd_node.name]
         else:
-            elemList = self.db.getCmdConversion(cmdNode.name)
+            elem_list = self.db.getCmdConversion(cmd_node.name)
         
-        if elemList:
-            self._resolveCmdElements(cmdNode, ssmlParent, elemList, leftChild)
+        if elem_list:
+            self._resolveCmdElements(cmd_node, ssml_parent, elem_list, left_child)
 
-        return elemList
+        return elem_list
 
     '''
     Main entry point to all parsing. Parses wih respect to a list of TexSoup
@@ -231,50 +231,50 @@ class ConversionParser:
         necessarily correspond to the parent's actual list of children in 
         order to facilitate processing seperate lists of nodes.
     '''
-    def _parseNodes(self, texNodes: list, ssmlParent: SSMLElementNode, ssmlChildren=None, insertIndex=0, leftChild=None):
-        if ssmlChildren is None:
-            ssmlChildren = ssmlParent.children
-        for texNode in texNodes:
+    def _parseNodes(self, tex_nodes: list, ssml_parent: SSMLElementNode, ssml_children=None, insert_index=0, left_child=None):
+        if ssml_children is None:
+            ssml_children = ssml_parent.children
+        for texNode in tex_nodes:
             parseOut = None
-            if insertIndex > 0:
-                leftChild = ssmlChildren[insertIndex-1]
+            if insert_index > 0:
+                left_child = ssml_children[insert_index-1]
 
             if exprTest(texNode, TexSoup.data.TexEnv):
-                parseOut = self._parseEnvironment(texNode, ssmlParent, leftChild)
+                parseOut = self._parseEnvironment(texNode, ssml_parent, left_child)
             elif exprTest(texNode, TexSoup.data.TexCmd):
-                parseOut = self._parseCommand(texNode, ssmlParent, leftChild)
+                parseOut = self._parseCommand(texNode, ssml_parent, left_child)
             elif exprTest(texNode, TexSoup.data.Token):
                 text = str(texNode)
 
-                if leftChild:
-                    leftChild.appendTailText(text)
+                if left_child:
+                    left_child.appendTailText(text)
                 else:
-                    ssmlParent.appendHeadText(text)
+                    ssml_parent.appendHeadText(text)
 
             if parseOut:
                 for ssmlChild in parseOut:
-                    ssmlChildren.insert(insertIndex, ssmlChild)
-                    insertIndex += 1
+                    ssml_children.insert(insert_index, ssmlChild)
+                    insert_index += 1
 
-            if insertIndex > 0:
-                leftChild = ssmlChildren[insertIndex-1]
+            if insert_index > 0:
+                left_child = ssml_children[insert_index-1]
 
-        return insertIndex
+        return insert_index
 
-    def _printTreeSub(self, tree, level, levelArr, atIndex, parentIndex):
-        if len(levelArr) == level:
-            levelArr.append([])
-        levelArr[level].append(str(parentIndex) + ' -> ' + str(tree))
+    def _printTreeSub(self, tree, level, level_arr, at_index, parent_index):
+        if len(level_arr) == level:
+            level_arr.append([])
+        level_arr[level].append(str(parent_index) + ' -> ' + str(tree))
         for i, child in enumerate(tree.children):
-            self._printTreeSub(child, level+1, levelArr, i, atIndex)
+            self._printTreeSub(child, level+1, level_arr, i, at_index)
 
     '''
     Basic print method to see whats happening within the tree
     '''
     def printTree(self, tree):
-        levelArr = []
-        self._printTreeSub(tree, 0, levelArr, 0, -1)
-        for level in levelArr:
+        level_arr = []
+        self._printTreeSub(tree, 0, level_arr, 0, -1)
+        for level in level_arr:
             print(level)
 
     '''
