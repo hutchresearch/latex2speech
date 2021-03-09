@@ -181,24 +181,24 @@ class testConversionDB(unittest.TestCase):
     def testEmphasisTag(self):
         db = ConversionDB(r'''
         <latex>
-            <cmd name="cmd1">
+            <cmd name="cmd1" type = "none">
                 text 1
                 <emphasis>text 2</emph>
                 <emphasis level="weak">text 3</emph>
             </cmd>
-            <env name="env">
+            <env name="env" type = "none">
                 <says>
                     <emphasis>text 4</emph>
                     text 5
                     <emphasis level="strong">text 6</emph>
                 </says>
                 <defines>
-                    <cmd name="cmd1">
+                    <cmd name="cmd1" type = "none">
                         <emphasis>text 7</emph>
                         <emphasis level="x-strong">text 8</emph>
                         text 9
                     </cmd>
-                    <cmd name="cmd2">
+                    <cmd name="cmd2" type = "none">
                         <emphasis>text 10</emph>
                         <emphasis level="strong">text 11</emph>
                     </cmd>
@@ -263,17 +263,17 @@ class testConversionDB(unittest.TestCase):
     def testCmdInEnv(self):
         db = ConversionDB(r'''
         <latex>
-            <cmd name="cmd1">
+            <cmd name="cmd1" type = "none">
                 text1
             </cmd>
-            <env name="env">
+            <env name="env" type = "none">
                 <says>
                 </says>
                 <defines>
-                    <cmd name="cmd1">
+                    <cmd name="cmd1" type = "none">
                         text2
                     </cmd>
-                    <cmd name="cmd2">
+                    <cmd name="cmd2" type = "none">
                         text3
                     </cmd>
                 </defines>
