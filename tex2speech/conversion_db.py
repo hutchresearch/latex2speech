@@ -15,49 +15,49 @@ class ConversionDB:
     def __init__(self, xmlFile):
         self.db = ET.fromstring(xmlFile)
 
-    def _getSSMLElement(self, xmlNode):
+    def _getSSMLElement(self, xml_node):
         element = None
-        if xmlNode.tag == 'break':
+        if xml_node.tag == 'break':
             args = {}
-            if 'time' in xmlNode.attrib:
-                args['time'] = xmlNode.attrib['time']
-            if 'strength' in xmlNode.attrib:
-                args['strength'] = xmlNode.attrib['strength']
+            if 'time' in xml_node.attrib:
+                args['time'] = xml_node.attrib['time']
+            if 'strength' in xml_node.attrib:
+                args['strength'] = xml_node.attrib['strength']
             element = BreakElement(**args)
-        elif xmlNode.tag == 'emphasis':
+        elif xml_node.tag == 'emphasis':
             args = {}
-            if 'level' in xmlNode.attrib:
-                args['level'] = xmlNode.attrib['level']
+            if 'level' in xml_node.attrib:
+                args['level'] = xml_node.attrib['level']
             element = EmphasisElement(**args)
-        elif xmlNode.tag == 'prosody':
+        elif xml_node.tag == 'prosody':
             args = {}
-            if 'volume' in xmlNode.attrib:
-                args['volume'] = xmlNode.attrib['volume']
-            if 'rate' in xmlNode.attrib:
-                args['rate'] = xmlNode.attrib['rate']
-            if 'pitch' in xmlNode.attrib:
-                args['pitch'] = xmlNode.attrib['pitch']
-            if 'duration' in xmlNode.attrib:
-                args['duration'] = xmlNode.attrib['duration']
+            if 'volume' in xml_node.attrib:
+                args['volume'] = xml_node.attrib['volume']
+            if 'rate' in xml_node.attrib:
+                args['rate'] = xml_node.attrib['rate']
+            if 'pitch' in xml_node.attrib:
+                args['pitch'] = xml_node.attrib['pitch']
+            if 'duration' in xml_node.attrib:
+                args['duration'] = xml_node.attrib['duration']
             element = ProsodyElement(**args)
-        elif xmlNode.tag == 'p':
+        elif xml_node.tag == 'p':
             element = ParagraphElement()
-        elif xmlNode.tag == 'arg':
-            if 'argType' in xmlNode.attrib:
-                element = ArgElement(xmlNode.attrib['num'], argType=xmlNode.attrib['argType'])
+        elif xml_node.tag == 'arg':
+            if 'argType' in xml_node.attrib:
+                element = ArgElement(xml_node.attrib['num'], argType=xml_node.attrib['argType'])
             else:
-                element = ArgElement(xmlNode.attrib['num'])
-        elif xmlNode.tag == 'content':
+                element = ArgElement(xml_node.attrib['num'])
+        elif xml_node.tag == 'content':
             element = ContentElement()
         else:
-            raise RuntimeError('Unhandled tag "' + xmlNode.tag + '"encountered in conversion database')
+            raise RuntimeError('Unhandled tag "' + xml_node.tag + '"encountered in conversion database')
 
         if element:
-            if xmlNode.text and not xmlNode.text.isspace():
-                element.setHeadText(xmlNode.text.strip(" \t\n\r"))
-            if xmlNode.tail and not xmlNode.tail.isspace():
-                element.setTailText(xmlNode.tail.strip(" \t\n\r"))
-            for child in xmlNode.findall('./*'):
+            if xml_node.text and not xml_node.text.isspace():
+                element.setHeadText(xml_node.text.strip(" \t\n\r"))
+            if xml_node.tail and not xml_node.tail.isspace():
+                element.setTailText(xml_node.tail.strip(" \t\n\r"))
+            for child in xml_node.findall('./*'):
                 element.insertChild(-1, self._getSSMLElement(child))
 
         return element
@@ -74,16 +74,16 @@ class ConversionDB:
                 break
         return conversion
 
-    def getEnvConversion(self, name: str) -> list:
+    def getenv_conversion(self, name: str) -> list:
         conversion = None
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
-                envConv = env.find('says')
-                if envConv is not None:
+                env_conv = env.find('says')
+                if env_conv is not None:
                     conversion = []
-                    if envConv.text and not envConv.text.isspace():
-                        conversion.append(TextElement(envConv.text.strip(" \t\n\r")))
-                    for elem in envConv.findall('./*'):
+                    if env_conv.text and not env_conv.text.isspace():
+                        conversion.append(TextElement(env_conv.text.strip(" \t\n\r")))
+                    for elem in env_conv.findall('./*'):
                         conversion.append(self._getSSMLElement(elem))
                 break
         return conversion
