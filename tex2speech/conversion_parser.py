@@ -113,7 +113,6 @@ class ConversionParser:
                         arg = self._getArg(env_node, elem)
                         if arg:
                             parse_target = arg.contents
-                            new_ind = self._parseNodes(arg.contents, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
                     elif isinstance(elem, ContentElement):
                         _, parse_target = seperateContents(env_node)
                     elif isinstance(elem, TextElement):
