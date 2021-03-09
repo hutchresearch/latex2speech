@@ -75,11 +75,11 @@ def tts_of_file(file, contents):
             Text = contents)
 
         # Output the task ID
-        taskId = audio['SynthesisTask']['TaskId']
+        task_id = audio['SynthesisTask']['TaskId']
 
         # Get audio link from bucket
-        objectName = file + "." + taskId + ".mp3"
-        audio_link = generate_presigned_url(objectName)
+        object_name = file + "." + task_id + ".mp3"
+        audio_link = generate_presigned_url(object_name)
 
         return audio_link
 
@@ -96,32 +96,32 @@ def get_text_file(file):
     return text
 
 # Parsing .bib files helper
-def parse_bib_file(thePath):
-    fileObj = open(thePath, "r")
-    contents = fileObj.read()
-    returnObj = ""
+def parse_bib_file(the_path):
+    file_obj = open(the_path, "r")
+    contents = file_obj.read()
+    return_obj = ""
     
     parser = bibtex.Parser()
     bib_data = parser.parse_string(contents)
-    returnObj += "<emphasis level='strong'> References Section </emphasis> <break time='1s'/> "
+    return_obj += "<emphasis level='strong'> References Section </emphasis> <break time='1s'/> "
     
     # Looks at bib contents
     for entry in bib_data.entries.values():
-        returnObj += " Bibliography item is read as: <break time='0.5s'/>" + entry.key + ". Type: " + entry.type + "<break time='0.5s'/> "
+        return_obj += " Bibliography item is read as: <break time='0.5s'/>" + entry.key + ". Type: " + entry.type + "<break time='0.5s'/> "
 
         # Gets authors
         for en in entry.persons.keys():
-            returnObj += " Authors: "
+            return_obj += " Authors: "
             for author in bib_data.entries[entry.key].persons[en]:
-                returnObj += str(author) + ", <break time='0.3s'/> "
+                return_obj += str(author) + ", <break time='0.3s'/> "
 
         # Gets all other key - value pairs and reads them out
         for en in entry.fields.keys():
-            returnObj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
+            return_obj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
 
-    os.remove(thePath)
+    os.remove(the_path)
 
-    return returnObj
+    return return_obj
 
 # Helper method used if found a corresponding input file
 def found_input_file(line, outfile, i, input):
@@ -132,17 +132,17 @@ def found_input_file(line, outfile, i, input):
         tmp = tmp + line[i]                          
 
         # Checks if input/include keyword was found in list of fiels
-        for inputFile in input:
+        for input_file in input:
             append = tmp
 
             if(tmp[len(tmp)-3:len(tmp)] != ".tex"):
                 append = tmp + ".tex"
 
-            if(append == inputFile):
-                with open(path + "/" + inputFile,'r') as tmpInput:
-                    outfile.write(tmpInput.read().replace("%", "Begin Comment "))
+            if(append == input_file):
+                with open(path + "/" + input_file,'r') as tmp_input:
+                    outfile.write(tmp_input.read().replace("%", "Begin Comment "))
                     contained = True
-                    tmpInput.close()
+                    tmp_input.close()
         i = i + 1
 
     if(contained == False):
@@ -151,7 +151,7 @@ def found_input_file(line, outfile, i, input):
 # Helper method used if found a corresponding bib file
 # Will return inner file which records corresponding bib file,
 # master file and if there was a bib or not
-def found_bibliography_file(line, outfile, i, bib, innerFile):
+def found_bibliography_file(line, outfile, i, bib, inner_file):
     tmp = ""  
     contained = False
     
@@ -159,26 +159,26 @@ def found_bibliography_file(line, outfile, i, bib, innerFile):
         tmp = tmp + line[i]                          
 
         # Checks if bibliography keyword was found in list of fiels
-        for bibFile in bib:
+        for bib_file in bib:
             append = tmp
 
             if(tmp[len(tmp)-3:len(tmp)] != ".bib"):
                 append = tmp + ".bib"
 
-            if(append == bibFile):
-                thePath = path + "/" + bibFile
+            if(append == bib_file):
+                the_path = path + "/" + bib_file
                 # outfile.write(parse_bib_file(bibFile, thePath))
-                innerFile.append(str(thePath))
+                inner_file.append(str(the_path))
                 contained = True
 
         i = i + 1
 
     if(contained == False):
         outfile.write(tmp + " Bibliography file not found \n")
-        innerFile.append("")
+        inner_file.append("")
 
-    innerFile.append(str(contained))
-    return innerFile
+    inner_file.append(str(contained))
+    return inner_file
 
 # Function to check if the command is equal
 def check(tmp, cmd):
@@ -198,7 +198,7 @@ def rid_of_back_backslash(line, i, potential):
     if i < len(line) and potential == True and line[i] == '\\' and line[i + 1] == ' ':
         i = i + 1
         potential = False
-        
+
     return potential
 
 # Creates a list of master files to hold the uploaded main 
@@ -207,21 +207,21 @@ def rid_of_back_backslash(line, i, potential):
 #
 # returns list of master files
 def create_master_files(main, input, bib):
-    masterFiles = []
+    master_files = []
     add = 0
     potential = False
 
     # For every uploaded main file
-    for mainFile in main:
+    for main_file in main:
         add = add+1
 
         # Create new master file
         with open("final" + str(add) + ".tex", 'w') as outfile:
-            innerFile = []
-            innerFile.append("final" + str(add) + ".tex")
-            with open(path + "/" + mainFile, 'r') as infile:
+            inner_file = []
+            inner_file.append("final" + str(add) + ".tex")
+            with open(path + "/" + main_file, 'r') as in_file:
                 # For each line, add to the master file
-                for line in infile:
+                for line in in_file:
                     tmp = ""
 
                     for i in range(len(line)):
@@ -246,18 +246,18 @@ def create_master_files(main, input, bib):
 
                         # Finds bibliography file
                         if (tmp == "\\bibliography{"):
-                            innerFile = found_bibliography_file(line, outfile, i, bib, innerFile)
+                            inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
                         
-            masterFiles.append(innerFile)
+            master_files.append(inner_file)
 
         outfile.close()
-    return masterFiles
+    return master_files
 
 # Pass off to parser
 def start_conversion(contents):
     # Create database/parser
-    dbSource = open('static/pronunciation.xml')
-    db = ConversionDB(dbSource.read())
+    db_source = open('static/pronunciation.xml')
+    db = ConversionDB(db_source.read())
     parser = ConversionParser(db)
 
     parsed_contents = parser.parse(contents)
@@ -271,16 +271,16 @@ def start_polly(main, input, bibContents):
     # if "/begin{document}" in str(file) and "/end{document}" in str(file):
     #     is main file
     links = []
-    masterFiles = []
-    masterFiles = create_master_files(main, input, bibContents)
+    master_files = []
+    master_files = create_master_files(main, input, bibContents)
 
-    for master in masterFiles:
+    for master in master_files:
         # Expand Labels then open document
         tex2speech.expand_labels.expandDocNewLabels(master[0])
-        texFile = open(master[0], "r")
+        tex_file = open(master[0], "r")
 
         # Call parsing here
-        parsed_contents = start_conversion(texFile.read())
+        parsed_contents = start_conversion(tex_file.read())
 
         if (len(master) > 1 and master[2] == True):
             print(master)
