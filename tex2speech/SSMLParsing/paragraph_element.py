@@ -16,6 +16,12 @@ class ParagraphElement(SSMLElementNode):
             elem.tail = self.getTailText()
         return elem
 
+    def _getHeadTag(self):
+        return "<p>"
+
+    def _getTailTag(self):
+        return "<p/>"
+
     def __str__(self):
         a = "BreakElement"
         if self.getHeadText() != "":

@@ -196,6 +196,22 @@ class ProsodyElement(SSMLElementNode):
 
         return elem
 
+    def _getHeadTag(self):
+        string = "<prosody"
+        if self.volume:
+            string += " volume=" + str(self.volume)
+        if self.rate:
+            string += " rate=" + str(self.rate)
+        if self.pitch:
+            string += " pitch=" + str(self.pitch)
+        if self.duration:
+            string += " duration=" + str(self.duration)
+        string += ">"
+        return string
+
+    def _getTailTag(self):
+        return "<prosody/>"
+
     def __str__(self):
         a = "ProsodyElement"
         if self.getHeadText() != "":

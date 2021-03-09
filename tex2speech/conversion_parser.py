@@ -133,6 +133,7 @@ class ConversionParser:
                         if definition:
                             if 'mathmode' in definition and definition['mathmode'] == True:
                                 output = run_sympy(self._envContentsToString(envNode))
+                                print("MATHMODE OUTPUT: " + output)
                                 if leftChild:
                                     leftChild.appendTailText(str(output))
                                 else:
@@ -282,6 +283,6 @@ class ConversionParser:
         if isinstance(doc, str):
             doc = TexSoup.TexSoup(doc)
         self._parseNodes(doc.contents, tree)
-        xmlTree = tree.getXMLTree()
 
-        return str(xmlTree)
+        # print("Here!!!! " + tree.getString())
+        return tree.getString()

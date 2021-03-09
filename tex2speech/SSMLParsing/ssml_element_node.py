@@ -33,21 +33,17 @@ class SSMLElementNode(SSMLElement):
         if len(self.children) > 0:
             self._update()
 
-    def _getXMLElement(self):
+    def _getHeadTag(self):
         raise NotImplementedError()
 
-    def getXMLTree(self):
-        elem = self._getXMLElement()
-        for child in self.children:
-            elem.append(child.getXMLTree())
-        return elem
+    def _getTailTag(self):
+        raise NotImplementedError()
 
-    def __str__(self):
-        out = ""
+    def getString(self):
+        string = self._getHeadTag()
+        string += " " + self.getHeadText()
         for child in self.children:
-            out += child.__str__()
-        temp = copy.deepcopy(self)
-        temp.appendHeadText(out)
-        return ET.tostring(temp.getXMLTree())
-        
-        
+            string += " " + child.getString()
+        string += " " + self._getTailTag()
+        string += " " + self.getTailText()
+        return string

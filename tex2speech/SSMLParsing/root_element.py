@@ -17,6 +17,13 @@ class RootElement(SSMLElementNode):
 
         return elem
 
+    
+    def _getHeadTag(self):
+        return "<speak>"
+
+    def _getTailTag(self):
+        return "<speak/>"
+
     def __str__(self):
         a = "RootElement"
         if self.getHeadText() != "":
