@@ -17,9 +17,7 @@ class ConversionDB:
 
     def _getSSMLElement(self, xmlNode):
         element = None
-        print("  XMLNODE " + str(xmlNode))
         if xmlNode.tag == 'break':
-            print("  YES BREAK ")
             args = {}
             if 'time' in xmlNode.attrib:
                 args['time'] = xmlNode.attrib['time']
@@ -55,7 +53,6 @@ class ConversionDB:
             raise RuntimeError('Unhandled tag "' + xmlNode.tag + '"encountered in conversion database')
 
         if element:
-            print("  END ELEMENT " + str(element.getHeadText))
             if xmlNode.text and not xmlNode.text.isspace():
                 element.setHeadText(xmlNode.text.strip(" \t\n\r"))
             if xmlNode.tail and not xmlNode.tail.isspace():
@@ -69,7 +66,6 @@ class ConversionDB:
         conversion = None
         for cmd in self.db.findall('./cmd'):
             if cmd.attrib['name'] == name:
-                print("COMMAND " + name)
                 conversion = []
                 if cmd.text and not cmd.text.isspace():
                     conversion.append(TextElement(cmd.text.strip(" \t\n\r")))
@@ -82,7 +78,6 @@ class ConversionDB:
         conversion = None
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
-                print("ENVIRONMENT " + name)
                 envConv = env.find('says')
                 if envConv is not None:
                     conversion = []

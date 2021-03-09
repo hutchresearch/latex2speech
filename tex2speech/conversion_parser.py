@@ -283,4 +283,4 @@ class ConversionParser:
             doc = TexSoup.TexSoup(doc)
         self._parseNodes(doc.contents, tree)
         xmlTree = tree.getXMLTree()
-        return ET.tostring(xmlTree, encoding="unicode", method = "text")
+        return ET.tostring(xmlTree, encoding="unicode")
