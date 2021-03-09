@@ -20,7 +20,9 @@ class BreakElement(SSMLElementNode):
         if self.getHeadText() != '':
             elem.text = self.getHeadText()
         if self.getTailText() != '':
+            print("HERE? " + str(self.getTailText()))
             elem.tail = self.getTailText()
+            print("TESTING AGAIN " + str(elem.tail))
         return elem
 
     def getTime(self):
