@@ -566,14 +566,14 @@ def run_sympy(mathmode):
         sympyObj = process_sympy(cleanedMathmode)
         # print("OBJ " + str(sympyObj))
         # print_tree(sympyObj, assumptions = False)
-        ssmlObj = convert_sympy_ssml((sympyObj), Quantity_Modes.PARENTHESES_NUMBERED)
+        ssmlObj = convert_sympy_ssml((sympyObj), QuantityModes.PARENTHESES_NUMBERED)
         # print("SSML " + ssmlObj)
         return ssmlObj
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
         return " math mode equation did not render "
 
 def test_Walker(obj):
-    ssmlObj = convert_sympy_ssml(obj, Quantity_Modes.PARENTHESES_NUMBERED)
+    ssmlObj = convert_sympy_ssml(obj, QuantityModes.PARENTHESES_NUMBERED)
 
 if __name__ == "__main__":
     # run_sympy(r".3 + . \[2 + 5\]")
