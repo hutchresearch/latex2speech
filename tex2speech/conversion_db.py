@@ -92,30 +92,30 @@ class ConversionDB:
         definition = None
         for env in self.db.findall('./env'):
             if env.attrib['name'] == name:
-                envDef = env.find('defines')
-                envType = env.attrib['type']
+                env_def = env.find('defines')
+                env_type = env.attrib['type']
 
                 definition = {}
                 definition['readTable'] = False
                 definition['mathmode'] = False
 
-                if str(envType) == 'mathmode':
+                if str(env_type) == 'mathmode':
                     definition['mathmode'] = True
 
-                if str(envType) == 'readTable':
+                if str(env_type) == 'readTable':
                     definition['readTable'] = True
 
-                if envDef:
+                if env_def:
                     definition = {}
                     
-                    for cmd in envDef.findall('cmd'):
-                        cmdDef = []
+                    for cmd in env_def.findall('cmd'):
+                        cmd_def = []
                         if cmd.text and not cmd.text.isspace():
-                            cmdDef.append(TextElement(cmd.text.strip(" \t\n\r")))
+                            cmd_def.append(TextElement(cmd.text.strip(" \t\n\r")))
                         for elem in cmd.findall('./*'):
-                            cmdDef.append(self._getSSMLElement(elem))
+                            cmd_def.append(self._getSSMLElement(elem))
 
-                        definition[cmd.attrib['name']] = cmdDef
+                        definition[cmd.attrib['name']] = cmd_def
                 break
 
         return definition
