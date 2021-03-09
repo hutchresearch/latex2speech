@@ -55,6 +55,7 @@ class ConversionDB:
             raise RuntimeError('Unhandled tag "' + xmlNode.tag + '"encountered in conversion database')
 
         if element:
+            print("  END ELEMENT " + str(element.getHeadText))
             if xmlNode.text and not xmlNode.text.isspace():
                 element.setHeadText(xmlNode.text.strip(" \t\n\r"))
             if xmlNode.tail and not xmlNode.tail.isspace():
