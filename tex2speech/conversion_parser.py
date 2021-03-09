@@ -87,9 +87,6 @@ class ConversionParser:
         if num == argElem.getArgNum():
             arg = node.args[i]
 
-        if arg == None:
-            print("Node: " + str(node))
-
         return arg
 
     def _envContentsToString(self, env):
@@ -113,7 +110,10 @@ class ConversionParser:
                     newInd = i
                     parseTarget = None
                     if isinstance(elem, ArgElement):
-                        parseTarget = self._getArg(envNode, elem).contents
+                        arg = self._getArg(envNode, elem)
+                        if arg:
+                            parseTarget = arg.contents
+                            newInd = self._parseNodes(arg.contents, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
                     elif isinstance(elem, ContentElement):
                         _, parseTarget = seperateContents(envNode)
                     elif isinstance(elem, TextElement):
@@ -185,8 +185,10 @@ class ConversionParser:
                     nextOffset = -1
                     newInd = i
                     if isinstance(elem, ArgElement):
-                        contents = self._getArg(cmdNode, elem).contents
-                        newInd = self._parseNodes(contents, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
+                        arg = self._getArg(cmdNode, elem)
+                        if arg:
+                            parseTarget = arg.contents
+                            newInd = self._parseNodes(arg.contents, elemListParent, ssmlChildren=elemList, insertIndex=i, leftChild=leftChild)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
                         if leftChild:
