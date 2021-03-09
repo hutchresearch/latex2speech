@@ -17,7 +17,9 @@ class ConversionDB:
 
     def _getSSMLElement(self, xmlNode):
         element = None
+        print("  XMLNODE " + str(xmlNode))
         if xmlNode.tag == 'break':
+            print("  YES BREAK ")
             args = {}
             if 'time' in xmlNode.attrib:
                 args['time'] = xmlNode.attrib['time']
@@ -59,6 +61,7 @@ class ConversionDB:
                 element.setTailText(xmlNode.tail.strip(" \t\n\r"))
             for child in xmlNode.findall('./*'):
                 element.insertChild(-1, self._getSSMLElement(child))
+
         return element
 
     def getCmdConversion(self, name: str) -> list:
