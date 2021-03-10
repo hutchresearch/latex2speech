@@ -35,11 +35,11 @@ class BreakElement(SSMLElementNode):
             string += ' time="' + str(self.time) + '"'
         if self.strength:
             string += ' strength="' + str(self.strength + '"')
-        string += '>'
+        string += '/>'
         return string
 
     def _getTailTag(self):
-        return '<break/>'
+        return ''
 
     def __str__(self):
         a = 'BreakElement'

@@ -210,7 +210,7 @@ class ProsodyElement(SSMLElementNode):
         return string
 
     def _getTailTag(self):
-        return "<prosody/>"
+        return "</prosody>"
 
     def __str__(self):
         a = "ProsodyElement"

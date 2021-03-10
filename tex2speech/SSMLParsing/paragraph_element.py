@@ -20,7 +20,7 @@ class ParagraphElement(SSMLElementNode):
         return "<p>"
 
     def _getTailTag(self):
-        return "<p/>"
+        return "</p>"
 
     def __str__(self):
         a = "BreakElement"

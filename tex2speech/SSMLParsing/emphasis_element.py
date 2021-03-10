@@ -39,7 +39,7 @@ class EmphasisElement(SSMLElementNode):
         return string
 
     def _getTailTag(self):
-        return "<emphasis/>"
+        return "</emphasis>"
 
     def __str__(self):
         a = "EmphasisElement"
