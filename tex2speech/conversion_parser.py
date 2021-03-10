@@ -13,7 +13,7 @@ from SSMLParsing.ssml_element_node import SSMLElementNode
 from SSMLParsing.ssml_element import SSMLElement
 from SSMLParsing.text_element import TextElement
 
-from sympytossml import convert_sympy_ssml, Quantity_Modes
+from sympytossml import convert_sympy_ssml, QuantityModes
 from tex_soup_utils import exprTest, seperateContents
 from tex_to_sympy import run_sympy
 
