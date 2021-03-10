@@ -22,7 +22,7 @@ class RootElement(SSMLElementNode):
         return "<speak>"
 
     def _getTailTag(self):
-        return "<speak/>"
+        return "</speak>"
 
     def __str__(self):
         a = "RootElement"
