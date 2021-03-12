@@ -71,7 +71,6 @@ def replace_references(contents, my_hash):
     # Traverse doc file, replacing them, by looking into hashtable
     myDoc = TexSoup.TexSoup(str(contents))
     for name in my_hash:
-        # print("Syst " + name)
         if (my_hash[name][3][0:8] == "equation"):
             old = "Eq.~(\\ref{" + name + "})"
             new = "Equation " + my_hash[name][0]
@@ -80,8 +79,6 @@ def replace_references(contents, my_hash):
             new = my_hash[name][0]
 
         contents = contents.replace(old, new)
-
-    print(contents)
     return contents
 
 def expand_doc_new_labels(doc):
@@ -100,8 +97,10 @@ def expand_doc_new_labels(doc):
         myHash = aux_file_hash_table(auxFile)
 
         # Repalce all references to correct for figures and equations
-        doc = open(doc, "r")
-        replace_references(doc.read(), myHash)
+        doc = open(doc, "r+")
+        contents = replace_references(doc.read(), myHash)
+        doc.truncate(0)
+        doc.write(contents)
 
         # Delete .pdf, .out, .log, and .aux file
         if path.exists(split_string[0] + ".log"):

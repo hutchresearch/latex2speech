@@ -276,7 +276,7 @@ def start_polly(main, input, bib_contents):
 
     for master in master_files:
         # Expand Labels then open document
-        # tex2speech.expand_labels.expand_doc_new_labels(master[0])
+        tex2speech.expand_labels.expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
 
         # Call parsing here
