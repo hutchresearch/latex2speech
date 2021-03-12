@@ -116,18 +116,33 @@
     </env>
 
     <env name="eqnarray" type="mathmode">
+        <says>
+            <content/>
+        </says>
     </env>
 
     <env name="$" type="mathmode">
+        <says>
+            <content/>
+        </says>
     </env>
 
     <env name="$$" type="mathmode">
+        <says>
+            <content/>
+        </says>
     </env>
 
     <env name="displaymath" type="mathmode"> <!-- Also alias for \[...\] in TexSoup -->
+        <says>
+            <content/>
+        </says>
     </env>
 
     <env name="math" type="mathmode"> <!-- Also alias for \(...\) in TexSoup-->
+        <says>
+            <content/>
+        </says>
     </env>
 
     <env name="itemize" type = "none">
