@@ -10,7 +10,7 @@ class TestTables(unittest.TestCase):
         # doc1 = doc1.replace("'", '"')
         # doc2 = doc2.replace("'", '"')
         print("\n\n" + doc1 + "\n" + doc2)
-        return str(doc1) == str(doc2)
+        return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
 
     '''Unit test for basic table elements'''
     def testing_basic_tables(self):
@@ -21,7 +21,7 @@ class TestTables(unittest.TestCase):
                "\\end{tabular}")
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
-        self.assertTrue(self._docsEqual(expand, r"Table Contents:New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value: d  , Column 2, Value:  e  , Column 3, Value:  f"))
+        self.assertTrue(self._docsEqual(expand, r'<speak> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value: d  , Column 2, Value:  e  , Column 3, Value:  f <break time="40ms"/>    </speak>'))
 
         # Basic table with \hline command
         doc = (r"\begin{center}"+
@@ -66,7 +66,7 @@ class TestTables(unittest.TestCase):
                 "\\end{center}")
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
-        self.assertTrue(self._docsEqual(expand, r"Table Contents:New Row:  , Column 1, Value: cell1 dummy text dummy text dummy text , Column 2, Value:  cell2  , Column 3, Value:  cell3  New Row:  , Column 1, Value:    New Row:  , Column 1, Value: cell1 dummy text dummy text dummy text  , Column 2, Value:  cell5  , Column 3, Value:  cell6  New Row:  , Column 1, Value:    New Row:  , Column 1, Value: cell7  , Column 2, Value:  cell8  , Column 3, Value:  cell9"))
+        self.assertTrue(self._docsEqual(expand, r'<speak>  <p> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: cell1 dummy text dummy text dummy text , Column 2, Value:  cell2  , Column 3, Value:  cell3  New Row:  , Column 1, Value:    New Row:  , Column 1, Value: cell1 dummy text dummy text dummy text  , Column 2, Value:  cell5  , Column 3, Value:  cell6  New Row:  , Column 1, Value:    New Row:  , Column 1, Value: cell7  , Column 2, Value:  cell8  , Column 3, Value:  cell9 <break time="40ms"/>    </p>  </speak>'))
 
         # This table uses tabularx and a bunch of random stuff, testing to see if this gets parsed/passed
 # [ERROR] -> Doesn't render tabularx
@@ -181,7 +181,7 @@ class TestTables(unittest.TestCase):
             r"\end{table}")
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
-        self.assertTrue(self._docsEqual(expand, r"Begin Table:Table Contents:New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value:  d  , Column 2, Value:  e  , Column 3, Value:  fCaption:Table to test captions and labels"))  
+        self.assertTrue(self._docsEqual(expand, r'<speak> Begin Table: <break time="0.3s"/>   Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value:  d  , Column 2, Value:  e  , Column 3, Value:  f <break time="40ms"/>   Caption: <break time="0.3s"/>   Table to test captions and labels <break time="0.5s"/>    <break time="0.3s"/>    </speak>'))  
 
         # Testing caption at top
         doc = (r"\begin{table}[h!]"+
