@@ -35,7 +35,7 @@ class TestTables(unittest.TestCase):
                 "\\end{center}\n")
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
-        self.assertTrue(self._docsEqual(expand, r"Table Contents:New Row:  , Column 1, Value: oranges  , Column 2, Value:  apples  , Column 3, Value:  pears  New Row:  , Column 1, Value:  red  , Column 2, Value:  green  , Column 3, Value:  blue  New Row:  , Column 1, Value: lettuce  , Column 2, Value:  carrot  , Column 3, Value:  brocoli"))
+        self.assertTrue(self._docsEqual(expand, r'<speak>  <p> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: oranges  , Column 2, Value:  apples  , Column 3, Value:  pears  New Row:  , Column 1, Value:  red  , Column 2, Value:  green  , Column 3, Value:  blue  New Row:  , Column 1, Value: lettuce  , Column 2, Value:  carrot  , Column 3, Value:  brocoli <break time="40ms"/>    </p>  </speak>'))
 
         # Basic table with \hline command 2
         doc = ("\\begin{center}\n"+
@@ -43,13 +43,13 @@ class TestTables(unittest.TestCase):
                         "\\hline \n"+
                         "yes & no & maybe \n "+
                         "so & testing & more in one cell \n "+
-                        "this has a lot of words in it & too many words for the table & i can't take it any longer! \n "+
+                        "this has a lot of words in it & too many words for the table & i cant take it any longer! \n "+
                         "\\hline \n"+
                     "\\end{tabular} \n"+
                 "\\end{center}")
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
-        self.assertTrue(self._docsEqual(expand, r"Table Contents:New Row:  , Column 1, Value: yes  , Column 2, Value:  no  , Column 3, Value:  maybe  New Row:  , Column 1, Value:  so  , Column 2, Value:  testing  , Column 3, Value:  more in one cell  New Row:  , Column 1, Value:  this has a lot of words in it  , Column 2, Value:  too many words for the table  , Column 3, Value:  i can't take it any longer!"))
+        self.assertTrue(self._docsEqual(expand, r'<speak>  <p> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: yes  , Column 2, Value:  no  , Column 3, Value:  maybe  New Row:  , Column 1, Value:  so  , Column 2, Value:  testing  , Column 3, Value:  more in one cell  New Row:  , Column 1, Value:  this has a lot of words in it  , Column 2, Value:  too many words for the table  , Column 3, Value:  i cant take it any longer! <break time="40ms"/>    </p>  </speak>'))
 
     def testing_tables_with_extra_commands(self):
         # Checking to see if the extra commands get parsed
@@ -197,4 +197,4 @@ class TestTables(unittest.TestCase):
                 r"\end{document}")
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
-        self.assertTrue(self._docsEqual(expand, r"Begin Table:Caption:Your first table.Table Contents:New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value:  d  , Column 2, Value:  e  , Column 3, Value:  f"))  
+        self.assertTrue(self._docsEqual(expand, r'<speak> Begin Table: <break time="0.3s"/>    <p> Caption: <break time="0.3s"/>   Your first table. <break time="0.5s"/>   Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value:  d  , Column 2, Value:  e  , Column 3, Value:  f <break time="40ms"/>    </p>  <break time="0.3s"/>    </speak>'))  
