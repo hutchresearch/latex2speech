@@ -73,7 +73,7 @@ def tts_of_file(file, contents):
             OutputFormat = "mp3",
             TextType = "ssml",
             Text = contents)
-
+        print("--------TESTING WHATS IN THIS STUFF ---------------")
         # Output the task ID
         task_id = audio['SynthesisTask']['TaskId']
 
@@ -83,7 +83,7 @@ def tts_of_file(file, contents):
 
         return audio_link
 
-    except (BotoCoreError, ClientError) as error:
+    except (BotoCoreError, ClientError, Exception) as error:
         # Error and exit
         print(error)
         sys.exit(-1)
@@ -289,8 +289,9 @@ def start_polly(main, input, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        audio_link = tts_of_file(master[0], parsed_contents)
-        # audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
+        # audio_link = tts_of_file(master[0], parsed_contents)
+        # print("--------YO HELLLOOOOOOOOO ALAKJFLSADKJF -------")
+        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
         links.append(audio_link)
 
     return links
