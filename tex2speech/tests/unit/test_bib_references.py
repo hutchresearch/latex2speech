@@ -129,7 +129,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, r"Three items are cited: The  LaTeX book Cited in reference as: latexcompanion, the Einstein journal paper Cited in reference as: einstein, and the Donald Knuth's website Cited in reference as: knuthwebsite. The  LaTeXCited in reference as: latexcompanion,knuthwebsite."))
+        self.assertTrue(self._docsEqual(expand, r"<speak> Three items are cited:  <emphasis level='strong'> The  LaTeX </emphasis>  book  <emphasis level='reduced'> Cited in reference as: latexcompanion <break time='0.3s'/>    </emphasis> , the Einstein journal paper  <emphasis level='reduced'> Cited in reference as: einstein <break time='0.3s'/>    </emphasis> , and the Donald Knuth's website  <emphasis level='reduced'> Cited in reference as: knuthwebsite <break time='0.3s'/>    </emphasis> . The  LaTeX <emphasis level='reduced'> Cited in reference as: latexcompanion,knuthwebsite <break time='0.3s'/>    </emphasis> .  </speak>"))
 
     '''Testing embedded bibliographies function at the bottom of tex file'''
     def testing_bibliography_at_bottom(self):
@@ -143,7 +143,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, "Reference Section:Bibliography item is read as:latexcompanion Michel Goossens, Frank Mittelbach, and Alexander Samarin.The  LaTeX. Addison-Wesley, Reading, Massachusetts, 1993."))
+        self.assertTrue(self._docsEqual(expand, "<speak>  <emphasis level='strong'> Reference Section: <break time='1s'/>   Bibliography item is read as: <break time='0.5s'/>   latexcompanion Michel Goossens, Frank Mittelbach, and Alexander Samarin. <emphasis level='strong'> The  LaTeX </emphasis> . Addison-Wesley, Reading, Massachusetts, 1993. </emphasis>  </speak>"))
 
         #  Second test of bibliography output
         doc = (r"\begin{thebibliography}{9}"+
@@ -156,7 +156,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, "Reference Section:Bibliography item is read as:einstein  Albert Einstein. Zur Elektrodynamik bewegter K \" o rper. (German)  [On the electrodynamics of moving bodies] . Annalen der Physik, 322(10):891–921, 1905."))
+        self.assertTrue(self._docsEqual(expand, "<speak>  <emphasis level='strong'> Reference Section: <break time='1s'/>   Bibliography item is read as: <break time='0.5s'/>   einstein  Albert Einstein.  <emphasis level='strong'> Zur Elektrodynamik bewegter K \" o rper </emphasis> . (German)  [ <emphasis level='strong'> On the electrodynamics of moving bodies </emphasis> ] . Annalen der Physik, 322(10):891–921, 1905. </emphasis>  </speak>"))
 
         # Third test of bibliography output
         doc = (r"\begin{thebibliography}{9}"+
@@ -167,7 +167,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
 
         expand = tex2speech.aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, r"Reference Section:Bibliography item is read as:knuthwebsite  Knuth: Computers and Typesetting, \\http://www-cs-faculty.stanford.edu/ \~ uno/abcde.html"))
+        self.assertTrue(self._docsEqual(expand, r'<speak>  <emphasis level="strong"> Reference Section: <break time="1s"/>   Bibliography item is read as: <break time="0.5s"/>   knuthwebsite  Knuth: Computers and Typesetting, \\ <emphasis level="strong"> http://www-cs-faculty.stanford.edu/ \~ uno/abcde.html </emphasis>  </emphasis>  </speak>'))
 
 class TestExpandLabels(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
@@ -177,35 +177,35 @@ class TestExpandLabels(unittest.TestCase):
     def testing_hashContents(self):
         # Aux file containing single label
         doc = (r"\newlabel{strings}{{1}{1}{}{equation.0.1}{}}")
-        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        hashContents = tex2speech.expand_labels.hash_table_test(doc)
         self.assertTrue(self._docsEqual(hashContents['strings'], r"['1', '1', '', 'equation.0.1']"))
 
         # Aux file contains new labels for equations - together
         doc = (r"\newlabel{fl}{{1}{1}{}{equation.0.1}{}}" + "\n" +
             r"\newlabel{sl}{{2}{1}{}{equation.0.1}{}}")
-        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        hashContents = tex2speech.expand_labels.hash_table_test(doc)
         self.assertTrue(self._docsEqual(hashContents['fl'], r"['1', '1', '', 'equation.0.1']"))
         self.assertTrue(self._docsEqual(hashContents['sl'], r"['2', '1', '', 'equation.0.1']"))
 
         # Aux file contains new labels for a given figure
         doc = (r"\newlabel{sample}{{1}{1}{Sample figure plotting $T=300~{\rm K}$ isotherm for air when modeled as an ideal gas}{figure.1}{}}")
-        hashContents = tex2speech.expand_labels.hashTableTest(doc)
+        hashContents = tex2speech.expand_labels.hash_table_test(doc)
         self.assertTrue(self._docsEqual(hashContents['sample'], r"['1', '1', 'Sample figure plotting $T=300~\\rm K}$ isotherm for air when modeled as an ideal gas', 'figure.1']"))
 
     def testing_replace(self):
         # Testing single equation in file
         aux = (r"\newlabel{strings}{{1}{1}{}{equation.0.1}{}}")
-        hash = tex2speech.expand_labels.hashTableTest(aux)
+        hash = tex2speech.expand_labels.hash_table_test(aux)
         doc = r"Eq.~(\ref{strings}) is the first law."
-        replace = tex2speech.expand_labels.replaceReferences(doc, hash)
+        replace = tex2speech.expand_labels.replace_references(doc, hash)
         self.assertTrue(self._docsEqual(replace, r"Equation 1 is the first law."))
 
         # Testing multiple figures
         aux = (r"\newlabel{sample}{{1}{1}{Sample figure plotting $T=300~{\rm K}$ isotherm for air when modeled as an ideal gas}{figure.1}{}}")
-        hash = tex2speech.expand_labels.hashTableTest(aux)
+        hash = tex2speech.expand_labels.hash_table_test(aux)
         # print(hash['sample'])
         doc = r"Figure \ref{sample}, below, plots an isotherm for air modeled as an ideal gas."
-        replace = tex2speech.expand_labels.replaceReferences(doc, hash)
+        replace = tex2speech.expand_labels.replace_references(doc, hash)
         self.assertTrue(self._docsEqual(replace, r"Figure 1, below, plots an isotherm for air modeled as an ideal gas."))
 
 if __name__ == '__main__':
