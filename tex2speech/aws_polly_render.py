@@ -21,7 +21,7 @@ from conversion_db import ConversionDB
 from conversion_parser import ConversionParser
 
 # Creates session of user using AWS credentials
-session = Session(aws_access_key_id='AKIAZMJSOFHCTDL6AQ4M', aws_secret_access_key='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', region_name='us-east-1')
+session = Session(profile_name='default')
 
 # Creates objects of use
 polly = session.client("polly")
@@ -283,9 +283,9 @@ def start_polly(main, input, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents)
+        audio_link = tts_of_file(master[0], parsed_contents)
         # print("--------YO HELLLOOOOOOOOO ALAKJFLSADKJF -------")
-        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
+        # audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
         links.append(audio_link)
 
     return links
