@@ -3,12 +3,13 @@ from app import app
 
 import tex2speech.aws_polly_render
 
-'''Need to find better way of testing tables, this will do for now'''
+class TestSingleTables(unittest.TestCase):
+    def _docsEqual(self, doc1, doc2):
+        print("\n\n" + doc1 + "\n" + doc2)
+        return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
 
 class TestTables(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
-        # doc1 = doc1.replace("'", '"')
-        # doc2 = doc2.replace("'", '"')
         print("\n\n" + doc1 + "\n" + doc2)
         return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
 

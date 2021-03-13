@@ -266,10 +266,6 @@ def start_conversion(contents):
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(main, input, bib_contents):
-    # NOTE FOR TAI
-    # WHEN YOU DO ZIPPED FILES JUST DO 
-    # if "/begin{document}" in str(file) and "/end{document}" in str(file):
-    #     is main file
     links = []
     master_files = []
     master_files = create_master_files(main, input, bib_contents)
@@ -281,7 +277,6 @@ def start_polly(main, input, bib_contents):
 
         # Call parsing here
         parsed_contents = start_conversion(tex_file.read())
-
         if (len(master) > 1 and master[2] == True):
             print(master)
             parsed_contents += parse_bib_file(master[1])
