@@ -73,7 +73,7 @@ def tts_of_file(file, contents):
             OutputFormat = "mp3",
             TextType = "ssml",
             Text = contents)
-        print("--------TESTING WHATS IN THIS STUFF ---------------")
+
         # Output the task ID
         task_id = audio['SynthesisTask']['TaskId']
 
@@ -167,7 +167,6 @@ def found_bibliography_file(line, outfile, i, bib, inner_file):
 
             if(append == bib_file):
                 the_path = path + "/" + bib_file
-                # outfile.write(parse_bib_file(bibFile, thePath))
                 inner_file.append(str(the_path))
                 contained = True
 

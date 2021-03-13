@@ -1,16 +1,10 @@
 import unittest
 from app import app 
 
-import tex2speech.aws_polly_render
-
-class TestSingleTables(unittest.TestCase):
-    def _docsEqual(self, doc1, doc2):
-        print("\n\n" + doc1 + "\n" + doc2)
-        return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
+import tex2speech.aws_polly_render, tex2speech.conversion_parser
 
 class TestTables(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
-        print("\n\n" + doc1 + "\n" + doc2)
         return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
 
     '''Unit test for basic table elements'''

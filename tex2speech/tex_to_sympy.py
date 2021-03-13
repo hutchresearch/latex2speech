@@ -568,12 +568,3 @@ def run_sympy(mathmode):
         return ssmlObj
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
         return " math mode equation did not render "
-
-def test_Walker(obj):
-    ssmlObj = convert_sympy_ssml(obj, QuantityModes.PARENTHESES_NUMBERED)
-
-if __name__ == "__main__":
-    try:
-        run_sympy(r"C^i_j = {\textstyle \sum_k} A^i_k B^k_j")
-    except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
-        print("OH NO")
