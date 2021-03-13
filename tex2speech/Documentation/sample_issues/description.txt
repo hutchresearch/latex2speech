@@ -1,0 +1,97 @@
+File 1 - sample.tex
+	Problems: sample.tex reads output out of order and also reads the same lines multiple times in a single instance. Math equatiosn are being read multiple times (don't know if this is apart of the recurssion problem)
+	Output:
+	<speak>
+    This is a sample file in the text formatter  LaTeX .
+    I require you to use it for the following reasons:
+
+    <emphasis level="strong">  </emphasis>  Another very good and modern option is the web-based <break time="0.3s"/>   Sample figure plotting   math mode equation did not render   isotherm for air when modeled as an ideal gas. <break time="0.5s"/>   .
+    The   .tex  file must have a closing statement as
+    below.
+
+
+    <emphasis level="strong">  </emphasis>   Thermodynamics is everywhere
+    You can create a  LaTeX ~ file with any text editor (  vi ,   emacs ,   gedit ,
+    etc.).
+    To get a document, you need to run the  LaTeX ~ application
+    on the text file.  The text file must have the suffix ``  .tex ''
+    On a Linux cluster machine, this is done via the command
+
+
+    This generates three files:   file.dvi ,   file.aux ,
+    and   file.log .  The most important is   file.dvi .
+
+
+    The finished product can be previewed in the following way.
+    Execute the commands:
+
+      dvipdf file.dvi
+    This command generates   file.pdf .
+    Alternatively, you can use   TeXShop  on a Macintosh or   MiKTeX  on a Windows-based machine.  <emphasis level="strong">  </emphasis>  e.g. <break time="40ms"/>
+    Some basic instructions are given next.
+    Put your text in here.  You can be a little sloppy    about
+    spacing.  It adjusts the text to look good.
+      You can make the text smaller.  You can make the text tiny.
+    Skip a line for a new paragraph.
+    You can use italics ( ) or   bold .
+    Greek letters are a snap:  Psi ,  psi ,
+    Phi ,  phi .  Equations within text are easy---
+    A well known Maxwell thermodynamic relation is
+    <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> .
+    You can also set aside equations like so:
+      math mode equation did not render
+    Equation 1 is the first law.
+    Equation 2 is the second law.
+    Equation 3 is the third law.
+    References
+    are available.
+    If you have an postscript file, say   sample.figure.eps , in the same local directory,
+    you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\
+    I'm just testing somethng here, but here is Equation 1 is the first law..
+    =2.5in
+    Caption: <break time="40ms"/>
+    Some basic instructions are given next.
+    Put your text in here.  You can be a little sloppy    about
+    spacing.  It adjusts the text to look good.
+      You can make the text smaller.  You can make the text tiny.
+    Skip a line for a new paragraph.
+    You can use italics ( ) or   bold .
+    Greek letters are a snap:  Psi ,  psi ,
+    Phi ,  phi .  Equations within text are easy---
+    A well known Maxwell thermodynamic relation is
+    <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> .
+    You can also set aside equations like so:
+      math mode equation did not render
+    Equation 1 is the first law.
+    Equation 2 is the second law.
+    Equation 3 is the third law.
+    References
+    are available.
+    If you have an postscript file, say   sample.figure.eps , in the same local directory,
+    you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\
+    I'm just testing somethng here, but here is Equation 1 is the first law..
+    =2.5in
+    Caption: <break time="40ms"/>
+    Some basic instructions are given next.
+    Put your text in here.  You can be a little sloppy    about
+    spacing.  It adjusts the text to look good.
+      You can make the text smaller.  You can make the text tiny.
+    Skip a line for a new paragraph.
+    You can use italics ( ) or   bold .
+    Greek letters are a snap:  Psi ,  psi ,
+    Phi ,  phi .  Equations within text are easy---
+    A well known Maxwell thermodynamic relation is
+    <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> .
+    You can also set aside equations like so:
+      math mode equation did not render
+    Equation 1 is the first law.
+    Equation 2 is the second law.
+    Equation 3 is the third law.
+    References
+    are available.
+    If you have an postscript file, say   sample.figure.eps , in the same local directory,
+    you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\
+    I'm just testing somethng here, but here is Equation 1 is the first law..
+    =2.5in
+    Caption: 
+  </speak> 
