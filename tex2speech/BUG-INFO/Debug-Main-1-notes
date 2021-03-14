@@ -1,0 +1,8 @@
+at line 243: The ssml_children list passed in to level 3 of _parseNodes 
+    correspond exactly to the double Section: AND the title stuff that got pushed to
+    the bottom of the output! (pog?)
+
+at line 183: BreakElements with appendeded tail text SHOULD be what happens with 
+    the itemize environment. Apparently just the BreakElements made it to the 
+    party.
+

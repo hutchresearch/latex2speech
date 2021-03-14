@@ -96,6 +96,8 @@ This is my corollary.
    <break time="0.3s" />
 !!!RECURSION ERROR LAYER 1 END!!!
  Very Basic Environments
+!!!^^^This bugged Title happens to be the first invocation of _parseNodes !!!
+!!! after the doc.contents invocation :thinking: !!!
    <break time="0.3s" />
    By:
    <break time="0.3s" />
