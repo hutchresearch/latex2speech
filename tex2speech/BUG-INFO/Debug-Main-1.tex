@@ -1,0 +1,578 @@
+_parseNodes level 1: tex_nodes: before: [\documentclass{article}, \usepackage[utf8]{inputenc}, \usepackage{amsmath}, \title{Very Basic Environments}, \author{Connor Barlow}, \date{October 2020}, \newtheorem{thm}{Theorem}, \newtheorem{corr}{Corollary}, \begin{document}
+\maketitle
+
+\section{Lists}
+\begin{enumerate}
+    \item This is a numbered list.
+    \item The numbers should be read aloud.
+\end{enumerate}
+\begin{itemize}
+    \item This is a bullet list.
+    \item The items have no intrinsic ordering.
+\end{itemize}
+\begin{description}
+    \item[Bob] What type of list is this?
+    \item[Bill] Its for listing items that have a corresponding name!
+    \item[Bob] Neat.
+\end{description}
+\section{Simple Table}
+\par
+Here's a very ugly table to show different combinations of lines.
+\par
+\begin{tabular}{|l||cr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\hline
+7 & 8 & 9 \\
+\hline \hline
+\end{tabular}
+\section*{This Section Isn't Numbered}
+\begin{verbatim}
+\textbf{This} text is not formatted in \textit{any} way,
+\end{verbatim}
+but \textit{this} \textbf{is}! Now here's some math related things.\\
+Here's some varieties of math mode. First some line separated math modes \dots
+\[f(x)=x\]
+$$g(x)=\frac{1}{f(x)}$$
+\dots and now inline math modes, \($lim$_{x\rightarrow\infty}f(x)=\infty\) and $\int g(x)=\ln(x)$. For something a bit more sophisticated we have equations and theorems.
+\begin{equation}
+h(x)=x^2
+\end{equation}
+\begin{eqnarray}
+\text{short} &= -\frac{b+\sqrt{b^2-4ac}}{2a}\\
+\text{looooooongVariableName} &= -\frac{b-\sqrt{b^2-4ac}}{2a}
+\end{eqnarray}
+\begin{thm}
+This is my theorem.
+\end{thm}
+\begin{corr}
+This is my corollary.
+\end{corr}
+\begin{center}
+And now a couple basic formatting environments.
+\end{center}
+\begin{flushright}
+These shouldn't change too much besides documents structure.
+\end{flushright}
+\begin{flushleft}
+And their typical use won't be as contrived as this.
+\end{flushleft}
+\end{document}]
+==========================
+_parseNodes level 1: ssml_children: before: []
+==========================
+_parseNodes level 2: tex_nodes: before: ['Very Basic Environments']
+==========================
+_parseNodes level 2: ssml_children: before: [['-1 -> BreakElement']
+2, ['-1 -> BreakElement']
+2, ]
+==========================
+_parseNodes level 1: tex_nodes: after: ['Very Basic Environments']
+==========================
+_parseNodes level 1: ssml_children: after: [['-1 -> BreakElement "Very Basic Environments"']
+1, ['-1 -> BreakElement']
+1, ]
+==========================
+_parseNodes level 2: tex_nodes: before: ['Connor Barlow']
+==========================
+_parseNodes level 2: ssml_children: before: [['-1 -> BreakElement']
+2, ['-1 -> BreakElement']
+2, ]
+==========================
+_parseNodes level 1: tex_nodes: after: ['Connor Barlow']
+==========================
+_parseNodes level 1: ssml_children: after: [['-1 -> BreakElement "Connor Barlow"']
+1, ['-1 -> BreakElement']
+1, ]
+==========================
+_parseNodes level 2: tex_nodes: before: ['October 2020']
+==========================
+_parseNodes level 2: ssml_children: before: [['-1 -> BreakElement']
+2, ['-1 -> BreakElement']
+2, ]
+==========================
+_parseNodes level 1: tex_nodes: after: ['October 2020']
+==========================
+_parseNodes level 1: ssml_children: after: [['-1 -> BreakElement "October 2020"']
+1, ['-1 -> BreakElement']
+1, ]
+==========================
+_parseNodes level 2: tex_nodes: before: [\maketitle, \section{Lists}, \begin{enumerate}
+    \item This is a numbered list.
+    \item The numbers should be read aloud.
+\end{enumerate}, \begin{itemize}
+    \item This is a bullet list.
+    \item The items have no intrinsic ordering.
+\end{itemize}, \begin{description}
+    \item[Bob] What type of list is this?
+    \item[Bill] Its for listing items that have a corresponding name!
+    \item[Bob] Neat.
+\end{description}, \section{Simple Table}, \par, "\nHere's a very ugly table to show different combinations of lines.\n", \par, \begin{tabular}{|l||cr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\hline
+7 & 8 & 9 \\
+\hline \hline
+\end{tabular}, \section*{This Section Isn't Numbered}, \begin{verbatim}
+\textbf{This} text is not formatted in \textit{any} way,
+\end{verbatim}, '\nbut ', \textit{this}, \textbf{is}, "! Now here's some math related things.", '\\\\', "\nHere's some varieties of math mode. First some line separated math modes ", \dots, \[f(x)=x\], $$g(x)=\frac{1}{f(x)}$$, \dots, ' and now inline math modes, ', \($lim$_{x\rightarrow\infty}f(x)=\infty\), ' and ', $\int g(x)=\ln(x)$, '. For something a bit more sophisticated we have equations and theorems.\n', \begin{equation}
+h(x)=x^2
+\end{equation}, \begin{eqnarray}
+\text{short} &= -\frac{b+\sqrt{b^2-4ac}}{2a}\\
+\text{looooooongVariableName} &= -\frac{b-\sqrt{b^2-4ac}}{2a}
+\end{eqnarray}, \begin{thm}
+This is my theorem.
+\end{thm}, \begin{corr}
+This is my corollary.
+\end{corr}, \begin{center}
+And now a couple basic formatting environments.
+\end{center}, \begin{flushright}
+These shouldn't change too much besides documents structure.
+\end{flushright}, \begin{flushleft}
+And their typical use won't be as contrived as this.
+\end{flushleft}]
+==========================
+_parseNodes level 2: ssml_children: before: [['-1 -> BreakElement "Very Basic Environments"']
+2, ['-1 -> BreakElement "By:"']
+2, ['-1 -> BreakElement "Connor Barlow"']
+2, ['-1 -> BreakElement "Published:"']
+2, ['-1 -> BreakElement "October 2020"']
+2, ['-1 -> BreakElement']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: ['Lists']
+==========================
+_parseNodes level 3: ssml_children: before: [['-1 -> BreakElement']
+3, ['-1 -> BreakElement']
+3, ]
+==========================
+_parseNodes level 2: tex_nodes: after: ['Lists']
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> BreakElement "Lists"']
+2, ['-1 -> BreakElement']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: [\item This is a numbered list.
+    , \item The numbers should be read aloud.
+]
+==========================
+_parseNodes level 3: ssml_children: before: [['-1 -> BreakElement "Lists"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Very Basic Environments"']
+3, ['-1 -> BreakElement "By:"']
+3, ['-1 -> BreakElement "Connor Barlow"']
+3, ['-1 -> BreakElement "Published:"']
+3, ['-1 -> BreakElement "October 2020"']
+3, ['-1 -> BreakElement "Section:"']
+3, ]
+==========================
+_parseNodes level 2: tex_nodes: after: [\item This is a numbered list.
+    , \item The numbers should be read aloud.
+]
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> BreakElement "Lists"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Very Basic Environments"']
+2, ['-1 -> BreakElement "By:"']
+2, ['-1 -> BreakElement "Connor Barlow"']
+2, ['-1 -> BreakElement "Published:"']
+2, ['-1 -> BreakElement "October 2020"']
+2, ['-1 -> BreakElement "Section:"']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: [\item This is a bullet list.
+    , \item The items have no intrinsic ordering.
+]
+==========================
+_parseNodes level 3: ssml_children: before: []
+==========================
+_parseNodes level 2: tex_nodes: after: [\item This is a bullet list.
+    , \item The items have no intrinsic ordering.
+]
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> BreakElement']
+2, ['-1 -> BreakElement']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: [\item[Bob] What type of list is this?
+    , \item[Bill] Its for listing items that have a corresponding name!
+    , \item[Bob] Neat.
+]
+==========================
+_parseNodes level 3: ssml_children: before: [['-1 -> BreakElement "Lists"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Very Basic Environments"']
+3, ['-1 -> BreakElement "By:"']
+3, ['-1 -> BreakElement "Connor Barlow"']
+3, ['-1 -> BreakElement "Published:"']
+3, ['-1 -> BreakElement "October 2020"']
+3, ['-1 -> BreakElement "Section:"']
+3, ]
+==========================
+_parseNodes level 2: tex_nodes: after: [\item[Bob] What type of list is this?
+    , \item[Bill] Its for listing items that have a corresponding name!
+    , \item[Bob] Neat.
+]
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> BreakElement "Lists"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Very Basic Environments"']
+2, ['-1 -> BreakElement "By:"']
+2, ['-1 -> BreakElement "Connor Barlow"']
+2, ['-1 -> BreakElement "Published:"']
+2, ['-1 -> BreakElement "October 2020"']
+2, ['-1 -> BreakElement "Section:"']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: ['Simple Table']
+==========================
+_parseNodes level 3: ssml_children: before: [['-1 -> BreakElement']
+3, ['-1 -> BreakElement']
+3, ]
+==========================
+_parseNodes level 2: tex_nodes: after: ['Simple Table']
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> BreakElement "Simple Table"']
+2, ['-1 -> BreakElement']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: [\textbf{This}, ' text is not formatted in ', \textit{any}, ' way,\n']
+==========================
+_parseNodes level 3: ssml_children: before: [['-1 -> BreakElement "Lists"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Section:"']
+3, ['-1 -> BreakElement "Section:"']
+3, ['-1 -> BreakElement "Simple Table"']
+3, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents:"']
+3, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Very Basic Environments"']
+3, ['-1 -> BreakElement "By:"']
+3, ['-1 -> BreakElement "Connor Barlow"']
+3, ['-1 -> BreakElement "Published:"']
+3, ['-1 -> BreakElement "October 2020"']
+3, ['-1 -> BreakElement "Section:"']
+3, ]
+==========================
+_parseNodes level 4: tex_nodes: before: ['This']
+==========================
+_parseNodes level 4: ssml_children: before: []
+==========================
+_parseNodes level 3: tex_nodes: after: ['This']
+==========================
+_parseNodes level 3: ssml_children: after: []
+==========================
+_parseNodes level 4: tex_nodes: before: ['any']
+==========================
+_parseNodes level 4: ssml_children: before: []
+==========================
+_parseNodes level 3: tex_nodes: after: ['any']
+==========================
+_parseNodes level 3: ssml_children: after: []
+==========================
+_parseNodes level 2: tex_nodes: after: [\textbf{This}, ' text is not formatted in ', \textit{any}, ' way,\n']
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> "This" EmphasisElement " text is not formatted in "']
+2, ['-1 -> "any" EmphasisElement " way,\n"']
+2, ['-1 -> BreakElement "Lists"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Section:"']
+2, ['-1 -> BreakElement "Section:"']
+2, ['-1 -> BreakElement "Simple Table"']
+2, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents:"']
+2, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Very Basic Environments"']
+2, ['-1 -> BreakElement "By:"']
+2, ['-1 -> BreakElement "Connor Barlow"']
+2, ['-1 -> BreakElement "Published:"']
+2, ['-1 -> BreakElement "October 2020"']
+2, ['-1 -> BreakElement "Section:"']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: ['this']
+==========================
+_parseNodes level 3: ssml_children: before: []
+==========================
+_parseNodes level 2: tex_nodes: after: ['this']
+==========================
+_parseNodes level 2: ssml_children: after: []
+==========================
+_parseNodes level 3: tex_nodes: before: ['is']
+==========================
+_parseNodes level 3: ssml_children: before: []
+==========================
+_parseNodes level 2: tex_nodes: after: ['is']
+==========================
+_parseNodes level 2: ssml_children: after: []
+==========================
+_parseNodes level 3: tex_nodes: before: ['\nThis is my theorem.\n']
+==========================
+_parseNodes level 3: ssml_children: before: [['-1 -> "This" EmphasisElement " text is not formatted in "']
+3, ['-1 -> "any" EmphasisElement " way,\n"']
+3, ['-1 -> BreakElement "Lists"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Section:"']
+3, ['-1 -> BreakElement "Section:"']
+3, ['-1 -> BreakElement "Simple Table"']
+3, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents: \nbut "']
+3, ['-1 -> "this" EmphasisElement']
+3, ['-1 -> "is" EmphasisElement "! Now here\'s some math related things. \\\\ \nHere\'s some varieties of math mode. First some line separated math modes "']
+3, ['-1 -> BreakElement "f of x  equals x g of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>  f of x  to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>"']
+3, ['-1 -> BreakElement " and now inline math modes,   math mode equation did not render   and  <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>integral of  g of x  d x <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>log of x log of E <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> . For something a bit more sophisticated we have equations and theorems.\n the equation h of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> x to the power of 2 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  math mode equation did not render "']
+3, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Very Basic Environments"']
+3, ['-1 -> BreakElement "By:"']
+3, ['-1 -> BreakElement "Connor Barlow"']
+3, ['-1 -> BreakElement "Published:"']
+3, ['-1 -> BreakElement "October 2020"']
+3, ['-1 -> BreakElement "Section:"']
+3, ]
+==========================
+_parseNodes level 2: tex_nodes: after: ['\nThis is my theorem.\n']
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> "This" EmphasisElement " text is not formatted in "']
+2, ['-1 -> "any" EmphasisElement " way,\n"']
+2, ['-1 -> BreakElement "Lists"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Section:"']
+2, ['-1 -> BreakElement "Section:"']
+2, ['-1 -> BreakElement "Simple Table"']
+2, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents: \nbut "']
+2, ['-1 -> "this" EmphasisElement']
+2, ['-1 -> "is" EmphasisElement "! Now here\'s some math related things. \\\\ \nHere\'s some varieties of math mode. First some line separated math modes "']
+2, ['-1 -> BreakElement "f of x  equals x g of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>  f of x  to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>"']
+2, ['-1 -> BreakElement " and now inline math modes,   math mode equation did not render   and  <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>integral of  g of x  d x <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>log of x log of E <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> . For something a bit more sophisticated we have equations and theorems.\n the equation h of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> x to the power of 2 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  math mode equation did not render  \nThis is my theorem.\n"']
+2, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Very Basic Environments"']
+2, ['-1 -> BreakElement "By:"']
+2, ['-1 -> BreakElement "Connor Barlow"']
+2, ['-1 -> BreakElement "Published:"']
+2, ['-1 -> BreakElement "October 2020"']
+2, ['-1 -> BreakElement "Section:"']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: ['\nThis is my corollary.\n']
+==========================
+_parseNodes level 3: ssml_children: before: [['-1 -> "This" EmphasisElement " text is not formatted in "']
+3, ['-1 -> "any" EmphasisElement " way,\n"']
+3, ['-1 -> BreakElement "Lists"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Section:"']
+3, ['-1 -> BreakElement "Section:"']
+3, ['-1 -> BreakElement "Simple Table"']
+3, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents: \nbut "']
+3, ['-1 -> "this" EmphasisElement']
+3, ['-1 -> "is" EmphasisElement "! Now here\'s some math related things. \\\\ \nHere\'s some varieties of math mode. First some line separated math modes "']
+3, ['-1 -> BreakElement "f of x  equals x g of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>  f of x  to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>"']
+3, ['-1 -> BreakElement " and now inline math modes,   math mode equation did not render   and  <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>integral of  g of x  d x <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>log of x log of E <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> . For something a bit more sophisticated we have equations and theorems.\n the equation h of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> x to the power of 2 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  math mode equation did not render  \nThis is my theorem.\n"']
+3, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+3, ['-1 -> BreakElement']
+3, ['-1 -> BreakElement "Very Basic Environments"']
+3, ['-1 -> BreakElement "By:"']
+3, ['-1 -> BreakElement "Connor Barlow"']
+3, ['-1 -> BreakElement "Published:"']
+3, ['-1 -> BreakElement "October 2020"']
+3, ['-1 -> BreakElement "Section:"']
+3, ]
+==========================
+_parseNodes level 2: tex_nodes: after: ['\nThis is my corollary.\n']
+==========================
+_parseNodes level 2: ssml_children: after: [['-1 -> "This" EmphasisElement " text is not formatted in "']
+2, ['-1 -> "any" EmphasisElement " way,\n"']
+2, ['-1 -> BreakElement "Lists"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Section:"']
+2, ['-1 -> BreakElement "Section:"']
+2, ['-1 -> BreakElement "Simple Table"']
+2, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents: \nbut "']
+2, ['-1 -> "this" EmphasisElement']
+2, ['-1 -> "is" EmphasisElement "! Now here\'s some math related things. \\\\ \nHere\'s some varieties of math mode. First some line separated math modes "']
+2, ['-1 -> BreakElement "f of x  equals x g of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>  f of x  to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>"']
+2, ['-1 -> BreakElement " and now inline math modes,   math mode equation did not render   and  <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>integral of  g of x  d x <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>log of x log of E <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> . For something a bit more sophisticated we have equations and theorems.\n the equation h of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> x to the power of 2 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  math mode equation did not render  \nThis is my theorem.\n \nThis is my corollary.\n"']
+2, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+2, ['-1 -> BreakElement']
+2, ['-1 -> BreakElement "Very Basic Environments"']
+2, ['-1 -> BreakElement "By:"']
+2, ['-1 -> BreakElement "Connor Barlow"']
+2, ['-1 -> BreakElement "Published:"']
+2, ['-1 -> BreakElement "October 2020"']
+2, ['-1 -> BreakElement "Section:"']
+2, ]
+==========================
+_parseNodes level 3: tex_nodes: before: ['\nAnd now a couple basic formatting environments.\n']
+==========================
+_parseNodes level 3: ssml_children: before: []
+==========================
+_parseNodes level 2: tex_nodes: after: ['\nAnd now a couple basic formatting environments.\n']
+==========================
+_parseNodes level 2: ssml_children: after: []
+==========================
+_parseNodes level 3: tex_nodes: before: ["\nThese shouldn't change too much besides documents structure.\n"]
+==========================
+_parseNodes level 3: ssml_children: before: []
+==========================
+_parseNodes level 2: tex_nodes: after: ["\nThese shouldn't change too much besides documents structure.\n"]
+==========================
+_parseNodes level 2: ssml_children: after: []
+==========================
+_parseNodes level 3: tex_nodes: before: ["\nAnd their typical use won't be as contrived as this.\n"]
+==========================
+_parseNodes level 3: ssml_children: before: []
+==========================
+_parseNodes level 2: tex_nodes: after: ["\nAnd their typical use won't be as contrived as this.\n"]
+==========================
+_parseNodes level 2: ssml_children: after: []
+==========================
+_parseNodes level 1: tex_nodes: after: [\maketitle, \section{Lists}, \begin{enumerate}
+    \item This is a numbered list.
+    \item The numbers should be read aloud.
+\end{enumerate}, \begin{itemize}
+    \item This is a bullet list.
+    \item The items have no intrinsic ordering.
+\end{itemize}, \begin{description}
+    \item[Bob] What type of list is this?
+    \item[Bill] Its for listing items that have a corresponding name!
+    \item[Bob] Neat.
+\end{description}, \section{Simple Table}, \par, "\nHere's a very ugly table to show different combinations of lines.\n", \par, \begin{tabular}{|l||cr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\hline
+7 & 8 & 9 \\
+\hline \hline
+\end{tabular}, \section*{This Section Isn't Numbered}, \begin{verbatim}
+\textbf{This} text is not formatted in \textit{any} way,
+\end{verbatim}, '\nbut ', \textit{this}, \textbf{is}, "! Now here's some math related things.", '\\\\', "\nHere's some varieties of math mode. First some line separated math modes ", \dots, \[f(x)=x\], $$g(x)=\frac{1}{f(x)}$$, \dots, ' and now inline math modes, ', \($lim$_{x\rightarrow\infty}f(x)=\infty\), ' and ', $\int g(x)=\ln(x)$, '. For something a bit more sophisticated we have equations and theorems.\n', \begin{equation}
+h(x)=x^2
+\end{equation}, \begin{eqnarray}
+\text{short} &= -\frac{b+\sqrt{b^2-4ac}}{2a}\\
+\text{looooooongVariableName} &= -\frac{b-\sqrt{b^2-4ac}}{2a}
+\end{eqnarray}, \begin{thm}
+This is my theorem.
+\end{thm}, \begin{corr}
+This is my corollary.
+\end{corr}, \begin{center}
+And now a couple basic formatting environments.
+\end{center}, \begin{flushright}
+These shouldn't change too much besides documents structure.
+\end{flushright}, \begin{flushleft}
+And their typical use won't be as contrived as this.
+\end{flushleft}]
+==========================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+_parseNodes level 1: ssml_children: after: [['-1 -> "This" EmphasisElement " text is not formatted in "']
+1, ['-1 -> "any" EmphasisElement " way,\n"']
+1, ['-1 -> BreakElement "Lists"']
+1, ['-1 -> BreakElement']
+1, ['-1 -> BreakElement "Section:"']
+1, ['-1 -> BreakElement "Section:"']
+1, ['-1 -> BreakElement "Simple Table"']
+1, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents: \nbut "']
+1, ['-1 -> "this" EmphasisElement']
+1, ['-1 -> "is" EmphasisElement "! Now here\'s some math related things. \\\\ \nHere\'s some varieties of math mode. First some line separated math modes "']
+1, ['-1 -> BreakElement "f of x  equals x g of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>  f of x  to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>"']
+1, ['-1 -> BreakElement " and now inline math modes,   math mode equation did not render   and  <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>integral of  g of x  d x <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>log of x log of E <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> . For something a bit more sophisticated we have equations and theorems.\n the equation h of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> x to the power of 2 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  math mode equation did not render  \nThis is my theorem.\n \nThis is my corollary.\n"']
+1, ['-1 -> "\nAnd now a couple basic formatting environments.\n" BreakElement']
+1, ['-1 -> "\nThese shouldn\'t change too much besides documents structure.\n" BreakElement']
+1, ['-1 -> "\nAnd their typical use won\'t be as contrived as this.\n" BreakElement']
+1, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+1, ['-1 -> BreakElement']
+1, ['-1 -> BreakElement "Very Basic Environments"']
+1, ['-1 -> BreakElement "By:"']
+1, ['-1 -> BreakElement "Connor Barlow"']
+1, ['-1 -> BreakElement "Published:"']
+1, ['-1 -> BreakElement "October 2020"']
+1, ['-1 -> BreakElement "Section:"']
+1, ]
+==========================
+_parseNodes level 0: tex_nodes: after: [\documentclass{article}, \usepackage[utf8]{inputenc}, \usepackage{amsmath}, \title{Very Basic Environments}, \author{Connor Barlow}, \date{October 2020}, \newtheorem{thm}{Theorem}, \newtheorem{corr}{Corollary}, \begin{document}
+\maketitle
+
+\section{Lists}
+\begin{enumerate}
+    \item This is a numbered list.
+    \item The numbers should be read aloud.
+\end{enumerate}
+\begin{itemize}
+    \item This is a bullet list.
+    \item The items have no intrinsic ordering.
+\end{itemize}
+\begin{description}
+    \item[Bob] What type of list is this?
+    \item[Bill] Its for listing items that have a corresponding name!
+    \item[Bob] Neat.
+\end{description}
+\section{Simple Table}
+\par
+Here's a very ugly table to show different combinations of lines.
+\par
+\begin{tabular}{|l||cr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+\hline
+7 & 8 & 9 \\
+\hline \hline
+\end{tabular}
+\section*{This Section Isn't Numbered}
+\begin{verbatim}
+\textbf{This} text is not formatted in \textit{any} way,
+\end{verbatim}
+but \textit{this} \textbf{is}! Now here's some math related things.\\
+Here's some varieties of math mode. First some line separated math modes \dots
+\[f(x)=x\]
+$$g(x)=\frac{1}{f(x)}$$
+\dots and now inline math modes, \($lim$_{x\rightarrow\infty}f(x)=\infty\) and $\int g(x)=\ln(x)$. For something a bit more sophisticated we have equations and theorems.
+\begin{equation}
+h(x)=x^2
+\end{equation}
+\begin{eqnarray}
+\text{short} &= -\frac{b+\sqrt{b^2-4ac}}{2a}\\
+\text{looooooongVariableName} &= -\frac{b-\sqrt{b^2-4ac}}{2a}
+\end{eqnarray}
+\begin{thm}
+This is my theorem.
+\end{thm}
+\begin{corr}
+This is my corollary.
+\end{corr}
+\begin{center}
+And now a couple basic formatting environments.
+\end{center}
+\begin{flushright}
+These shouldn't change too much besides documents structure.
+\end{flushright}
+\begin{flushleft}
+And their typical use won't be as contrived as this.
+\end{flushleft}
+\end{document}]
+==========================
+_parseNodes level 0: ssml_children: after: [['-1 -> "This" EmphasisElement " text is not formatted in "']
+0, ['-1 -> "any" EmphasisElement " way,\n"']
+0, ['-1 -> BreakElement "Lists"']
+0, ['-1 -> BreakElement']
+0, ['-1 -> BreakElement "Section:"']
+0, ['-1 -> BreakElement "Section:"']
+0, ['-1 -> BreakElement "Simple Table"']
+0, ['-1 -> BreakElement "\nHere\'s a very ugly table to show different combinations of lines.\n Table Contents: \nbut "']
+0, ['-1 -> "this" EmphasisElement']
+0, ['-1 -> "is" EmphasisElement "! Now here\'s some math related things. \\\\ \nHere\'s some varieties of math mode. First some line separated math modes "']
+0, ['-1 -> BreakElement "f of x  equals x g of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>  f of x  to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>"']
+0, ['-1 -> BreakElement " and now inline math modes,   math mode equation did not render   and  <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>integral of  g of x  d x <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/>log of x log of E <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> . For something a bit more sophisticated we have equations and theorems.\n the equation h of x  equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> x to the power of 2 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  math mode equation did not render  \nThis is my theorem.\n \nThis is my corollary.\n"']
+0, ['-1 -> "\nAnd now a couple basic formatting environments.\n" BreakElement']
+0, ['-1 -> "\nThese shouldn\'t change too much besides documents structure.\n" BreakElement']
+0, ['-1 -> "\nAnd their typical use won\'t be as contrived as this.\n" BreakElement']
+0, ['-1 -> BreakElement "New Row:  , Column 1, Value: 1  , Column 2, Value:  2  , Column 3, Value:  3 \\\\ New Row:  , Column 1, Value: 4  , Column 2, Value:  5  , Column 3, Value:  6 \\\\ New Row:  , Column 1, Value:  New Row:  , Column 1, Value: 7  , Column 2, Value:  8  , Column 3, Value:  9 \\\\"']
+0, ['-1 -> BreakElement']
+0, ['-1 -> BreakElement "Very Basic Environments"']
+0, ['-1 -> BreakElement "By:"']
+0, ['-1 -> BreakElement "Connor Barlow"']
+0, ['-1 -> BreakElement "Published:"']
+0, ['-1 -> BreakElement "October 2020"']
+0, ['-1 -> BreakElement "Section:"']
+0, ]
+==========================
