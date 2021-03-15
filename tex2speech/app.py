@@ -8,11 +8,11 @@ from aws_polly_render import start_polly
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_pyfile('config.py')
 
 app.config['CUSTOM_STATIC_PATH'] = os.path.join(basedir, '')
 app.config['UPLOADED_PATH'] = os.path.join(basedir, 'upload')
-app.config['SECRET_KEY'] = 'my_key'
 
 # Helper function to add values to each array
 def add_to_array(uploadName, extension):
