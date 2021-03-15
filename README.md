@@ -10,7 +10,7 @@ A web app for converting LaTeX documents to spoken audio mp3 using Flask, AWS Po
 ## Contributors
 Taichen Rose  
 Connor Barlow  
-Jacob Nameth  
+Jacob Nemeth  
 Walker Herring  
 Dylon Rajah  
 
