@@ -287,7 +287,6 @@ def start_polly(main, input, bib_contents):
 
         # Feed to Amazon Polly here
         audio_link = tts_of_file(master[0], parsed_contents)
-
         links.append(audio_link)
 
     return links
