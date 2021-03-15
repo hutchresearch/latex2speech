@@ -283,9 +283,7 @@ def start_polly(main, input, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents)
-        # print("--------YO HELLLOOOOOOOOO ALAKJFLSADKJF -------")
-        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
+        audio_link = tts_of_file(master[0], parsed_contents)
         links.append(audio_link)
 
     return links
