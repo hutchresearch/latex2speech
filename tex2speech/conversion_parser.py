@@ -27,6 +27,7 @@ class ConversionParser:
     def __init__(self, db: ConversionDB):
         self.db = db
         self.env_stack = []
+        self.index = 0
 
     '''Function that will take in new table contents, and parse
     each column'''
@@ -132,7 +133,7 @@ class ConversionParser:
                         if definition:
                             if 'mathmode' in definition and definition['mathmode'] == True:
                                 output = run_sympy(self._envContentsToString(env_node))
-                                print("MATHMODE OUTPUT: " + output)
+                                # print("MATHMODE OUTPUT: " + output)
                                 if left_child:
                                     left_child.appendTailText(str(output))
                                 else:
@@ -201,7 +202,6 @@ class ConversionParser:
                     offset += next_offset
                 else:
                     self._resolveCmdElements(cmd_node, elem_list[i], elem_list[i].children, None)
-                
                 i = (k + 1) + offset
                 if i > 0:
                     left_child = elem_list[i-1]
@@ -237,19 +237,17 @@ class ConversionParser:
             parseOut = None
             if insert_index > 0:
                 left_child = ssml_children[insert_index-1]
-
             if exprTest(texNode, TexSoup.data.TexEnv):
                 parseOut = self._parseEnvironment(texNode, ssml_parent, left_child)
             elif exprTest(texNode, TexSoup.data.TexCmd):
                 parseOut = self._parseCommand(texNode, ssml_parent, left_child)
+                # print("  TEST " + str(texNode))
             elif exprTest(texNode, TexSoup.data.Token):
                 text = str(texNode)
-
                 if left_child:
                     left_child.appendTailText(text)
                 else:
                     ssml_parent.appendHeadText(text)
-
             if parseOut:
                 for ssmlChild in parseOut:
                     ssml_children.insert(insert_index, ssmlChild)

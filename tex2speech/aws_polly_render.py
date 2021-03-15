@@ -16,6 +16,7 @@ from contextlib import closing
 from pybtex.database.input import bibtex
 
 import tex2speech.expand_labels
+import tex2speech.doc_cleanup
 # Internal classes
 from conversion_db import ConversionDB
 from conversion_parser import ConversionParser
@@ -280,12 +281,13 @@ def start_polly(main, input, bib_contents):
             print(master)
             parsed_contents += parse_bib_file(master[1])
 
+        parsed_contents = tex2speech.doc_cleanup.cleanxml_string(parsed_contents)
+
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents)
-        # print("--------YO HELLLOOOOOOOOO ALAKJFLSADKJF -------")
-        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
+        audio_link = tts_of_file(master[0], parsed_contents)
+
         links.append(audio_link)
 
     return links
