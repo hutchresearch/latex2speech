@@ -19,7 +19,7 @@ app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'upload'),
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_CUSTOM=True,
-    DROPZONE_ALLOWED_FILE_TYPE='.tex, .bib',
+    DROPZONE_ALLOWED_FILE_TYPE='.tex, .bib, .zip, .tar',
     DROPZONE_MAX_FILE_SIZE=3,
     DROPZONE_MAX_FILES=30,
     DROPZONE_IN_FORM=True,
@@ -80,12 +80,17 @@ def handle_upload():
     for key, f in request.files.items():
         if key.startswith('file'):
             f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
+            extension = os.path.splitext(f.filename)[1]
 
-            if os.path.splitext(f.filename)[1] == ".tex":
+            if extension == ".tex":
                 file_holder.append(f.filename)
-            elif os.path.splitext(f.filename)[1] == ".bib":
+            elif extension == ".bib":
                 bib_holder.append(f.filename)
-
+            elif extension == ".zip":
+                print("zip")
+            elif extension == ".tar":
+                print("tar")
+            
     # Render
     file_links = start_polly(file_holder, bib_holder)
     session['audio'] = file_links[1]
