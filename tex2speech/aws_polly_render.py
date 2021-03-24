@@ -98,6 +98,7 @@ def get_text_file(file):
 
 # Parsing .bib files helper
 def parse_bib_file(the_path):
+    print("HELLO GUYS!! DOES THIS WORK")
     file_obj = open(the_path, "r")
     contents = file_obj.read()
     return_obj = ""
@@ -270,6 +271,7 @@ def create_master_files(main_input, bib):
 
                         # Finds bibliography file
                         if (tmp == "\\bibliography{"):
+                            print("DOES THIS RUN???")
                             inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
                         
             master_files.append(inner_file)
@@ -292,6 +294,7 @@ def start_conversion(contents):
 def start_polly(main, bib_contents):
     retObj = []
     links = []
+
     main_input_files = find_master_files(main)
     master_files = create_master_files(main_input_files, bib_contents)
 
@@ -302,7 +305,7 @@ def start_polly(main, bib_contents):
 
         # Call parsing here
         parsed_contents = start_conversion(tex_file.read())
-        if (len(master) > 1 and master[2] == True):
+        if (len(master) > 1 and master[2] == 'True'):
             print(master)
             parsed_contents += parse_bib_file(master[1])
 
