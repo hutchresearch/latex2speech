@@ -201,18 +201,26 @@ def rid_of_back_backslash(line, i, potential):
 
     return potential
 
-# Checks each document to see if the file is a main document
-# This is denoted by \begin{document} and \end{document}
-# Returns the array of all mater files
+# Checks each document to see if the file is a main document or input document
+# This is denoted by \begin{document} and \end{document} as main, and not if input
+# Returns the array of all master files and input files
 def find_master_files(main):
+    total = []
     master = []
+    input_list = []
     for filename in main:
         with open(path + '/' + filename, 'r') as file:
             contents = file.read()
             if r'\begin{document}' in contents and r'\end{document}' in contents:
                 master.append(filename)
+            else:
+                input_list.append(filename)
             file.close()
-    return master
+
+    total.append(master)
+    total.append(input_list)
+    
+    return total
 
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
@@ -220,50 +228,54 @@ def find_master_files(main):
 #
 # returns list of master files
 def create_master_files(main, bib):
-    master_files = find_master_files(main)
-    # add = 0
-    # potential = False
+    total_files = find_master_files(main)
+    main = total_files[0]
+    input_file = total_files[1]
+    master_files = []
 
-    # # For every uploaded main file
-    # for main_file in main:
-    #     add = add+1
+    add = 0
+    potential = False
 
-    #     # Create new master file
-    #     with open("final" + str(add) + ".tex", 'w') as outfile:
-    #         inner_file = []
-    #         inner_file.append("final" + str(add) + ".tex")
-    #         with open(path + "/" + main_file, 'r') as in_file:
-    #             # For each line, add to the master file
-    #             for line in in_file:
-    #                 tmp = ""
+    # For every uploaded main file
+    for main_file in main:
+        add = add + 1
 
-    #                 for i in range(len(line)):
-    #                     tmp = tmp + line[i]
+        # Create new master file
+        with open("final" + str(add) + ".tex", 'w') as outfile:
+            inner_file = []
+            inner_file.append("final" + str(add) + ".tex")
+            with open(path + "/" + main_file, 'r') as in_file:
+                # For each line, add to the master file
+                for line in in_file:
+                    tmp = ""
 
-    #                     potential = rid_of_back_backslash(line, i, potential)
+                    for i in range(len(line)):
+                        tmp = tmp + line[i]
 
-    #                     # Handle comments
-    #                     if tmp == "%":
-    #                         if len(line) > 2:
-    #                             outfile.write("Start of comment " + line[1:].replace("%", ""))
-    #                         break
+                        potential = rid_of_back_backslash(line, i, potential)
 
-    #                     if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
-    #                         outfile.write(tmp)
-    #                         tmp = ""
+                        # Handle comments
+                        if tmp == "%":
+                            if len(line) > 2:
+                                outfile.write("Start of comment " + line[1:].replace("%", ""))
+                            break
 
-    #                     i = i + 1
-    #                     # Finds include or input file
-    #                     if (tmp == "\\include{" or tmp == "\\input{"):
-    #                         found_input_file(line, outfile, i, input)
+                        if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
+                            outfile.write(tmp)
+                            tmp = ""
 
-    #                     # Finds bibliography file
-    #                     if (tmp == "\\bibliography{"):
-    #                         inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
+                        i = i + 1
+                        # Finds include or input file
+                        if (tmp == "\\include{" or tmp == "\\input{"):
+                            found_input_file(line, outfile, i, input_file)
+
+                        # Finds bibliography file
+                        if (tmp == "\\bibliography{"):
+                            inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
                         
-    #         master_files.append(inner_file)
+            master_files.append(inner_file)
 
-    #     outfile.close()
+        outfile.close()
     return master_files
 
 # Pass off to parser
@@ -282,9 +294,6 @@ def start_polly(main, bib_contents):
     links = []
     master_files = []
     master_files = create_master_files(main, bib_contents)
-
-    for file in master_files:
-        print(master_files)
 
     # for master in master_files:
     #     # Expand Labels then open document
