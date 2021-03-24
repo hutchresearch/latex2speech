@@ -62,18 +62,20 @@ def index():
 # Upload middle man
 @app.route('/upload', methods=['POST'])
 def handle_upload():
-    session.pop('file_holder', None)
     session.pop('audio', None)
+    session.pop('master', None)
+
     # Create session
-    if "file_holder" not in session:
-        session['file_holder'] = []
     if "audio" not in session:
         session['audio'] = []
+    if "master" not in session:
+        session['master'] = []
 
     # Grabbing obj
-    file_holder = session['file_holder']
+    file_holder = []
     bib_holder = []
     audio_links = session['audio']
+    master = session['master']
 
     for key, f in request.files.items():
         if key.startswith('file'):
@@ -86,8 +88,8 @@ def handle_upload():
 
     # Render
     audio_links = start_polly(file_holder, bib_holder)
-    session['file_holder'] = file_holder
     session['audio'] = audio_links
+    session['master'] = master
 
     return '', 204
 
@@ -95,17 +97,17 @@ def handle_upload():
 @app.route('/form', methods=['POST'])
 def handle_form():
     # redirect to home if nothing in session
-    if "file_holder" not in session or session['file_holder'] == []:
+    if "audio" not in session or session['audio'] == []:
         return redirect(url_for('index'))
 
-    file_holder = session['file_holder']
     audio = session['audio']
+    master = session['master']
 
     # Pop sessions 
-    session.pop('file_holder', None)
     session.pop('audio', None)
+    session.pop('master', None)
 
-    file_audio = zip(file_holder, audio)
+    file_audio = zip(master, audio)
 
     files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
     for f in files:
@@ -113,7 +115,7 @@ def handle_form():
 
     return render_template(
         'download.html',
-        file_holder = file_audio)
+        file_holder = master)
 
 if __name__ == '__main__':
     app.run(debug=True)
