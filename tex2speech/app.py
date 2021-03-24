@@ -2,6 +2,7 @@
 
 import os
 import glob
+import zipfile
 
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
@@ -55,6 +56,13 @@ def delete_from_folder():
     for f in final:
         os.remove(f)
 
+def facilitate_zip_files(zip_folder):
+    with zipfile.ZipFile(zip_folder, 'r') as zip_ref:
+        os.makedirs(os.path.join(os.getcwd() + '/upload', 'zip_contents'))
+        zip_ref.extractall(os.getcwd() + '/upload/zip_contents')
+
+    
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -64,6 +72,10 @@ def index():
 def handle_upload():
     session.pop('audio', None)
     session.pop('master', None)
+
+    # Create upload directory (if non exists)
+    if not os.path.exists('upload'):
+        os.makedirs('upload')
 
     # Create session
     if "audio" not in session:
@@ -88,6 +100,7 @@ def handle_upload():
                 bib_holder.append(f.filename)
             elif extension == ".zip":
                 print("zip")
+                facilitate_zip_files(f)
             elif extension == ".tar":
                 print("tar")
             
@@ -114,7 +127,7 @@ def handle_form():
 
     file_audio = zip(master, audio)
 
-    delete_from_folder()
+    # delete_from_folder()
 
     return render_template(
         'download.html',
