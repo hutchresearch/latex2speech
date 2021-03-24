@@ -201,56 +201,69 @@ def rid_of_back_backslash(line, i, potential):
 
     return potential
 
+# Checks each document to see if the file is a main document
+# This is denoted by \begin{document} and \end{document}
+# Returns the array of all mater files
+def find_master_files(main):
+    master = []
+    for filename in main:
+        with open(path + '/' + filename, 'r') as file:
+            contents = file.read()
+            if r'\begin{document}' in contents and r'\end{document}' in contents:
+                master.append(filename)
+            file.close()
+    return master
+
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
 # master file
 #
 # returns list of master files
-def create_master_files(main, input, bib):
-    master_files = []
-    add = 0
-    potential = False
+def create_master_files(main, bib):
+    master_files = find_master_files(main)
+    # add = 0
+    # potential = False
 
-    # For every uploaded main file
-    for main_file in main:
-        add = add+1
+    # # For every uploaded main file
+    # for main_file in main:
+    #     add = add+1
 
-        # Create new master file
-        with open("final" + str(add) + ".tex", 'w') as outfile:
-            inner_file = []
-            inner_file.append("final" + str(add) + ".tex")
-            with open(path + "/" + main_file, 'r') as in_file:
-                # For each line, add to the master file
-                for line in in_file:
-                    tmp = ""
+    #     # Create new master file
+    #     with open("final" + str(add) + ".tex", 'w') as outfile:
+    #         inner_file = []
+    #         inner_file.append("final" + str(add) + ".tex")
+    #         with open(path + "/" + main_file, 'r') as in_file:
+    #             # For each line, add to the master file
+    #             for line in in_file:
+    #                 tmp = ""
 
-                    for i in range(len(line)):
-                        tmp = tmp + line[i]
+    #                 for i in range(len(line)):
+    #                     tmp = tmp + line[i]
 
-                        potential = rid_of_back_backslash(line, i, potential)
+    #                     potential = rid_of_back_backslash(line, i, potential)
 
-                        # Handle comments
-                        if tmp == "%":
-                            if len(line) > 2:
-                                outfile.write("Start of comment " + line[1:].replace("%", ""))
-                            break
+    #                     # Handle comments
+    #                     if tmp == "%":
+    #                         if len(line) > 2:
+    #                             outfile.write("Start of comment " + line[1:].replace("%", ""))
+    #                         break
 
-                        if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
-                            outfile.write(tmp)
-                            tmp = ""
+    #                     if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
+    #                         outfile.write(tmp)
+    #                         tmp = ""
 
-                        i = i + 1
-                        # Finds include or input file
-                        if (tmp == "\\include{" or tmp == "\\input{"):
-                            found_input_file(line, outfile, i, input)
+    #                     i = i + 1
+    #                     # Finds include or input file
+    #                     if (tmp == "\\include{" or tmp == "\\input{"):
+    #                         found_input_file(line, outfile, i, input)
 
-                        # Finds bibliography file
-                        if (tmp == "\\bibliography{"):
-                            inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
+    #                     # Finds bibliography file
+    #                     if (tmp == "\\bibliography{"):
+    #                         inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
                         
-            master_files.append(inner_file)
+    #         master_files.append(inner_file)
 
-        outfile.close()
+    #     outfile.close()
     return master_files
 
 # Pass off to parser
@@ -270,23 +283,28 @@ def start_polly(main, bib_contents):
     master_files = []
     master_files = create_master_files(main, bib_contents)
 
-    for master in master_files:
-        # Expand Labels then open document
-        tex2speech.expand_labels.expand_doc_new_labels(master[0])
-        tex_file = open(master[0], "r")
+    for file in master_files:
+        print(master_files)
 
-        # Call parsing here
-        parsed_contents = start_conversion(tex_file.read())
-        if (len(master) > 1 and master[2] == True):
-            print(master)
-            parsed_contents += parse_bib_file(master[1])
+    # for master in master_files:
+    #     # Expand Labels then open document
+    #     tex2speech.expand_labels.expand_doc_new_labels(master[0])
+    #     tex_file = open(master[0], "r")
 
-        parsed_contents = tex2speech.doc_cleanup.cleanxml_string(parsed_contents)
+    #     # Call parsing here
+    #     parsed_contents = start_conversion(tex_file.read())
+    #     if (len(master) > 1 and master[2] == True):
+    #         print(master)
+    #         parsed_contents += parse_bib_file(master[1])
 
-        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+    #     parsed_contents = tex2speech.doc_cleanup.cleanxml_string(parsed_contents)
 
-        # Feed to Amazon Polly here
-        audio_link = tts_of_file(master[0], parsed_contents)
-        links.append(audio_link)
+    #     print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+
+    #     # Feed to Amazon Polly here
+    #     audio_link = tts_of_file(master[0], parsed_contents)
+    #     links.append(audio_link)
+
+    links = "hi"
 
     return links
