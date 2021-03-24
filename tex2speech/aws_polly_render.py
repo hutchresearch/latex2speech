@@ -227,10 +227,9 @@ def find_master_files(main):
 # master file
 #
 # returns list of master files
-def create_master_files(main, bib):
-    total_files = find_master_files(main)
-    main = total_files[0]
-    input_file = total_files[1]
+def create_master_files(main_input, bib):
+    main = main_input[0]
+    input_file = main_input[1]
     master_files = []
 
     add = 0
@@ -291,29 +290,32 @@ def start_conversion(contents):
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(main, bib_contents):
+    retObj = []
     links = []
-    master_files = []
-    master_files = create_master_files(main, bib_contents)
+    main_input_files = find_master_files(main)
+    master_files = create_master_files(main_input_files, bib_contents)
 
-    # for master in master_files:
-    #     # Expand Labels then open document
-    #     tex2speech.expand_labels.expand_doc_new_labels(master[0])
-    #     tex_file = open(master[0], "r")
+    for master in master_files:
+        # Expand Labels then open document
+        tex2speech.expand_labels.expand_doc_new_labels(master[0])
+        tex_file = open(master[0], "r")
 
-    #     # Call parsing here
-    #     parsed_contents = start_conversion(tex_file.read())
-    #     if (len(master) > 1 and master[2] == True):
-    #         print(master)
-    #         parsed_contents += parse_bib_file(master[1])
+        # Call parsing here
+        parsed_contents = start_conversion(tex_file.read())
+        if (len(master) > 1 and master[2] == True):
+            print(master)
+            parsed_contents += parse_bib_file(master[1])
 
-    #     parsed_contents = tex2speech.doc_cleanup.cleanxml_string(parsed_contents)
+        parsed_contents = tex2speech.doc_cleanup.cleanxml_string(parsed_contents)
 
-    #     print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
-    #     # Feed to Amazon Polly here
-    #     audio_link = tts_of_file(master[0], parsed_contents)
-    #     links.append(audio_link)
+        # Feed to Amazon Polly here
+        # audio_link = tts_of_file(master[0], parsed_contents)
+        audio_link = "hi"
+        links.append(audio_link)
 
-    links = "hi"
+    retObj.append(main_input_files[0])
+    retObj.append(links)
 
-    return links
+    return retObj
