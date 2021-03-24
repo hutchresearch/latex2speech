@@ -64,10 +64,6 @@ def index():
 def handle_upload():
     session.pop('file_holder', None)
     session.pop('audio', None)
-
-    if not os.path.exists('upload'):
-        os.makedirs('upload')
-
     # Create session
     if "file_holder" not in session:
         session['file_holder'] = []
@@ -76,32 +72,30 @@ def handle_upload():
 
     # Grabbing obj
     file_holder = session['file_holder']
-    input_holder = []
     bib_holder = []
     audio_links = session['audio']
-    
-    # Grabs all main files
-    file_holder = add_to_array('filename', '.tex')
 
-    # Grabs all bib files
-    bib_holder = add_to_array('bibFile', '.bib')
+    for key, f in request.files.items():
+        if key.startswith('file'):
+            f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
 
-    # Grabs all input files
-    input_holder = add_to_array('inputFile', '.tex')
+            if os.path.splitext(f.filename)[1] == ".tex":
+                file_holder.append(f.filename)
+            elif os.path.splitext(f.filename)[1] == ".bib":
+                bib_holder.append(f.filename)
 
     # Render
-    audio_links = start_polly(file_holder, input_holder, bib_holder)
+    audio_links = start_polly(file_holder, bib_holder)
     session['file_holder'] = file_holder
     session['audio'] = audio_links
-    
-    return redirect(url_for('handle_form'))
+
+    return '', 204
 
 # Download resulting output page
-@app.route('/form')
+@app.route('/form', methods=['POST'])
 def handle_form():
     # redirect to home if nothing in session
     if "file_holder" not in session or session['file_holder'] == []:
-        delete_from_folder()
         return redirect(url_for('index'))
 
     file_holder = session['file_holder']
@@ -112,7 +106,10 @@ def handle_form():
     session.pop('audio', None)
 
     file_audio = zip(file_holder, audio)
-    delete_from_folder()
+
+    files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
+    for f in files:
+        os.remove(f)
 
     return render_template(
         'download.html',
