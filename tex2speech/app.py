@@ -3,6 +3,7 @@
 import os
 import glob
 import zipfile
+import shutil
 
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
@@ -56,12 +57,37 @@ def delete_from_folder():
     for f in final:
         os.remove(f)
 
-def facilitate_zip_files(zip_folder):
+def facilitate_zip_files(zip_folder, file_holder, bib_holder):
     with zipfile.ZipFile(zip_folder, 'r') as zip_ref:
         os.makedirs(os.path.join(os.getcwd() + '/upload', 'zip_contents'))
         zip_ref.extractall(os.getcwd() + '/upload/zip_contents')
 
-    
+    current_path = os.getcwd() + '/upload/zip_contents/'
+    parent_path = os.getcwd() + '/upload/'
+
+    files = os.listdir(current_path)
+
+    for f in files:
+        extension = f.rsplit('.', 1)
+        print(extension)
+        print(extension[0])
+
+        if len(extension) > 1:
+            if extension[1] == "tex":
+                print("TESTING")
+                file_holder.append(f)
+                os.replace(current_path + f, parent_path + f)
+            elif extension[1] == "bib":
+                bib_holder.append(f)
+                os.replace(current_path + f, parent_path + f)
+
+    shutil.rmtree(current_path)
+
+    together = []
+    together.append(file_holder)
+    together.append(bib_holder)
+
+    return together
 
 @app.route('/')
 def index():
@@ -99,8 +125,9 @@ def handle_upload():
             elif extension == ".bib":
                 bib_holder.append(f.filename)
             elif extension == ".zip":
-                print("zip")
-                facilitate_zip_files(f)
+                files = facilitate_zip_files(f, file_holder, bib_holder)
+                file_holder = files[0]
+                bib_holder = files[1]
             elif extension == ".tar":
                 print("tar")
             
@@ -127,7 +154,7 @@ def handle_form():
 
     file_audio = zip(master, audio)
 
-    # delete_from_folder()
+    delete_from_folder()
 
     return render_template(
         'download.html',
