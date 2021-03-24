@@ -265,10 +265,10 @@ def start_conversion(contents):
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords
-def start_polly(main, input, bib_contents):
+def start_polly(main, bib_contents):
     links = []
     master_files = []
-    master_files = create_master_files(main, input, bib_contents)
+    master_files = create_master_files(main, bib_contents)
 
     for master in master_files:
         # Expand Labels then open document
