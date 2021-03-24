@@ -87,9 +87,9 @@ def handle_upload():
                 bib_holder.append(f.filename)
 
     # Render
-    audio_links = start_polly(file_holder, bib_holder)
-    session['audio'] = audio_links
-    session['master'] = master
+    file_links = start_polly(file_holder, bib_holder)
+    session['audio'] = file_links[1]
+    session['master'] = file_links[0]
 
     return '', 204
 
@@ -109,13 +109,11 @@ def handle_form():
 
     file_audio = zip(master, audio)
 
-    files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
-    for f in files:
-        os.remove(f)
+    delete_from_folder()
 
     return render_template(
         'download.html',
-        file_holder = master)
+        file_holder = file_audio)
 
 if __name__ == '__main__':
     app.run(debug=True)
