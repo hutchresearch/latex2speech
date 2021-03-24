@@ -4,6 +4,7 @@ import os
 import glob
 
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
+from flask_dropzone import Dropzone
 from aws_polly_render import start_polly
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -13,6 +14,21 @@ app.config.from_pyfile('config.py')
 
 app.config['CUSTOM_STATIC_PATH'] = os.path.join(basedir, '')
 app.config['UPLOADED_PATH'] = os.path.join(basedir, 'upload')
+
+app.config.update(
+    UPLOADED_PATH=os.path.join(basedir, 'upload'),
+    # Flask-Dropzone config:
+    DROPZONE_ALLOWED_FILE_CUSTOM=True,
+    DROPZONE_ALLOWED_FILE_TYPE='.tex, .bib',
+    DROPZONE_MAX_FILE_SIZE=3,
+    DROPZONE_MAX_FILES=30,
+    DROPZONE_IN_FORM=True,
+    DROPZONE_UPLOAD_ON_CLICK=True,
+    DROPZONE_UPLOAD_ACTION='handle_upload',  # URL or endpoint
+    DROPZONE_UPLOAD_BTN_ID='submit',
+)
+
+dropzone = Dropzone(app)
 
 # Helper function to add values to each array
 def add_to_array(uploadName, extension):
