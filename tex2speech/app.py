@@ -21,7 +21,7 @@ app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'upload'),
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_CUSTOM=True,
-    DROPZONE_ALLOWED_FILE_TYPE='.tex, .bib, .zip, .tar',
+    DROPZONE_ALLOWED_FILE_TYPE='.tex, .bib, .zip, .gz',
     DROPZONE_MAX_FILE_SIZE=3,
     DROPZONE_MAX_FILES=30,
     DROPZONE_IN_FORM=True,
@@ -73,11 +73,11 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder):
         print(extension[0])
 
         if len(extension) > 1:
-            if extension[1] == "tex":
+            if extension[1] == 'tex':
                 print("TESTING")
                 file_holder.append(f)
                 os.replace(current_path + f, parent_path + f)
-            elif extension[1] == "bib":
+            elif extension[1] == 'bib':
                 bib_holder.append(f)
                 os.replace(current_path + f, parent_path + f)
 
@@ -88,6 +88,7 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder):
     together.append(bib_holder)
 
     return together
+
 
 @app.route('/')
 def index():
@@ -104,9 +105,9 @@ def handle_upload():
         os.makedirs('upload')
 
     # Create session
-    if "audio" not in session:
+    if 'audio' not in session:
         session['audio'] = []
-    if "master" not in session:
+    if 'master' not in session:
         session['master'] = []
 
     # Grabbing obj
@@ -120,16 +121,23 @@ def handle_upload():
             f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
             extension = os.path.splitext(f.filename)[1]
 
-            if extension == ".tex":
+            if extension == '.tex':
                 file_holder.append(f.filename)
-            elif extension == ".bib":
+            elif extension == '.bib':
                 bib_holder.append(f.filename)
-            elif extension == ".zip":
+            elif extension == '.zip':
                 files = facilitate_zip_files(f, file_holder, bib_holder)
                 file_holder = files[0]
                 bib_holder = files[1]
-            elif extension == ".tar":
-                print("tar")
+            elif extension == '.gz':
+                split = f.filename.split('.')
+
+                if (split[len(split) - 2] is not 'tar'):
+                    return 0
+
+                files = facilitate_tar_files(f, file_holder, bib_holder)
+                file_holder = files[0]
+                bib_holder = files[1]
             
     # Render
     file_links = start_polly(file_holder, bib_holder)
