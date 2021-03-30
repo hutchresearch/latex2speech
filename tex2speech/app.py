@@ -58,6 +58,13 @@ def delete_from_folder():
     for f in final:
         os.remove(f)
 
+# Helper function to compress files
+def compress_holder(file_holder, bib_holder):
+    together = []
+    together.append(file_holder)
+    together.append(bib_holder)
+    return together
+
 def facilitate_zip_files(zip_folder, file_holder, bib_holder):
     with zipfile.ZipFile(zip_folder, 'r') as zip_ref:
         os.makedirs(os.path.join(os.getcwd() + '/upload', 'zip_contents'))
@@ -81,11 +88,7 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder):
 
     shutil.rmtree(current_path)
 
-    together = []
-    together.append(file_holder)
-    together.append(bib_holder)
-
-    return together
+    return compress_holder(file_holder, bib_holder)
 
 def facilitate_tar_files(tar_folder, file_holder, bib_holder):
     with tarfile.open(os.getcwd() + '/upload/' + tar_folder.filename) as tar:
@@ -111,11 +114,30 @@ def facilitate_tar_files(tar_folder, file_holder, bib_holder):
 
     shutil.rmtree(current_path)
 
-    together = []
-    together.append(file_holder)
-    together.append(bib_holder)
+    return compress_holder(file_holder, bib_holder)
 
-    return together
+def facilitate_upload(content, file_holder, bib_holder, iteration):
+    if iteration == 3:
+        return compress_holder(file_holder, bib_holder)
+    extension = os.path.splitext(f.filename)[1]
+
+    if extension == '.tex':
+        file_holder.append(f.filename)
+    elif extension == '.bib':
+        bib_holder.append(f.filename)
+    elif extension == '.zip':
+        files = facilitate_zip_files(f, file_holder, bib_holder)
+        file_holder = files[0]
+        bib_holder = files[1]
+    elif extension == '.gz':
+        split = f.filename.split('.')
+        
+        if (split[len(split) - 2] != 'tar'):
+            return 0
+
+        files = facilitate_tar_files(f, file_holder, bib_holder)
+        file_holder = files[0]
+        bib_holder = files[1]
 
 @app.route('/')
 def index():
@@ -140,31 +162,17 @@ def handle_upload():
     # Grabbing obj
     file_holder = []
     bib_holder = []
+    files = []
     audio_links = session['audio']
     master = session['master']
 
     for key, f in request.files.items():
         if key.startswith('file'):
             f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
-            extension = os.path.splitext(f.filename)[1]
+            files = facilitate_upload(f, file)
 
-            if extension == '.tex':
-                file_holder.append(f.filename)
-            elif extension == '.bib':
-                bib_holder.append(f.filename)
-            elif extension == '.zip':
-                files = facilitate_zip_files(f, file_holder, bib_holder)
-                file_holder = files[0]
-                bib_holder = files[1]
-            elif extension == '.gz':
-                split = f.filename.split('.')
-                
-                if (split[len(split) - 2] != 'tar'):
-                    return 0
-
-                files = facilitate_tar_files(f, file_holder, bib_holder)
-                file_holder = files[0]
-                bib_holder = files[1]
+    file_holder = files[0]
+    bib_holder = files[1]
 
     # Render
     file_links = start_polly(file_holder, bib_holder)
