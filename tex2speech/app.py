@@ -95,20 +95,23 @@ def facilitate_tar_files(tar_folder, file_holder, bib_holder):
     current_path = os.getcwd() + '/upload/tar_contents/'
     parent_path = os.getcwd() + '/upload/'
 
-    files = os.listdir(current_path)
+    tar_directory = os.listdir(current_path)
+    tar_contents_path = current_path + str(tar_directory[0] + '/')
+    files = os.listdir(tar_contents_path)
 
     for f in files:
+        print(f)
         extension = f.rsplit('.', 1)
-
-        if len(extension) > 1:
+        print(f[:2])
+        if len(extension) > 1 and f[:2] != '._':
             if extension[1] == 'tex':
                 file_holder.append(f)
-                os.replace(current_path + f, parent_path + f)
+                os.replace(tar_contents_path + f, parent_path + f)
             elif extension[1] == 'bib':
                 bib_holder.append(f)
-                os.replace(current_path + f, parent_path + f)
+                os.replace(tar_contents_path + f, parent_path + f)
 
-    # shutil.rmtree(current_path)
+    shutil.rmtree(current_path)
 
     together = []
     together.append(file_holder)
@@ -164,7 +167,8 @@ def handle_upload():
                 files = facilitate_tar_files(f, file_holder, bib_holder)
                 file_holder = files[0]
                 bib_holder = files[1]
-            
+    print(file_holder)
+    print(bib_holder)
     # Render
     file_links = start_polly(file_holder, bib_holder)
     session['audio'] = file_links[1]
@@ -188,7 +192,7 @@ def handle_form():
 
     file_audio = zip(master, audio)
 
-    # delete_from_folder()
+    delete_from_folder()
 
     return render_template(
         'download.html',
