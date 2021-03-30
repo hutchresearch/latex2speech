@@ -4,6 +4,7 @@ import os
 import glob
 import zipfile
 import shutil
+import tarfile
 
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
@@ -69,12 +70,9 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder):
 
     for f in files:
         extension = f.rsplit('.', 1)
-        print(extension)
-        print(extension[0])
 
         if len(extension) > 1:
             if extension[1] == 'tex':
-                print("TESTING")
                 file_holder.append(f)
                 os.replace(current_path + f, parent_path + f)
             elif extension[1] == 'bib':
@@ -89,6 +87,34 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder):
 
     return together
 
+def facilitate_tar_files(tar_folder, file_holder, bib_holder):
+    with tarfile.open(os.getcwd() + '/upload/' + tar_folder.filename) as tar:
+        os.makedirs(os.path.join(os.getcwd() + '/upload', 'tar_contents'))
+        tar.extractall(os.getcwd() + '/upload/tar_contents')
+
+    current_path = os.getcwd() + '/upload/tar_contents/'
+    parent_path = os.getcwd() + '/upload/'
+
+    files = os.listdir(current_path)
+
+    for f in files:
+        extension = f.rsplit('.', 1)
+
+        if len(extension) > 1:
+            if extension[1] == 'tex':
+                file_holder.append(f)
+                os.replace(current_path + f, parent_path + f)
+            elif extension[1] == 'bib':
+                bib_holder.append(f)
+                os.replace(current_path + f, parent_path + f)
+
+    # shutil.rmtree(current_path)
+
+    together = []
+    together.append(file_holder)
+    together.append(bib_holder)
+
+    return together
 
 @app.route('/')
 def index():
@@ -131,8 +157,8 @@ def handle_upload():
                 bib_holder = files[1]
             elif extension == '.gz':
                 split = f.filename.split('.')
-
-                if (split[len(split) - 2] is not 'tar'):
+                
+                if (split[len(split) - 2] != 'tar'):
                     return 0
 
                 files = facilitate_tar_files(f, file_holder, bib_holder)
@@ -162,7 +188,7 @@ def handle_form():
 
     file_audio = zip(master, audio)
 
-    delete_from_folder()
+    # delete_from_folder()
 
     return render_template(
         'download.html',
