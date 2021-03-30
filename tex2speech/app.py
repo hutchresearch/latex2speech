@@ -100,9 +100,7 @@ def facilitate_tar_files(tar_folder, file_holder, bib_holder):
     files = os.listdir(tar_contents_path)
 
     for f in files:
-        print(f)
         extension = f.rsplit('.', 1)
-        print(f[:2])
         if len(extension) > 1 and f[:2] != '._':
             if extension[1] == 'tex':
                 file_holder.append(f)
@@ -167,8 +165,7 @@ def handle_upload():
                 files = facilitate_tar_files(f, file_holder, bib_holder)
                 file_holder = files[0]
                 bib_holder = files[1]
-    print(file_holder)
-    print(bib_holder)
+
     # Render
     file_links = start_polly(file_holder, bib_holder)
     session['audio'] = file_links[1]
