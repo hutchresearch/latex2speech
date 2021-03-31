@@ -62,10 +62,10 @@ def delete_from_folder():
         os.remove(f)
 
 # Helper function to compress files
-def compress_holder(file_holder, bib_holder):
+def compress_holder(file, bib):
     together = []
-    together.append(file_holder)
-    together.append(bib_holder)
+    together.append(file)
+    together.append(bib)
     return together
 
 # Helper function to replace directory paths
@@ -85,7 +85,7 @@ def replace_path(file_holder, bib_holder, current_path, parent_path, path_files)
     return compress_holder(file_holder, bib_holder)
 
 # 
-def facilitate_zip_files(zip_folder, file_holder, bib_holder, zip_iteration):
+def facilitate_zip_files(zip_folder, zip_iteration, compression):
     tempDirectory = 'zip_contents' + str(zip_iteration)
 
     with zipfile.ZipFile(os.getcwd() + '/upload/' + zip_folder, 'r') as zip_ref:
@@ -96,15 +96,12 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder, zip_iteration):
     parent_path = os.getcwd() + '/upload/'
 
     path_files = os.listdir(current_path)
+    files = replace_path(compression[0], compression[1], current_path, parent_path, path_files)
 
-    files = replace_path(file_holder, bib_holder, current_path, parent_path, path_files)
-    file_holder = files[0]
-    bib_holder = files[1]
-
-    return compress_holder(file_holder, bib_holder)
+    return files
 
 # 
-def facilitate_tar_files(tar_folder, file_holder, bib_holder, tar_iteration):
+def facilitate_tar_files(tar_folder, tar_iteration, compression):
     tempDirectory = 'tar_contents' + str(tar_iteration)
 
     with tarfile.open(os.getcwd() + '/upload/' + tar_folder) as tar:
@@ -118,13 +115,10 @@ def facilitate_tar_files(tar_folder, file_holder, bib_holder, tar_iteration):
     tar_contents_path = current_path + str(tar_directory[0] + '/')
     path_files = os.listdir(tar_contents_path)
 
-    files = replace_path(file_holder, bib_holder, tar_contents_path, parent_path, path_files)
-    file_holder = files[0]
-    bib_holder = files[1]
-
+    files = replace_path(compression[0], compression[1], tar_contents_path, parent_path, path_files)
     shutil.rmtree(current_path)
 
-    return compress_holder(file_holder, bib_holder)
+    return files
 
 # 
 def facilitate_upload(content, file_holder, bib_holder, iteration):
@@ -139,7 +133,7 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
         elif extension[1] == 'bib':
             bib_holder.append(content)
         elif extension[1] == 'zip':
-            files = facilitate_zip_files(content, file_holder, bib_holder, iteration)
+            files = facilitate_zip_files(content, iteration, compress_holder(file_holder, bib_holder))
             file_holder = files[0]
             bib_holder = files[1]
         elif extension[1] == 'gz':
@@ -148,7 +142,7 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
             if (split[len(split) - 2] != 'tar'):
                 return 0
 
-            files = facilitate_tar_files(content, file_holder, bib_holder, iteration)
+            files = facilitate_tar_files(content, iteration, compress_holder(file_holder, bib_holder))
             file_holder = files[0]
             bib_holder = files[1]
 
