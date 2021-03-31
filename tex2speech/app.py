@@ -33,6 +33,9 @@ app.config.update(
 
 dropzone = Dropzone(app)
 
+# Set iteration for file traversal
+ITERATION = 3
+
 # Helper function to add values to each array
 def add_to_array(uploadName, extension):
     array = []
@@ -65,19 +68,11 @@ def compress_holder(file_holder, bib_holder):
     together.append(bib_holder)
     return together
 
-def facilitate_zip_files(zip_folder, file_holder, bib_holder):
-    with zipfile.ZipFile(os.getcwd() + '/upload/' + zip_folder, 'r') as zip_ref:
-        os.makedirs(os.path.join(os.getcwd() + '/upload', 'zip_contents'))
-        zip_ref.extractall(os.getcwd() + '/upload/zip_contents')
-
-    current_path = os.getcwd() + '/upload/zip_contents/'
-    parent_path = os.getcwd() + '/upload/'
-
-    files = os.listdir(current_path)
-
-    for f in files:
+# Helper function to replace directory paths
+def replace_path(file_holder, bib_holder, current_path, parent_path, path_files):
+    for f in path_files:
         extension = f.rsplit('.', 1)
-        if len(extension) > 1:
+        if len(extension) > 1 and f[:2] != '._':
             if extension[1] == 'tex':
                 file_holder.append(f)
                 os.replace(current_path + f, parent_path + f)
@@ -89,7 +84,23 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder):
 
     return compress_holder(file_holder, bib_holder)
 
-def facilitate_tar_files(tar_folder, file_holder, bib_holder):
+def facilitate_zip_files(zip_folder, file_holder, bib_holder, iteration):
+    with zipfile.ZipFile(os.getcwd() + '/upload/' + zip_folder, 'r') as zip_ref:
+        os.makedirs(os.path.join(os.getcwd() + '/upload', 'zip_contents'))
+        zip_ref.extractall(os.getcwd() + '/upload/zip_contents')
+
+    current_path = os.getcwd() + '/upload/zip_contents/'
+    parent_path = os.getcwd() + '/upload/'
+
+    path_files = os.listdir(current_path)
+
+    files = replace_path(file_holder, bib_holder, current_path, parent_path, path_files)
+    file_holder = files[0]
+    bib_holder = files[1]
+
+    return compress_holder(file_holder, bib_holder)
+
+def facilitate_tar_files(tar_folder, file_holder, bib_holder, iteration):
     with tarfile.open(os.getcwd() + '/upload/' + tar_folder) as tar:
         os.makedirs(os.path.join(os.getcwd() + '/upload', 'tar_contents'))
         tar.extractall(os.getcwd() + '/upload/tar_contents')
@@ -99,24 +110,18 @@ def facilitate_tar_files(tar_folder, file_holder, bib_holder):
 
     tar_directory = os.listdir(current_path)
     tar_contents_path = current_path + str(tar_directory[0] + '/')
-    files = os.listdir(tar_contents_path)
+    path_files = os.listdir(tar_contents_path)
 
-    for f in files:
-        extension = f.rsplit('.', 1)
-        if len(extension) > 1 and f[:2] != '._':
-            if extension[1] == 'tex':
-                file_holder.append(f)
-                os.replace(tar_contents_path + f, parent_path + f)
-            elif extension[1] == 'bib':
-                bib_holder.append(f)
-                os.replace(tar_contents_path + f, parent_path + f)
+    files = replace_path(file_holder, bib_holder, tar_contents_path, parent_path, path_files)
+    file_holder = files[0]
+    bib_holder = files[1]
 
     shutil.rmtree(current_path)
 
     return compress_holder(file_holder, bib_holder)
 
 def facilitate_upload(content, file_holder, bib_holder, iteration):
-    if iteration == 3:
+    if iteration == ITERATION:
         return compress_holder(file_holder, bib_holder)
 
     extension = content.rsplit('.', 1)
@@ -127,7 +132,7 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
         elif extension[1] == 'bib':
             bib_holder.append(content)
         elif extension[1] == 'zip':
-            files = facilitate_zip_files(content, file_holder, bib_holder)
+            files = facilitate_zip_files(content, file_holder, bib_holder, iteration)
             file_holder = files[0]
             bib_holder = files[1]
         elif extension[1] == 'gz':
@@ -136,7 +141,7 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
             if (split[len(split) - 2] != 'tar'):
                 return 0
 
-            files = facilitate_tar_files(content, file_holder, bib_holder)
+            files = facilitate_tar_files(content, file_holder, bib_holder, iteration)
             file_holder = files[0]
             bib_holder = files[1]
 
