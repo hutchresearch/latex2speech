@@ -84,12 +84,15 @@ def replace_path(file_holder, bib_holder, current_path, parent_path, path_files)
 
     return compress_holder(file_holder, bib_holder)
 
-def facilitate_zip_files(zip_folder, file_holder, bib_holder, iteration):
-    with zipfile.ZipFile(os.getcwd() + '/upload/' + zip_folder, 'r') as zip_ref:
-        os.makedirs(os.path.join(os.getcwd() + '/upload', 'zip_contents'))
-        zip_ref.extractall(os.getcwd() + '/upload/zip_contents')
+# 
+def facilitate_zip_files(zip_folder, file_holder, bib_holder, zip_iteration):
+    tempDirectory = 'zip_contents' + str(zip_iteration)
 
-    current_path = os.getcwd() + '/upload/zip_contents/'
+    with zipfile.ZipFile(os.getcwd() + '/upload/' + zip_folder, 'r') as zip_ref:
+        os.makedirs(os.path.join(os.getcwd() + '/upload', tempDirectory))
+        zip_ref.extractall(os.getcwd() + '/upload/' + str(tempDirectory))
+
+    current_path = os.getcwd() + '/upload/' + str(tempDirectory) + '/'
     parent_path = os.getcwd() + '/upload/'
 
     path_files = os.listdir(current_path)
@@ -100,12 +103,15 @@ def facilitate_zip_files(zip_folder, file_holder, bib_holder, iteration):
 
     return compress_holder(file_holder, bib_holder)
 
-def facilitate_tar_files(tar_folder, file_holder, bib_holder, iteration):
-    with tarfile.open(os.getcwd() + '/upload/' + tar_folder) as tar:
-        os.makedirs(os.path.join(os.getcwd() + '/upload', 'tar_contents'))
-        tar.extractall(os.getcwd() + '/upload/tar_contents')
+# 
+def facilitate_tar_files(tar_folder, file_holder, bib_holder, tar_iteration):
+    tempDirectory = 'tar_contents' + str(tar_iteration)
 
-    current_path = os.getcwd() + '/upload/tar_contents/'
+    with tarfile.open(os.getcwd() + '/upload/' + tar_folder) as tar:
+        os.makedirs(os.path.join(os.getcwd() + '/upload', tempDirectory))
+        tar.extractall(os.getcwd() + '/upload/' + tempDirectory)
+
+    current_path = os.getcwd() + '/upload/' + tempDirectory + '/'
     parent_path = os.getcwd() + '/upload/'
 
     tar_directory = os.listdir(current_path)
@@ -120,6 +126,7 @@ def facilitate_tar_files(tar_folder, file_holder, bib_holder, iteration):
 
     return compress_holder(file_holder, bib_holder)
 
+# 
 def facilitate_upload(content, file_holder, bib_holder, iteration):
     if iteration == ITERATION:
         return compress_holder(file_holder, bib_holder)
