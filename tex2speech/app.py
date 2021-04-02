@@ -69,20 +69,25 @@ def compress_holder(file, bib):
     return together
 
 # Helper function to replace directory paths
-def replace_path(file_holder, bib_holder, current_path, parent_path, path_files):
+def replace_path(compress, current_path, parent_path, path_files, iter):
     for f in path_files:
         extension = f.rsplit('.', 1)
         if len(extension) > 1 and f[:2] != '._':
             if extension[1] == 'tex':
-                file_holder.append(f)
+                compress[0].append(f)
                 os.replace(current_path + f, parent_path + f)
             elif extension[1] == 'bib':
-                bib_holder.append(f)
+                compress[1].append(f)
                 os.replace(current_path + f, parent_path + f)
+            elif extension[1] == 'zip':
+                os.replace(current_path + f, parent_path + f)
+                facilitate_zip_files(f, iter + 1, compress)
+            elif extension[1] == 'tar':
+                facilitate_tar_files(f, iter + 1, compress)
 
     shutil.rmtree(current_path)
 
-    return compress_holder(file_holder, bib_holder)
+    return compress
 
 # 
 def facilitate_zip_files(zip_folder, zip_iteration, compression):
@@ -96,7 +101,7 @@ def facilitate_zip_files(zip_folder, zip_iteration, compression):
     parent_path = os.getcwd() + '/upload/'
 
     path_files = os.listdir(current_path)
-    files = replace_path(compression[0], compression[1], current_path, parent_path, path_files)
+    files = replace_path(compress_holder(compression[0], compression[1]), current_path, parent_path, path_files, zip_iteration)
 
     return files
 
@@ -115,7 +120,7 @@ def facilitate_tar_files(tar_folder, tar_iteration, compression):
     tar_contents_path = current_path + str(tar_directory[0] + '/')
     path_files = os.listdir(tar_contents_path)
 
-    files = replace_path(compression[0], compression[1], tar_contents_path, parent_path, path_files)
+    files = replace_path(compress_holder(compression[0], compression[1]), tar_contents_path, parent_path, path_files, tar_iteration)
     shutil.rmtree(current_path)
 
     return files
