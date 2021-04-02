@@ -83,6 +83,7 @@ def replace_path(compress, current_path, parent_path, path_files, iter):
                 os.replace(current_path + f, parent_path + f)
                 facilitate_zip_files(f, iter + 1, compress)
             elif extension[1] == 'tar':
+                os.replace(current_path + f, parent_path + f)
                 facilitate_tar_files(f, iter + 1, compress)
 
     shutil.rmtree(current_path)
