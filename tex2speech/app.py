@@ -33,6 +33,9 @@ app.config.update(
 
 dropzone = Dropzone(app)
 
+# Set iteration for file traversal
+ITERATION = 3
+
 # Helper function to add values to each array
 def add_to_array(uploadName, extension):
     array = []
@@ -58,64 +61,98 @@ def delete_from_folder():
     for f in final:
         os.remove(f)
 
-def facilitate_zip_files(zip_folder, file_holder, bib_holder):
-    with zipfile.ZipFile(zip_folder, 'r') as zip_ref:
-        os.makedirs(os.path.join(os.getcwd() + '/upload', 'zip_contents'))
-        zip_ref.extractall(os.getcwd() + '/upload/zip_contents')
+# Helper function to compress files
+def compress_holder(file, bib):
+    together = []
+    together.append(file)
+    together.append(bib)
+    return together
 
-    current_path = os.getcwd() + '/upload/zip_contents/'
-    parent_path = os.getcwd() + '/upload/'
-
-    files = os.listdir(current_path)
-
-    for f in files:
+# Helper function to replace directory paths
+def replace_path(compress, current_path, parent_path, path_files, iter):
+    for f in path_files:
         extension = f.rsplit('.', 1)
-
-        if len(extension) > 1:
+        if len(extension) > 1 and f[:2] != '._':
             if extension[1] == 'tex':
-                file_holder.append(f)
+                compress[0].append(f)
                 os.replace(current_path + f, parent_path + f)
             elif extension[1] == 'bib':
-                bib_holder.append(f)
+                compress[1].append(f)
                 os.replace(current_path + f, parent_path + f)
+            elif extension[1] == 'zip':
+                os.replace(current_path + f, parent_path + f)
+                facilitate_zip_files(f, iter + 1, compress)
+            elif extension[1] == 'tar':
+                os.replace(current_path + f, parent_path + f)
+                facilitate_tar_files(f, iter + 1, compress)
 
     shutil.rmtree(current_path)
 
-    together = []
-    together.append(file_holder)
-    together.append(bib_holder)
+    return compress
 
-    return together
+# 
+def facilitate_zip_files(zip_folder, zip_iteration, compression):
+    tempDirectory = 'zip_contents' + str(zip_iteration)
 
-def facilitate_tar_files(tar_folder, file_holder, bib_holder):
-    with tarfile.open(os.getcwd() + '/upload/' + tar_folder.filename) as tar:
-        os.makedirs(os.path.join(os.getcwd() + '/upload', 'tar_contents'))
-        tar.extractall(os.getcwd() + '/upload/tar_contents')
+    with zipfile.ZipFile(os.getcwd() + '/upload/' + zip_folder, 'r') as zip_ref:
+        os.makedirs(os.path.join(os.getcwd() + '/upload', tempDirectory))
+        zip_ref.extractall(os.getcwd() + '/upload/' + str(tempDirectory))
 
-    current_path = os.getcwd() + '/upload/tar_contents/'
+    current_path = os.getcwd() + '/upload/' + str(tempDirectory) + '/'
+    parent_path = os.getcwd() + '/upload/'
+
+    path_files = os.listdir(current_path)
+    files = replace_path(compress_holder(compression[0], compression[1]), current_path, parent_path, path_files, zip_iteration)
+
+    return files
+
+# 
+def facilitate_tar_files(tar_folder, tar_iteration, compression):
+    tempDirectory = 'tar_contents' + str(tar_iteration)
+
+    with tarfile.open(os.getcwd() + '/upload/' + tar_folder) as tar:
+        os.makedirs(os.path.join(os.getcwd() + '/upload', tempDirectory))
+        tar.extractall(os.getcwd() + '/upload/' + tempDirectory)
+
+    current_path = os.getcwd() + '/upload/' + tempDirectory + '/'
     parent_path = os.getcwd() + '/upload/'
 
     tar_directory = os.listdir(current_path)
     tar_contents_path = current_path + str(tar_directory[0] + '/')
-    files = os.listdir(tar_contents_path)
+    path_files = os.listdir(tar_contents_path)
 
-    for f in files:
-        extension = f.rsplit('.', 1)
-        if len(extension) > 1 and f[:2] != '._':
-            if extension[1] == 'tex':
-                file_holder.append(f)
-                os.replace(tar_contents_path + f, parent_path + f)
-            elif extension[1] == 'bib':
-                bib_holder.append(f)
-                os.replace(tar_contents_path + f, parent_path + f)
-
+    files = replace_path(compress_holder(compression[0], compression[1]), tar_contents_path, parent_path, path_files, tar_iteration)
     shutil.rmtree(current_path)
 
-    together = []
-    together.append(file_holder)
-    together.append(bib_holder)
+    return files
 
-    return together
+# 
+def facilitate_upload(content, file_holder, bib_holder, iteration):
+    if iteration == ITERATION:
+        return compress_holder(file_holder, bib_holder)
+
+    extension = content.rsplit('.', 1)
+
+    if len(extension) > 1 and content[:2] != '._':
+        if extension[1] == 'tex':
+            file_holder.append(content)
+        elif extension[1] == 'bib':
+            bib_holder.append(content)
+        elif extension[1] == 'zip':
+            files = facilitate_zip_files(content, iteration, compress_holder(file_holder, bib_holder))
+            file_holder = files[0]
+            bib_holder = files[1]
+        elif extension[1] == 'gz':
+            split = content.split('.')
+            
+            if (split[len(split) - 2] != 'tar'):
+                return 0
+
+            files = facilitate_tar_files(content, iteration, compress_holder(file_holder, bib_holder))
+            file_holder = files[0]
+            bib_holder = files[1]
+
+    return compress_holder(file_holder, bib_holder)
 
 @app.route('/')
 def index():
@@ -146,25 +183,9 @@ def handle_upload():
     for key, f in request.files.items():
         if key.startswith('file'):
             f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
-            extension = os.path.splitext(f.filename)[1]
-
-            if extension == '.tex':
-                file_holder.append(f.filename)
-            elif extension == '.bib':
-                bib_holder.append(f.filename)
-            elif extension == '.zip':
-                files = facilitate_zip_files(f, file_holder, bib_holder)
-                file_holder = files[0]
-                bib_holder = files[1]
-            elif extension == '.gz':
-                split = f.filename.split('.')
-                
-                if (split[len(split) - 2] != 'tar'):
-                    return 0
-
-                files = facilitate_tar_files(f, file_holder, bib_holder)
-                file_holder = files[0]
-                bib_holder = files[1]
+            files = facilitate_upload(f.filename, file_holder, bib_holder, 0)
+            file_holder = files[0]
+            bib_holder = files[1]
 
     # Render
     file_links = start_polly(file_holder, bib_holder)
