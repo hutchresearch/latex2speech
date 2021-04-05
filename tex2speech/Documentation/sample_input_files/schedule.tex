@@ -1,0 +1,63 @@
+\section{Schedule}
+
+\subsection{Gantt Chart}
+% The initial task break-down schedule displayed graphically as a Gantt chart.
+% (see https://www.fool.com/the-blueprint/gantt-chart/)
+% Gnatt charts list the tasks, show the length of each task, and dependencies
+% between tasks.  
+\begin{figure}[h]
+\includegraphics[width=14cm]{docs/vision_and_scope/Gantt.PNG}
+\end{figure}
+
+\subsection{Key Milestones}
+% Milestones are points in the development where you have implemented some
+% number of major features.  For senior project, you generally have five
+% milestones: one at the end of 491, three in 492, and one in 493.
+% In this section, divide the Major Features between the milestones.  You should
+% front-load the schedule as much as possible.  That is, leave 10% of the work
+% for the last milestone.
+Milestone 1: Research and Implement Pipeline
+\begin{itemize}
+    \itemsep0em
+    \item Research software to use for the project
+    \item Setup TTS Web Service
+    \item Find a placeholder for \LaTeX\ to SSML/MathML
+    \item Find a parsing service for \LaTeX\ file
+    \item Create simple web service for uploading files
+    \item Create list of major commands and environments in \LaTeX\
+\end{itemize}
+Milestone 2: Parse \LaTeX\ file to SSML/MathML
+\begin{itemize}
+    \itemsep0em
+    \item Understand how to use parser
+    \item \LaTeX\ basic commands and environments will be parsed to a marked up file
+\end{itemize}
+Milestone 3: Implement Base \LaTeX\ Packages
+\begin{itemize}
+    \itemsep0em
+    \item Implement package conversion
+    \item Refine wavelengths (text analysis)
+\end{itemize}
+Milestone 4: Support Additional Packages
+\begin{itemize}
+    \itemsep0em
+    \item Support additional \LaTeX\ packages in converter
+    \item Continue to refine wavelengths (text analysis)
+\end{itemize}
+Milestone 5: Add UI Functionality/Additional Features
+\begin{itemize}
+    \itemsep0em
+    \item Setup web browser for public usage
+    \item Integrate with other applications such as Overleaf
+\end{itemize}
+
+\subsection{Resource Assignments}
+% Resources include budgets, consumables like paint, and computing equipment
+% like servers and development systems.  Assign these resources, if any, to the
+% tasks, listed above. 
+%
+The only costly resources for our project will be the cloud-based TTS service and the server that will host our \TeX 2Speech application. Our top candidate for the TTS service, Amazon Polly, has a free trial period which extends beyond the development window for the initial programs release so this resource will not be a concern for the time being. The server hosting will be a bit more problematic, but will thankfully only be essential during the final phases of development. It will primarily be needed to test the UI and request handling portions of the project, so once we reach that stage a timesheet will have to be created to allot computation time.
+\subsection{Individual Responsibilities}
+% Who is responsible for which parts of the development effort.
+%
+As it stands, the project is currently undergoing a research period leading to future possibilities in task designation. Once a suitable foundation of background knowledge and experience in each aspect of the process is gained, we will then be able to appoint individual responsibilities based on acquired expertise.

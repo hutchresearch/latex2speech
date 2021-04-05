@@ -2,6 +2,7 @@
 <speak>
    Title 
 !!!RECURSION ERROR LAYER 1 BEGIN!!!
+!!!emphasis level = "strong" here are from the textbf tag and texttit!!!
    <emphasis level="strong">This</emphasis>
    text is not formatted in
    <emphasis level="strong">any</emphasis>
@@ -9,6 +10,7 @@
 !!!Section: and Lists are reversed, as !!!
 !!!well as Section: being the tail tex of mysterious !!!
 !!!gang of rouge break tags (possibly from the table?)!!!
+!!!0.3s breaks are from title, by, published, and section tag beginning. 40ms tags here are from item command!!!
    <break time="0.3s" />
    Lists
    <break time="0.3s" />
@@ -24,6 +26,7 @@
 Here's a very ugly table to show different combinations of lines.
  Table Contents: 
 !!!RECURSION ERROR LAYER 2 BEGIN!!!
+!!!emphasis level = "strong" is from textbf and textit tags!!!
 but
    <emphasis level="strong">this</emphasis>
    <emphasis level="strong">is</emphasis>

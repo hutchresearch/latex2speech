@@ -16,6 +16,7 @@ from contextlib import closing
 from pybtex.database.input import bibtex
 
 import tex2speech.expand_labels
+import tex2speech.doc_cleanup
 # Internal classes
 from conversion_db import ConversionDB
 from conversion_parser import ConversionParser
@@ -97,6 +98,7 @@ def get_text_file(file):
 
 # Parsing .bib files helper
 def parse_bib_file(the_path):
+    print("HELLO GUYS!! DOES THIS WORK")
     file_obj = open(the_path, "r")
     contents = file_obj.read()
     return_obj = ""
@@ -200,19 +202,43 @@ def rid_of_back_backslash(line, i, potential):
 
     return potential
 
+# Checks each document to see if the file is a main document or input document
+# This is denoted by \begin{document} and \end{document} as main, and not if input
+# Returns the array of all master files and input files
+def find_master_files(main):
+    total = []
+    master = []
+    input_list = []
+    for filename in main:
+        with open(path + '/' + filename, 'r') as file:
+            contents = file.read()
+            if r'\begin{document}' in contents and r'\end{document}' in contents:
+                master.append(filename)
+            else:
+                input_list.append(filename)
+            file.close()
+
+    total.append(master)
+    total.append(input_list)
+    
+    return total
+
 # Creates a list of master files to hold the uploaded main 
 # files and input files that are referenced into a single 
 # master file
 #
 # returns list of master files
-def create_master_files(main, input, bib):
+def create_master_files(main_input, bib):
+    main = main_input[0]
+    input_file = main_input[1]
     master_files = []
+
     add = 0
     potential = False
 
     # For every uploaded main file
     for main_file in main:
-        add = add+1
+        add = add + 1
 
         # Create new master file
         with open("final" + str(add) + ".tex", 'w') as outfile:
@@ -241,10 +267,11 @@ def create_master_files(main, input, bib):
                         i = i + 1
                         # Finds include or input file
                         if (tmp == "\\include{" or tmp == "\\input{"):
-                            found_input_file(line, outfile, i, input)
+                            found_input_file(line, outfile, i, input_file)
 
                         # Finds bibliography file
                         if (tmp == "\\bibliography{"):
+                            print("DOES THIS RUN???")
                             inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
                         
             master_files.append(inner_file)
@@ -264,10 +291,12 @@ def start_conversion(contents):
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords
-def start_polly(main, input, bib_contents):
+def start_polly(main, bib_contents):
+    retObj = []
     links = []
-    master_files = []
-    master_files = create_master_files(main, input, bib_contents)
+
+    main_input_files = find_master_files(main)
+    master_files = create_master_files(main_input_files, bib_contents)
 
     for master in master_files:
         # Expand Labels then open document
@@ -276,16 +305,20 @@ def start_polly(main, input, bib_contents):
 
         # Call parsing here
         parsed_contents = start_conversion(tex_file.read())
-        if (len(master) > 1 and master[2] == True):
+        if (len(master) > 1 and master[2] == 'True'):
             print(master)
             parsed_contents += parse_bib_file(master[1])
+
+        parsed_contents = tex2speech.doc_cleanup.cleanxml_string(parsed_contents)
 
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
         # audio_link = tts_of_file(master[0], parsed_contents)
-        # print("--------YO HELLLOOOOOOOOO ALAKJFLSADKJF -------")
-        audio_link = "hi" # I use hi because I don't want it to upload to S3 bucket right now :]
+        audio_link = "hi"
         links.append(audio_link)
 
-    return links
+    retObj.append(main_input_files[0])
+    retObj.append(links)
+
+    return retObj
