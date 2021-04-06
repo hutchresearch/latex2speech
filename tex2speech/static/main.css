@@ -73,10 +73,26 @@ main {
 
 #submit:hover {
     background-color: #0a53a6;
+    cursor: pointer;
 }
 
 .center {
     text-align: center;
+}
+
+#outerBlocker {
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+}
+
+#blocker {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    visibility: hidden;
 }
 
 /* Dropzone Override */
