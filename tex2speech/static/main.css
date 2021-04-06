@@ -9,6 +9,8 @@
 
 :root {
     --main-color: #003f87;
+    --dropzone-override: rgb(213, 211, 211);
+    /* --dropzone-override: #dbd7d7a9; */
 }
 
 html, body {
@@ -58,14 +60,6 @@ main {
     margin-bottom: 10px;
 }
 
-.dropzone {
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 30px;
-    border: 4px dashed rgb(152, 152, 152) !important;
-    background-color: #eee !important;
-}
-
 #submit {
     background-color: var(--main-color);
     color: #FFF;
@@ -77,9 +71,45 @@ main {
     font-size: 25px;
 }
 
+#submit:hover {
+    background-color: #0a53a6;
+}
+
 .center {
     text-align: center;
 }
+
+/* Dropzone Override */
+.dropzone {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 30px;
+    border: 4px dashed rgb(152, 152, 152) !important;
+    background-color: #eee !important;
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image {
+    background: var(--dropzone-override) !important;
+    border: none !important;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span, .dropzone .dz-preview .dz-details .dz-size span {
+    background-color: var(--dropzone-override) !important;
+    border: none !important;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span {
+    background-color: var(--dropzone-override) !important;
+}
+
+.dropzone .dz-preview.dz-complete .dz-progress {
+    margin-top: 30px !important;
+}
+
+.dropzone .dz-preview:not(.dz-processing) .dz-progress {
+    margin-top: 30px !important;
+}
+/* End of Dropzone Override */
 
 /* End of Main CSS */
 
