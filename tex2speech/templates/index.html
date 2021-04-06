@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,27 +7,42 @@
 
     <!-- CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}" />
+    {{ dropzone.load_css() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-
-<header>
-    {{ dropzone.style('margin-top: 5%; margin-bottom: 5%;') }}
-    {{ dropzone.load() }}
-    
-</header>
-
 <body>
-    
-    <h1><span class = "tex2">Tex2</span><span class = "speech">Speech</span></h1>
+    <header>
+        {{ dropzone.load() }}
+        <img src="{{url_for('static', filename='WWULogo.png')}}" align="middle" />
+        <h1>Tex2Speech</h1>
+    </header>
 
-    <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post">
-        {{ dropzone.create() }}
-        <input type="submit" id="submit" value="Submit and Upload">
-    </form>
-    {{ dropzone.load_js() }}
-    {{ dropzone.config() }}
-</body>
+    <main>
 
+        <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post" id = 'formID'>
+            {{ dropzone.create() }}
+            <div class = "center">
+                <input type="submit" id="submit" value="Convert">
+                <div id="dot-elastic"></div>
+                <!-- <div class="dot-spin"></div> -->
+            </div>
+        </form>
+        {{ dropzone.config() }}
+
+        <div class = "descriptionBox">
+            <h2>Using the Converter</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+        <div class = "descriptionBox">
+            <h2>Supported Command &amp; Libraries</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Copyright 2021</p>
+    </footer>
 <!-- JavaScript Files -->
 <script src="{{url_for('static', filename='main.js')}}"></script>
-
+</body>
 </html>

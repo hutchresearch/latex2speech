@@ -156,29 +156,29 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
 
 @app.route('/')
 def index():
+    print("HEY")
     return render_template('index.html')
 
 # Upload middle man
 @app.route('/upload', methods=['POST'])
 def handle_upload():
-    session.pop('audio', None)
-    session.pop('master', None)
+    print("THIS RUNS?")
+    session.pop('file_holder', None)
+    session.pop('bib_holder', None)
 
     # Create upload directory (if non exists)
     if not os.path.exists('upload'):
         os.makedirs('upload')
 
     # Create session
-    if 'audio' not in session:
-        session['audio'] = []
-    if 'master' not in session:
-        session['master'] = []
+    if 'file_holder' not in session:
+        session['file_holder'] = []
+    if 'bib_holder' not in session:
+        session['bib_holder'] = []
 
     # Grabbing obj
-    file_holder = []
-    bib_holder = []
-    audio_links = session['audio']
-    master = session['master']
+    file_holder = session['file_holder']
+    bib_holder = session['bib_holder']
 
     for key, f in request.files.items():
         if key.startswith('file'):
@@ -187,26 +187,31 @@ def handle_upload():
             file_holder = files[0]
             bib_holder = files[1]
 
-    # Render
-    file_links = start_polly(file_holder, bib_holder)
-    session['audio'] = file_links[1]
-    session['master'] = file_links[0]
-
     return '', 204
 
 # Download resulting output page
 @app.route('/form', methods=['POST'])
 def handle_form():
     # redirect to home if nothing in session
-    if "audio" not in session or session['audio'] == []:
+    if 'file_holder' not in session or session['file_holder'] == []:
         return redirect(url_for('index'))
 
-    audio = session['audio']
-    master = session['master']
+    file_holder = session['file_holder']
+    bib_holder = session['bib_holder']
 
     # Pop sessions 
-    session.pop('audio', None)
-    session.pop('master', None)
+    session.pop('file_holder', None)
+    session.pop('bib_holder', None)
+
+    # Render
+    file_links = start_polly(file_holder, bib_holder)
+
+    # redirect to home if nothing in file_links
+    if file_links[0] == []:
+        return redirect(url_for('index'))
+
+    audio = file_links[1]
+    master = file_links[0]
 
     file_audio = zip(master, audio)
 

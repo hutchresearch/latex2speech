@@ -1,137 +1,272 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+
 * {
     padding: 0;
     margin: 0;
+    font-family: 'Lato', sans-serif;
 }
 
 :root {
-    --main-Color: #008080;
+    --main-color: #003f87;
+    --dropzone-override: rgb(213, 211, 211);
+    /* --dot-color: #FFF; */
+    --dot-color: #FFF;
 }
 
-h1 {
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: #eee;
+}
+
+/* Header CSS */
+header {
+    background-color: var(--main-color);
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+header h1 {
+    position: absolute;
+    width: 100%;
     text-align: center;
-    margin-top: 20px;
-    font-size: 50px;
-    color: var(--main-Color);
+    color: #FFF;
 }
 
-h3 {
-    margin-top: 10px;
-    color: var(--main-Color);
+header img {
+    height: 50px;
+    width: auto;
+}
+/* End of Header CSS */
+
+/* Main CSS */
+main {
+    width: 100%;
+    top: 60px;
+}
+
+.descriptionBox {
+    width: 40%;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.descriptionBox h2 {
+    margin: auto;
     margin-bottom: 10px;
-    text-align: center;
-}
-
-.output {
-    text-align: center;
-}
-
-form {
-    /* border: 1px solid black; */
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 2%;
-}
-
-#addMoreInput, #addMoreMain {
-    background-color: white;
-    color: black;
-    padding: 1%;
-    /* border: 2px solid var(--main-Color); */
-    border: transparent;
-    margin-top: 10px;
-}
-
-#addMoreInput:hover, #addMoreMain:hover  {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.fa:hover {
-    cursor: pointer;
-}
-
-#additional {
-    /* margin-left: 10%; */
 }
 
 #submit {
-    margin-left: 10px;
+    background-color: var(--main-color);
+    color: #FFF;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 7px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 25px;
 }
 
-.single {
-    border: 1px solid black;
+#submit:hover {
+    background-color: #0a53a6;
+    cursor: pointer;
+}
+
+.center {
     text-align: center;
-    padding: 10px;
 }
 
-.single h5 {
-    text-align: left;
-    padding: 5px;
-}
-
-/* Main Tex File CSS */
-.main {
-    display: inline-block;
-    vertical-align: top;
-}
-
-/* Bib File CSS */
-.bib {
-    display: inline-block;
-    vertical-align: top;
-}
-
-/* Input File CSS */
-.input {
-    display: inline-block;
-    vertical-align: top;
-}
-
-/* Tooltip container */
-.mainInfo, .bibInfo, .inputInfo {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-
-/* Tooltip text */
-.mainInfo .mainToolTip, .bibInfo .bibToolTip, .inputInfo .inputToolTip {
-    visibility: hidden;
-    width: 200px;
-    background-color: var(--main-Color);
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    border-radius: 6px;
-  
-    /* Position the tooltip text */
-    position: absolute;
+#outerBlocker {
+    width: 100%;
     z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-  
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  /* Tooltip arrow */
-.mainInfo .mainToolTip::after, .bibInfo .bibToolTip::after, .inputInfo .inputToolTip::after {
-    content: "";
     position: absolute;
-    top: 100%;
-    left: 27%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+}
+
+/* Dropzone Override */
+.dropzone {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 30px;
+    border: 4px dashed rgb(152, 152, 152) !important;
+    background-color: #eee !important;
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image {
+    background: var(--dropzone-override) !important;
+    border: none !important;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span, .dropzone .dz-preview .dz-details .dz-size span {
+    background-color: var(--dropzone-override) !important;
+    border: none !important;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span {
+    background-color: var(--dropzone-override) !important;
+}
+
+.dropzone .dz-preview.dz-complete .dz-progress {
+    margin-top: 30px !important;
+}
+
+.dropzone .dz-preview:not(.dz-processing) .dz-progress {
+    margin-top: 30px !important;
+}
+/* End of Dropzone Override */
+
+/* End of Main CSS */
+
+/* Footer CSS */
+
+footer {
+    text-align: center;
+    padding: 15px;
+}
+
+/* End of Footer CSS */
+
+#dot-elastic {
+    position: relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElastic 1s infinite linear;
+
+    margin: auto;
+    left: 75px;
+    top: -58px;
+    visibility: hidden;
   }
   
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .mainInfo:hover .mainToolTip, .bibInfo:hover .bibToolTip, .inputInfo:hover .inputToolTip {
-    visibility: visible;
-    opacity: 1;
+  #dot-elastic::before, #dot-elastic::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  
+  #dot-elastic::before {
+    left: -10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElasticBefore 1s infinite linear;
+  }
+  
+  #dot-elastic::after {
+    left: 10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElasticAfter 1s infinite linear;
+  }
+  
+  @keyframes dotElasticBefore {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1.5);
+    }
+    50% {
+      transform: scale(1, 0.67);
+    }
+    75% {
+      transform: scale(1, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  
+  @keyframes dotElastic {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, 1.5);
+    }
+    75% {
+      transform: scale(1, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  
+  @keyframes dotElasticAfter {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, 0.67);
+    }
+    75% {
+      transform: scale(1, 1.5);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
   }
 
+
+  .dot-spin {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: transparent;
+    box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), 0 18px 0 0 rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), -18px 0 0 0 rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 rgba(152, 128, 255, 0);
+    animation: dotSpin 1.5s infinite linear;
+    
+    margin: auto;
+    margin-bottom: 20px;
+  }
+  
+  @keyframes dotSpin {
+    0%,
+    100% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    12.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    25% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    37.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    50% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    62.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+    75% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+    87.5% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+  }
+  
