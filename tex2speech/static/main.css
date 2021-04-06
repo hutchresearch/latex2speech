@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+
 * {
     padding: 0;
     margin: 0;
@@ -10,7 +11,8 @@
 :root {
     --main-color: #003f87;
     --dropzone-override: rgb(213, 211, 211);
-    /* --dropzone-override: #dbd7d7a9; */
+    /* --dot-color: #FFF; */
+    --dot-color: #FFF;
 }
 
 html, body {
@@ -128,3 +130,143 @@ footer {
 }
 
 /* End of Footer CSS */
+
+#dot-elastic {
+    position: relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElastic 1s infinite linear;
+
+    margin: auto;
+    left: 75px;
+    top: -58px;
+    visibility: hidden;
+  }
+  
+  #dot-elastic::before, #dot-elastic::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  
+  #dot-elastic::before {
+    left: -10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElasticBefore 1s infinite linear;
+  }
+  
+  #dot-elastic::after {
+    left: 10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElasticAfter 1s infinite linear;
+  }
+  
+  @keyframes dotElasticBefore {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1.5);
+    }
+    50% {
+      transform: scale(1, 0.67);
+    }
+    75% {
+      transform: scale(1, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  
+  @keyframes dotElastic {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, 1.5);
+    }
+    75% {
+      transform: scale(1, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  
+  @keyframes dotElasticAfter {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, 0.67);
+    }
+    75% {
+      transform: scale(1, 1.5);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+
+
+  .dot-spin {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: transparent;
+    box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), 0 18px 0 0 rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), -18px 0 0 0 rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 rgba(152, 128, 255, 0);
+    animation: dotSpin 1.5s infinite linear;
+    
+    margin: auto;
+    margin-bottom: 20px;
+  }
+  
+  @keyframes dotSpin {
+    0%,
+    100% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    12.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    25% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    37.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    50% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    62.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+    75% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+    87.5% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+  }
+  
