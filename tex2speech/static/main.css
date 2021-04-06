@@ -1,137 +1,93 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 * {
     padding: 0;
     margin: 0;
+    font-family: 'Lato', sans-serif;
 }
 
 :root {
-    --main-Color: #008080;
+    --main-color: #003f87;
 }
 
-h1 {
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: #eee;
+}
+
+/* Header CSS */
+header {
+    background-color: var(--main-color);
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+header h1 {
+    position: absolute;
+    width: 100%;
     text-align: center;
-    margin-top: 20px;
-    font-size: 50px;
-    color: var(--main-Color);
+    color: #FFF;
 }
 
-h3 {
-    margin-top: 10px;
-    color: var(--main-Color);
+header img {
+    height: 50px;
+    width: auto;
+}
+/* End of Header CSS */
+
+/* Main CSS */
+main {
+    width: 100%;
+    top: 60px;
+}
+
+.descriptionBox {
+    width: 40%;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.descriptionBox h2 {
+    margin: auto;
     margin-bottom: 10px;
-    text-align: center;
 }
 
-.output {
-    text-align: center;
-}
-
-form {
-    /* border: 1px solid black; */
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 2%;
-}
-
-#addMoreInput, #addMoreMain {
-    background-color: white;
-    color: black;
-    padding: 1%;
-    /* border: 2px solid var(--main-Color); */
-    border: transparent;
-    margin-top: 10px;
-}
-
-#addMoreInput:hover, #addMoreMain:hover  {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.fa:hover {
-    cursor: pointer;
-}
-
-#additional {
-    /* margin-left: 10%; */
+.dropzone {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 30px;
+    border: 4px dashed rgb(152, 152, 152) !important;
+    background-color: #eee !important;
 }
 
 #submit {
-    margin-left: 10px;
+    background-color: var(--main-color);
+    color: #FFF;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 7px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 25px;
 }
 
-.single {
-    border: 1px solid black;
+.center {
     text-align: center;
-    padding: 10px;
 }
 
-.single h5 {
-    text-align: left;
-    padding: 5px;
-}
+/* End of Main CSS */
 
-/* Main Tex File CSS */
-.main {
-    display: inline-block;
-    vertical-align: top;
-}
+/* Footer CSS */
 
-/* Bib File CSS */
-.bib {
-    display: inline-block;
-    vertical-align: top;
-}
-
-/* Input File CSS */
-.input {
-    display: inline-block;
-    vertical-align: top;
-}
-
-/* Tooltip container */
-.mainInfo, .bibInfo, .inputInfo {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-
-/* Tooltip text */
-.mainInfo .mainToolTip, .bibInfo .bibToolTip, .inputInfo .inputToolTip {
-    visibility: hidden;
-    width: 200px;
-    background-color: var(--main-Color);
-    color: #fff;
+footer {
     text-align: center;
-    padding: 10px;
-    border-radius: 6px;
-  
-    /* Position the tooltip text */
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-  
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
+    padding: 15px;
+}
 
-  /* Tooltip arrow */
-.mainInfo .mainToolTip::after, .bibInfo .bibToolTip::after, .inputInfo .inputToolTip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 27%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .mainInfo:hover .mainToolTip, .bibInfo:hover .bibToolTip, .inputInfo:hover .inputToolTip {
-    visibility: visible;
-    opacity: 1;
-  }
-
+/* End of Footer CSS */
