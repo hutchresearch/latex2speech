@@ -192,6 +192,10 @@ def handle_upload():
     session['audio'] = file_links[1]
     session['master'] = file_links[0]
 
+    # redirect to home if nothing in session
+    if "audio" not in session or session['audio'] == []:
+        return redirect(url_for('index'))
+
     return '', 204
 
 # Download resulting output page

@@ -1,4 +1,5 @@
 const form = document.getElementById('formID');
+var count= myDropzoneNST.files.length;
 
 $( document ).ready(function() {
     $(function() {
