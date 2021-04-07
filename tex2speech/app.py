@@ -1,5 +1,9 @@
-# # Run flask app: python3 -m flask run
+# # Run flask app: python3 app.py
 
+# For uwsgi container to host flask in a production setting
+# -> sudo apt-get install gcc (Need to have c compiler) -> If using mac command is sudo brew install gcc
+# You also need the python development headers, to get this run the command or equivalent to apt-get install python-dev
+# -> pip install uwsgi
 import os
 import glob
 import zipfile
