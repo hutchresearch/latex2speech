@@ -43,6 +43,9 @@ class ConversionParser:
     '''Function that will take in new table contents, and parse
     each column'''
     def _parseTableContents(self, contents_node, elem_list_parent, left_child=None):
+        if is_dbg:
+            print(">{}Parse Table Contents".format(self.prefix))
+
         split = str(contents_node).split("\n")
         # Go through each row
         for row in split:
@@ -65,6 +68,9 @@ class ConversionParser:
                         elem_list_parent.appendHeadText(text)
 
                     column += 1
+            
+        if is_dbg:
+            print("<{}Parse Table Contents".format(self.prefix))
 
     '''This function strips out unnecessary environments from table node
         TexSoup doesn't delete \begin{tabular} or \end{tabular} tags
@@ -84,6 +90,9 @@ class ConversionParser:
         the format of the ArgElement class.
     '''
     def _getArg(self, node, arg_elem):
+        if is_dbg:
+            print(">{}Get Arg".format(self.prefix))
+
         target_type = TexSoup.data.BraceGroup
         if arg_elem.getArgType() == 'bracket':
             target_type = TexSoup.data.BracketGroup
@@ -98,6 +107,9 @@ class ConversionParser:
 
         if num == arg_elem.getArgNum():
             arg = node.args[i]
+
+        if is_dbg:
+            print("<{}Get Arg".format(self.prefix))
 
         return arg
 
@@ -114,7 +126,7 @@ class ConversionParser:
     def _resolveEnvironmentElements(self, env_node, elem_list_parent, elem_list, left_child):
         if is_dbg:
             self.res_env += 1
-            print("{}>Resolve Environment Elements : func lvl {}".format(self.prefix, self.res_env))
+            print(">{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
         if len(elem_list) > 0:
             offset = 0
             i = 0
@@ -170,7 +182,7 @@ class ConversionParser:
                 if i > 0:
                     left_child = elem_list[i-1]
         if is_dbg:
-            print("{}<Resolve Environment Elements : func lvl {}".format(self.prefix, self.res_env))
+            print("<{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
             self.res_env -= 1
 
     '''
@@ -179,7 +191,7 @@ class ConversionParser:
     '''
     def _parseEnvironment(self, env_node, ssml_parent, left_child):
         if is_dbg:
-            print("{}>Parse Environment".format(self.prefix))
+            print(">{}Parse Environment".format(self.prefix))
 
         args, contents = seperateContents(env_node)
 
@@ -190,7 +202,7 @@ class ConversionParser:
             self._resolveEnvironmentElements(env_node, ssml_parent, elem_list, left_child)
 
         if is_dbg:
-            print("{}<Parse Environment".format(self.prefix))
+            print("<{}Parse Environment".format(self.prefix))
 
         return elem_list
 
@@ -201,7 +213,7 @@ class ConversionParser:
     def _resolveCmdElements(self, cmd_node, elem_list_parent, elem_list, left_child):
         if is_dbg:
             self.res_cmd += 1
-            print("{}>Resolve Command Elements : func lvl {}".format(self.prefix, self.res_cmd))
+            print(">{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
         if len(elem_list) > 0:
             offset = 0
             i = 0
@@ -232,7 +244,7 @@ class ConversionParser:
                 if i > 0:
                     left_child = elem_list[i-1]
         if is_dbg:
-            print("{}<Resolve Command Elements : func lvl {}".format(self.prefix, self.res_cmd))
+            print("<{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
             self.res_cmd -= 1
 
     '''
@@ -241,7 +253,7 @@ class ConversionParser:
     '''
     def _parseCommand(self, cmd_node, ssml_parent, left_child):
         if is_dbg:
-            print("{}>Parse Command".format(self.prefix))
+            print(">{}Parse Command".format(self.prefix))
 
         args, _ = seperateContents(cmd_node)
         
@@ -255,7 +267,7 @@ class ConversionParser:
             self._resolveCmdElements(cmd_node, ssml_parent, elem_list, left_child)
 
         if is_dbg:
-            print("{}<Parse Command".format(self.prefix))
+            print("<{}Parse Command".format(self.prefix))
 
         return elem_list
 
@@ -267,9 +279,9 @@ class ConversionParser:
     '''
     def _parseNodes(self, tex_nodes: list, ssml_parent: SSMLElementNode, ssml_children=None, insert_index=0, left_child=None):
         if is_dbg:
-            self.prefix = "\t" * self.parse_nodes
             self.parse_nodes += 1
-            print("{}>Parse Nodes : func lvl {}".format(self.prefix, self.parse_nodes))
+            self.prefix = "\t" * (self.parse_nodes-1)
+            print(">{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
 
         if ssml_children is None:
             ssml_children = ssml_parent.children
@@ -289,17 +301,24 @@ class ConversionParser:
                 else:
                     ssml_parent.appendHeadText(text)
             if parseOut:
+                print("-{}Parse Nodes #{}: Inserting parsed contents {}".format(self.prefix, self.parse_nodes, parseOut))
+                print("-{}   into {}".format(self.prefix, ssml_children))
+                print("-{}   at index {}".format(self.prefix, insert_index))
                 for ssmlChild in parseOut:
                     ssml_children.insert(insert_index, ssmlChild)
                     insert_index += 1
+                print("-{}Result: {}".format(self.prefix, ssml_children))
+                print("-{}  with an index of {}".format(self.prefix, insert_index))
 
             if insert_index > 0:
                 left_child = ssml_children[insert_index-1]
         
         if is_dbg:
-            print("{}<Parse Nodes : func lvl {}".format(self.prefix[:-1], self.parse_nodes))
+            self.prefix = "\t" * (self.parse_nodes-1)
+            print("<{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
             self.parse_nodes -= 1
-            self.prefix = self.prefix[:-1]
+            if self.parse_nodes >= 0:
+                self.prefix = "\t" * (self.parse_nodes-1)
 
         return insert_index
 
