@@ -17,6 +17,8 @@ from sympytossml import convert_sympy_ssml, QuantityModes
 from tex_soup_utils import exprTest, seperateContents
 from tex_to_sympy import run_sympy
 
+is_dbg = True
+
 '''
 Main parsing class. Parses TexSoup parse trees into SSMLElementNode
     trees for future output. The conversion rules for every command 
@@ -28,6 +30,15 @@ class ConversionParser:
         self.db = db
         self.env_stack = []
         self.index = 0
+
+        if is_dbg:
+            self.parse_env = 0
+            self.res_env = 0
+            self.parse_cmd = 0
+            self.res_cmd = 0
+            self.parse_nodes = 0
+
+            self.prefix = ""
 
     '''Function that will take in new table contents, and parse
     each column'''
@@ -101,6 +112,9 @@ class ConversionParser:
         env_node. Also manages the env_stack.
     '''
     def _resolveEnvironmentElements(self, env_node, elem_list_parent, elem_list, left_child):
+        if is_dbg:
+            self.res_env += 1
+            print("{}>Resolve Environment Elements : func lvl {}".format(self.prefix, self.res_env))
         if len(elem_list) > 0:
             offset = 0
             i = 0
@@ -155,12 +169,18 @@ class ConversionParser:
                 i = (k + 1) + offset
                 if i > 0:
                     left_child = elem_list[i-1]
+        if is_dbg:
+            print("{}<Resolve Environment Elements : func lvl {}".format(self.prefix, self.res_env))
+            self.res_env -= 1
 
     '''
     Handles environment parsing, returning the result of its parsing or 
         or none of no appropriate definition is found.
     '''
     def _parseEnvironment(self, env_node, ssml_parent, left_child):
+        if is_dbg:
+            print("{}>Parse Environment".format(self.prefix))
+
         args, contents = seperateContents(env_node)
 
         elem_list = self.db.getEnvConversion(env_node.name)
@@ -169,6 +189,9 @@ class ConversionParser:
         else:
             self._resolveEnvironmentElements(env_node, ssml_parent, elem_list, left_child)
 
+        if is_dbg:
+            print("{}<Parse Environment".format(self.prefix))
+
         return elem_list
 
     '''
@@ -176,6 +199,9 @@ class ConversionParser:
         env_node.
     '''
     def _resolveCmdElements(self, cmd_node, elem_list_parent, elem_list, left_child):
+        if is_dbg:
+            self.res_cmd += 1
+            print("{}>Resolve Command Elements : func lvl {}".format(self.prefix, self.res_cmd))
         if len(elem_list) > 0:
             offset = 0
             i = 0
@@ -205,12 +231,18 @@ class ConversionParser:
                 i = (k + 1) + offset
                 if i > 0:
                     left_child = elem_list[i-1]
+        if is_dbg:
+            print("{}<Resolve Command Elements : func lvl {}".format(self.prefix, self.res_cmd))
+            self.res_cmd -= 1
 
     '''
     Handles command parsing, returning the result of its parsing or 
         or none of no appropriate definition is found.
     '''
     def _parseCommand(self, cmd_node, ssml_parent, left_child):
+        if is_dbg:
+            print("{}>Parse Command".format(self.prefix))
+
         args, _ = seperateContents(cmd_node)
         
         elem_list = None
@@ -222,6 +254,9 @@ class ConversionParser:
         if elem_list:
             self._resolveCmdElements(cmd_node, ssml_parent, elem_list, left_child)
 
+        if is_dbg:
+            print("{}<Parse Command".format(self.prefix))
+
         return elem_list
 
     '''
@@ -231,6 +266,11 @@ class ConversionParser:
         order to facilitate processing seperate lists of nodes.
     '''
     def _parseNodes(self, tex_nodes: list, ssml_parent: SSMLElementNode, ssml_children=None, insert_index=0, left_child=None):
+        if is_dbg:
+            self.prefix = "\t" * self.parse_nodes
+            self.parse_nodes += 1
+            print("{}>Parse Nodes : func lvl {}".format(self.prefix, self.parse_nodes))
+
         if ssml_children is None:
             ssml_children = ssml_parent.children
         for texNode in tex_nodes:
@@ -255,6 +295,11 @@ class ConversionParser:
 
             if insert_index > 0:
                 left_child = ssml_children[insert_index-1]
+        
+        if is_dbg:
+            print("{}<Parse Nodes : func lvl {}".format(self.prefix[:-1], self.parse_nodes))
+            self.parse_nodes -= 1
+            self.prefix = self.prefix[:-1]
 
         return insert_index
 
