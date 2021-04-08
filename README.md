@@ -1,5 +1,5 @@
 # TeX2Speech
-A web app for converting LaTeX documents to spoken audio mp3 using Flask, AWS Polly, ANTLR, and SymPy
+A web application for converting LaTeX documents to spoken audio. You can demo the program [here](http://tex2speech.eba-mgbfwtgw.us-east-1.elasticbeanstalk.com/).
 
 ## Features
 - Quickly and conveniently upload LaTeX and download mp3
@@ -8,11 +8,11 @@ A web app for converting LaTeX documents to spoken audio mp3 using Flask, AWS Po
 - Unambiguous spoken math equations
 
 ## Contributors
-Taichen Rose  
 Connor Barlow  
-Jacob Nemeth  
 Walker Herring  
-Dylon Rajah  
+Jacob Nemeth  
+Dylon Rajah 
+Taichen Rose   
 
 ## Dependencies
 1. Python
@@ -22,10 +22,12 @@ Dylon Rajah
 
 ## Getting Started
 
+**To run this locally**
 1. Clone project repository
-2. Go to `latex2speech` folder and run the requirements.txt page with the command `pip3 install -r requirements.txt` which installs other dependencies needed.
-3. cd into tex2speech folder and run `aws configure` add in your AWS Secret Key and Access Key
-4. Create directory called instance in the latex2speech directory (Keep the instance directory and everything in it private do not share)
-5. Create a file called config.py in the instance directory
-6. Create variable in config.py called `SECRET_KEY` and assign it a random generated key (string of random characters)
-7. To run project locally run `python3 -m flask run`  
+2. Create a virtual environment `python3 -m venv env` then run your virtual enviornment `source env/bin/activiate`
+3. Go to `latex2speech/tex2speech` folder and run the requirements.txt page with the command `pip3 install -r requirements.txt` which installs other dependencies needed.
+4. Then run `aws configure` add in your AWS Secret Key and Access Key
+5. Create directory called instance in the `latex2speech/tex2speech` directory (Keep the instance directory and everything in it private do not share)
+5. Create a file called config.py in the instance directory `instance/config.py`
+7. Create variable in config.py called `SECRET_KEY` and assign it a random generated key (string of random characters)
+8. To run project locally run `python3 application.py`  
