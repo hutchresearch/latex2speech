@@ -133,8 +133,16 @@ main {
 }
 
 .inputBox h2 {
-  text-align: center;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+.inputBox a {
+  text-align: center;
+}
+
+.output {
+  /* text-align: center; */
 }
 
 .inputBox img {
@@ -146,9 +154,11 @@ main {
   margin: 5px;
   padding: 5px;
   display: inline-block;
+  margin: auto;
+  margin-left: 48%;
 }
 
-.fileOutput p{
+.fileOutput p {
   float: right;
   padding-top: 4px;
   margin-left: 4px;
@@ -303,4 +313,29 @@ footer {
       box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 var(--dot-color);
     }
   }
+
+@media screen and (max-width: 1465px) {
+  .fileOutput {
+    margin-left: 46%;
+  }
+}
   
+@media screen and (max-width: 1020px) {
+  .fileOutput {
+    margin-left: 44%;
+  }
+
+  .descriptionBox {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .fileOutput {
+    margin-left: 41%;
+  }
+
+  .descriptionBox {
+    width: 60%;
+  }
+}
