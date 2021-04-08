@@ -40,6 +40,12 @@ class ConversionParser:
 
             self.prefix = ""
 
+    def _appendText(self, text, left_child, parent):
+        if left_child:
+            left_child.appendTailText(text)
+        else:
+            parent.appendHeadText(text)
+
     '''Function that will take in new table contents, and parse
     each column'''
     def _parseTableContents(self, contents_node, elem_list_parent, left_child=None):
@@ -49,10 +55,7 @@ class ConversionParser:
         split = str(contents_node).split("\n")
         # Go through each row
         for row in split:
-            if left_child:
-                left_child.appendTailText("New Row: ")
-            else:
-                elem_list_parent.appendHeadText("New Row: ")
+            self._appendText("New Row: ", left_child, elem_list_parent)
 
             inner_split = row.split('&')
             column = 1
@@ -60,12 +63,9 @@ class ConversionParser:
             # Go through each value in the row
             for word in inner_split: 
                 if word != "&":
-                    text = ", Column " + str(column) + ", Value: " + word;
+                    text = ", Column " + str(column) + ", Value: " + word
 
-                    if left_child:
-                        left_child.appendTailText(text)
-                    else:
-                        elem_list_parent.appendHeadText(text)
+                    self._appendText(text, left_child, elem_list_parent)
 
                     column += 1
             
@@ -136,6 +136,7 @@ class ConversionParser:
                     next_offset = -1
                     new_ind = i
                     parse_target = None
+
                     if isinstance(elem, ArgElement):
                         arg = self._getArg(env_node, elem)
                         if arg:
@@ -144,10 +145,7 @@ class ConversionParser:
                         _, parse_target = seperateContents(env_node)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
-                        if left_child:
-                            left_child.appendTailText(text)
-                        else:
-                            elem_list_parent.appendHeadText(text)
+                        self._appendText(text, left_child, elem_list_parent)
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")
                         
@@ -159,13 +157,9 @@ class ConversionParser:
                         if definition:
                             if 'mathmode' in definition and definition['mathmode'] == True:
                                 output = run_sympy(self._envContentsToString(env_node))
-                                # print("MATHMODE OUTPUT: " + output)
-                                if left_child:
-                                    left_child.appendTailText(str(output))
-                                else:
-                                    elem_list_parent.appendHeadText(str(output))
+                                self._appendText(str(output), left_child, elem_list_parent)
                             elif 'readTable' in definition and definition['readTable'] == True:
-                                self._parseTableContents(self._parseTableNode(env_node), elem_list_parent, left_child)
+                                self._parseTableContents(self._parseTableNode(env_node), elem_list_parent, left_child=left_child)
                             else:
                                 self.env_stack.append(definition)
                                 new_ind = self._parseNodes(parse_target, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
@@ -175,6 +169,9 @@ class ConversionParser:
                     
                     next_offset += new_ind - i
                     offset += next_offset
+
+                    # In all cases, we must preserve tail text of the placeholder SSMLElement
+                    self._appendText(elem.getTailText(), left_child, elem_list_parent)
                 else:
                     self._resolveEnvironmentElements(env_node, elem_list[i], elem_list[i].children, None)
 
@@ -192,10 +189,13 @@ class ConversionParser:
     def _parseEnvironment(self, env_node, ssml_parent, left_child):
         if is_dbg:
             print(">{}Parse Environment".format(self.prefix))
+            print("-{}  Environment Name : {}".format(self.prefix, env_node.name))
 
         args, contents = seperateContents(env_node)
 
         elem_list = self.db.getEnvConversion(env_node.name)
+
+        print("-{}Parse Environment: Got element list {}".format(self.prefix, elem_list))
         if not elem_list:
             self._parseNodes(contents, ssml_parent, left_child=left_child)
         else:
@@ -229,10 +229,7 @@ class ConversionParser:
                             new_ind = self._parseNodes(arg.contents, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
-                        if left_child:
-                            left_child.appendTailText(text)
-                        else:
-                            elem_list_parent.appendHeadText(text)
+                        self._appendText(text, left_child, elem_list_parent)
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")
 
@@ -254,6 +251,7 @@ class ConversionParser:
     def _parseCommand(self, cmd_node, ssml_parent, left_child):
         if is_dbg:
             print(">{}Parse Command".format(self.prefix))
+            print("-{}  Command Name : {}".format(self.prefix, cmd_node.name))
 
         args, _ = seperateContents(cmd_node)
         
@@ -282,6 +280,8 @@ class ConversionParser:
             self.parse_nodes += 1
             self.prefix = "\t" * (self.parse_nodes-1)
             print(">{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
+            print(">{}  with children {}".format(self.prefix, ssml_children))
+            print(">{}  and insert index {}".format(self.prefix, insert_index))
 
         if ssml_children is None:
             ssml_children = ssml_parent.children
@@ -296,10 +296,7 @@ class ConversionParser:
                 # print("  TEST " + str(texNode))
             elif exprTest(texNode, TexSoup.data.Token):
                 text = str(texNode)
-                if left_child:
-                    left_child.appendTailText(text)
-                else:
-                    ssml_parent.appendHeadText(text)
+                self._appendText(text, left_child, ssml_parent)
             if parseOut:
                 print("-{}Parse Nodes #{}: Inserting parsed contents {}".format(self.prefix, self.parse_nodes, parseOut))
                 print("-{}   into {}".format(self.prefix, ssml_children))
