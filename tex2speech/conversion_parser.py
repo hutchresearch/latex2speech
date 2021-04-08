@@ -162,10 +162,10 @@ class ConversionParser:
                                 self._parseTableContents(self._parseTableNode(env_node), elem_list_parent, left_child=left_child)
                             else:
                                 self.env_stack.append(definition)
-                                new_ind = self._parseNodes(parse_target, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
+                                new_ind = self._parseNodes(parse_target, elem_list_parent, elem_list, insert_index=i, left_child=left_child)
                                 self.env_stack.pop()
                         else:
-                            new_ind = self._parseNodes(parse_target, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
+                            new_ind = self._parseNodes(parse_target, elem_list_parent, elem_list, insert_index=i, left_child=left_child)
                     
                     next_offset += new_ind - i
                     offset += next_offset
@@ -197,7 +197,8 @@ class ConversionParser:
 
         print("-{}Parse Environment: Got element list {}".format(self.prefix, elem_list))
         if not elem_list:
-            self._parseNodes(contents, ssml_parent, left_child=left_child)
+            elem_list = []
+            self._parseNodes(contents, ssml_parent, elem_list, left_child=left_child)
         else:
             self._resolveEnvironmentElements(env_node, ssml_parent, elem_list, left_child)
 
@@ -226,7 +227,7 @@ class ConversionParser:
                         arg = self._getArg(cmd_node, elem)
                         if arg:
                             parse_target = arg.contents
-                            new_ind = self._parseNodes(arg.contents, elem_list_parent, ssml_children=elem_list, insert_index=i, left_child=left_child)
+                            new_ind = self._parseNodes(arg.contents, elem_list_parent, elem_list, insert_index=i, left_child=left_child)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
                         self._appendText(text, left_child, elem_list_parent)
@@ -235,6 +236,9 @@ class ConversionParser:
 
                     next_offset += new_ind - i
                     offset += next_offset
+
+                    # In all cases, we must preserve tail text of the placeholder SSMLElement
+                    self._appendText(elem.getTailText(), left_child, elem_list_parent)
                 else:
                     self._resolveCmdElements(cmd_node, elem_list[i], elem_list[i].children, None)
                 i = (k + 1) + offset
@@ -275,16 +279,13 @@ class ConversionParser:
         necessarily correspond to the parent's actual list of children in 
         order to facilitate processing seperate lists of nodes.
     '''
-    def _parseNodes(self, tex_nodes: list, ssml_parent: SSMLElementNode, ssml_children=None, insert_index=0, left_child=None):
+    def _parseNodes(self, tex_nodes: list, ssml_parent: SSMLElementNode, ssml_children, insert_index=0, left_child=None):
         if is_dbg:
             self.parse_nodes += 1
             self.prefix = "\t" * (self.parse_nodes-1)
             print(">{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
             print(">{}  with children {}".format(self.prefix, ssml_children))
             print(">{}  and insert index {}".format(self.prefix, insert_index))
-
-        if ssml_children is None:
-            ssml_children = ssml_parent.children
         for texNode in tex_nodes:
             parseOut = None
             if insert_index > 0:
@@ -342,7 +343,7 @@ class ConversionParser:
         tree = RootElement()
         if isinstance(doc, str):
             doc = TexSoup.TexSoup(doc)
-        self._parseNodes(doc.contents, tree)
+        self._parseNodes(doc.contents, tree, tree.children)
 
         if not test:
             return tree.getString()
