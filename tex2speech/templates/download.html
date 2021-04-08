@@ -18,26 +18,32 @@
     <main>
         <div class="inputBox">
             <!-- Download mp3/mp4 audio -->
+            <h2>Your audio files are ready to download</h2>
             <div class="output">
-                <h3>To Audio</h3>
                 {% for files in file_holder %}
-                    <li>Link to audio download (Click to download): <a href="{{ files[1] }}" target = "_blank">{{ files[0] }}</a></li>
+                    <div class = "fileOutput">
+                        <a href="{{ files[1] }}" target = "_blank">
+                            <img src = "{{url_for('static', filename='download.png')}}">
+                            </img>
+                        </a>
+                        <p>{{ files[0] }}</p><br>
+                    </div>
+                    <div class = "clearfix"></div>
                 {% endfor %}
             </div>
-        </div>
-        <div class = "descriptionBox">
-            <h2>Using the Converter</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
 
-        <div class = "descriptionBox">
-            <h2>Supported Command &amp; Libraries</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <!-- Back Button -->
+            <div class = "fileOutput">
+                <a href="/" target = "_blank">
+                    <img src = "{{url_for('static', filename='back.png')}}">
+                    </img>
+                </a>
+                <p>Go Back</p>
+            </div>
         </div>
-    </main>
 
     <footer>
-        <p>&copy; Copyright 2021</p>
+       <!-- <p>&copy; Copyright 2021</p> -->
     </footer>
 <!-- JavaScript Files -->
 <script src="{{url_for('static', filename='main.js')}}"></script>

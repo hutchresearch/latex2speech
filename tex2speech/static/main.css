@@ -21,6 +21,10 @@ html, body {
     background-color: #eee;
 }
 
+.clearfix {
+  clear: both;
+}
+
 /* Header CSS */
 header {
     background-color: var(--main-color);
@@ -44,7 +48,7 @@ header img {
 }
 /* End of Header CSS */
 
-/* Main CSS */
+/* Main CSS HOME */
 main {
     width: 100%;
     top: 60px;
@@ -120,7 +124,47 @@ main {
 }
 /* End of Dropzone Override */
 
-/* End of Main CSS */
+/* End of Main CSS HOME */
+
+/* Main CSS DOWNLOAD */
+
+.inputBox {
+  margin-top: 40px;
+}
+
+.inputBox h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.inputBox a {
+  text-align: center;
+}
+
+.output {
+  /* text-align: center; */
+}
+
+.inputBox img {
+  height: 30px;
+  width: 30px;
+}
+
+.fileOutput {
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  margin: auto;
+  margin-left: 48%;
+}
+
+.fileOutput p {
+  float: right;
+  padding-top: 4px;
+  margin-left: 4px;
+}
+
+/* End of Main CSS DOWNLOAD */
 
 /* Footer CSS */
 
@@ -269,4 +313,29 @@ footer {
       box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 var(--dot-color);
     }
   }
+
+@media screen and (max-width: 1465px) {
+  .fileOutput {
+    margin-left: 46%;
+  }
+}
   
+@media screen and (max-width: 1020px) {
+  .fileOutput {
+    margin-left: 44%;
+  }
+
+  .descriptionBox {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .fileOutput {
+    margin-left: 41%;
+  }
+
+  .descriptionBox {
+    width: 60%;
+  }
+}
