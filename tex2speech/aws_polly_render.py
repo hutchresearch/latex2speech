@@ -187,14 +187,13 @@ def check(tmp, cmd):
 def rid_of_back_backslash(line, i, potential):
     # Get end of line slashes out
     if i > 0 and line[i - 1] == ' ' and line[i] == '\\':
-        potential = True
+        potential = 'True'
 
     if line[i] == ' ':
-        potential = False
+        potential = 'False'
 
-    if i < len(line) and potential == True and line[i] == '\\' and line[i + 1] == ' ':
-        i = i + 1
-        potential = False
+    if i < len(line) and potential == 'True' and line[i] == '\\' and line[i + 1] == ' ':
+        potential = 'Changed'
 
     return potential
 
@@ -230,7 +229,7 @@ def create_master_files(main_input, bib):
     master_files = []
 
     add = 0
-    potential = False
+    potential = 'False'
 
     # For every uploaded main file
     for main_file in main:
@@ -246,9 +245,12 @@ def create_master_files(main_input, bib):
                     tmp = ""
 
                     for i in range(len(line)):
-                        tmp = tmp + line[i]
-
                         potential = rid_of_back_backslash(line, i, potential)
+                        if (potential == 'Changed'):
+                            i = i + 1
+                            potential = 'False'
+
+                        tmp = tmp + line[i]
 
                         # Handle comments
                         if tmp == "%":
