@@ -21,6 +21,10 @@ html, body {
     background-color: #eee;
 }
 
+.clearfix {
+  clear: both;
+}
+
 /* Header CSS */
 header {
     background-color: var(--main-color);
@@ -44,7 +48,7 @@ header img {
 }
 /* End of Header CSS */
 
-/* Main CSS */
+/* Main CSS HOME */
 main {
     width: 100%;
     top: 60px;
@@ -120,7 +124,37 @@ main {
 }
 /* End of Dropzone Override */
 
-/* End of Main CSS */
+/* End of Main CSS HOME */
+
+/* Main CSS DOWNLOAD */
+
+.inputBox {
+  margin-top: 40px;
+}
+
+.inputBox h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.inputBox img {
+  height: 30px;
+  width: 30px;
+}
+
+.fileOutput {
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+}
+
+.fileOutput p{
+  float: right;
+  padding-top: 4px;
+  margin-left: 4px;
+}
+
+/* End of Main CSS DOWNLOAD */
 
 /* Footer CSS */
 
