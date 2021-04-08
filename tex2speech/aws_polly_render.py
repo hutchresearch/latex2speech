@@ -117,7 +117,7 @@ def parse_bib_file(the_path):
         for en in entry.fields.keys():
             return_obj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
 
-    os.remove(the_path)
+    # os.remove(the_path)
 
     return return_obj
 
@@ -308,8 +308,8 @@ def start_polly(main, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents)
-        audio_link = "hi"
+        audio_link = tts_of_file(master[0], parsed_contents)
+        # audio_link = "hi"
         links.append(audio_link)
 
     retObj.append(main_input_files[0])
