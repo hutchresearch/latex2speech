@@ -110,11 +110,14 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.virt
+virt/
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+virt.bak/
 
 # Spyder project settings
 .spyderproject
@@ -137,3 +140,7 @@ dmypy.json
 # IDE Exclusions
 .vscode/
 settings.json
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

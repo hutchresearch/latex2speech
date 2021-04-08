@@ -1,5 +1,9 @@
-# # Run flask app: python3 -m flask run
+# # Run flask app: python3 application.py
 
+# For uwsgi container to host flask in a production setting
+# -> sudo apt-get install gcc (Need to have c compiler) -> If using mac command is sudo brew install gcc
+# You also need the python development headers, to get this run the command or equivalent to apt-get install python-dev
+# -> pip install uwsgi
 import os
 import glob
 import zipfile
@@ -30,7 +34,7 @@ app.config.update(
     DROPZONE_UPLOAD_ACTION='handle_upload',  # URL or endpoint
     DROPZONE_UPLOAD_BTN_ID='submit',
 )
-
+application = app
 dropzone = Dropzone(app)
 
 # Set iteration for file traversal
@@ -54,11 +58,15 @@ def add_to_array(uploadName, extension):
 def delete_from_folder():
     files = glob.glob(app.config['UPLOADED_PATH'] + "/*")
     final = glob.glob(app.config['CUSTOM_STATIC_PATH'] + "/*.tex")
+    finalLog = glob.glob(app.config['CUSTOM_STATIC_PATH'] + "/*.log")
 
     for f in files:
         os.remove(f)
 
     for f in final:
+        os.remove(f)
+
+    for f in finalLog:
         os.remove(f)
 
 # Helper function to compress files

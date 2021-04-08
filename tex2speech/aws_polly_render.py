@@ -15,8 +15,8 @@ from contextlib import closing
 # Parsing Library
 from pybtex.database.input import bibtex
 
-import tex2speech.expand_labels
-import tex2speech.doc_cleanup
+from expand_labels import expand_doc_new_labels
+from doc_cleanup import cleanxml_string
 # Internal classes
 from conversion_db import ConversionDB
 from conversion_parser import ConversionParser
@@ -44,8 +44,6 @@ def create_presigned_url(bucket_name, object_name, expiration=3600):
         print(e)
         return None
 
-    print("\n\n" + response + "\n\n")
-
     # The response contains the presigned URL
     return response
 
@@ -64,7 +62,6 @@ def generate_presigned_url(objectURL):
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file, contents):
-    print("TEST")
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
@@ -98,7 +95,6 @@ def get_text_file(file):
 
 # Parsing .bib files helper
 def parse_bib_file(the_path):
-    print("HELLO GUYS!! DOES THIS WORK")
     file_obj = open(the_path, "r")
     contents = file_obj.read()
     return_obj = ""
@@ -121,7 +117,7 @@ def parse_bib_file(the_path):
         for en in entry.fields.keys():
             return_obj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
 
-    os.remove(the_path)
+    # os.remove(the_path)
 
     return return_obj
 
@@ -271,7 +267,6 @@ def create_master_files(main_input, bib):
 
                         # Finds bibliography file
                         if (tmp == "\\bibliography{"):
-                            print("DOES THIS RUN???")
                             inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
                         
             master_files.append(inner_file)
@@ -300,22 +295,21 @@ def start_polly(main, bib_contents):
 
     for master in master_files:
         # Expand Labels then open document
-        tex2speech.expand_labels.expand_doc_new_labels(master[0])
+        expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
 
         # Call parsing here
         parsed_contents = start_conversion(tex_file.read())
         if (len(master) > 1 and master[2] == 'True'):
-            print(master)
             parsed_contents += parse_bib_file(master[1])
 
-        parsed_contents = tex2speech.doc_cleanup.cleanxml_string(parsed_contents)
+        parsed_contents = cleanxml_string(parsed_contents)
 
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents)
-        audio_link = "hi"
+        audio_link = tts_of_file(master[0], parsed_contents)
+        # audio_link = "hi"
         links.append(audio_link)
 
     retObj.append(main_input_files[0])
