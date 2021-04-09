@@ -65,18 +65,18 @@ def tts_of_file(file, contents):
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
-            VoiceId = "Joanna",
-            OutputS3BucketName = "tex2speech",
+            VoiceId = 'Joanna',
+            OutputS3BucketName = 'tex2speech',
             OutputS3KeyPrefix = file,
-            OutputFormat = "mp3",
-            TextType = "ssml",
+            OutputFormat = 'mp3',
+            TextType = 'ssml',
             Text = '<speak>' + contents + '</speak>')
 
         # Output the task ID
         task_id = audio['SynthesisTask']['TaskId']
 
         # Get audio link from bucket
-        object_name = file + "." + task_id + ".mp3"
+        object_name = file + '.' + task_id + '.mp3'
         audio_link = generate_presigned_url(object_name)
 
         return audio_link
