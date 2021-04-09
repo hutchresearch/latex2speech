@@ -136,7 +136,9 @@ def found_input_file(line, outfile, i, input):
 
             if(append == input_file):
                 with open(path + "/" + input_file,'r') as tmp_input:
-                    outfile.write(tmp_input.read().replace("%", "Begin Comment "))
+                    contents = tmp_input.read().replace('%', 'Begin Comment ')
+                    contents = contents.replace('\\LaTeX\\', '\\LaTeX')
+                    outfile.write(contents)
                     contained = True
                     tmp_input.close()
         i = i + 1
