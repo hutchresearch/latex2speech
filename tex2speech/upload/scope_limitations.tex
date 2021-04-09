@@ -1,0 +1,16 @@
+\section{Scope and Limitations}
+% This section identifies what part of the envisioned solution is going to be
+% developed in this current project or version, what will be delayed until
+% latter projects, and what is out of scope for the whole product.  
+%
+\subsection{Scope of Initial Release}
+The initial release of the program will demonstrate the functionality of synthesizing audio from generic \LaTeX\ documents, with support for major commands and environments and the ability to parse common mathematical expressions. This will be hosted on a basic web service with the capability to upload \LaTeX\ files and download the resulting audio.
+
+\subsection{Scope of Subsequent Releases}
+\par
+Future releases would focus on increasing the scope of environments and tools supported by \TeX 2Speech, expanding the number of accepted file formats accepted (e.g. entire compressed \LaTeX\ projects), and providing a more robust user interface for convenient reading of rendered \LaTeX\ files. Including support for one or more other languages outside the locale of English would be an important possibility to consider as well.\\
+\par
+\noindent The most ambitious possibility for a future release would be adding functionality to reverse engineer the \LaTeX\ source from PDFs that were generated with \LaTeX\. No accessible tools to do this currently exist, but if accomplished would expand the scope of this project to the huge number of papers/documents/textbooks for which no \LaTeX\ source exists. Even without this ambitious feature, websites like arXiv.org provide not only an enormous repository of papers but typically include their source, which will give \TeX 2Speech a huge library of files to synthesize regardless.
+
+\subsection{Limitations and Exclusions}
+Since \LaTeX\ is such an extendable language, it’s an impossibility to assume we could fully cover all environments and commands. No matter what \TeX 2Speech will operate on a “best-effort” system for unknown commands or combinations thereof.

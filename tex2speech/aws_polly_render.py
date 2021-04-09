@@ -70,7 +70,7 @@ def tts_of_file(file, contents):
             OutputS3KeyPrefix = file,
             OutputFormat = "mp3",
             TextType = "ssml",
-            Text = contents)
+            Text = '<speak>' + contents + '</speak>')
 
         # Output the task ID
         task_id = audio['SynthesisTask']['TaskId']
@@ -116,8 +116,6 @@ def parse_bib_file(the_path):
         # Gets all other key - value pairs and reads them out
         for en in entry.fields.keys():
             return_obj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
-
-    # os.remove(the_path)
 
     return return_obj
 
