@@ -223,7 +223,7 @@ def handle_form():
 
     file_audio = zip(master, audio)
 
-    # delete_from_folder()
+    delete_from_folder()
 
     return render_template(
         'download.html',
