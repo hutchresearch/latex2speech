@@ -30,6 +30,13 @@
         <break time = "0.3s"/>
     </cmd>
 
+    <cmd name="subsection" type = "none">
+        Sub Section: 
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+
     <cmd name="dots" type = "none">
         <break strength="strong"/>
     </cmd>
@@ -95,6 +102,17 @@
         <emphasis level = "strong">
             Reference Section: 
         </emphasis>
+    </cmd>
+
+    <cmd name = "footnote" type = "none">
+        Footnote:
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.5s"/>
+    </cmd>
+
+    <cmd name = "TeX" type = "none">
+        TeX
     </cmd>
 
 <!-- Latex Environments -->
