@@ -115,6 +115,12 @@
         TeX
     </cmd>
 
+    <!-- Need to create new tag here for \item stuff -->
+    <cmd name = "item" type = "none">
+        <!-- <break time = "0.3s"/>
+        <break time = "0.5s"/> -->
+    </cmd>
+
 <!-- Latex Environments -->
     <!-- This is incase user does \begin{thebibliography} -->
     <env name = "thebibliography" type = "none">
@@ -165,18 +171,22 @@
 
     <env name="itemize" type = "none">
         <says>
+            List contents:
+            <break time = "40ms"/>
             <content/>
+            <break time = "40ms"/>
+            End of List.
         </says>
 
         <!-- This might be wrong, because we want the contents to be read with break time infront? -->
-        <defines>
+        <!-- <defines>
             <cmd name="item" type = "none">
                 <break time = "40ms"/>
             </cmd>
 
         </defines>
 
-        <break time = "medium"/>
+        <break time = "medium"/> -->
     </env>
 
     <env name="quotation" type = "none">
@@ -228,6 +238,23 @@
     </env>
 
     <env name="enumerate" type = "none">
+        <says>
+            List contents:
+            <break time = "40ms"/>
+            <content/>
+            <break time = "40ms"/>
+            End of List.
+        </says>
+    </env>
+
+    <env name="description" type = "none">
+        <says>
+            Description contents:
+            <break time = "40ms"/>
+            <content/>
+            <break time = "40ms"/>
+            End of Description.
+        </says>
     </env>
 
     <env name="description" type = "none">
@@ -250,6 +277,16 @@
     </env>
 
     <env name="tabular" type = "readTable">
+        <says>
+            Table Contents:
+            <break time = "40ms"/>
+            <content/>
+            End Table Contents
+            <break time = "40ms"/>
+        </says>
+    </env>
+
+    <env name="tabularx" type = "readTable">
         <says>
             Table Contents:
             <break time = "40ms"/>
