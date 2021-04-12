@@ -65,18 +65,18 @@ def tts_of_file(file, contents):
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
-            VoiceId = "Joanna",
-            OutputS3BucketName = "tex2speech",
+            VoiceId = 'Joanna',
+            OutputS3BucketName = 'tex2speech',
             OutputS3KeyPrefix = file,
-            OutputFormat = "mp3",
-            TextType = "ssml",
-            Text = contents)
+            OutputFormat = 'mp3',
+            TextType = 'ssml',
+            Text = '<speak>' + contents + '</speak>')
 
         # Output the task ID
         task_id = audio['SynthesisTask']['TaskId']
 
         # Get audio link from bucket
-        object_name = file + "." + task_id + ".mp3"
+        object_name = file + '.' + task_id + '.mp3'
         audio_link = generate_presigned_url(object_name)
 
         return audio_link
@@ -117,8 +117,6 @@ def parse_bib_file(the_path):
         for en in entry.fields.keys():
             return_obj += str(en) + ": " + str(bib_data.entries[entry.key].fields[en] + "<break time='0.3s'/>")
 
-    # os.remove(the_path)
-
     return return_obj
 
 # Helper method used if found a corresponding input file
@@ -138,7 +136,9 @@ def found_input_file(line, outfile, i, input):
 
             if(append == input_file):
                 with open(path + "/" + input_file,'r') as tmp_input:
-                    outfile.write(tmp_input.read().replace("%", "Begin Comment "))
+                    contents = tmp_input.read().replace('%', 'Begin Comment ')
+                    contents = contents.replace('\\LaTeX\\', '\\LaTeX')
+                    outfile.write(contents)
                     contained = True
                     tmp_input.close()
         i = i + 1
@@ -187,14 +187,13 @@ def check(tmp, cmd):
 def rid_of_back_backslash(line, i, potential):
     # Get end of line slashes out
     if i > 0 and line[i - 1] == ' ' and line[i] == '\\':
-        potential = True
+        potential = 'True'
 
     if line[i] == ' ':
-        potential = False
+        potential = 'False'
 
-    if i < len(line) and potential == True and line[i] == '\\' and line[i + 1] == ' ':
-        i = i + 1
-        potential = False
+    if i < len(line) and potential == 'True' and line[i] == '\\' and line[i + 1] == ' ':
+        potential = 'Changed'
 
     return potential
 
@@ -230,7 +229,7 @@ def create_master_files(main_input, bib):
     master_files = []
 
     add = 0
-    potential = False
+    potential = 'False'
 
     # For every uploaded main file
     for main_file in main:
@@ -246,9 +245,12 @@ def create_master_files(main_input, bib):
                     tmp = ""
 
                     for i in range(len(line)):
-                        tmp = tmp + line[i]
-
                         potential = rid_of_back_backslash(line, i, potential)
+                        if (potential == 'Changed'):
+                            i = i + 1
+                            potential = 'False'
+
+                        tmp = tmp + line[i]
 
                         # Handle comments
                         if tmp == "%":
