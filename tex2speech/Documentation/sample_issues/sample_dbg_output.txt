@@ -1,0 +1,887 @@
+>Parse Nodes #1
+>  with children []
+>  and insert index 0
+>Parse Command
+-  Command Name : documentclass
+<Parse Command
+>Parse Command
+-  Command Name : usepackage
+<Parse Command
+>Parse Command
+-  Command Name : usepackage
+<Parse Command
+>Parse Command
+-  Command Name : renewcommand
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Command
+-  Command Name : setlength
+<Parse Command
+>Parse Environment
+-  Environment Name : document
+-Parse Environment: Got element list None
+>       Parse Nodes #2
+>         with children []
+>         and insert index 0
+>       Parse Command
+-         Command Name : leftline
+<       Parse Command
+>       Parse Command
+-         Command Name : leftline
+<       Parse Command
+>       Parse Command
+-         Command Name : leftline
+<       Parse Command
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Command
+-         Command Name : LaTeX
+>       Resolve Command Elements #1
+<       Resolve Command Elements #1
+<       Parse Command
+>       Parse Environment
+-         Environment Name : itemize
+-       Parse Environment: Got element list ["List contents:" TextElement, BreakElement, ContentElement, BreakElement "End of List."]
+>       Resolve Environment Elements #1
+>       Resolve Environment Elements #2
+<       Resolve Environment Elements #2
+>               Parse Nodes #3
+>                 with children [BreakElement, BreakElement "End of List."]
+>                 and insert index 1
+>               Parse Command
+-                 Command Name : item
+<               Parse Command
+>               Parse Command
+-                 Command Name : item
+<               Parse Command
+>               Parse Command
+-                 Command Name : item
+<               Parse Command
+<               Parse Nodes #3
+>       Resolve Environment Elements #2
+<       Resolve Environment Elements #2
+<       Resolve Environment Elements #1
+<       Parse Environment
+-       Parse Nodes #2: Inserting parsed contents [BreakElement, BreakElement "End of List."]
+-          into []
+-          at index 0
+-       Result: [BreakElement, BreakElement "End of List."]
+-         with an index of 2
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : small
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tiny
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : em
+>               Resolve Command Elements #1
+>               Resolve Command Elements #2
+>               Get Arg
+<               Get Arg
+<               Resolve Command Elements #2
+<               Resolve Command Elements #1
+<               Parse Command
+-               Parse Nodes #3: Inserting parsed contents [EmphasisElement]
+-                  into []
+-                  at index 0
+-               Result: [EmphasisElement]
+-                 with an index of 1
+<               Parse Nodes #3
+<       Parse Environment
+-       Parse Nodes #2: Inserting parsed contents [EmphasisElement " e.g."]
+-          into [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics ("]
+-          at index 2
+-       Result: [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g."]
+-         with an index of 3
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : em
+>               Resolve Command Elements #1
+>               Resolve Command Elements #2
+>               Get Arg
+<               Get Arg
+<               Resolve Command Elements #2
+<               Resolve Command Elements #1
+<               Parse Command
+-               Parse Nodes #3: Inserting parsed contents [EmphasisElement]
+-                  into []
+-                  at index 0
+-               Result: [EmphasisElement]
+-                 with an index of 1
+<               Parse Nodes #3
+<       Parse Environment
+-       Parse Nodes #2: Inserting parsed contents [EmphasisElement "  Thermodynamics is everywhere"]
+-          into [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g."]
+-          at index 3
+-       Result: [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere"]
+-         with an index of 4
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : bf
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : $
+-       Parse Environment: Got element list [ContentElement]
+>       Resolve Environment Elements #1
+<       Resolve Environment Elements #1
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : $
+-       Parse Environment: Got element list [ContentElement]
+>       Resolve Environment Elements #1
+<       Resolve Environment Elements #1
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : $
+-       Parse Environment: Got element list [ContentElement]
+>       Resolve Environment Elements #1
+<       Resolve Environment Elements #1
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : $
+-       Parse Environment: Got element list [ContentElement]
+>       Resolve Environment Elements #1
+<       Resolve Environment Elements #1
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : $
+-       Parse Environment: Got element list [ContentElement]
+>       Resolve Environment Elements #1
+<       Resolve Environment Elements #1
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : eqnarray
+-       Parse Environment: Got element list [ContentElement]
+>       Resolve Environment Elements #1
+<       Resolve Environment Elements #1
+<       Parse Environment
+>       Parse Command
+-         Command Name : footnote
+>       Resolve Command Elements #1
+>       Resolve Command Elements #2
+<       Resolve Command Elements #2
+>       Get Arg
+<       Get Arg
+>               Parse Nodes #3
+>                 with children [BreakElement, BreakElement]
+>                 and insert index 1
+>               Parse Environment
+-                 Environment Name : BraceGroup
+-               Parse Environment: Got element list None
+>                       Parse Nodes #4
+>                         with children []
+>                         and insert index 0
+>                       Parse Command
+-                         Command Name : em
+>                       Resolve Command Elements #2
+>                       Resolve Command Elements #3
+>                       Get Arg
+<                       Get Arg
+<                       Resolve Command Elements #3
+<                       Resolve Command Elements #2
+<                       Parse Command
+-                       Parse Nodes #4: Inserting parsed contents [EmphasisElement]
+-                          into []
+-                          at index 0
+-                       Result: [EmphasisElement]
+-                         with an index of 1
+>                       Parse Command
+-                         Command Name : LaTeX
+>                       Resolve Command Elements #2
+<                       Resolve Command Elements #2
+<                       Parse Command
+<                       Parse Nodes #4
+<               Parse Environment
+-               Parse Nodes #3: Inserting parsed contents [EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual"]
+-                  into [BreakElement "Lamport, L., 1986, ", BreakElement]
+-                  at index 1
+-               Result: [BreakElement "Lamport, L., 1986, ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual", BreakElement]
+-                 with an index of 2
+<               Parse Nodes #3
+>       Resolve Command Elements #2
+<       Resolve Command Elements #2
+<       Resolve Command Elements #1
+<       Parse Command
+-       Parse Nodes #2: Inserting parsed contents [BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement]
+-          into [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: "]
+-          at index 4
+-       Result: [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: ", BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement]
+-         with an index of 7
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : figure
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : epsfxsize
+<               Parse Command
+>               Parse Command
+-                 Command Name : centerline
+<               Parse Command
+>               Parse Command
+-                 Command Name : caption
+>               Resolve Command Elements #1
+>               Resolve Command Elements #2
+<               Resolve Command Elements #2
+>               Get Arg
+<               Get Arg
+>                       Parse Nodes #4
+>                         with children [BreakElement, BreakElement]
+>                         and insert index 1
+>                       Parse Environment
+-                         Environment Name : $
+-                       Parse Environment: Got element list [ContentElement]
+>                       Resolve Environment Elements #1
+<                       Resolve Environment Elements #1
+<                       Parse Environment
+<                       Parse Nodes #4
+>               Resolve Command Elements #2
+<               Resolve Command Elements #2
+<               Resolve Command Elements #1
+<               Parse Command
+-               Parse Nodes #3: Inserting parsed contents [BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement]
+-                  into []
+-                  at index 0
+-               Result: [BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement]
+-                 with an index of 2
+>               Parse Command
+-                 Command Name : label
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+-       Parse Nodes #2: Inserting parsed contents [BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement]
+-          into [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: ", BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement "
+are available. 
+If you have an postscript file, say   sample.figure.eps , in the same local directory,
+you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\ 
+I'm just testing somethng here, but here is Equation 1 is the first law..
+ =2.5in
+ Caption: "]
+-          at index 7
+-       Result: [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: ", BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement "
+are available. 
+If you have an postscript file, say   sample.figure.eps , in the same local directory,
+you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\ 
+I'm just testing somethng here, but here is Equation 1 is the first law..
+ =2.5in
+ Caption: ", BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement]
+-         with an index of 9
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Command
+-         Command Name : leftline
+<       Parse Command
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Command
+-         Command Name : LaTeX
+>       Resolve Command Elements #1
+<       Resolve Command Elements #1
+<       Parse Command
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Command
+-         Command Name : LaTeX
+>       Resolve Command Elements #1
+<       Resolve Command Elements #1
+<       Parse Command
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Command
+-         Command Name : noindent
+<       Parse Command
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Command
+-         Command Name : noindent
+<       Parse Command
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Command
+-         Command Name : hspace
+<       Parse Command
+>       Parse Command
+-         Command Name : medskip
+<       Parse Command
+>       Parse Command
+-         Command Name : noindent
+<       Parse Command
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : em
+>               Resolve Command Elements #1
+>               Resolve Command Elements #2
+>               Get Arg
+<               Get Arg
+<               Resolve Command Elements #2
+<               Resolve Command Elements #1
+<               Parse Command
+-               Parse Nodes #3: Inserting parsed contents [EmphasisElement]
+-                  into []
+-                  at index 0
+-               Result: [EmphasisElement]
+-                 with an index of 1
+<               Parse Nodes #3
+<       Parse Environment
+-       Parse Nodes #2: Inserting parsed contents [EmphasisElement " Another very good and modern option is the web-based"]
+-          into [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: ", BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement "
+are available. 
+If you have an postscript file, say   sample.figure.eps , in the same local directory,
+you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\ 
+I'm just testing somethng here, but here is Equation 1 is the first law..
+ =2.5in
+ Caption: ", BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement "
+You can create a  LaTeX  ~ file with any text editor (  vi ,   emacs ,   gedit , 
+etc.). 
+To get a document, you need to run the  LaTeX  ~ application
+on the text file.  The text file must have the suffix ``  .tex ''
+On a Linux cluster machine, this is done via the command
+
+ 
+This generates three files:   file.dvi ,   file.aux ,
+and   file.log .  The most important is   file.dvi . 
+
+ 
+The finished product can be previewed in the following way.
+Execute the commands:
+
+  dvipdf file.dvi 
+This command generates   file.pdf .  
+Alternatively, you can use   TeXShop  on a Macintosh or   MiKTeX  on a Windows-based machine. "]
+-          at index 9
+-       Result: [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: ", BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement "
+are available. 
+If you have an postscript file, say   sample.figure.eps , in the same local directory,
+you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\ 
+I'm just testing somethng here, but here is Equation 1 is the first law..
+ =2.5in
+ Caption: ", BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement "
+You can create a  LaTeX  ~ file with any text editor (  vi ,   emacs ,   gedit , 
+etc.). 
+To get a document, you need to run the  LaTeX  ~ application
+on the text file.  The text file must have the suffix ``  .tex ''
+On a Linux cluster machine, this is done via the command
+
+ 
+This generates three files:   file.dvi ,   file.aux ,
+and   file.log .  The most important is   file.dvi . 
+
+ 
+The finished product can be previewed in the following way.
+Execute the commands:
+
+  dvipdf file.dvi 
+This command generates   file.pdf .  
+Alternatively, you can use   TeXShop  on a Macintosh or   MiKTeX  on a Windows-based machine. ", EmphasisElement " Another very good and modern option is the web-based"]
+-         with an index of 10
+>       Parse Command
+-         Command Name : href
+<       Parse Command
+>       Parse Environment
+-         Environment Name : BraceGroup
+-       Parse Environment: Got element list None
+>               Parse Nodes #3
+>                 with children []
+>                 and insert index 0
+>               Parse Command
+-                 Command Name : tt
+<               Parse Command
+<               Parse Nodes #3
+<       Parse Environment
+<       Parse Nodes #2
+<Parse Environment
+-Parse Nodes #1: Inserting parsed contents [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: ", BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement "
+are available. 
+If you have an postscript file, say   sample.figure.eps , in the same local directory,
+you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\ 
+I'm just testing somethng here, but here is Equation 1 is the first law..
+ =2.5in
+ Caption: ", BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement "
+You can create a  LaTeX  ~ file with any text editor (  vi ,   emacs ,   gedit , 
+etc.). 
+To get a document, you need to run the  LaTeX  ~ application
+on the text file.  The text file must have the suffix ``  .tex ''
+On a Linux cluster machine, this is done via the command
+
+ 
+This generates three files:   file.dvi ,   file.aux ,
+and   file.log .  The most important is   file.dvi . 
+
+ 
+The finished product can be previewed in the following way.
+Execute the commands:
+
+  dvipdf file.dvi 
+This command generates   file.pdf .  
+Alternatively, you can use   TeXShop  on a Macintosh or   MiKTeX  on a Windows-based machine. ", EmphasisElement " Another very good and modern option is the web-based .
+The   .tex  file must have a closing statement as
+below.
+
+
+"]
+-   into []
+-   at index 0
+-Result: [BreakElement, BreakElement "End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics (", EmphasisElement " e.g.", EmphasisElement "  Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote: ", BreakElement "Lamport, L., 1986,  ", EmphasisElement "LaTeX  : User's Guide  \&  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts.", BreakElement "
+are available. 
+If you have an postscript file, say   sample.figure.eps , in the same local directory,
+you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\ 
+I'm just testing somethng here, but here is Equation 1 is the first law..
+ =2.5in
+ Caption: ", BreakElement "Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas. ", BreakElement "
+You can create a  LaTeX  ~ file with any text editor (  vi ,   emacs ,   gedit , 
+etc.). 
+To get a document, you need to run the  LaTeX  ~ application
+on the text file.  The text file must have the suffix ``  .tex ''
+On a Linux cluster machine, this is done via the command
+
+ 
+This generates three files:   file.dvi ,   file.aux ,
+and   file.log .  The most important is   file.dvi . 
+
+ 
+The finished product can be previewed in the following way.
+Execute the commands:
+
+  dvipdf file.dvi 
+This command generates   file.pdf .  
+Alternatively, you can use   TeXShop  on a Macintosh or   MiKTeX  on a Windows-based machine. ", EmphasisElement " Another very good and modern option is the web-based .
+The   .tex  file must have a closing statement as
+below.
+
+
+"]
+-  with an index of 10
+<Parse Nodes #1
+
+
+CONTENTS AFTER CHANGE
+
+ 
+This is a sample file in the text formatter  LaTeX  .
+I require you to use it for the following reasons:
+
+ List contents:  <break time="40ms"/>    <break time="40ms"/>   End of List. 
+Some basic instructions are given next.
+Put your text in here.  You can be a little sloppy    about
+spacing.  It adjusts the text to look good.
+  You can make the text smaller.  You can make the text tiny. 
+Skip a line for a new paragraph.   
+You can use italics ( <emphasis level="strong">  </emphasis>  e.g. <emphasis level="strong">  </emphasis>   Thermodynamics is everywhere ) or   bold .
+Greek letters are a snap:  Psi  ,  psi  ,
+ Phi  ,  phi  .  Equations within text are easy---
+A well known Maxwell thermodynamic relation is
+ <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> T times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times P <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/> equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> left times <prosody pitch="+25%"><break time="0.3ms"/>begin second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>begin third parentheses</prosody><break time="0.3ms"/> partial times <prosody pitch="+25%"><break time="0.3ms"/>begin fourth parentheses</prosody><break time="0.3ms"/> v times <prosody pitch="+25%"><break time="0.3ms"/>begin fifth parentheses</prosody><break time="0.3ms"/> over times <prosody pitch="+25%"><break time="0.3ms"/>begin sixth parentheses</prosody><break time="0.3ms"/> partial times s <prosody pitch="+25%"><break time="0.3ms"/>end sixth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fifth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end fourth parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end third parentheses</prosody><break time="0.3ms"/> times right <prosody pitch="+25%"><break time="0.3ms"/>end second parentheses</prosody><break time="0.3ms"/> <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>  .
+You can also set aside equations like so:
+  math mode equation did not render   
+Equation 1 is the first law.
+Equation 2 is the second law.
+Equation 3 is the third law.
+References Footnote:  <break time="0.3s"/>   Lamport, L., 1986,   <emphasis level="strong">  </emphasis> LaTeX  : User's Guide  \&amp;  Reference Manual ,
+    Addison-Wesley: Reading, Massachusetts. <break time="0.5s"/>   
+are available. 
+If you have an postscript file, say   sample.figure.eps , in the same local directory,
+you can insert the file as a figure.  Figure 1, below, plots an isotherm for air modeled as an ideal gas.  \\ 
+I'm just testing somethng here, but here is Equation 1 is the first law..
+ =2.5in
+ Caption:  <break time="0.3s"/>   Sample figure plotting   math mode equation did not render    isotherm for air when modeled as an ideal gas.  <break time="0.5s"/>   
+You can create a  LaTeX  ~ file with any text editor (  vi ,   emacs ,   gedit , 
+etc.). 
+To get a document, you need to run the  LaTeX  ~ application
+on the text file.  The text file must have the suffix ``  .tex ''
+On a Linux cluster machine, this is done via the command
+
+ 
+This generates three files:   file.dvi ,   file.aux ,
+and   file.log .  The most important is   file.dvi . 
+
+ 
+The finished product can be previewed in the following way.
+Execute the commands:
+
+  dvipdf file.dvi 
+This command generates   file.pdf .  
+Alternatively, you can use   TeXShop  on a Macintosh or   MiKTeX  on a Windows-based machine.  <emphasis level="strong">  </emphasis>  Another very good and modern option is the web-based .
+The   .tex  file must have a closing statement as
+below.
+
+
+  
+
+
+127.0.0.1 - - [13/Apr/2021 10:27:40] "POST /form HTTP/1.1" 200 -
+127.0.0.1 - - [13/Apr/2021 10:27:40] "GET /static/download.png HTTP/1.1" 200 -
+127.0.0.1 - - [13/Apr/2021 10:27:40] "GET /static/back.png HTTP/1.1" 200 -

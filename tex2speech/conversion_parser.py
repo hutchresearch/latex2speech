@@ -343,6 +343,8 @@ class ConversionParser:
         tree = RootElement()
         if isinstance(doc, str):
             doc = TexSoup.TexSoup(doc)
+        if is_dbg:
+            print(doc)
         self._parseNodes(doc.contents, tree, tree.children)
 
         if not test:
