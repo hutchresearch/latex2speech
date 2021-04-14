@@ -288,14 +288,16 @@ def start_conversion(contents):
     parsed_contents = parser.parse(contents)
     return parsed_contents
 
-def def_main(master):
-    data = def_file_read(master)
-    data = convert(data)
-    master.write(data)
-
-def def_file_read(master):
-    with open(master, mode ='r+b') as text:
-        return text.read()
+def def_main(master_name):
+    with open(master_name, mode ='r+b') as master:
+        data = master.read()
+        data = def_convert(data)
+        # print("=== HERE IS DA DATA ===")
+        # print(data)
+        # print("=== HERE IS DA DATA ===")
+        master.seek(0)
+        master.write(data)
+        master.truncate()
 
 def def_convert(text):
     return re.sub(
@@ -306,7 +308,7 @@ def def_convert(text):
         text,
     )
 
-def def_replace(match)
+def def_replace(match):
     prefix = match.group(1)
     if (
             prefix is not None and
@@ -320,8 +322,8 @@ def def_replace(match)
         return match.group(0)
 
     result = rb'\newcommand'
-    if prefix is None or b'long' not in prefix:
-        result += b'*'
+    # if prefix is None or b'long' not in prefix:
+    #     result += b'*'
 
     result += b'{' + match.group(2) + b'}'
     if match.lastindex == 3:
@@ -340,10 +342,10 @@ def start_polly(main, bib_contents):
     main_input_files = find_master_files(main)
     master_files = create_master_files(main_input_files, bib_contents)
 
+    print(master_files)
+
     for master in master_files:
-        def_main(master)
-        defConversion(master)
-        # Expand Labels then open document
+        def_main(master[0])
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
 
