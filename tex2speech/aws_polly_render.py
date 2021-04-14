@@ -5,6 +5,8 @@ import sys
 import requests
 import json
 import urllib.request
+import argparse
+import re
 
 # AWS Libraries
 import boto3
@@ -286,6 +288,49 @@ def start_conversion(contents):
     parsed_contents = parser.parse(contents)
     return parsed_contents
 
+def def_main(master):
+    data = def_file_read(master)
+    data = convert(data)
+    write(master,data)
+
+def def_file_read(master):
+    with open(master, mode ='r+b') as text:
+        return text.read()
+
+def def_convert(text):
+    return re.sub(
+        rb'((?:\\(?:expandafter|global|long|outer|protected)'
+        rb'(?: +|\r?\n *)?)*)?'
+        rb'\\def *(\\[a-zA-Z]+) *(?:#+([0-9]))*\{',
+        replace,
+        text,
+    )
+
+def def_replace(match)
+    prefix = match.group(1)
+    if (
+            prefix is not None and
+            (
+                b'expandafter' in prefix or
+                b'global' in prefix or
+                b'outer' in prefix or
+                b'protected' in prefix
+            )
+    ):
+        return match.group(0)
+
+    result = rb'\newcommand'
+    if prefix is None or b'long' not in prefix:
+        result += b'*'
+
+    result += b'{' + match.group(2) + b'}'
+    if match.lastindex == 3:
+        result += b'[' + match.group(3) + b']'
+
+    result += b'{'
+    return result                
+                    
+
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(main, bib_contents):
@@ -296,6 +341,8 @@ def start_polly(main, bib_contents):
     master_files = create_master_files(main_input_files, bib_contents)
 
     for master in master_files:
+        def_main(master)
+        defConversion(master)
         # Expand Labels then open document
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
