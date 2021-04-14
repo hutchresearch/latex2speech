@@ -291,7 +291,7 @@ def start_conversion(contents):
 def def_main(master):
     data = def_file_read(master)
     data = convert(data)
-    write(master,data)
+    master.write(data)
 
 def def_file_read(master):
     with open(master, mode ='r+b') as text:
