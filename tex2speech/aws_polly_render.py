@@ -302,7 +302,7 @@ def def_convert(text):
         rb'((?:\\(?:expandafter|global|long|outer|protected)'
         rb'(?: +|\r?\n *)?)*)?'
         rb'\\def *(\\[a-zA-Z]+) *(?:#+([0-9]))*\{',
-        replace,
+        def_replace,
         text,
     )
 
