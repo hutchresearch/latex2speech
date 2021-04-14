@@ -96,6 +96,235 @@
         <arg num = "1"/>
         <break time = "0.5s"/>
     </cmd>
+    
+    <cmd name = "frac" type = "mathmode">
+        Fraction
+        <break time = "0.3s"/>
+        <arg num = "2"/>
+        
+    </cmd>
+    
+    <cmd name = "label" type = "none">
+        Label:
+        <break time "0.3s">
+        <arg num = "1"/>
+    </cmd>
+        
+    <!-- /bf is different from /textbf{}. May be using emphasis incorrectly here -->
+    <cmd name = "bf" type = "none">
+        <emphasis level = "strong" />
+    </cmd>
+    
+    <cmd name = "in" type = "mathmode">
+        Is Member Of
+        <break time = "0.2s"/>
+    </cmd>
+    
+    <cmd name = "alpha" type = "mathmode">
+        Alpha
+    </cmd>
+    
+    <cmd name = "mu" type = "mathmode">
+        Mu
+    </cmd>
+    
+    <cmd name = "bar" type = "mathmode">
+        Bar
+        <arg num = "1"/>
+    </cmd>
+        
+    <!-- This may have a different meaning -->
+    <cmd name = "tilde" type = "mathmode">
+        Median
+        <arg num = "1"/>
+        <break time = "0.3s" />
+    </cmd>
+        
+    <!-- Not Sure how we want to say this -->
+    <cmd name = "hat" type = "mathmode">
+        Hat
+        <arg num = "1" />
+        <break time = "0.3s"/>
+    </cmd>
+        
+    <cmd name = "pi" type = "mathmode">
+        Pi
+    </cmd>
+    
+    <!-- This may be two arguments: $\sqrt{4+2}$ or $\sqrt[3]{4+2}$ -->
+    <cmd name = "sqrt" type = "mathmode">
+        Square Root Of
+        <arg num = "1">
+        <break time = "0.3s" />
+    </cmd>
+        
+    <cmd name = "times" type = "mathmode">
+        Times
+        <arg num = "1"/>
+        <break time = "0.3s" />
+    </cmd>
+    
+    <cmd name = "leq" type = "mathmode">
+        Less Than Or Equal To
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+    
+    <cmd name = "beta" type = "mathmode" >
+        Beta
+    </cmd>
+    
+    <cmd name = "to" type = "mathmode">
+        Goes To
+        <arg num = "1"/>
+        <break time = "0.5s"/>
+    </cmd>
+    
+    <cmd name = "nu" type = "mathmode">
+        Nu
+    </cmd>
+    
+    <cmd name = "textbf" type = "none">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+    
+    <cmd name = "lambda" type = "mathmode">
+        lambda
+    </cmd>
+    
+    <cmd name = "delta" type = "mathmode">
+        delta
+    </cmd>
+    
+    <cmd name = "Delta" type = "mathmode">
+        <emphasis level = "strong">
+            Delta
+        </emphasis>
+    </cmd>
+    
+    <cmd name = "&" type = "none">
+        And
+    </cmd>
+    
+    <cmd name = "pm" type = "mathmode">
+        Plus Or Minus
+    </cmd>
+    
+    
+    <!-- I read this symbol means "Partial Derivative", there may be another meaning-->
+
+    <cmd name = "partial" type = "mathmode">
+        Partial Derivative
+    </cmd>
+    
+    <cmd name = "infty" type = "mathmode">
+        Infinity
+    <\cmd>
+        
+    <cmd name = "emph" type = "mathmode">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+    
+    <cmd name = "gamma" type = "mathmode">
+        Gamma
+    </cmd>
+    
+    <cmd name = "vec" type = "mathmode">
+        Vector:
+        <arg num = "1"/>
+        <break time = "0.4s">
+    </cmd>
+        
+    <cmd name = "rho" type = "mathmode">
+        Rho
+    </cmd>
+    
+    <cmd name = "tau" type = "mathmode">
+        Tau
+    </cmd>
+    
+    <cmd name = "phi" type = "mathmode">
+        Phi
+    </cmd>
+    
+    <cmd name = "mathbb" type = "mathmode">
+        The Set
+        <arg num = "1" />
+        <break time = "0.4s" />
+    </cmd>
+    
+    <cmd name = "theta" type = "mathmode">
+        Theta
+    </cmd>
+    
+    <cmd name = "omega" type = "mathmode">
+        Omega
+    </cmd>
+    
+    <cmd name = "rightarrow" type = "mathmode">
+        Points To
+        <arg num = "1" />
+        <break time = "0.4s" />
+    </cmd>
+    
+    <cmd name = "sim" type = "mathmode">
+        Similar To
+        <arg num = "1"/>
+        <break time = "0.4s" />
+    </cmd>
+    
+    <cmd name = "prime" type = "mathmode">
+        Prime
+    </cmd>
+    
+    <cmd name = "eta" type = "mathmode">
+        Eta
+    </cmd>
+    
+    <cmd name = "geq" type = "mathmode">
+        Greater Than or Equal To
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+    
+    <cmd name = "le" type = "mathmode">
+        Less than
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+    
+    <cmd name = "psi" type = "mathmode">
+        Psi
+    </cmd>
+    
+    <cmd name = "epsilon" type = "mathmode">
+        Epsilon
+    </cmd>
+    
+    <cmd name = "xi" type = "mathmode">
+        Xi
+    </cmd>
+    
+    <!-- I read this represents Liters (fluid measurement) but ive never seen this before -->
+    <cmd name = "ell" type = "mathmode">
+        Liters
+    </cmd>
+    
+    
+        
+            
+        
+    
+        
+    
+        
+    
+        
+    
 
     <!-- This is incase user does \thebibliography -->
     <cmd name = "thebibliography" type = "none">
