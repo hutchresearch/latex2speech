@@ -5,6 +5,8 @@ import sys
 import requests
 import json
 import urllib.request
+import argparse
+import re
 
 # AWS Libraries
 import boto3
@@ -295,8 +297,9 @@ def start_polly(main, bib_contents):
     main_input_files = find_master_files(main)
     master_files = create_master_files(main_input_files, bib_contents)
 
+    print(master_files)
+
     for master in master_files:
-        # Expand Labels then open document
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
 
