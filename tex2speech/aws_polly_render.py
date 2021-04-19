@@ -69,7 +69,7 @@ def generate_presigned_url(objectURL):
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
-def tts_of_file(file, contents):
+def tts_of_file(file, contents, last_file):
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
@@ -87,8 +87,9 @@ def tts_of_file(file, contents):
         object_name = file + '.' + task_id + '.mp3'
         audio_link = generate_presigned_url(object_name)
 
-        while(not check_s3(object_name)):
-            time.sleep(1)
+        if last_file:
+            while(not check_s3(object_name)):
+                time.sleep(1)
 
         return audio_link
 
@@ -302,11 +303,18 @@ def start_conversion(contents):
 def start_polly(main, bib_contents):
     retObj = []
     links = []
+    counter = 0
+    end = False
 
     main_input_files = find_master_files(main)
     master_files = create_master_files(main_input_files, bib_contents)
 
     for master in master_files:
+        counter += 1
+
+        if counter == len(master_files):
+            end = True 
+        
         # Expand Labels then open document
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
@@ -321,7 +329,7 @@ def start_polly(main, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        audio_link = tts_of_file(master[0], parsed_contents)
+        audio_link = tts_of_file(master[0], parsed_contents, end)
         # audio_link = "hi"
         links.append(audio_link)
 
