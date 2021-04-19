@@ -117,10 +117,7 @@
 
     <!-- Need to create new tag here for \item stuff -->
     <cmd name = "item" type = "none">
-        Item
-        <arg num = "1"/>
-        <!-- <break time = "0.3s"/>
-        <break time = "0.5s"/> -->
+
     </cmd>
 
 <!-- Latex Environments -->
