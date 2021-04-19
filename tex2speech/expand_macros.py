@@ -116,9 +116,7 @@ class EnvMacro(Macro):
             expansion += self._expand_macro_defn(self.end_defn, self.default, self.args, macro)
         return expansion
 
-
-
-def expand_doc_macros(doc):    
+def expand_doc_macros(doc):
     '''
     Returns a TexSoup node representing doc with all macros defined with newcommand, 
     renewcommand, newenvironment and renewenvironment expanded out accross the entire

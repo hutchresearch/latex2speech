@@ -289,49 +289,37 @@ def start_conversion(contents):
     return parsed_contents
 
 def def_main(master_name):
-    with open(master_name, mode ='r+b') as master:
+    with open(master_name, mode ='r+') as master:
         data = master.read()
         data = def_convert(data)
-        # print("=== HERE IS DA DATA ===")
-        # print(data)
-        # print("=== HERE IS DA DATA ===")
+
         master.seek(0)
         master.write(data)
         master.truncate()
 
 def def_convert(text):
     return re.sub(
-        rb'((?:\\(?:expandafter|global|long|outer|protected)'
-        rb'(?: +|\r?\n *)?)*)?'
-        rb'\\def *(\\[a-zA-Z]+) *(?:#+([0-9]))*\{',
+        r'\\def[\s]*(?P<name>\\[a-zA-Z]+)[\s]*(?P<args>(\[?#[0-9]\]?)*)[\s]*(?P<repl>\{.*\})',
         def_replace,
-        text,
+        text
     )
 
 def def_replace(match):
-    prefix = match.group(1)
-    if (
-            prefix is not None and
-            (
-                b'expandafter' in prefix or
-                b'global' in prefix or
-                b'outer' in prefix or
-                b'protected' in prefix
-            )
-    ):
-        return match.group(0)
-
-    result = rb'\newcommand'
-    # if prefix is None or b'long' not in prefix:
-    #     result += b'*'
-
-    result += b'{' + match.group(2) + b'}'
-    if match.lastindex == 3:
-        result += b'[' + match.group(3) + b']'
-
-    result += b'{'
-    return result                
-                    
+    out = r'\newcommand{' + match.group('name') + r'}'
+    if match.group('args'):
+        max_arg = 1
+        for c in match.group('args'):
+            try:
+                arg = int(c)
+                if arg > max_arg:
+                    max_arg = arg
+            except ValueError:
+                pass
+        out += r'[{}]'.format(max_arg)
+    out += match.group('repl')
+    print(out)
+    return out
+    
 
 # Function that is called from app.py with file
 # Manages all tasks afterwords

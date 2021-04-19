@@ -1,3 +1,5 @@
 \begin{document}
-	\def \foo {bar} \foo
+	\foo[buz]
+	\def \foo [#1] {bar #1} \foo[baz]
+	\def \foo #1#2 {car #1 #2} \foo{fizz}[dizz]
 \end{document}
