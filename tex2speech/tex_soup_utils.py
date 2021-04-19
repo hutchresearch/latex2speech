@@ -1,44 +1,44 @@
 import TexSoup
 
-'''
-Safely replace the desired child node of a parent. Required since 
-  without modifying TexSoup, it will always delete the first child 
-  of the parent that shares its name with the desired child.
-'''
-def safeReplaceChild(parent, child, childIndex, childRepl):
+def safe_replace_child(parent, child, child_index, child_repl):
+    '''
+    Safely replace the desired child node of a parent. Required since 
+    without modifying TexSoup, it will always delete the first child 
+    of the parent that shares its name with the desired child.
+    '''
     if not isinstance(parent, TexSoup.data.BraceGroup) and \
        not isinstance(parent, TexSoup.data.BracketGroup):
-        parent.insert(childIndex, childRepl)
+        parent.insert(child_index, child_repl)
         name = child.name
-        tempNameSuffix = 'a'
-        tempNames = []
-        for deleteCand in parent.find_all(name):
-            if deleteCand.position == child.position:
+        temp_name_suffix = 'a'
+        temp_names = []
+        for delete_cand in parent.find_all(name):
+            if delete_cand.position == child.position:
                 child.delete()
-                for tempName in tempNames:
-                    parent.find(tempName).name = name
+                for temp_name in temp_names:
+                    parent.find(temp_name).name = name
                 break
-            elif deleteCand.position < child.position:
-                tempName = name + tempNameSuffix
-                while parent.find(tempName):
-                    tempNameSuffix += 'a'
-                    tempName = name + tempNameSuffix
-                deleteCand.name = tempName
-                tempNames.append(tempName)
+            elif delete_cand.position < child.position:
+                temp_name = name + temp_name_suffix
+                while parent.find(temp_name):
+                    temp_name_suffix += 'a'
+                    temp_name = name + temp_name_suffix
+                delete_cand.name = temp_name
+                temp_names.append(temp_name)
             else:
                 print('Expected node not found, moving on')
                 break
     # TODO: Implement the above functionality in the args
     else:
         parent.remove(child)
-        parent.insert(childIndex, childRepl)
+        parent.insert(child_index, child_repl)
 
-'''
-Since the children of a node include the children of its arguments, TexSoup
-  effectively goes one recursive level too deep to effectively manipulate 
-  the parse tree. This function solves that by including args as children
-'''
-def getEffectiveChildren(node):
+def get_effective_children(node):
+    '''
+    Since the children of a node include the children of its arguments, TexSoup
+    effectively goes one recursive level too deep to effectively manipulate 
+    the parse tree. This function solves that by including args as children
+    '''
     children = []
     excl = []
     for arg in node.args:
@@ -50,27 +50,27 @@ def getEffectiveChildren(node):
 
     return children
 
-'''
-Seperates the contents found in a node's arguments from other contents that
-  happen to belong to a node. This is a fairly frequent occurence.
-'''
-def seperateContents(node):
-    argContents = []
-    otherContents = []
+def seperate_contents(node):
+    '''
+    Seperates the contents found in a node's arguments from other contents that
+    happen to belong to a node. This is a fairly frequent occurence.
+    '''
+    arg_contents = []
+    other_contents = []
     for arg in node.args:
-        argContents.extend(arg.contents)
+        arg_contents.extend(arg.contents)
     for other in node.contents:
-        if other not in argContents:
-            otherContents.append(other)
-    return (argContents, otherContents)
+        if other not in arg_contents:
+            other_contents.append(other)
+    return (arg_contents, other_contents)
 
-'''
-Whether an element of the TexSoup parse tree is a TexNode or a TexExpr
-  is unknown, so a small test is needed to truly ensure you're getting
-  what is asked for.
-'''
-def exprTest(expr, exprType):
-    exprActual = expr
+def expr_test(expr, expr_type):
+    '''
+    Whether an element of the TexSoup parse tree is a TexNode or a TexExpr
+    is unknown, so a small test is needed to truly ensure you're getting
+    what is asked for.
+    '''
+    expr_actual = expr
     if isinstance(expr, TexSoup.data.TexNode):
-        exprActual = expr.expr
-    return isinstance(exprActual, exprType)
+        expr_actual = expr.expr
+    return isinstance(expr_actual, expr_type)
