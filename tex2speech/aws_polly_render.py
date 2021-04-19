@@ -3,7 +3,7 @@ from typing import Optional
 import os
 import sys
 import requests
-import json
+import json, time
 import urllib.request
 
 # AWS Libraries
@@ -30,6 +30,14 @@ s3 = session.client("s3")
 
 # Path to upload
 path = os.getcwd() + '/upload'
+
+# Check to see if file has been uplaoded to the S3 bucket or not
+def check_s3(key):
+    try:
+        s3.head_object(Bucket="tex2speech", Key=key)
+    except ClientError as e:
+        return False
+    return True
 
 # Generate a presigned URL for the S3 object so any user can download
 def create_presigned_url(bucket_name, object_name, expiration=3600):    
@@ -78,6 +86,9 @@ def tts_of_file(file, contents):
         # Get audio link from bucket
         object_name = file + '.' + task_id + '.mp3'
         audio_link = generate_presigned_url(object_name)
+
+        while(not check_s3(object_name)):
+            time.sleep(1)
 
         return audio_link
 

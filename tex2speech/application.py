@@ -225,8 +225,6 @@ def handle_form():
 
     delete_from_folder()
 
-    time.sleep(15)
-
     return render_template(
         'download.html',
         file_holder = file_audio)
