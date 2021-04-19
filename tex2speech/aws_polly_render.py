@@ -310,8 +310,8 @@ def start_polly(main, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents)
-        audio_link = "hi"
+        audio_link = tts_of_file(master[0], parsed_contents)
+        # audio_link = "hi"
         links.append(audio_link)
 
     retObj.append(main_input_files[0])
