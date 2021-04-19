@@ -288,39 +288,6 @@ def start_conversion(contents):
     parsed_contents = parser.parse(contents)
     return parsed_contents
 
-def def_main(master_name):
-    with open(master_name, mode ='r+') as master:
-        data = master.read()
-        data = def_convert(data)
-
-        master.seek(0)
-        master.write(data)
-        master.truncate()
-
-def def_convert(text):
-    return re.sub(
-        r'\\def[\s]*(?P<name>\\[a-zA-Z]+)[\s]*(?P<args>(\[?#[0-9]\]?)*)[\s]*(?P<repl>\{.*\})',
-        def_replace,
-        text
-    )
-
-def def_replace(match):
-    out = r'\newcommand{' + match.group('name') + r'}'
-    if match.group('args'):
-        max_arg = 1
-        for c in match.group('args'):
-            try:
-                arg = int(c)
-                if arg > max_arg:
-                    max_arg = arg
-            except ValueError:
-                pass
-        out += r'[{}]'.format(max_arg)
-    out += match.group('repl')
-    print(out)
-    return out
-    
-
 # Function that is called from app.py with file
 # Manages all tasks afterwords
 def start_polly(main, bib_contents):
@@ -333,7 +300,6 @@ def start_polly(main, bib_contents):
     print(master_files)
 
     for master in master_files:
-        def_main(master[0])
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
 

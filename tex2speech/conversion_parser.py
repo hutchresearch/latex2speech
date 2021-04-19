@@ -348,8 +348,6 @@ class ConversionParser:
         '''
         tree = RootElement()
         
-        if isinstance(doc, str):
-            doc = TexSoup.TexSoup(doc)
         if is_dbg:
             print("!!!Input Tex Document!!!")
             print("Pre Macro-Expansion:")

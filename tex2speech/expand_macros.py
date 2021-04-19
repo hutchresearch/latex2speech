@@ -1,4 +1,7 @@
+import re
+
 import TexSoup
+
 from tex_soup_utils import safe_replace_child, get_effective_children, expr_test, seperate_contents
 
 class Macro:
@@ -116,6 +119,35 @@ class EnvMacro(Macro):
             expansion += self._expand_macro_defn(self.end_defn, self.default, self.args, macro)
         return expansion
 
+
+def normalize_doc_macros(text: str):
+    if not isinstance(text, str):
+        text = str(text)
+    def def_to_newcommand(match):
+        out = r'\newcommand{' + match.group('name') + r'}'
+        if match.group('args'):
+            max_arg = 1
+            for c in match.group('args'):
+                try:
+                    arg = int(c)
+                    if arg > max_arg:
+                        max_arg = arg
+                except ValueError:
+                    pass
+            out += r'[{}]'.format(max_arg)
+        out += match.group('repl')
+        print()
+        print(out)
+        return out
+
+
+    text = re.sub(
+        r'\\def[\s]*(?P<name>\\[a-zA-Z]+)[\s]*(?P<args>(\[?#[0-9]\]?)*)[\s]*(?P<repl>\{.*\})',
+        def_to_newcommand,
+        text
+    )
+    return TexSoup.TexSoup(text)
+
 def expand_doc_macros(doc):
     '''
     Returns a TexSoup node representing doc with all macros defined with newcommand, 
@@ -123,6 +155,8 @@ def expand_doc_macros(doc):
     document. The nested functions are there for organizational purposes and to 
     reduce the number of arguments needed in each function.
     '''
+    doc = normalize_doc_macros(doc)
+
     def create_macro_bindings():
         '''
         Create all the macro objects for the document and store them in their
