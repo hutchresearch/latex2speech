@@ -223,6 +223,7 @@ class ConversionParser:
                     elem = elem_list.pop(i)
                     next_offset = -1
                     new_ind = i
+                    print(str(elem))
                     if isinstance(elem, ArgElement):
                         arg = self._getArg(cmd_node, elem)
                         if arg:
@@ -230,6 +231,11 @@ class ConversionParser:
                             new_ind = self._parseNodes(arg.contents, elem_list_parent, elem_list, insert_index=i, left_child=left_child)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
+
+                        # Handle \item command
+                        if (str(cmd_node)[:5] == r'\item'):
+                            text = str(cmd_node)[5:]
+
                         self._appendText(text, left_child, elem_list_parent)
                     else:
                         raise RuntimeError("Unhandled non-node SSML Element encountered")

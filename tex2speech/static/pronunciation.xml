@@ -117,7 +117,7 @@
 
     <!-- Need to create new tag here for \item stuff -->
     <cmd name = "item" type = "none">
-
+        Item
     </cmd>
 
 <!-- Latex Environments -->
