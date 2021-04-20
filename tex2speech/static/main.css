@@ -92,6 +92,16 @@ main {
     position: absolute;
 }
 
+#block {
+  width: 60%;
+  height: 300px;
+  position: absolute;
+  margin-left: 20%;
+  margin-right: 20%;
+  top: 50px;
+  visibility: hidden;
+}
+
 /* Dropzone Override */
 .dropzone {
     margin-left: 20%;
