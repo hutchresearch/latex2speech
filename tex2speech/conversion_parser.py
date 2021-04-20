@@ -223,7 +223,7 @@ class ConversionParser:
                     elem = elem_list.pop(i)
                     next_offset = -1
                     new_ind = i
-                    print(str(elem))
+
                     if isinstance(elem, ArgElement):
                         arg = self._getArg(cmd_node, elem)
                         if arg:
@@ -300,7 +300,6 @@ class ConversionParser:
                 parseOut = self._parseEnvironment(texNode, ssml_parent, left_child)
             elif exprTest(texNode, TexSoup.data.TexCmd):
                 parseOut = self._parseCommand(texNode, ssml_parent, left_child)
-                # print("  TEST " + str(texNode))
             elif exprTest(texNode, TexSoup.data.Token):
                 text = str(texNode)
                 self._appendText(text, left_child, ssml_parent)

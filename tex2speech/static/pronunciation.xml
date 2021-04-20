@@ -178,13 +178,12 @@
         </says>
 
         <!-- This might be wrong, because we want the contents to be read with break time infront? -->
-        <defines>
+        <!-- <defines>
             <cmd name="item" type = "none">
-            TESTING 1234556712211412
                 <break time = "40ms"/>
             </cmd>
 
-        </defines>
+        </defines> -->
 
         <break time = "medium"/>
     </env>
