@@ -12,20 +12,21 @@ from SSMLParsing.root_element import RootElement
 from SSMLParsing.ssml_element_node import SSMLElementNode
 from SSMLParsing.ssml_element import SSMLElement
 from SSMLParsing.text_element import TextElement
+from expand_macros import expand_doc_macros
 
 from sympytossml import convert_sympy_ssml, QuantityModes
-from tex_soup_utils import exprTest, seperateContents
+from tex_soup_utils import expr_test, seperate_contents
 from tex_to_sympy import run_sympy
 
 is_dbg = True
 
-'''
-Main parsing class. Parses TexSoup parse trees into SSMLElementNode
+class ConversionParser:
+    '''
+    Main parsing class. Parses TexSoup parse trees into SSMLElementNode
     trees for future output. The conversion rules for every command 
     and environment found in the tree is determined by the database
     the class is initialized with.
-'''
-class ConversionParser:
+    '''
     def __init__(self, db: ConversionDB):
         self.db = db
         self.env_stack = []
@@ -46,9 +47,11 @@ class ConversionParser:
         else:
             parent.appendHeadText(text)
 
-    '''Function that will take in new table contents, and parse
-    each column'''
     def _parseTableContents(self, contents_node, elem_list_parent, left_child=None):
+        '''
+        Function that will take in new table contents, and parse
+        each column
+        '''
         if is_dbg:
             print(">{}Parse Table Contents".format(self.prefix))
 
@@ -72,12 +75,13 @@ class ConversionParser:
         if is_dbg:
             print("<{}Parse Table Contents".format(self.prefix))
 
-    '''This function strips out unnecessary environments from table node
+    def _parseTableNode(self, contents):
+        '''
+        This function strips out unnecessary environments from table node
         TexSoup doesn't delete \begin{tabular} or \end{tabular} tags
         so this is what this function will do before passing contents
         to parseTableContents function
-    '''
-    def _parseTableNode(self, contents):
+        '''
         table_contents = str(contents).replace('\hline', '')
         table_contents = table_contents[table_contents.find('\n'):]
         table_contents = table_contents.lstrip()
@@ -85,11 +89,11 @@ class ConversionParser:
         table_contents = table_contents.rstrip()
         return table_contents
 
-    '''
-    Retrieves the correct argument node's list of arguments with respect to 
-        the format of the ArgElement class.
-    '''
     def _getArg(self, node, arg_elem):
+        '''
+        Retrieves the correct argument node's list of arguments with respect to 
+        the format of the ArgElement class.
+        '''
         if is_dbg:
             print(">{}Get Arg".format(self.prefix))
 
@@ -119,11 +123,11 @@ class ConversionParser:
             string += str(val)
         return string
 
-    '''
-    Recursively resolves non-node SSMLElements within elem_list with respect to 
-        env_node. Also manages the env_stack.
-    '''
     def _resolveEnvironmentElements(self, env_node, elem_list_parent, elem_list, left_child):
+        '''
+        Recursively resolves non-node SSMLElements within elem_list with respect to 
+        env_node. Also manages the env_stack.
+        '''
         if is_dbg:
             self.res_env += 1
             print(">{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
@@ -142,7 +146,7 @@ class ConversionParser:
                         if arg:
                             parse_target = arg.contents
                     elif isinstance(elem, ContentElement):
-                        _, parse_target = seperateContents(env_node)
+                        _, parse_target = seperate_contents(env_node)
                     elif isinstance(elem, TextElement):
                         text = elem.getHeadText()
                         self._appendText(text, left_child, elem_list_parent)
@@ -182,16 +186,16 @@ class ConversionParser:
             print("<{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
             self.res_env -= 1
 
-    '''
-    Handles environment parsing, returning the result of its parsing or 
-        or none of no appropriate definition is found.
-    '''
     def _parseEnvironment(self, env_node, ssml_parent, left_child):
+        '''
+        Handles environment parsing, returning the result of its parsing or 
+        or none of no appropriate definition is found.
+        '''
         if is_dbg:
             print(">{}Parse Environment".format(self.prefix))
             print("-{}  Environment Name : {}".format(self.prefix, env_node.name))
 
-        args, contents = seperateContents(env_node)
+        args, contents = seperate_contents(env_node)
 
         elem_list = self.db.getEnvConversion(env_node.name)
 
@@ -207,11 +211,11 @@ class ConversionParser:
 
         return elem_list
 
-    '''
-    Recursively resolves non-node SSMLElements within elem_list with respect to 
-        env_node.
-    '''
     def _resolveCmdElements(self, cmd_node, elem_list_parent, elem_list, left_child):
+        '''
+        Recursively resolves non-node SSMLElements within elem_list with respect to 
+        env_node.
+        '''
         if is_dbg:
             self.res_cmd += 1
             print(">{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
@@ -254,16 +258,16 @@ class ConversionParser:
             print("<{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
             self.res_cmd -= 1
 
-    '''
-    Handles command parsing, returning the result of its parsing or 
-        or none of no appropriate definition is found.
-    '''
     def _parseCommand(self, cmd_node, ssml_parent, left_child):
+        '''
+        Handles command parsing, returning the result of its parsing or 
+        or none of no appropriate definition is found.
+        '''
         if is_dbg:
             print(">{}Parse Command".format(self.prefix))
             print("-{}  Command Name : {}".format(self.prefix, cmd_node.name))
 
-        args, _ = seperateContents(cmd_node)
+        args, _ = seperate_contents(cmd_node)
         
         elem_list = None
         if len(self.env_stack) > 0 and cmd_node.name in self.env_stack[-1]:
@@ -279,13 +283,13 @@ class ConversionParser:
 
         return elem_list
 
-    '''
-    Main entry point to all parsing. Parses wih respect to a list of TexSoup
+    def _parseNodes(self, tex_nodes: list, ssml_parent: SSMLElementNode, ssml_children, insert_index=0, left_child=None):
+        '''
+        Main entry point to all parsing. Parses wih respect to a list of TexSoup
         nodes, a parent SSMLElementNode and its children. The children don't 
         necessarily correspond to the parent's actual list of children in 
         order to facilitate processing seperate lists of nodes.
-    '''
-    def _parseNodes(self, tex_nodes: list, ssml_parent: SSMLElementNode, ssml_children, insert_index=0, left_child=None):
+        '''
         if is_dbg:
             self.parse_nodes += 1
             self.prefix = "\t" * (self.parse_nodes-1)
@@ -296,11 +300,11 @@ class ConversionParser:
             parseOut = None
             if insert_index > 0:
                 left_child = ssml_children[insert_index-1]
-            if exprTest(texNode, TexSoup.data.TexEnv):
+            if expr_test(texNode, TexSoup.data.TexEnv):
                 parseOut = self._parseEnvironment(texNode, ssml_parent, left_child)
-            elif exprTest(texNode, TexSoup.data.TexCmd):
+            elif expr_test(texNode, TexSoup.data.TexCmd):
                 parseOut = self._parseCommand(texNode, ssml_parent, left_child)
-            elif exprTest(texNode, TexSoup.data.Token):
+            elif expr_test(texNode, TexSoup.data.Token):
                 text = str(texNode)
                 self._appendText(text, left_child, ssml_parent)
             if parseOut:
@@ -332,22 +336,32 @@ class ConversionParser:
         for i, child in enumerate(tree.children):
             self._printTreeSub(child, level+1, level_arr, i, at_index)
 
-    '''
-    Basic print method to see whats happening within the tree
-    '''
+
     def printTree(self, tree):
+        '''
+        Basic print method to see whats happening within the tree
+        '''
         level_arr = []
         self._printTreeSub(tree, 0, level_arr, 0, -1)
         for level in level_arr:
             print(level)
 
-    '''
-    Parse doc with respect to the database the parser was initialized with.
-    '''
-    def parse(self, doc: TexSoup.data.TexNode, test=False):
+    
+    def parse(self, doc, test=False):
+        '''
+        Parse doc with respect to the database the parser was initialized with.
+        '''
         tree = RootElement()
-        if isinstance(doc, str):
-            doc = TexSoup.TexSoup(doc)
+        
+        if is_dbg:
+            print("!!!Input Tex Document!!!")
+            print("Pre Macro-Expansion:")
+            print(doc)
+        doc = expand_doc_macros(doc)
+        if is_dbg:
+            print("Post Macro-Expansion:")
+            print(doc)
+            print('==========================================')
         self._parseNodes(doc.contents, tree, tree.children)
 
         if not test:
