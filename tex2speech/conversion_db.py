@@ -107,7 +107,6 @@ class ConversionDB:
 
                 if env_def:
                     definition = {}
-                    
                     for cmd in env_def.findall('cmd'):
                         cmd_def = []
                         if cmd.text and not cmd.text.isspace():

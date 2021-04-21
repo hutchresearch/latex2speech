@@ -106,7 +106,7 @@
     
     <cmd name = "label" type = "none">
         Label:
-        <break time "0.3s">
+        <break time = "0.3s"/>
         <arg num = "1"/>
     </cmd>
         
@@ -154,8 +154,8 @@
     <!-- This may be two arguments: $\sqrt{4+2}$ or $\sqrt[3]{4+2}$ -->
     <cmd name = "sqrt" type = "mathmode">
         Square Root Of
-        <arg num = "1">
-        <break time = "0.3s" />
+        <arg num = "1"/>
+        <break time = "0.3s"/>
     </cmd>
         
     <cmd name = "times" type = "mathmode">
@@ -204,10 +204,6 @@
         </emphasis>
     </cmd>
     
-    <cmd name = "&" type = "none">
-        And
-    </cmd>
-    
     <cmd name = "pm" type = "mathmode">
         Plus Or Minus
     </cmd>
@@ -221,7 +217,7 @@
     
     <cmd name = "infty" type = "mathmode">
         Infinity
-    <\cmd>
+    </cmd>
         
     <cmd name = "emph" type = "mathmode">
         <emphasis level = "strong">
@@ -236,7 +232,7 @@
     <cmd name = "vec" type = "mathmode">
         Vector:
         <arg num = "1"/>
-        <break time = "0.4s">
+        <break time = "0.4s"/>
     </cmd>
         
     <cmd name = "rho" type = "mathmode">
@@ -346,8 +342,7 @@
 
     <!-- Need to create new tag here for \item stuff -->
     <cmd name = "item" type = "none">
-        <!-- <break time = "0.3s"/>
-        <break time = "0.5s"/> -->
+        Item
     </cmd>
 
 <!-- Latex Environments -->
@@ -413,9 +408,9 @@
                 <break time = "40ms"/>
             </cmd>
 
-        </defines>
+        </defines> -->
 
-        <break time = "medium"/> -->
+        <break time = "medium"/>
     </env>
 
     <env name="quotation" type = "none">

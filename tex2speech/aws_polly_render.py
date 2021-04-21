@@ -3,8 +3,10 @@ from typing import Optional
 import os
 import sys
 import requests
-import json
+import json, time
 import urllib.request
+import argparse
+import re
 
 # AWS Libraries
 import boto3
@@ -30,6 +32,14 @@ s3 = session.client("s3")
 
 # Path to upload
 path = os.getcwd() + '/upload'
+
+# Check to see if file has been uplaoded to the S3 bucket or not
+def check_s3(key):
+    try:
+        s3.head_object(Bucket="tex2speech", Key=key)
+    except ClientError as e:
+        return False
+    return True
 
 # Generate a presigned URL for the S3 object so any user can download
 def create_presigned_url(bucket_name, object_name, expiration=3600):    
@@ -61,7 +71,7 @@ def generate_presigned_url(objectURL):
 
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
-def tts_of_file(file, contents):
+def tts_of_file(file, contents, last_file):
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
@@ -78,6 +88,10 @@ def tts_of_file(file, contents):
         # Get audio link from bucket
         object_name = file + '.' + task_id + '.mp3'
         audio_link = generate_presigned_url(object_name)
+
+        if last_file:
+            while(not check_s3(object_name)):
+                time.sleep(1)
 
         return audio_link
 
@@ -291,11 +305,20 @@ def start_conversion(contents):
 def start_polly(main, bib_contents):
     retObj = []
     links = []
+    counter = 0
+    end = False
 
     main_input_files = find_master_files(main)
     master_files = create_master_files(main_input_files, bib_contents)
 
+    print(master_files)
+
     for master in master_files:
+        counter += 1
+
+        if counter == len(master_files):
+            end = True 
+        
         # Expand Labels then open document
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
@@ -310,7 +333,7 @@ def start_polly(main, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents)
+        # audio_link = tts_of_file(master[0], parsed_contents, end)
         audio_link = "hi"
         links.append(audio_link)
 
