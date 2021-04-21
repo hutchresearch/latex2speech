@@ -16,8 +16,7 @@ Connor Barlow
 Walker Herring  
 Jacob Nemeth  
 Dylon Rajah  
-Taichen Rose  
-   Created at Western Washington University.
+Taichen Rose
 
 ## Dependencies
 1. Python
