@@ -8,10 +8,10 @@ A web application for converting LaTeX documents to spoken audio. You can demo t
 - Unambiguous spoken math equations
 
 ## Contributors
-Connor Barlow
-Walker Herring
-Jacob Nemeth
-Dylon Rajah
+Connor Barlow  
+Walker Herring  
+Jacob Nemeth  
+Dylon Rajah  
 Taichen Rose   
 
 ## Dependencies
