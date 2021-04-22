@@ -1,0 +1,186 @@
+\section{Accelerator Parameters}
+
+There are several $\epem$ linear collider design efforts currently 
+underway, differing most significantly in the choice of RF 
+acceleration.
+The TESLA design from DESY uses superconducting RF cavities with 
+resonant frequency of 1.3~GHz.
+The NLC/JLC-X design from SLAC and KEK uses normal conducting X-band
+cavities with resonant frequency of 11.4~GHz.
+The JLC-C design from KEK uses normal conducting C-band cavities with 
+resonant frequency of 5.7~GHz.
+These three designs all use klystrons as the RF power source.
+The CLIC R\&D program at CERN uses 30~GHz normal conducting 
+cavities, coupled to a drive beam linac for power.
+The choice of the RF acceleration method causes differences in the 
+bunch structure parameters of the various designs.
+We will not go into detail on the designs here but just touch briefly 
+on the time structure, energy, and luminosity.
+Table~\ref{table-lc_params} summarizes these parameters.
+%
+\begin{table}[t]
+\centering
+\caption{Baseline parameters for four linear collider designs.}
+\label{table-lc_params}
+\vskip 6pt
+\begin{tabular}{lcccc}
+\hline \hline
+  & TESLA & NLC/JLC-X & JLC-C & CLIC \\
+\hline 
+$\sqrt{s}$ (TeV) & 0.5--0.8 & 0.5--1.0 & 0.5 & 0.5--3 \\ 
+${\cal L}$ (10$^{34}$ cm$^{-2}$ s$^{-1}$)
+	& 3.4--5.8 & 2.2--3.4 & 0.43 & 1--10 \\
+RF cavities & superconducting & normal & normal & normal \\
+RF power source & klystrons & klystrons & klystrons & drive beam \\
+bunches/train & 2820--4886 & 190 & 72 & 150 \\ 
+bunch separation (ns) & 337 & 1.4 & 2.8 & 0.7 \\
+repetition rate (Hz) & 5  & 120  & 50 & 200  \\ 
+\hline \hline
+\end{tabular}
+\end{table} 
+More detailed descriptions and references can be found in
+Refs.~\cite{Kuhlman:1996rc,Toge:2000mm,Brinkmann:1999rz,Assmann:2000hg}.
+
+All designs plan to have polarized $e^-$ beams, with $P_{e^-}=80$\%.
+There is also some work on polarized $e^+$ sources, achieving perhaps 
+$P_{e^+}=40$\% at full luminosity and 60\% with reduced
+luminosity~\cite{Walker}.
+With both beams polarized the effective polarization for $e^+e^-$ 
+annihilation processes is 
+$P_{\rm eff}=(P_{e^-}+P_{e^+})/(1 + P_{e^-}P_{e^+})$.
+
+\subsection{TESLA}
+
+The TESLA design uses superconducting cavities, operated at 2 K,
+with a resonant frequency of 1.3~GHz.  The baseline design calls for
+$\sqrt{s}=500$ GeV, with an upgrade path to 800~GeV.  For the baseline
+design, the beam structure will be long bunch trains of 2820 bunches
+separated by 337~ns, for a total bunch train length of 950 $\mu$s
+(285 km) and a 5 Hz repetition rate.  The nominal luminosity at 500~GeV
+is $3.4\times 10^{34}$~cm$^{-2}$~s$^{-1}$. The higher energy
+requires higher gradient from the superconducting cavities~\cite{Tesla:II}.
+
+\subsection{NLC and JLC}
+
+The unified NLC/JLC-X design uses normal conducting cavities with
+a resonant frequency of 11.4~GHz.
+The baseline design calls for $\sqrt{s}=500$~GeV,
+with an upgrade path to 1~TeV~\cite{NLC:Snowmass}.
+For the present baseline design, the beam
+structure will be bunch trains of 190 bunches separated by 1.4~ns,
+for a total bunch train length of
+0.27~$\mu$s (81~m) and a repetition rate of 120~Hz.  The nominal
+luminosity is $2.2\times 10^{34}$~cm$^{-2}$~s$^{-1}$.  The baseline
+option only fills half the linac tunnel with RF cavities, enabling
+a straightforward upgrade to 1~TeV.
+
+The JLC collaboration is also pursuing an accelerator based on C-band 
+(5.7~GHz) as a backup for the X-band design.
+Most of the components of the C-band main linac satisfy the
+specifications of the 500~GeV JLC.
+The C-band design is considered by some to be a serious option, if one
+wants to build a normal-conducting machine as early as possible.
+
+\subsection{CLIC}
+
+The CLIC design uses normal conducting cavities with a resonant
+frequency of 30 GHz.  Compared to the other designs, it is earlier
+in the R\&D phase.  The novel approach of CLIC is that the
+RF power is delivered to the accelerating cavities by a drive beam
+with coupled cavities.  The design is being optimized for 3~TeV,
+but the concept is being developed for 0.5--5~TeV.  For the baseline
+design, the beam structure will be bunch trains of 150 bunches
+separated by 0.7~ns, for a total bunch train length of 0.1~$\mu$s
+(30 m) and a repetition rate of 200~Hz.  The nominal luminosity is
+$10^{34}$--$10^{35}$~cm$^{-2}$~s$^{-1}$.
+
+
+\subsection{Detector Backgrounds}
+
+\par  Studies have been done of backgrounds in the detectors from
+extra $\epem$ pair production.  Since these are generally low momentum
+electrons, they could spiral in the central magnetic fields, causing
+larger occupancies in the tracking detectors.  
+Because the TESLA and
+NLC/JLC designs have very different time structures, we have 
+investigated the density of
+extra hits per bunch crossing (for TESLA) or bunch train (for NLC/JLC).
+
+\par  With the 337~ns bunch spacing in the TESLA design, individual
+bunch crossings can be resolved with the detector readout electronics. 
+Therefore, it is appropriate to consider hits per bunch crossing 
+as a measure of background hits.
+With the bunch spacing of 2.8~ns in the (earlier) NLC/JLC design, 
+the detector readout electronics will most likely integrate 
+95 bunches, and the relevant unit for background measure is 
+number of hits per bunch train.
+Simulations done in the ECFA-DESY Study~\cite{ref-Eur_density},
+for $\sqrt{s}=500$ GeV and a central magnetic field 3~T,
+give 0.2--0.5~hits/mm$^2$/bunch at a radius of 1.2~cm; see
+Fig.~\ref{1:fig:MB}.
+%
+\begin{figure}[bp]
+\centering
+	\includegraphics[width=0.7\textwidth]{pairs_z.eps}
+	\caption[1:fig:MB]{The background hit densities at TESLA in each 
+	vertex layer as a function of a distance along the beamlines for 
+	3~T magnetic field.  From Ref.~\cite{ref-Eur_density}.}
+	\label{1:fig:MB}
+\end{figure}
+%
+In contrast, simulations done for the
+NLC/JLC VXD~\cite{ref-VXD_density} result in 3 hits/mm$^2$/train
+for a 3~T central magnetic field (or 0.03 hits/mm$^2$/bunch).
+Figure~\ref{2:fig:TWM} shows the results of these simulations, 
+where number of background hits per bunch is plotted 
+as a function of the magnetic field at various radii. 
+(The 280 hits in Layer 1 for the magnetic field of 3 T, 
+shown in Figure~\ref{2:fig:TWM}, correspond to a hit density of 
+ ~3 hits/mm$^2$/train.) 
+%
+\begin{figure}
+\centering
+	\includegraphics[width=0.5\textwidth]{vxd_hits.eps}
+	\caption[2:fig:TWM]{The raw number of hits at NLC in each layer 
+	as a function of magnetic field for the small detector.  (The
+	masking layout was not modified for the low magnetic field, so 
+	hits from pairs which impacted the outer face of the M1 mask were
+	deleted.)  From Ref.~\cite{ref-VXD_density}.}
+	\label{2:fig:TWM}
+\end{figure}
+
+Both groups are working on designs of vertex
+detectors with a first active layer placed at a radial distance of
+1.2~cm away from the colliding beams.
+For both bunch time structures, it is felt
+that it is possible to operate such detectors with hit densities
+seen in the simulations.
+
+In addition to beam-induced background sources discussed in the 
+previous studies, overlapping hadronic $\gamma\gamma$ interactions 
+provide a source of background.
+Preliminary studies of their effect on reconstruction of 
+physics processes of interest, {\it e.g.}, for Higgs decays, 
+have been done in the ECFA-DESY Study~\cite{ref-MB_ggbkg}. 
+The authors concluded that a combination
+of kinematic and vertex topology selections can reduce the effects of 
+$\gamma\gamma$ interactions, with moderate losses in reconstruction 
+efficiency.  The background events resulted in a very small 
+additional number of charged hits in the inner layer of the vertex 
+detector in the amount of $3.4 \times 10^{-5}$~hits/mm$^2$/bunch.
+
+Optimization work on the mask designs is still in progress, to reduce
+the beam backgrounds even further.
+In addition, there are other ideas leading to background reduction,
+which remain to be evaluated.
+One possibility, currently under study, is to increase the strength of
+the magnetic field in the detector.
+Another option, relevant for the NLC/JLC beam structure, is to
+reduce the number of bunches recorded by the electronics during the
+collisions.
+Such reduction can be achieved by applying pipelined front-end readout 
+with a length of the integration window shorter than the 266~ns 
+duration of the NLC/JLC bunch train.
+However, the presently achieved reduction factors are very good for 
+both machine designs and result in acceptable levels of background.
+

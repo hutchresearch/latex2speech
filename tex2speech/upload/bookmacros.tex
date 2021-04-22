@@ -1,0 +1,525 @@
+
+\newcommand{\semph}[1]{\mbox{}{\blue #1}}
+
+
+\newcommand{\widebinop}[1]{\hspace{0.5em}#1\hspace{0.5em}}
+
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+
+
+\newcommand{\donotshow}[1]{}
+\newcommand{\maths}{mathematics'}
+\newcommand{\apostrophe}{'}
+\newcommand{\dapostrophe}{''}
+
+\newcommand{\ignore}[1]{}
+\newcommand{\pnegskip}{\vspace*{-\baselineskip}\vspace*{-\belowdisplayskip}\par}
+
+\newcommand{\proofendswithequation}{\vspace*{-\baselineskip}\vspace*{-\belowdisplayskip}\par}
+
+\newcommand{\eqndot}{\ .}\newcommand{\eqncomma}{\ ,}
+
+
+%\newcommand{\rangeindexbegin}[1]{\index{#1|\(}
+%\newcommand{\rangeindexend}[1]{\index{#1|\)}
+
+%\newcommand{\see}[2]{{\it see} #1}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{task}{Task}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+\providecommand{\qed}{\rule[-0.2ex]{0.3em}{1.4ex}}
+
+
+\newtheorem{Laxiom}{LEDA Axiom}
+\newtheorem{Caxiom}{\CC\ Axiom}
+\newtheorem{Lrule}{LEDA Rule}
+%\newtheorem{fact}{Fact}
+%\newtheorem{claim}{Claim}
+%\newtheorem{definition}{Definition}
+%\newtheorem{proof}{\par\vspace{0.5ex}\noindent{\bf Proof:}\hspace{0.5em}}%
+%               {\nopagebreak%
+%                \strut\nopagebreak%
+%                \hspace{\fill}\qed\par\medskip\noindent}
+
+\providecommand{\mod}{\mathop{\rm mod}}
+\newcommand{\conv}{\mathop{\rm conv}}
+
+\newcommand{\F}{{\cal F}}
+
+\newcommand{\dom}{\mathop{\rm dom}\nolimits}
+\newcommand{\op}{\mathbin{\rm op}}
+\newcommand{\mes}{\mathop {\rm mes}}
+\newcommand{\ind}{\mathop {\rm ind}}
+\newcommand{\size}{\mathop {\rm size}}
+\newcommand{\fl}{\mathop {\rm fl}}
+
+\newcommand{\cl}{\mathop {\rm cl}}
+\newcommand{\inn}{\mathop {\rm int}}
+\newcommand{\cpl}{\mathop {\rm cpl}}
+\newcommand{\reg}{\mathop {\rm reg}}
+\newcommand{\bd}{\mathop {\rm bd}}
+\newcommand{\bR}{\mathop {\rm bR}}
+
+
+
+%\newcommand{\cp}{\mbox{$\:cp$}}
+%\newcommand{\mac}{\mbox{$\:mac$}}
+%\newcommand{\cmp}{\mbox{$\:cmp$}}
+%\newcommand{\ops}{\mbox{$\:ops$}}
+
+\newcommand{\loglog}{\mathop {\rm loglog}}
+\newcommand{\lnln}{\mathop {\rm lnln}}
+\newcommand{\assign}{\mathbin{:=}}
+\newcommand{\define}{\mathbin{:=}}
+
+
+%\newcommand{\CC}{C\raisebox{.08ex}{\hbox{\tt ++}}}
+\newcommand{\Cminus}{C\raisebox{.08ex}{\hbox{\tt ++}}\raisebox{.25ex}{-}}
+\newcommand{\GG}{g\raisebox{.08ex}{\hbox{\tt ++}}}
+\newcommand{\Gminus} {g\raisebox{.08ex}{\hbox{\tt ++}}\raisebox{.25ex}{-}}
+%\newcommand{\R}{I\! \!R}
+%\newcommand{\N}{I\! \!N}
+%\newcommand{\Z}{I\! \!Z}
+%\providecommand{\R}{\mathbb{R}}
+\newcommand{\RR}{\mathbb{R}}
+\providecommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Rp}{\mathbb{R}_{>0}}
+\newcommand{\Rn}{\mathbb{R}_{<0}}
+\newcommand{\Rnn}{\mathbb{R}_{\ge 0}}
+\newcommand{\Nnull}{\mathbb{N}_{0}}
+
+\newcommand{\Oh}[1]{{\rm O}(#1)}
+\newcommand{\OhL}[1]{{\rm O}\left(#1\right)}
+
+
+\newcommand{\progitem}[1]{$\langle$#1$\rangle$ }
+\newcommand {\abs}[1] {| #1 |}
+
+
+\renewcommand{\topfraction}{1}
+\renewcommand{\textfraction}{0}
+\renewcommand{\bottomfraction}{0.5}
+
+
+\newenvironment{remark}{{\bf Remark:}}{\par}
+
+\newcommand{\strecke}[2]{{#1#2}$^{\hspace{-.6cm}\longrightarrow}$ \ }
+\newcommand{\punktstrecke}[2]{{#1#2}$^{\hspace{-.6cm}\longrightarrow}\ $}
+
+
+
+%Basicdatatypes/papermacros.tex
+
+\providecommand{\3}{\ss}
+%\newcommand{\ck}{\discretionary{k-}{k}{ck}}
+
+
+
+%\newcommand{\abs}[1]{| #1 |}
+
+\newcommand{\la}{$\langle$}
+\newcommand{\ra}{$\rangle$\ }
+%\newcommand{\Litem}[2]{$\langle$#1,#2$\rangle$\ }
+\newcommand{\Listitem}[1]{$\langle$#1$\rangle$\ }
+
+%\newcommand{\range}[2]{[#1 \, \ldots \, #2]}
+\providecommand{\range}[2]{[#1\, ..\,  #2]}
+
+%\newcommand{\halfrange}[2]{[#1 \, \ldots \, #2)}
+\newcommand{\halfrange}[2]{[#1\,  ..\,  #2)}
+
+
+%\newcommand{\precond}{\\ {\em precondition}: }
+
+\newcommand{\Msection}[1]{\\
+\medskip 
+{ \large {\bf #1}}\\  
+\smallskip
+
+}
+
+\newcommand{\Msubsection}[1]{\\
+\medskip
+{\bf #1}\\ 
+\smallskip
+
+}
+
+
+\newcommand{\Kurt}{\htmladdnormallink{Kurt Mehlhorn}{http://www.mpi-sb.mpg.de/\~{}mehlhorn}}
+\newcommand{\Stefan}{\htmladdnormallink{Stefan N\"aher}{http://www.informatik.uni-halle.de/\~{}naeher}}
+\newcommand{\Christian}{\htmladdnormallink{Christian Uhrig}{http://www.mpi-sb.mpg.de/\~{}uhrig}}
+\newcommand{\LEDA}{\htmladdnormallink{LEDA}{http://www.mpi-sb.mpg.de/LEDA/leda.html}}
+\newcommand{\GmbH}{\htmladdnormallink{LEDA Software
+GmbH}{http://www.mpi-sb.mpg.de/LEDA/GMBH/gmbh.html}}
+
+\newcommand{\SB}{Saarbr\"{u}cken}
+
+\newcommand{\figlabel}[1]{\label{fig:#1}}
+\newcommand{\figref}[1]{\ref{fig:#1}}
+\newcommand{\Hline}{\hspace{0.0in}\hrulefill\hspace{0.0in}}
+
+
+\newcommand{\Figger}[3]{
+    \begin{figure}[thbp]
+      \Hline
+      \begin{center}
+      \input{figs/#3}
+      \end{center}
+      \caption{#2}\figlabel{#1}
+      \Hline
+    \end{figure}
+    }
+
+\newcommand{\topFigger}[3]{
+    \begin{figure}[t]
+      \Hline
+      \begin{center}
+      \input{figs/#3}
+      \end{center}
+      \caption{#2}\figlabel{#1}
+      \Hline
+    \end{figure}
+    }
+
+\newcommand{\bottomFigger}[3]{
+    \begin{figure}[b]
+      \Hline
+      \begin{center}
+      \input{figs/#3}
+      \end{center}
+      \caption{#2}\figlabel{#1}
+      \Hline
+    \end{figure}
+    }
+
+\newcommand{\topbottomFigger}[3]{
+    \begin{figure}[tb]
+      \Hline
+      \begin{center}
+      \input{figs/#3}
+      \end{center}
+      \caption{#2}\figlabel{#1}
+      \Hline
+    \end{figure}
+    }
+
+\newcommand{\hereFigger}[3]{
+    \begin{figure}[h]
+      \Hline
+      \begin{center}
+      \input{figs/#3}
+      \end{center}
+      \caption{#2}\figlabel{#1}
+      \Hline
+    \end{figure}
+    }
+
+\newcommand{\allFigger}[3]{
+    \begin{figure}[htbp]
+      \Hline
+      \begin{center}
+      \input{figs/#3}
+      \end{center}
+      \caption{#2}\figlabel{#1}
+      \Hline
+    \end{figure}
+    }
+
+
+
+\newlength{\setspacing}
+\setlength{\setspacing}{0.05em}
+
+%\providecommand{\sset}[1]{\{\, #1 \,\}}
+\providecommand{\sset}[1]{\{\, #1 \,\}}
+%\newcommand{\set}[2]{ \left\{\, #1 \mbox{ ; } #2 \,\right\}  }
+\providecommand{\set}[2]{ \left\{\, #1 \mbox{{\rm ; }} #2 \, \right\}  }
+
+\newcommand{\uedge}[1]{\sset{#1}}
+
+%\providecommand{\path}[1]{[\hspace{\setspacing} #1 \hspace{\setspacing}]}
+\providecommand{\Path}[1]{[\hspace{\setspacing} #1 \hspace{\setspacing}]}
+\newcommand{\seq}[1]{(\hspace{\setspacing} #1 \hspace{\setspacing} )}
+
+\newcommand{\Exp}[1]{{\rm E}[ #1 ]}
+\newcommand{\Cexp}[2]{{\rm E}[ #1 \,|\, #2]}
+%\newcommand{\prob}[1]{{\rm prob}( #1 )}
+\newcommand{\cprob}[2]{{\rm prob}(#1 \,|\, #2)}
+
+
+\newcommand{\disjointcup}{\mathbin {\dot{\cup}}}
+
+\newcommand{\Kmarginpar}[1]{\marginpar{\footnotesize #1}}
+
+
+
+
+
+
+\newcommand{\mbegin}{\{\ \ }
+\newcommand{\mend}{\}}
+\newcommand{\memptyline}{\\[-2ex]}
+
+\newlength{\mleftindent}
+\setlength{\mleftindent}{\parindent}
+\newlength{\mindent}
+\settowidth{\mindent}{\mbegin}
+\newlength{\mboxwidth}
+\newcommand{\mincrement}{\addtolength{\mboxwidth}{-\mindent}}
+\newcommand{\mdecrement}{\addtolength{\mboxwidth}{\mindent}}
+
+
+
+\newlength{\preprogramskip}
+\newlength{\postprogramskip}
+\setlength{\preprogramskip}{\smallskipamount}
+\setlength{\postprogramskip}{\smallskipamount}
+
+\newcommand{\mprogram}[1]
+{\vspace{\preprogramskip}
+ \setlength{\mboxwidth}{\linewidth}%
+ \addtolength{\mboxwidth}{-\parindent}\par
+ \parbox[t]{\mboxwidth}{#1}
+ \vspace{\postprogramskip}\par%
+}
+
+
+
+\newlength{\mexpwidth}
+\newlength{\mexpindent}
+\newcommand{\indentafterkeyword}{\hspace*{0.5em}}
+
+
+
+
+\newcommand{\mcommand}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf #1\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf #1\indentafterkeyword}\parbox[t]{\mexpwidth}{#2}\\
+\mincrement
+\mbegin \parbox[t]{\mboxwidth}{#3}\\
+\mend
+\mdecrement
+}
+
+\newcommand{\mscommand}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf #1\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf #1\indentafterkeyword}\parbox[t]{\mexpwidth}{#2}\\
+\mincrement
+\mbegin \parbox[t]{\mboxwidth}{#3 \mend}
+\mdecrement
+}
+
+\newcommand{\monelinecommand}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf #1\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf #1\indentafterkeyword}{#2}%
+\mbegin #3 \mend
+}
+
+
+\newcommand{\mwhile}[2]
+{\mcommand{while}{#1}{#2}}
+
+\newcommand{\mforall}[2]
+{\mcommand{forall}{#1}{#2}}
+
+\newcommand{\monelineforall}[2]
+{\monelinecommand{forall}{#1}{#2}}
+
+\newcommand{\mforalledges}[2]
+{\mcommand{forall\_edges}{#1}{#2}}
+
+\newcommand{\mifthen}[2]
+{\mcommand{if}{#1}{#2}}
+
+
+\newcommand{\mswhile}[2]
+{\mscommand{while}{#1}{#2}}
+
+\newcommand{\monelinewhile}[2]
+{\monelinecommand{while}{#1}{#2}}
+
+\newcommand{\msforall}[2]
+{\mscommand{forall}{#1}{#2}}
+
+\newcommand{\msforalledges}[2]
+{\mscommand{forall\_edges}{#1}{#2}}
+
+\newcommand{\msifthen}[2]
+{\mscommand{if}{#1}{#2}}
+
+\newcommand{\monelineifthen}[2]
+{{\bf if} #1  #2}
+
+\newcommand{\monelineif}[2]
+{{\bf if} #1  #2}
+
+
+
+
+
+\newcommand{\mifelse}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf if\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf if\indentafterkeyword}\parbox[t]{\mexpwidth}{#1}\\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#2}\\
+\mend \mdecrement \\
+{\bf else} \\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#3}\\
+\mend \mdecrement
+}
+
+\newcommand{\mslifelse}[3]  %if is short else is long
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf if\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf if\indentafterkeyword}\parbox[t]{\mexpwidth}{#1}\\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#2 \mend} \mdecrement \\
+{\bf else} \\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#3}\\
+\mend \mdecrement
+}
+
+\newcommand{\mlsifelse}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf if\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf if\indentafterkeyword}\parbox[t]{\mexpwidth}{#1}\\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#2}\\
+\mend \mdecrement \\
+{\bf else} \\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#3 \mend} \mdecrement
+}
+
+\newcommand{\mssifelse}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf if\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf if\indentafterkeyword}\parbox[t]{\mexpwidth}{#1}\\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#2 \mend} \mdecrement \\
+{\bf else} \\
+\mincrement \mbegin \parbox[t]{\mboxwidth}{#3 \mend} \mdecrement
+}
+
+\newcommand{\mtwolineifelse}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf if\indentafterkeyword}}%
+\addtolength{\mexpwidth}{-\mexpindent}%
+{\bf if\indentafterkeyword}#1 \mbegin #2 \mend \\
+{\bf else} \mbegin #3 \mend % 
+}
+
+\newcommand{\monelineifelse}[3]
+{ {\bf if} #1 \mbegin #2 \mend \ \ {\bf else}\ \ \mbegin #3 \mend }
+
+
+
+
+\newcommand{\mbreak}{{\bf break}}
+\newcommand{\mcomment}[1]{/* #1 */}
+
+\newcommand{\mdo}[2]
+{\mcommand{do}{#1}{#2}}
+
+\newcommand{\msdo}[2]
+{\mscommand{do}{#1}{#2}}
+
+\providecommand{\Path}[1]{[#1]}
+
+
+\newenvironment{citemize}% compressed itemize with small preskip
+{\vspace{-0.3em}\begin{itemize}
+\setlength{\itemsep}{0.2\itemsep}%
+\setlength{\parskip}{0.2\parskip}%
+%\setlength{\labelwidth}{350pt}%
+%\setlength{\leftmargin}{\labelwidth+\labelsep}%
+\setlength{\topsep}{0.0\topsep}%
+%\renewcommand{\makelabel}{\citem}
+}
+{\end{itemize}}
+
+\newenvironment{ccitemize}% compressed itemize with standard preskip
+{\begin{itemize}
+\setlength{\itemsep}{0.2\itemsep}%
+\setlength{\parskip}{0.2\parskip}%
+%\setlength{\labelwidth}{350pt}%
+%\setlength{\leftmargin}{\labelwidth+\labelsep}%
+\setlength{\topsep}{0.0\topsep}%
+%\renewcommand{\makelabel}{\citem}
+}
+{\end{itemize}}
+
+\newenvironment{cdescription}% compressed description with small preskip
+{\vspace{-0.3em}\begin{description}
+\setlength{\itemsep}{0.2\itemsep}%
+\setlength{\parskip}{0.2\parskip}%
+%\setlength{\labelwidth}{350pt}%
+%\setlength{\leftmargin}{\labelwidth+\labelsep}%
+\setlength{\topsep}{0.0\topsep}%
+%\renewcommand{\makelabel}{\citem}
+}
+{\end{description}}
+
+\newenvironment{ccdescription}% compressed description with standard preskip
+{\begin{description}
+\setlength{\itemsep}{0.2\itemsep}%
+\setlength{\parskip}{0.2\parskip}%
+%\setlength{\labelwidth}{350pt}%
+%\setlength{\leftmargin}{\labelwidth+\labelsep}%
+\setlength{\topsep}{0.0\topsep}%
+%\renewcommand{\makelabel}{\citem}
+}
+{\end{description}}
+
+\newenvironment{cenumerate}% compressed itemize with small preskip
+{\vspace{-0.3em}\begin{enumerate}
+\setlength{\itemsep}{0.2\itemsep}%
+\setlength{\parskip}{0.2\parskip}%
+%\setlength{\labelwidth}{350pt}%
+%\setlength{\leftmargin}{\labelwidth+\labelsep}%
+\setlength{\topsep}{0.0\topsep}%
+%\renewcommand{\makelabel}{\citem}
+}
+{\end{enumerate}}
+
+\newenvironment{ccenumerate}% compressed itemize with standard preskip
+{\begin{enumerate}
+\setlength{\itemsep}{0.2\itemsep}%
+\setlength{\parskip}{0.2\parskip}%
+%\setlength{\labelwidth}{350pt}%
+%\setlength{\leftmargin}{\labelwidth+\labelsep}%
+\setlength{\topsep}{0.0\topsep}%
+%\renewcommand{\makelabel}{\citem}
+}
+{\end{enumerate}}
+
+
+\newcommand{\mindentcommand}[3]
+{\setlength{\mexpwidth}{\mboxwidth}%
+\settowidth{\mexpindent}{{\bf #1}\indentafterkeyword #2}%
+\addtolength{\mboxwidth}{-\mexpindent}%
+{\bf #1}\indentafterkeyword #2 \mbegin%
+\parbox[t]{\mboxwidth}{#3}\\%
+\hspace*{\mexpindent}\mend%
+\addtolength{\mboxwidth}{\mexpindent}
+}
+
+
+
+
+

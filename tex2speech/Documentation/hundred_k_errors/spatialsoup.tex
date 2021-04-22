@@ -1,6 +1,6 @@
-Start of comment  Spatial Population Dynamics of Structure Complexity
-Start of comment  jpc: 8/28/09, 8/26/10
-Start of comment  sp: 8/24/04
+% Spatial Population Dynamics of Structure Complexity
+% jpc: 8/28/09, 8/26/10
+% sp: 8/24/04
 
 \documentclass[pre,twocolumn,showpacs,superscriptaddress,preprintnumbers,floatfix]{revtex4}
 
@@ -13,7 +13,7 @@ Start of comment  sp: 8/24/04
 \usepackage{amscd}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{bm}   Start of comment usepackage{bm}    bold math
+\usepackage{bm}   % bold math
 \usepackage{bbm}
 \usepackage{verbatim}
 \usepackage{stmaryrd}
@@ -28,7 +28,7 @@ Start of comment  sp: 8/24/04
   \usepackage[dvips]{graphicx}
 \fi
 
-Start of comment  Current Thm defns
+% Current Thm defns
 \theoremstyle{plain}    \newtheorem{Lem}{Lemma}
 \theoremstyle{plain}    \newtheorem*{ProLem}{Proof}
 \theoremstyle{plain}    \newtheorem{Cor}{Corollary}
@@ -42,7 +42,6 @@ Start of comment  Current Thm defns
 \theoremstyle{plain}    \newtheorem{Def}{Definition}
 \theoremstyle{plain}    \newtheorem*{Not}{Notation}
 
-cmechabbrev Input file not found 
 \input{cmechabbrev}
 
 \newenvironment{axis_label}[0]{\fontsize{16pt}{15pt}}{}
@@ -55,24 +54,24 @@ cmechabbrev Input file not found
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\PrEMType}{\mathbf{f}}
 
-Start of comment \addtolength{\abovedisplayskip}{-.05in}
-Start of comment \addtolength{\belowdisplayskip}{-.05in}
-Start of comment \addtolength{\dbltextfloatsep}{-.10in}
-Start of comment \addtolength{\abovecaptionskip}{-.10in}
-Start of comment \addtolength{\belowcaptionskip}{-.10in}
+%\addtolength{\abovedisplayskip}{-.05in}
+%\addtolength{\belowdisplayskip}{-.05in}
+%\addtolength{\dbltextfloatsep}{-.10in}
+%\addtolength{\abovecaptionskip}{-.10in}
+%\addtolength{\belowcaptionskip}{-.10in}
 \parskip 0pt
 
 \newcommand{\alert}[1]{\textbf{\textcolor{red}{#1}}}
 
-Start of comment  Boolean to control color/grayscale figures.
+%%%% Boolean to control color/grayscale figures.
 \newif\ifcolor
 
-Start of comment  Declare the document to compile with color.
+%% Declare the document to compile with color.
 \colortrue
-Start of comment  Declare the document to compile without color.
-Start of comment \colorfalse
+%% Declare the document to compile without color.
+%\colorfalse
 
-Start of comment  If color is False, make colored text gray.
+%% If color is False, make colored text gray.
 \ifcolor\relax\else\selectcolormodel{gray}\fi
 
 \begin{document}
@@ -98,11 +97,11 @@ University of California at Davis, One Shields Avenue, Davis, CA 95616}
 \bibliographystyle{unsrt}
 
 \begin{abstract}
-We show that autocatalytic networks of \eMs  and their population dynamics
+We show that autocatalytic networks of \eMs\ and their population dynamics
 differ substantially between spatial (geographically distributed) and nonspatial
 (panmixia) populations. Generally, regions of spacetime-invariant autocatalytic
 networks---or \emph{domains}---emerge in geographically distributed populations.
-These are separated by \emph{functional membranes} of complementary \eMs  that
+These are separated by \emph{functional membranes} of complementary \eMs\ that
 actively translate between the domains and are responsible for their growth and
 stability. We analyze both spatial and nonspatial populations, determining the
 algebraic properties of the autocatalytic networks that allow for space to
@@ -119,30 +118,32 @@ autocatalytic network
 \end{abstract}
 
 \pacs{
-Start of comment  02.50.-r    Probability theory, stochastic processes, and statistics
-Start of comment  89.70.+c    Information science
-Start of comment  05.45.Tp    Time series analysis
-Start of comment  02.50.Ey    Stochastic processes
-Start of comment  02.50.Ga    Markov processes
-Start of comment  05.20.-y    Classical statistical mechanics
-87.18.-h  Start of comment 7.18.-h  	Biological complexity
-87.23.Cc  Start of comment 7.23.Cc  	Population dynamics and ecological pattern formation
-87.23.Kg  Start of comment 7.23.Kg  	Dynamics of evolution
-05.45.-a  Start of comment 5.45.-a    Nonlinear dynamics and nonlinear dynamical systems
-89.75.Kd  Start of comment 9.75.Kd    Complex Systems: Patterns
+% 02.50.-r  %  Probability theory, stochastic processes, and statistics
+% 89.70.+c  %  Information science
+% 05.45.Tp  %  Time series analysis
+% 02.50.Ey  %  Stochastic processes
+% 02.50.Ga  %  Markov processes
+% 05.20.-y  %  Classical statistical mechanics
+87.18.-h  %	Biological complexity
+87.23.Cc  %	Population dynamics and ecological pattern formation
+87.23.Kg  %	Dynamics of evolution
+05.45.-a  %  Nonlinear dynamics and nonlinear dynamical systems
+89.75.Kd  %  Complex Systems: Patterns
 }
+%
 \preprint{Santa Fe Institute Working Paper 10-09-XXX}
 \preprint{arxiv.org:1009.XXXX [q-bio-mat.XXXX]}
 
 \maketitle
 
-Start of comment  ****************************************************************
+% ****************************************************************
 
-Start of comment \tableofcontents
+%\tableofcontents
 
-Start of comment 
-Start of comment  Introduction 
-Start of comment 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
 
@@ -155,7 +156,7 @@ studies have been devoted to these and analogous networks with the hope of
 understanding pre-biotic evolution \cite{Ray91a,Adami1,Rasmussen2}. A particular
 class of such models represented network elements with mathematical constructs,
 including regular expressions, the $\lambda$-calculus \cite{Font91a}, and,
-recently, \eMs  \cite{OTMOMerge}. \EMs  are especially useful
+recently, \eMs\ \cite{OTMOMerge}. \EMs\ are especially useful
 since they support well defined and computable measures of structural complexity
 \cite{Crut08b} and, equally important, these measures extend directly to
 networks of interacting \eMs. 
@@ -180,30 +181,30 @@ organizations.
 \vspace{-0.1in}
 
 \emph{\EMs} serve as models of stochastic finite and infinite computation
-\cite{CMechMerge}. An \eM  consists of a set $\CausalStateSet$ of
+\cite{CMechMerge}. An \eM\ consists of a set $\CausalStateSet$ of
 \emph{causal states} and a set of \emph{transitions} between those states. In
 the particular variation used here (\eTs), each transition is labeled by both an
 input symbol $x \in \MeasAlphabet$ and an output symbol $y \in \MeasAlphabet$.
-An \eM  in state $\causalstate \in \CausalStateSet$ reads an input symbol $x$
+An \eM\ in state $\causalstate \in \CausalStateSet$ reads an input symbol $x$
 and chooses from all transitions from $\causalstate$ the one labeled $x$.
-The \eM  follows the chosen transition to a next state
+The \eM\ follows the chosen transition to a next state
 $\causalstate^\prime \in \CausalStateSet$ while emitting the
-output symbol $y$ corresponding to that transition. In this way, \eMs  can be
+output symbol $y$ corresponding to that transition. In this way, \eMs\ can be
 viewed as mapping an input language to an output language, perhaps
 probabilistically. 
 
 Following Ref. \cite{OTMOMerge}, we focus on single-state
 \eMs\ over the input-output alphabet $\MeasAlphabet = \lbrace 0, 1 \rbrace$.
-(Results for multi-state \eMs  appear in a sequel. Our goal here is to
+(Results for multi-state \eMs\ appear in a sequel. Our goal here is to
 highlight the effects of space, uncomplicated by the richness that comes with
-using multi-state \eMs.) There are $16$ such \eMs  and we denote the set of all
-them by $\T$. Each \eM  can be represented as a $2 \times 2$ binary matrix $M$,
-where $M_{ij} = 1$ means that the \eM  reads in symbol $i-1$ while emitting
+using multi-state \eMs.) There are $16$ such \eMs\ and we denote the set of all
+them by $\T$. Each \eM\ can be represented as a $2 \times 2$ binary matrix $M$,
+where $M_{ij} = 1$ means that the \eM\ reads in symbol $i-1$ while emitting
 symbol $j-1$. We number the $16$
 \eMs---$\T \equiv \{ T_0, \ldots, T_{15} \}$---by
 finding the decimal equivalent of the binary number
 $M_{11} M_{12} M_{21} M_{22}$ for
-each \eM. Thus, for example, \eM  $T_{11}$ has the matrix representation:
+each \eM. Thus, for example, \eM\ $T_{11}$ has the matrix representation:
 \begin{equation}
 M =
   \left[
@@ -267,9 +268,9 @@ A population, or simply a \emph{soup}, $\Gamma$ is a configuration of an
 $n \times n$ regular toroidal lattice. At each time $t=0,1,2,\ldots$, every
 lattice location $(i,j)$ contains a single \eM, denoted $\Gamma_{i,j}^t \in \T$.
 The population size is $N = n^2$. Each location $(i,j)$ is initialized to
-contain an \eM  uniformly chosen at random from $\T$.
+contain an \eM\ uniformly chosen at random from $\T$.
 
-The population dynamics is specified by \eM  composition, interaction, and
+The population dynamics is specified by \eM\ composition, interaction, and
 update. We define a function $\theta: \T \times \T \times \T \to \T$ by:
 \begin{equation}
 \theta(T_{a}, T_{b}, T_{c}) =
@@ -301,17 +302,17 @@ Each time step $t$ we choose a location $(i,j)$ at random and set:
 \end{equation}
 and set $\Gamma_{k,l}^{t+1}=\Gamma_{k,l}^t$ for all $(k,l) \neq (i,j)$. Thus,
 two vertical or horizontal neighbors to $\Gamma_{i,j}$ are chosen, composed,
-and the \eM  resulting from their composition is used to replace
+and the \eM\ resulting from their composition is used to replace
 $\Gamma_{i,j}^t$, if it is not $T_0$. This replacement scheme is meant to be
 locally analogous to the replacement scheme used in Ref. \cite{OTMOMerge},
 which will facilitate direct comparisons in the following.
 
-In addition, at each time step a certain amount of diffusion of \eMs  occurs
+In addition, at each time step a certain amount of diffusion of \eMs\ occurs
 due to spatial mixing. For this, let $\zeta_v$ be a Gaussian distribution with
-variance $v$ and mean $0$. At each time step, $c$ \eMs  are chosen at random
-in $\Gamma$ and each is swapped with a random \eM  at a distance chosen from
+variance $v$ and mean $0$. At each time step, $c$ \eMs\ are chosen at random
+in $\Gamma$ and each is swapped with a random \eM\ at a distance chosen from
 the distribution $\zeta_v$. For more generality, we allow $c$ to be any real
-number and swap $c$ \eMs  per time step on average. 
+number and swap $c$ \eMs\ per time step on average. 
 
 When $v$ and $c$ are large, there is considerable spatial mixing and one
 expects the dynamics to behave like a nonspatial population, where
@@ -343,16 +344,16 @@ is shifted horizontally and vertically:
 \end{align}
 
 Finally, we view the population either as a configuration $\Gamma$ of spatially
-positioned \eMs  or as a distribution $\PrEMType$ of \eM  types without regard
+positioned \eMs\ or as a distribution $\PrEMType$ of \eM\ types without regard
 to spatial location. The fractions
-$\PrEMType = \left(\PrEMType^1, \ldots, \PrEMType^{15} \right)$ of \eMs  of
+$\PrEMType = \left(\PrEMType^1, \ldots, \PrEMType^{15} \right)$ of \eMs\ of
 type $T_a$ on $\Gamma$ are $\PrEMType^a (\Gamma) = \Prob(T_a \in \Gamma)$.
 
 \section{The Panmixia Soup}
 
 The least-spatial architecture of $\Gamma$, where $c \approx N$ and
 $v \approx n$, was previously studied in Ref. \cite{OTMOMerge}.
-This is the case of a \emph{panmixia} population, in which all \eMs  can
+This is the case of a \emph{panmixia} population, in which all \eMs\ can
 interact with any other. When the size of $\Gamma$ is large,
 $\PrEMType(t) \equiv \PrEMType(\Gamma^t)$ follows a simple population dynamics.
 
@@ -360,10 +361,10 @@ First, for large $N$ the discrete-time dynamic is well
 approximated by continuous time, since each discrete time updates
 only a single lattice location and this means that changes to
 $\Gamma^t$ and so to $\PrEMType(t)$ are relatively small ($\propto N^{-1})$.
-Second, the probability of adding an \eM  $T_i$ is that of picking
-two \eMs  $T_a$ and $T_b$, such that $T_a \circ T_b = T_i$, times the
-probability that the \eM  replaced is not $T_i$. Third, the probability of
-removing an \eM  $T_i$ is that of picking two \eMs, $T_a$ and $T_b$, such that
+Second, the probability of adding an \eM\ $T_i$ is that of picking
+two \eMs\ $T_a$ and $T_b$, such that $T_a \circ T_b = T_i$, times the
+probability that the \eM\ replaced is not $T_i$. Third, the probability of
+removing an \eM\ $T_i$ is that of picking two \eMs, $T_a$ and $T_b$, such that
 $T_a \circ T_b \neq T_i$ and also $T_a \circ T_b \neq T_0$, times the
 probability of picking a $T_i$ to replace. Thus, the rate of change of
 $\PrEMType^i (t)$ is given by the differential equation:
@@ -372,14 +373,14 @@ $\PrEMType^i (t)$ is given by the differential equation:
   = \left( 1 - \PrEMType^i \right)
   \sum_{T_a \circ T_b = T_i} \PrEMType^a \PrEMType^b
   - \PrEMType^i
-  \sum_{\substack{T_a \circ T_b \neq T_i \  T_a \circ T_b \neq T_0}}
+  \sum_{\substack{T_a \circ T_b \neq T_i \\ T_a \circ T_b \neq T_0}}
   \PrEMType^a \PrEMType^b ~,
 \label{E:drhoT}
 \end{equation}
 where the sums run over all pairs satisfying their subscripted condition. That
 is, $\sum_{T_a \circ T_b = T_i}$ runs over all ordered pairs $(T_a, T_b)$ such
 that $T_a \circ T_b = T_i$. Equation (\ref{E:drhoT}) also determines the
-steady-state probability distributions of \eM  types, which are simply
+steady-state probability distributions of \eM\ types, which are simply
 solutions of:
 \begin{equation}
 \dfrac{d\PrEMType}{dt} = 0 ~.
@@ -395,20 +396,20 @@ solutions of:
 \label{WM_PD}
 \end{figure}
 
-Figure \ref{WM_PD} shows the distribution $\PrEMType (t)$ over \eM  types as a
+Figure \ref{WM_PD} shows the distribution $\PrEMType (t)$ over \eM\ types as a
 function of time (replication) for a simulation with $c=3000$ and $v=1000$. This
 is essentially the same population behavior reported in Ref. \cite{OTMOMerge}.
 It was confirmed numerically that Eq. (\ref{E:drhoT}) closely predicts the
 results in Fig. \ref{WM_PD}. In Fig. \ref{WM_PD}, all $16$ single-state
 \eMs\ are shown. They partition themselves into four classes such that
 those in the same class behave similarly; see Table \ref{tab:PanMixiaSoup}.
-Six \eMs  die away, while nine persist in a closed, self-maintaining, and
+Six \eMs\ die away, while nine persist in a closed, self-maintaining, and
 dynamically stable \emph{meta-machine}, as shown in Ref. \cite{OTMOMerge}.
 
 \begin{table}[tbp]
 \begin{tabular}{|c||c|}
 \hline
-\EM  Type                                      & Behavior Class  \\
+\EM\ Type                                      & Behavior Class  \\
 \hline
 $T_{15}$                                      & Fast Growth \\
 $T_{3}, T_{5}, T_{10}, T_{12}$                & Medium Growth \\
@@ -423,7 +424,7 @@ $T_{6}, T_{7}, T_{9}, T_{11}, T_{13}, T_{14}$ & Fast Decay \\
 
 \section{General Replicators}
 
-While these \eM  classes can be understood by examining the solutions of Eq.
+While these \eM\ classes can be understood by examining the solutions of Eq.
 (\ref{E:drhoT}) as done in Ref. \cite{OTMOMerge}, the results can also be
 directly predicted by examining the algebraic structure of the set $\T$ under
 the composition operator determined by $\M$. And this observation is critical
@@ -433,7 +434,7 @@ address the panmixia population. The central idea is to find subsets of
 words, to identify $\M$-invariant subsets of $\T$.
 
 \begin{Def}
-A set $S$ of \eMs  is a \emph{general replicator} (GR) if for all $a \in \T$
+A set $S$ of \eMs\ is a \emph{general replicator} (GR) if for all $a \in \T$
 we have:
 \begin{equation*}
 \theta(\T,a,S) \cup \theta(S, a, \T) \subseteq S \cup \lbrace a \rbrace
@@ -478,7 +479,7 @@ dominate the soup. And this is what is observed in the simulations
 (Fig. \ref{WM_PD} and Table \ref{tab:PanMixiaSoup}). While Eq. (\ref{E:drhoT})
 explains the specific values of $\PrEMType$, an understanding of $\M$'s
 structure leads to a direct explanation for why the set Fast Decay is removed
-from the soup: None of the \eMs  in Fast Decay are in $\Omega$. 
+from the soup: None of the \eMs\ in Fast Decay are in $\Omega$. 
 
 \vspace{-0.2in}
 \section{The Spatial Soup}
@@ -528,9 +529,9 @@ $T_{6}, T_{7}, T_{9}, T_{11}, T_{13}, T_{14}$ & Fast Decay & Removed \\
 \end{table}
 
 By $t / N \approx 3.4$, however, the populations start to behave differently.
-For example, the \eM  $T_{15}$ that is most readily made in the panmixia case
+For example, the \eM\ $T_{15}$ that is most readily made in the panmixia case
 is also readily made in the spatial case, until $t/N=3.4$, when it begins to
-be removed from the population. Again, the \eMs  partition themselves into
+be removed from the population. Again, the \eMs\ partition themselves into
 subsets whose elements behave similarly. At early times before
 $t/N=3.4$, these are identical to those seen
 in the panmixia population except that $T_2$ and $T_4$ undergo logistic growth,
@@ -563,7 +564,7 @@ overall behavior, for both early and late times.
 \caption{Emergent spatial replicators and their membranes: A $70 \times 70$
   region of $\Gamma$ with $n = 10^3$, $N=10^6$, and $c = v = 0$.
   The last image, however, is of a $500 \times 500$ region.
-  Each color corresponds to one of the $16$ \eM  types: $T_2$ is green,
+  Each color corresponds to one of the $16$ \eM\ types: $T_2$ is green,
   $T_4$ is dark gray, $T_1$ is yellow, $T_8$ is purple, and $T_{15}$
   is blue.
   }
@@ -575,11 +576,11 @@ however, are the spatial patterns that emerge in $\Gamma^t$. Figure
 \ref{fig:SpatialPix} shows a $70 \times 70$ region of $\Gamma^t$ at increasing
 times and one $500 \times 500$ region at a late time. Regions of $T_2$ and
 $T_4$ form stable domains that grow to dominate the soup. Within a region of
-$T_2$ or $T_4$ there exist \eMs  that cannot be replaced, typically due to
+$T_2$ or $T_4$ there exist \eMs\ that cannot be replaced, typically due to
 an ``elastic'' collision---an interaction producing the non-\eM\ $T_0$
-that, by $\theta$, simply leaves the \eM  at the lattice location alone.
+that, by $\theta$, simply leaves the \eM\ at the lattice location alone.
 
-When a region of $T_2$ meets a region of $T_4$, \eMs  $T_1$ and $T_8$ form on
+When a region of $T_2$ meets a region of $T_4$, \eMs\ $T_1$ and $T_8$ form on
 the boundary, since $T_2 \circ T_4 = T_1$ and $T_4 \circ T_2 = T_8$. Moreover,
 $T_1 \circ T_1 = T_1$ and $T_8 \circ T_8 = T_8$ and so the boundaries are
 self-sustaining along the interface.
@@ -594,7 +595,7 @@ Over a large number of time steps, the spatial population looks essentially
 like that at $t/N=20.0$ in Fig. \ref{fig:SpatialPix}. If enough time passes,
 though, the soup eventually divides itself into two connected regions of $T_2$
 and of $T_4$, or one will take over completely. This requires an extremely
-large number of replications. Which \eM  region dominates in the long run
+large number of replications. Which \eM\ region dominates in the long run
 appears to be randomly determined. The overall process is highly reminiscent of
 spinodal decomposition in which a mixed solution separates into stable component
 phases \cite{Favv08a}. A more direct connection to the predictions of that
@@ -608,7 +609,7 @@ After time $t/N \approx 3.4$, the characters of the spatial and panmixia
 populations begin to diverge substantially, with patterns emerging in the
 spatial $\Gamma$. Those patterns consist of \emph{domains} of nearly homogeneous
 \eMs\ of type $T_2$ or of type $T_4$. They are separated by domain \emph{walls}
-that consist of \eMs  $T_1$ and $T_8$. As we shall see, these walls play the
+that consist of \eMs\ $T_1$ and $T_8$. As we shall see, these walls play the
 role of functional membranes that actively translate between the domain \eMs.
 
 \begin{figure*}[hbtp]
@@ -631,7 +632,7 @@ role of functional membranes that actively translate between the domain \eMs.
   \vspace{3pt}
   \hbox{\hspace{2.1in} $t/N = 25$ \hspace{1.8in} $t/N = 75$}
   \vspace{7pt}
-\caption{The effective \eM  interactions at various times.
+\caption{The effective \eM\ interactions at various times.
   The nodes are the $15$ possible \eMs. The darkness of their
   interiors indicates their relative fractions $\PrEMType^i$ in the
   populations. The edges connecting them indicate the frequency of
@@ -641,7 +642,7 @@ role of functional membranes that actively translate between the domain \eMs.
 \end{figure*}
 
 To summarize, then, the first observation about the spatial population is that
-it is completely differently organized. The persistent set of \eMs  differs
+it is completely differently organized. The persistent set of \eMs\ differs
 markedly from those found with panmixia, as do their roles and interactions.
 Why did they emerge when the population is embedded in space? We can explain
 the emergence of these structures by defining a mechanism in the interaction
@@ -649,7 +650,7 @@ network $\M$ that affects the population dynamics when there is sufficient
 ``spatial memory''. This mechanism is called a \emph{spatial replicator} (SR).
 
 \begin{Def}
-A set $S$ of \eMs  is a \emph{spatial replicator} (SR) if 
+A set $S$ of \eMs\ is a \emph{spatial replicator} (SR) if 
 \begin{align*}
 \theta(S,S,\theta(S,S,\T)) & \subseteq S,\\
 \theta(S,S,\theta(\T,S,S)) & \subseteq S,\\
@@ -661,16 +662,16 @@ A set $S$ of \eMs  is a \emph{spatial replicator} (SR) if
 Notice that this is similar to the definition of a GR, except that SRs require
 two applications of $\theta$ to produce an element of $S$. Due to this, SRs
 only replicate when there is spatial information storage: If $S$ is a SR, an
-element of $S$ must compose with an \eM  in $\T$ to produce an \eM  $T_y$.
+element of $S$ must compose with an \eM\ in $\T$ to produce an \eM\ $T_y$.
 $T_y$ must then compose with an element of $S$ again to produce a new element
 of $S$. 
 
 In the panmixia population there is no notion of adjacency. Therefore, $T_y$
 does not have an increased chance of interacting with an element of $S$ again.
 However, space allows a way for SRs to replicate: If by chance a sufficiently
-large domain of $\Gamma$ consists only of elements of some SR $S$, \eMs  on
+large domain of $\Gamma$ consists only of elements of some SR $S$, \eMs\ on
 the domain border will be replaced by elements of $\theta(S, S, \T)$ or
-$\theta(\T, S, S)$. Later, these boundary \eMs  will be replaced with elements of 
+$\theta(\T, S, S)$. Later, these boundary \eMs\ will be replaced with elements of 
 \begin{align}
 \theta(S,S, & \theta(S,S,\T)) \cup \theta(S,S,\theta(\T,S,S))
   \nonumber \\
@@ -686,22 +687,22 @@ other SR $S$, then $S'$ eventually will come to dominate the soup. For the
 spatial population of single-state \eMs, it is easy to check that
 $\{ T_1, T_2, T_4, T_8 \}$ is a SR. Dynamically, the membranes of $T_1$ and
 $T_8$ grow their respective domains of $T_4$ and $T_2$. Unsurprisingly, then,
-$T_2$ and $T_4$ come to dominate $\Gamma$. In contrast, $T_{15}$---an \eM  made
+$T_2$ and $T_4$ come to dominate $\Gamma$. In contrast, $T_{15}$---an \eM\ made
 so readily by the panmixia population---begins to dominate the simulation until
 ``spatial memory'' begins to act. Beyond that point $T_{15}$ is replaced by SRs.
 
 Figure \ref{fig:InteractionVTime} shows how these interactions develop over
-time by giving the effective \eM  interactions on an undirected graph, where
-the darkness of the \eM  nodes indicates their relative frequencies
+time by giving the effective \eM\ interactions on an undirected graph, where
+the darkness of the \eM\ nodes indicates their relative frequencies
 $\PrEMType^i$ and the darkness of the connecting edges indicates the relative
 frequency of interactions. As a complement to this,
 Fig. \ref{fig:SpatialMetaMachine} gives
-the \eM  interaction network at long times. This should be compared to the
+the \eM\ interaction network at long times. This should be compared to the
 nine-\eM\ meta-machine in the panmixia soup: see Fig. 3 of Ref. \cite{OTMOMerge}.
 
 \begin{figure}[hbtp]
   \includegraphics[width=2.5in]{SpatialMetaMachine}
-\caption{The \eM  interaction network at long times in the spatial soup. An
+\caption{The \eM\ interaction network at long times in the spatial soup. An
   arrow labeled $T_b$ going from node $T_a$ to node $T_c$ denotes
   $T_c = T_b \circ T_a$.
   }
@@ -739,16 +740,16 @@ additional \eMs---the nonreplaceable ones mentioned above---can be embedded in
 these domains, such that the regions are still domains, is a more difficult
 calculation that we will not attempt here.
 
-The membranes separating the domains are complementary \eM  types that actively
+The membranes separating the domains are complementary \eM\ types that actively
 function to translate between domains on either side, being composable with
-the \eM  types in those domains. And, over time, sets of membrane \eMs  map
+the \eM\ types in those domains. And, over time, sets of membrane \eMs\ map
 back into themselves. In the spatial population, as noted above
 (Fig. \ref{fig:SpatialMetaMachine}),
 $T_1 = T_2 \circ T_4$ and $T_8 = T_4 \circ T_2$. The definition of a membrane
 replicator and a membrane express these formally.
 
 \begin{Def}
-A set $M$ of \eMs  is a \emph{membrane replicator} (MR) if 
+A set $M$ of \eMs\ is a \emph{membrane replicator} (MR) if 
 there are two domain SRs, $S$ and $S^\prime$, such that
 \begin{align*}
 \theta(S,M,\theta(S,M,S^\prime)) & \subseteq M,\\
@@ -760,7 +761,7 @@ there are two domain SRs, $S$ and $S^\prime$, such that
 \end{Def}
 
 Notice that this is similar to the definition of an SR, except that MRs require
-the bounding domain SRs to produce \eMs  in the MR.
+the bounding domain SRs to produce \eMs\ in the MR.
 
 \begin{Def}
 A \emph{membrane} between two domain SRs $S$ and $S^\prime$ is a
@@ -799,12 +800,12 @@ the algorithms for these calculations to a sequel.
 
 \section{Intermediate Spatial Populations}
 
-The \eM  soups here were specifically designed to permit investigation of
+The \eM\ soups here were specifically designed to permit investigation of
 populations that are neither completely spatial nor completely nonspatial by
 varying the mixing parameters $c$ and $v$. To avoid presenting extremely
 high-dimensional data, we pick a metric that distinguishes the spatial versus
 nonspatial population dynamics and observe how that metric varies with $c$ and
-$v$. For the metric we use $\PrEMType^{15} (t)$, the percentage of \eMs  of type
+$v$. For the metric we use $\PrEMType^{15} (t)$, the percentage of \eMs\ of type
 $T_{15}$ in $\Gamma^t$. In the nonspatial simulation,
 $\PrEMType^{15} \approx 0.223$ after $t/N = 50$ steps, while
 $\PrEMType^{15} \approx 0.0$ after $t/N = 50$ in the spatial model. In this way,
@@ -824,7 +825,7 @@ of the transition at which spatial memory is lost by showing slices along the
 $v$ and $c$ axes. Notably, the plots show that the ``effect of space'' is
 logistic in $\log c$ or $\log v$. This indicates that populations are sensitive
 to both parameters in similar ways, even though the physical realizations of
-varying $c$ (number of \eMs  swapped) and $v$ (spatial range of mixing) are
+varying $c$ (number of \eMs\ swapped) and $v$ (spatial range of mixing) are
 quite different. 
 
 \begin{figure}[tp]
@@ -865,12 +866,12 @@ replicators in neighboring domains. The resulting spatial organization suggests
 that one gets spontaneous compartmentalization without designing it in at the
 beginning. Recall that compartmentalization is often cited as one of the key
 early evolutionary steps on the road to increasing biological complexity
-\cite{Mayn95a}. It is not such a difficult step, after all. The \eM  soup is a
+\cite{Mayn95a}. It is not such a difficult step, after all. The \eM\ soup is a
 very simple system, built with a minimal set of physical, chemical, and
 biological assumptions.
 
 It is perhaps no surprise if we mention that analogous investigations of
-one-dimension \eM  soups leads to similar results. This and the two-dimensional,
+one-dimension \eM\ soups leads to similar results. This and the two-dimensional,
 intermediate dimensional, and effectively infinite dimensional (panmixia)
 soups lead one to wonder about the role of the three-dimensions in which
 we know that life arose. Is there something special?
@@ -897,11 +898,11 @@ views, opinions, and findings contained here are those of the authors and
 should not be interpreted as representing the official views or policies,
 either expressed or implied, of the DARPA or the Department of Defense.
 
-Start of comment 
-Start of comment  Bibliography 
-Start of comment 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-chaos,refs Bibliography file not found 
 \bibliography{chaos,refs}
 
 \end{document}
