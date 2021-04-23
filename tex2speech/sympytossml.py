@@ -59,9 +59,12 @@ def _convert(expr, funcs_tree, mode, quantity_index):
         i_sub = 0
         j = 0
         repeat_index = 0
+
+        inf_finder = ''
         
         while i < len(expr.args):
             if j >= len(func):
+                print(len(func))
                 j = repeat_index
 
             if func[j].tag == 'arg':
@@ -87,6 +90,7 @@ def _convert(expr, funcs_tree, mode, quantity_index):
                 j += 1
             
             elif func[j].tag == 'subarg':
+                print("NOO")
                 s += _convert(expr.args[i].args[i_sub], funcs_tree, mode, quantity_index)
                 i_sub += 1
                 if i_sub == len(expr.args[i].args):
@@ -99,6 +103,8 @@ def _convert(expr, funcs_tree, mode, quantity_index):
 
             elif func[j].tag == 'text':
                 s += str(func[j].text)
+                # print(str(func[j].text))
+                # print(j)
                 j += 1
             
             elif func[j].tag == 'repeat':
@@ -107,6 +113,11 @@ def _convert(expr, funcs_tree, mode, quantity_index):
 
             elif func[j].tag == 'end':
                 i = len(expr.args)
+
+            else:
+                print("YOOOO")
+                i += 1
+                continue
 
     return s
                  

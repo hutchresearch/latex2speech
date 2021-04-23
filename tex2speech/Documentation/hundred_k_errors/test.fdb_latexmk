@@ -1,0 +1,18 @@
+# Fdb version 3
+["pdflatex"] 1619134428 "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.tex" "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.pdf" "test" 1619134428
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.aux" 1619134428 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.tex" 1619134427 116 488f1cce4edffb316647352cc02d13b6 ""
+  "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
+  "/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def" 1584044900 25398 19ae1e59d7f4a47fefb457d851f6f503 ""
+  "/usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf" 1583102494 39451 60d7debd9ef8ece44cbe965493576c2d ""
+  "/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1586288239 4811913 0be9a7e86c70a26e5e3042966bcd7097 ""
+  "/usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt" 1586288259 2432462 fd0fa20e9a3cb5f8169fd0ba1c955158 ""
+  "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
+  "test.aux" 0 -1 0 "pdflatex"
+  "test.tex" 1619134427 116 488f1cce4edffb316647352cc02d13b6 ""
+  (generated)
+  "test.aux"
+  "test.pdf"
+  "test.log"
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.log"
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.pdf"
