@@ -268,8 +268,6 @@ def create_master_files(main_input, bib):
 
                         # Handle comments
                         if tmp == "%":
-                            if len(line) > 2:
-                                outfile.write("Start of comment " + line[1:].replace("%", ""))
                             break
 
                         if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
