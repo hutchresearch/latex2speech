@@ -19,6 +19,7 @@ from pybtex.database.input import bibtex
 
 from expand_labels import expand_doc_new_labels
 from doc_cleanup import cleanxml_string
+from format_master_files import find_master_files, create_master_files
 # Internal classes
 from conversion_db import ConversionDB
 from conversion_parser import ConversionParser
@@ -29,9 +30,6 @@ session = Session(profile_name='default')
 # Creates objects of use
 polly = session.client("polly")
 s3 = session.client("s3")
-
-# Path to upload
-path = os.getcwd() + '/upload'
 
 # Check to see if file has been uplaoded to the S3 bucket or not
 def check_s3(key):

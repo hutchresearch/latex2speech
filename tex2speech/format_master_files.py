@@ -1,3 +1,8 @@
+import os
+
+# Path to upload
+path = os.getcwd() + '/upload'
+
 # Helper method used if found a corresponding input file
 def found_input_file(line, outfile, i, input):
     tmp = ""  
