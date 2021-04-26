@@ -19,7 +19,7 @@ from pybtex.database.input import bibtex
 
 from expand_labels import expand_doc_new_labels
 from doc_cleanup import cleanxml_string
-from format_master_files import find_master_files, create_master_files
+from format_master_files import format_master_files
 # Internal classes
 from conversion_db import ConversionDB
 from conversion_parser import ConversionParser
@@ -149,12 +149,9 @@ def start_polly(main, bib_contents):
     counter = 0
     end = False
 
-    main_input_files = find_master_files(main)
-    master_files = create_master_files(main_input_files, bib_contents)
+    master_files = format_master_files(main, bib_contents)
 
-    print(master_files)
-
-    for master in master_files:
+    for master in master_files[1]:
         counter += 1
 
         if counter == len(master_files):
@@ -178,7 +175,7 @@ def start_polly(main, bib_contents):
         audio_link = "hi"
         links.append(audio_link)
 
-    retObj.append(main_input_files[0])
+    retObj.append(master_files[0])
     retObj.append(links)
 
     return retObj

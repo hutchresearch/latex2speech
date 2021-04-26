@@ -19,12 +19,10 @@ def found_input_file(line, outfile, i, input):
                 append = tmp + ".tex"
 
             if(append == input_file):
-                with open(path + "/" + input_file,'r') as tmp_input:
-                    contents = tmp_input.read().replace('%', 'Begin Comment ')
-                    contents = contents.replace('\\LaTeX\\', '\\LaTeX')
-                    outfile.write(contents)
-                    contained = True
-                    tmp_input.close()
+                bib = []
+                test(outfile, bib, input_file)
+                contained = True
+
         i = i + 1
 
     if(contained == False):
@@ -81,14 +79,72 @@ def rid_of_back_backslash(line, i, potential):
 
     return potential
 
+def test(outfile, bib, main_file):
+    potential = 'False'
+
+    with open(path + "/" + main_file, 'r') as in_file:
+        # For each line, add to the master file
+        for line in in_file:
+            tmp = ""
+
+            for i in range(len(line)):
+                potential = rid_of_back_backslash(line, i, potential)
+                if (potential == 'Changed'):
+                    i = i + 1
+                    potential = 'False'
+
+                tmp = tmp + line[i]
+
+                # Handle comments
+                if tmp == "%":
+                    break
+
+                if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
+                    outfile.write(tmp)
+                    tmp = ""
+
+                i = i + 1
+                # Finds include or input file
+                if (tmp == "\\include{" or tmp == "\\input{"):
+                    found_input_file(line, outfile, i, input)
+
+                # Finds bibliography file
+                if (tmp == "\\bibliography{"):
+                    inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
+
+# Creates a list of master files to hold the uploaded main 
+# files and input files that are referenced into a single 
+# master file
+#
+# returns list of master files
+def create_master_files(main, input, bib):
+    master_files = []
+    add = 0
+
+    # For every uploaded main file
+    for main_file in main:
+        add = add + 1
+
+        # Create new master file
+        with open("final" + str(add) + ".tex", 'w') as outfile:
+            inner_file = []
+            inner_file.append("final" + str(add) + ".tex")
+            master_files.append(inner_file)
+
+            # Writes content to the outfile
+            test(outfile, bib, main_file)
+                        
+        outfile.close()
+    return master_files
+
 # Checks each document to see if the file is a main document or input document
 # This is denoted by \begin{document} and \end{document} as main, and not if input
 # Returns the array of all master files and input files
-def find_master_files(main):
+def seperate_main_input(files):
     total = []
     master = []
     input_list = []
-    for filename in main:
+    for filename in files:
         with open(path + '/' + filename, 'r') as file:
             contents = file.read()
             if r'\begin{document}' in contents and r'\end{document}' in contents:
@@ -102,58 +158,19 @@ def find_master_files(main):
     
     return total
 
-# Creates a list of master files to hold the uploaded main 
-# files and input files that are referenced into a single 
-# master file
-#
-# returns list of master files
-def create_master_files(main_input, bib):
-    main = main_input[0]
-    input_file = main_input[1]
-    master_files = []
+# Facilitator to get the list of master files.
+# Input -> Tex Files (input + master)
+#       -> Bib Files
+# Output
+#       -> Returns name of the main tex files
+#       -> Returns list of main files to run
+def format_master_files(tex, bib):
+    texFiles = seperate_main_input(tex)
 
-    add = 0
-    potential = 'False'
+    master_files = create_master_files(texFiles[0], texFiles[1], bib)
 
-    # For every uploaded main file
-    for main_file in main:
-        add = add + 1
+    files = []
+    files.append(texFiles[0])
+    files.append(master_files)
 
-        # Create new master file
-        with open("final" + str(add) + ".tex", 'w') as outfile:
-            inner_file = []
-            inner_file.append("final" + str(add) + ".tex")
-            with open(path + "/" + main_file, 'r') as in_file:
-                # For each line, add to the master file
-                for line in in_file:
-                    tmp = ""
-
-                    for i in range(len(line)):
-                        potential = rid_of_back_backslash(line, i, potential)
-                        if (potential == 'Changed'):
-                            i = i + 1
-                            potential = 'False'
-
-                        tmp = tmp + line[i]
-
-                        # Handle comments
-                        if tmp == "%":
-                            break
-
-                        if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
-                            outfile.write(tmp)
-                            tmp = ""
-
-                        i = i + 1
-                        # Finds include or input file
-                        if (tmp == "\\include{" or tmp == "\\input{"):
-                            found_input_file(line, outfile, i, input_file)
-
-                        # Finds bibliography file
-                        if (tmp == "\\bibliography{"):
-                            inner_file = found_bibliography_file(line, outfile, i, bib, inner_file)
-                        
-            master_files.append(inner_file)
-
-        outfile.close()
-    return master_files
+    return files
