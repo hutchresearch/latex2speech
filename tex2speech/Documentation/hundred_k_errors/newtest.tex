@@ -1,0 +1,191 @@
+\documentclass[10pt,reqno]{amsart}
+\addtolength {\textwidth} {.5in}
+%\addtolength {\oddsidemargin} {-.3in}
+%\addtolength {\evensidemargin} {-.3in}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Main}{Main Theorem}
+\newtheorem{Mres}{Main Result}
+\newtheorem{\theMain}{}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}{Problem}
+\newtheorem{Prop}[Thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{Def}{Definition}
+\theoremstyle{remark}
+\newtheorem{notation}{Notation}
+\renewcommand{\thenotation}{}
+
+\def\biggdet#1{\biggl|#1\biggr|}
+\long\def\comment#1{\textsf{\em[#1]}}
+\renewcommand{\datename}{Version of}
+\newcommand{\ntt}{\normalfont\ttfamily}
+\newcommand{\pkg}[1]{{\protect\ntt#1}}
+\DeclareMathOperator{\sgn }{sgn }
+\DeclareMathOperator{\card }{card }
+\DeclareMathOperator{\len }{len }
+\DeclareMathOperator{\minor }{minor}
+\DeclareMathOperator{\kr }{kr}
+\parindent=0in
+\parskip=10pt
+\begin{document}
+
+\begin{titlepage}
+
+    \begin{center}
+    \vspace*{1.325in}
+    EDGE EFFECTS ON LOCAL STATISTICS IN LATTICE DIMERS:\\
+    A STUDY OF THE AZTEC DIAMOND (FINITE CASE)\\
+    \vspace{1.365626in}
+    BY\\
+    
+    \vspace{.2in}
+    HARALD HELFGOTT\\
+    \vspace{1.11875in}
+    THESIS\\
+    \vspace{.2in} 
+    Submitted in partial fulfillment of the requirements\\
+    for the degree of Bachelor in Arts in Mathematics\\
+    at Brandeis University, 1998\\
+    \vspace{1.19750in}
+    Waltham, Massachusetts
+    \end{center}
+    \end{titlepage}
+    \address{Mathematics Department \\
+      Brandeis University
+      Waltham, MA 02254-9110}
+    \email{hhelf@cs.brandeis.edu}
+    %End topmatter
+    \section{Introduction}
+
+    A {\em tiling} of a checkerboard with dominoes is a way of putting dominoes
+    on the board so that no square of the board is uncovered and no two dominoes
+    overlap.  Given a local pattern (see figure \ref{fig:ex} for examples), a 
+    location in the board, and the shape and size of the board, how many tilings
+    of the board have the given pattern at the given location? (Alternatively,
+    we can substitute ``bond'' for ``domino'' and ``particle'' for 
+    ``square'', and ask for the probability of local patterns in a system
+    of particles each of which bonds with exactly one of its neighbors.)
+    
+    Suppose that the squares of the board are very small compared to the
+    board itself. For some board shapes, the probability of finding a pattern
+    at a given location will be the same for almost all locations. This is
+    the case for the square board. (See figures \ref{fig:g} to \ref{fig:i},
+    where tiles are colored according to their direction and parity for
+    the sake of clarity; see figure \ref{fig:chart} for the coloring scheme.)
+    There are some boards, however, for which the probability does depend
+    on the location. Consider, for example, the {\em Aztec diamond}, that is,
+    the board whose boundary is a square tilted $45$ degrees 
+    (figures \ref{fig:azb} and \ref{fig:azg}). 
+    In random tilings of the Aztec diamond, we usually find brick-wall patterns 
+    outside the inscribed circles, and more complicated behavior inside
+    the circle. (See figures \ref{fig:b} to \ref{fig:f}.)
+    
+    The probabilities of local patterns in a rectangular board were computed
+    recently \cite{Ken}. Until now, there was no other board for which
+    the probabilities of all local patterns were known. Many experiments 
+    and some important partial results \cite{CEP} had shown that, as already
+    stated, the probabilities of patterns in the Aztec diamond depend on location.
+    This qualitative difference between the Aztec diamond and the rectangular
+    board made the former as worthy of analysis as the latter. 
+    The main result of this work
+    is an expression for the 
+    probability of any local pattern in a random tiling of the Aztec diamond.
+    The expression is a determinant of size proportional to the number of
+    squares in the pattern, just like Kenyon's expression \cite{Ken} for
+    the probabilities in the rectangural board,
+     
+    \begin{Mres}
+    The probability of a pattern covering white squares $v_1,v_2,\dotsb v_k$
+    and black squares $w_1,w_2,\dotsb w_k$ of
+     an Aztec diamond of order $n$ is equal
+    to the absolute value of
+    \[\determinant{c(v_i,w_j)}_{i,j=1,2,\dotsb k}.\]
+    The {\em coupling function} $c(v,w)$ at white square $v$ and black
+    square $w$ is 
+    \[2^{-n} \sum_{j=0}^{x_i-1} \kr(j,n,y_i-1) 
+                    \kr({y\prime }_i - 1,n-1,n-(j+{x\prime }_i-x_i))
+    \]
+    for ${x\prime }_i > x_i$ and
+    \[-2^{-n} \sum_{j=x_i}^n \kr(j,n,y_i-1) 
+                 \kr({y\prime }_i-1,n-1,n-(j+{x\prime }_i-x_i))
+    \]
+    for ${x\prime }_i \leq x_i$, where $(x_i,y_i)$ and $({x\prime}_i,{y\prime}_i)$
+    are the coordinates of $v$ and $w$, respectively, in the coordinate
+    system in figure \ref{fig:coor}, and the {\em Krawtchouk polynomial}
+    $\kr(a,b,c)$ is the coefficient of $x^a$ in $(1-x)^c\cdot (1+x)^{b-c}$.
+    \end{Mres}
+
+    Our line of attack is as follows.
+\begin{enumerate}
+\item Reduce the problem of finding probabilities of patterns to an 
+enumerative problem;
+\item Reduce the enumerative problem to a simpler one involving
+Aztec diamonds with two holes rather than arbitrary even-area holes;
+\item Compute the weighted number of tilings of an Aztec diamond with two holes.
+\end{enumerate}
+
+The first two steps involve known techniques, and were already considered
+to be a plausible strategy by other researchers. The third step is new.
+
+Henry Cohn is currently analyzing the case of the board with infinitely small
+squares by approximating the sum of Krawtchouk polynomials in our main
+result as an integral for $n\to \infty$. 
+His results will be presented in a later, joint version
+of this paper. 
+
+\begin{figure}
+\centering \includegraphics{locals.eps}
+\caption{A few examples of local patterns} \label{fig:ex}
+\end{figure}
+
+\begin{figure}
+	\centering \includegraphics[height=1in]{nomatter.eps}
+	\caption{These two patterns
+	have the same probability of being found in a random pattern
+at any given place} \label{fig:nomatter}
+\end{figure}
+
+\begin{figure}
+        \begin{minipage}[b]{0.5\linewidth}
+                \centering \includegraphics[height=2in]{reg20.eps}
+                \caption{Random tiling of square of side 20}\label{fig:g}   
+        \end{minipage}
+        \begin{minipage}[b]{0.5\linewidth}
+                \centering \includegraphics[height=2in]{reg40.eps}
+                \caption{Random tiling of square of side 40}\label{fig:h}
+        \end{minipage}
+\end{figure}
+
+\begin{figure}
+        \begin{minipage}[b]{0.5\linewidth}
+                \centering \includegraphics[height=2.5in]{reg80.eps}
+                \caption{Random tiling of square of side 80}\label{fig:i}   
+        \end{minipage}
+\end{figure}
+
+\begin{figure}
+\centering \includegraphics[height=2.5in]{chart.eps} 
+\caption{Shading chart} \label{fig:chart}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering \includegraphics[height=2in]{azb.eps}
+	\caption{Aztec diamond of order $4$, as a board} \label{fig:azb}
+	\end{minipage}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering \includegraphics[height=2in]{azg.eps}
+	\caption{Aztec diamond of order $4$, as a graph} \label{fig:azg}
+	\end{minipage}
+\end{figure}
+
+\end{document}
+
+
+
+
