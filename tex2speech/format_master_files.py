@@ -20,7 +20,8 @@ def found_input_file(line, outfile, i, input):
 
             if(append == input_file):
                 bib = []
-                write_to_file(outfile, bib, input, input_file)
+                inner = []
+                write_to_file(outfile, bib, input, input_file, inner)
                 contained = True
 
         i = i + 1
@@ -79,7 +80,7 @@ def rid_of_back_backslash(line, i, potential):
 
     return potential
 
-def write_to_file(outfile, bib, input, file):
+def write_to_file(outfile, bib, input, file, inner_file):
     potential = 'False'
 
     with open(path + "/" + file, 'r') as in_file:
@@ -131,7 +132,7 @@ def create_master_files(main, input, bib):
             inner_file.append("final" + str(add) + ".tex")
 
             # Writes content to the outfile
-            write_to_file(outfile, bib, input, main_file)
+            write_to_file(outfile, bib, input, main_file, inner_file)
             outfile.close()
 
             master_files.append(inner_file)
