@@ -1,0 +1,86 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{graphicx}
+\nonstopmode
+
+\title{Tex2Speech\\Vision and Scope}
+\author{Connor Barlow, Walker Herring, Jacob Nemeth,\\Dylon Rajah and Taichen Rose}
+\date{October 23, 2020}
+
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage{tabularx}
+
+
+
+\begin{document}
+\maketitle
+
+\begin{center}
+  Version: 1.1
+\end{center}
+
+\vfill
+\begin{tabularx}{\linewidth}{|l|l|l|X|}\hline
+Ver. & Date & Who & Change\\\hline
+1.1  & 10/23/20  & Connor Barlow  & Added client considerations in risks and limitations\\\hline
+\end{tabularx}
+\newpage
+
+background.tex Input file not found 
+\input{background.tex}
+vision.tex Input file not found 
+\input{vision.tex}
+scope_limitations.tex Input file not found 
+\input{scope_limitations.tex}
+busness_context.tex Input file not found 
+\input{busness_context.tex}
+\section{Schedule}
+
+\subsection{Gantt Chart}
+\begin{figure}[h]
+\includegraphics[width=14cm]{docs/vision_and_scope/Gantt.PNG}
+\end{figure}
+
+\subsection{Key Milestones}
+Milestone 1: Research and Implement Pipeline
+\begin{itemize}
+    \itemsep0em
+    \item Research software to use for the project
+    \item Setup TTS Web Service
+    \item Find a placeholder for \LaTeX\ to SSML/MathML
+    \item Find a parsing service for \LaTeX\ file
+    \item Create simple web service for uploading files
+    \item Create list of major commands and environments in \LaTeX\
+\end{itemize}
+Milestone 2: Parse \LaTeX\ file to SSML/MathML
+\begin{itemize}
+    \itemsep0em
+    \item Understand how to use parser
+    \item \LaTeX\ basic commands and environments will be parsed to a marked up file
+\end{itemize}
+Milestone 3: Implement Base \LaTeX\ Packages
+\begin{itemize}
+    \itemsep0em
+    \item Implement package conversion
+    \item Refine wavelengths (text analysis)
+\end{itemize}
+Milestone 4: Support Additional Packages
+\begin{itemize}
+    \itemsep0em
+    \item Support additional \LaTeX\ packages in converter
+    \item Continue to refine wavelengths (text analysis)
+\end{itemize}
+Milestone 5: Add UI Functionality/Additional Features
+\begin{itemize}
+    \itemsep0em
+    \item Setup web browser for public usage
+    \item Integrate with other applications such as Overleaf
+\end{itemize}
+
+\subsection{Resource Assignments}
+The only costly resources for our project will be the cloud-based TTS service and the server that will host our \TeX 2Speech application. Our top candidate for the TTS service, Amazon Polly, has a free trial period which extends beyond the development window for the initial programs release so this resource will not be a concern for the time being. The server hosting will be a bit more problematic, but will thankfully only be essential during the final phases of development. It will primarily be needed to test the UI and request handling portions of the project, so once we reach that stage a timesheet will have to be created to allot computation time.
+\subsection{Individual Responsibilities}
+As it stands, the project is currently undergoing a research period leading to future possibilities in task designation. Once a suitable foundation of background knowledge and experience in each aspect of the process is gained, we will then be able to appoint individual responsibilities based on acquired expertise.\input{schedule}
+deliverables Input file not found 
+\input{deliverables}
+
+\end{document}

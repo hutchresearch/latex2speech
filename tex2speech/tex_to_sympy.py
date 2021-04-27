@@ -547,6 +547,7 @@ def pre_process(mathmode):
 
     # Gets rid of .
     mathmode = mathmode.replace('.', '')
+    print("    " + str(mathmode))
 
     # Gets rid of ,
     mathmode = mathmode.replace(',', '')
@@ -564,7 +565,9 @@ def run_sympy(mathmode):
     try:
         cleanedMathmode = pre_process(mathmode)
         sympyObj = process_sympy(cleanedMathmode)
+        print("    " + str(sympyObj))
         ssmlObj = convert_sympy_ssml((sympyObj), QuantityModes.PARENTHESES_NUMBERED)
+        print("<FINISHED")
         return ssmlObj
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
         return " math mode equation did not render "
