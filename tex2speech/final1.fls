@@ -1,6 +1,0 @@
-PWD /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech
-INPUT /usr/local/texlive/2020/texmf.cnf
-INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
-INPUT /usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/final1.tex
-OUTPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/final1.log
