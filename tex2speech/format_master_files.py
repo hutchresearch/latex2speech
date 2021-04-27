@@ -20,7 +20,7 @@ def found_input_file(line, outfile, i, input):
 
             if(append == input_file):
                 bib = []
-                test(outfile, bib, input_file)
+                test(outfile, bib, input, input_file)
                 contained = True
 
         i = i + 1
@@ -67,26 +67,26 @@ def check(tmp, cmd):
 
 # Get rid of extra \ at end of words
 def rid_of_back_backslash(line, i, potential):
-    # Get end of line slashes out
+    # Get end of line slashes out    
     if i > 0 and line[i - 1] == ' ' and line[i] == '\\':
         potential = 'True'
 
     if line[i] == ' ':
         potential = 'False'
 
-    if i < len(line) and potential == 'True' and line[i] == '\\' and line[i + 1] == ' ':
+    if i < len(line) and potential == 'True' and line[i] == '\\' and (line[i + 1] == ' ' or line[i + 1] == '\n'):
         potential = 'Changed'
 
     return potential
 
-def test(outfile, bib, main_file):
+def test(outfile, bib, input, file):
     potential = 'False'
 
-    with open(path + "/" + main_file, 'r') as in_file:
+    with open(path + "/" + file, 'r') as in_file:
         # For each line, add to the master file
         for line in in_file:
             tmp = ""
-
+            
             for i in range(len(line)):
                 potential = rid_of_back_backslash(line, i, potential)
                 if (potential == 'Changed'):
@@ -129,10 +129,12 @@ def create_master_files(main, input, bib):
         with open("final" + str(add) + ".tex", 'w') as outfile:
             inner_file = []
             inner_file.append("final" + str(add) + ".tex")
-            master_files.append(inner_file)
 
             # Writes content to the outfile
-            test(outfile, bib, main_file)
+            test(outfile, bib, input, main_file)
+            outfile.close()
+
+            master_files.append(inner_file)
                         
         outfile.close()
     return master_files
