@@ -1,0 +1,16 @@
+PWD /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors
+INPUT /usr/local/texlive/2020/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.tex
+OUTPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.log
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+INPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.aux
+INPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.aux
+OUTPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.aux
+OUTPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.pdf
+INPUT /usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.aux
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
