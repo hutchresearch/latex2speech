@@ -75,7 +75,7 @@ def rid_of_back_backslash(line, i, potential):
     if line[i] == ' ':
         potential = 'False'
 
-    if i < len(line) and potential == 'True' and line[i] == '\\' and (line[i + 1] == ' ' or line[i + 1] == '\n'):
+    if i < len(line) and potential == 'True' and line[i] == '\\' and line[i + 1].isspace():
         potential = 'Changed'
 
     return potential

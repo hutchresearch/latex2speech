@@ -161,11 +161,6 @@ def start_polly(main, bib_contents):
         
         doc_preprocess(master[0])
 
-        with open(master[0], 'r') as file:
-            out = open('test.tex', 'w+')
-            out.write(file.read())
-        quit()
-
         # Expand Labels then open document
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
