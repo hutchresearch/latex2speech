@@ -357,6 +357,9 @@ class ConversionParser:
         #     print("!!!Input Tex Document!!!")
         #     print("Pre Macro-Expansion:")
         #     print(doc)
+        if not isinstance(doc, TexSoup.data.TexNode):
+            doc = TexSoup.TexSoup(doc)
+
         doc = expand_doc_macros(doc)
         # if is_dbg:
         #     print("Post Macro-Expansion:")
