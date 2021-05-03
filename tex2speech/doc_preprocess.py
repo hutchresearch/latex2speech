@@ -32,6 +32,9 @@ def doc_preprocess(file_name):
             text
         )
 
+        # Account for white space between arguments
+        text = re.sub(r'(?<=\}|\])[\s]+(?=\{|\[)', '', text)
+
         # Replace file contents
         file.truncate(0)
         file.write(text)
