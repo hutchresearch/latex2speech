@@ -161,7 +161,7 @@ main {
   width: 30px;
 }
 
-.fileOutput {
+.fileOutput, .error_back {
   margin: 5px;
   padding: 5px;
   display: inline-block;
@@ -169,10 +169,23 @@ main {
   margin-left: 48%;
 }
 
-.fileOutput p {
+.fileOutput p, .error_back p {
   float: right;
   padding-top: 4px;
   margin-left: 4px;
+}
+
+.errorBox {
+  width: 80%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  margin: auto;
+}
+
+.error_back img{
+  height: 30px;
+  width: 30px;
 }
 
 /* End of Main CSS DOWNLOAD */
