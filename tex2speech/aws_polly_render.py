@@ -17,9 +17,11 @@ from contextlib import closing
 # Parsing Library
 from pybtex.database.input import bibtex
 
+from doc_preprocess import doc_preprocess
 from expand_labels import expand_doc_new_labels
-from doc_cleanup import cleanxml_string
 from format_master_files import format_master_files
+from doc_cleanup import cleanxml_string
+
 # Internal classes
 from conversion_db import ConversionDB
 from conversion_parser import ConversionParser
@@ -157,6 +159,8 @@ def start_polly(main, bib_contents):
         if counter == len(master_files[0]):
             end = True 
         
+        doc_preprocess(master[0])
+
         # Expand Labels then open document
         expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")

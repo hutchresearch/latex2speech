@@ -15,7 +15,6 @@ class QuantityModes(Enum):
 
 sympy_funcs_file = './static/sympy_funcs.xml' 
 
-
 begin_str = '<prosody pitch=\"+25%\"><break time=\"0.3ms\"/>begin'
 end_str = '<prosody pitch=\"+25%\"><break time=\"0.3ms\"/>end'
 quantity_str = 'quantity</prosody><break time=\"0.3ms\"/>'
@@ -46,6 +45,9 @@ def _convert(expr, funcs_tree, mode, quantity_index):
     func_id = expr.__class__.__name__
     r = funcs_tree.getroot()
     func = r.find(func_id)
+
+    min_args = len(func.findall('arg'))
+    assert(min_args < len(expr.args))
     
     s = str()
     
@@ -59,20 +61,18 @@ def _convert(expr, funcs_tree, mode, quantity_index):
         i_sub = 0
         j = 0
         repeat_index = 0
-
-        inf_finder = ''
         
         while i < len(expr.args):
+
             if j >= len(func):
-                print(len(func))
                 j = repeat_index
 
             if func[j].tag == 'arg':
-                if isinstance(expr.args[i], Atom): 
+                if isinstance(expr.args[i], Atom):
                     s += _convert(expr.args[i], funcs_tree, mode, quantity_index + 1)
                 elif len(expr.args[i].args) == 1:
                     s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + ' '
-                else:
+                else:                                                                                                                                                                                    
                     n_str = ''
                     if mode == QuantityModes.PARENTHESES or mode == QuantityModes.PARENTHESES_NUMBERED:
                         q_str = parentheses_str
@@ -90,7 +90,6 @@ def _convert(expr, funcs_tree, mode, quantity_index):
                 j += 1
             
             elif func[j].tag == 'subarg':
-                print("NOO")
                 s += _convert(expr.args[i].args[i_sub], funcs_tree, mode, quantity_index)
                 i_sub += 1
                 if i_sub == len(expr.args[i].args):
@@ -103,8 +102,6 @@ def _convert(expr, funcs_tree, mode, quantity_index):
 
             elif func[j].tag == 'text':
                 s += str(func[j].text)
-                # print(str(func[j].text))
-                # print(j)
                 j += 1
             
             elif func[j].tag == 'repeat':
@@ -115,7 +112,6 @@ def _convert(expr, funcs_tree, mode, quantity_index):
                 i = len(expr.args)
 
             else:
-                print("YOOOO")
                 i += 1
                 continue
 

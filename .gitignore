@@ -1,3 +1,4 @@
 instance/
 .DS_Store
 .vscode
+tex2speechenv/

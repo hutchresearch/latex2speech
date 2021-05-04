@@ -4,6 +4,7 @@
 
 * {
     padding: 0;
+    padding-left: 0;
     margin: 0;
     font-family: 'Lato', sans-serif;
 }
@@ -55,8 +56,8 @@ main {
 }
 
 .descriptionBox {
+    text-align: left;
     width: 40%;
-    text-align: center;
     margin: auto;
     margin-bottom: 20px;
 }

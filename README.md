@@ -2,17 +2,21 @@
 A web application for converting LaTeX documents to spoken audio. You can demo the program [here](http://tex2speech.eba-mgbfwtgw.us-east-1.elasticbeanstalk.com/).
 
 ## Features
-- Quickly and conveniently upload LaTeX and download mp3
+- Quickly and conveniently upload LaTeX and download mp3 with an intuitive web interface
 - Convert .bib files along with LaTeX
-- Upload and convert multiple LaTeX files at a time
+- Upload and convert multiple LaTeX files at a time, as well as files zipped in .zip or .tgz files
+- Wide array of supported LaTeX functions
 - Unambiguous spoken math equations
 
+## Technical Documentation
+See the [wiki](https://github.com/hutchresearch/latex2speech/wiki)
+
 ## Contributors
-Connor Barlow
-Walker Herring
-Jacob Nemeth
-Dylon Rajah
-Taichen Rose   
+Connor Barlow  
+Walker Herring  
+Jacob Nemeth  
+Dylon Rajah  
+Taichen Rose
 
 ## Dependencies
 1. Python
