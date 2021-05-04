@@ -1,19 +1,16 @@
 # Fdb version 3
-["pdflatex"] 1619817630 "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.tex" "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.pdf" "newtest" 1619817669
-  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.aux" 1619817631 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.tex" 1619817626 51 b959bbc383df0e1c3e03f416bddbd799 ""
-  "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
-  "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
-  "/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def" 1584044900 25398 19ae1e59d7f4a47fefb457d851f6f503 ""
+["pdflatex"] 1620154377 "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.tex" "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.pdf" "newtest" 1620154380
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/eurosis.sty" 0 -1 0 ""
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.aux" 1620154377 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.tex" 1620154376 20603 be554f5dba8664381b79dccecd5288b0 ""
+  "/usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls" 1580683321 20023 e427dd9e17e239bf926ef3aab67fe35e ""
+  "/usr/local/texlive/2020/texmf-dist/tex/latex/base/size10.clo" 1580683321 8446 9874cccac5fee462272c582807dbbf56 ""
   "/usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf" 1583102494 39451 60d7debd9ef8ece44cbe965493576c2d ""
-  "/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1586288239 4811913 0be9a7e86c70a26e5e3042966bcd7097 ""
   "/usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt" 1586288259 2432462 fd0fa20e9a3cb5f8169fd0ba1c955158 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
-  "newtest.aux" 1619817631 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
-  "newtest.tex" 1619817626 51 b959bbc383df0e1c3e03f416bddbd799 ""
+  "eurosis.sty" 0 -1 0 ""
+  "newtest.tex" 1620154376 20603 be554f5dba8664381b79dccecd5288b0 ""
   (generated)
-  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.log"
   "newtest.log"
-  "newtest.pdf"
   "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.pdf"
-  "newtest.aux"
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/newtest.log"
