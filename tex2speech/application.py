@@ -164,13 +164,11 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
 
 @app.route('/')
 def index():
-    print("HEY")
     return render_template('index.html')
 
 # Upload middle man
 @app.route('/upload', methods=['POST'])
 def handle_upload():
-    print("THIS RUNS?")
     session.pop('file_holder', None)
     session.pop('bib_holder', None)
 
@@ -213,6 +211,12 @@ def handle_form():
 
     # Render
     file_links = start_polly(file_holder, bib_holder)
+
+    # try:
+    #     # Render
+    #     file_links = start_polly(file_holder, bib_holder)
+    # except EOFError as e:
+    #     return render_template('error.html')
 
     # redirect to home if nothing in file_links
     if file_links[0] == []:

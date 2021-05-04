@@ -550,7 +550,7 @@ def pre_process(mathmode):
     print("    " + str(mathmode))
 
     # Gets rid of ,
-    mathmode = mathmode.replace(',', '')
+    # mathmode = mathmode.replace(',', '')
 
     # Gets rid of ;
     mathmode = mathmode.replace(';', '')

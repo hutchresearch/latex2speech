@@ -12,5 +12,4 @@ OUTPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Doc
 OUTPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.pdf
 INPUT /usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/hundred_k_errors/test.aux
-INPUT /usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb

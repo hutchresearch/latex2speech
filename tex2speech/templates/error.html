@@ -16,9 +16,18 @@
     </header>
 
     <main>
-        <div class = "descriptionBox">
-            <h2>ERROR</h2>
+        <div class = "errorBox">
+            <h1>ERROR</h1>
             <p>There was an error converting your documents.</p>
+        </div>
+
+        <!-- Back Button -->
+        <div class = "error_back">
+            <a href="/">
+                <img src = "{{url_for('static', filename='back.png')}}">
+                </img>
+            </a>
+            <p>Go Back</p>
         </div>
 
     </main>
