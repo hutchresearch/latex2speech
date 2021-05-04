@@ -108,6 +108,13 @@
         <arg />
     </Nor>
 
+    <Wedge>
+        <arg />
+        <repeat />
+        <text>wedge</text>
+        <arg />
+    </Wedge>
+
     <!-- Notation -->
 
     <!-- Trigonometry -->

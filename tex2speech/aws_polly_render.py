@@ -154,7 +154,7 @@ def start_polly(main, bib_contents):
     for master in master_files[1]:
         counter += 1
 
-        if counter == len(master_files):
+        if counter == len(master_files[0]):
             end = True 
         
         # Expand Labels then open document

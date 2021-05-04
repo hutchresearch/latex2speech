@@ -345,6 +345,11 @@
         Item
     </cmd>
 
+    <cmd name = "ensuremath" type = "mathmode">
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+    </cmd>
+
 <!-- Latex Environments -->
     <!-- This is incase user does \begin{thebibliography} -->
     <env name = "thebibliography" type = "none">
