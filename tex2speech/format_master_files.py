@@ -100,6 +100,10 @@ def write_to_file(outfile, bib, input, file, inner_file):
                 if tmp == "%":
                     break
 
+                # Handle percentages
+                if r'\%' in tmp:
+                    tmp = tmp.replace(r'\%', " percent ")
+
                 if not check(tmp, r"\include{") and not check(tmp, r"\input{") and not check(tmp, r"\bibliography{"):
                     outfile.write(tmp)
                     tmp = ""
