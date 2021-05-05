@@ -9,6 +9,7 @@ from datetime import datetime
 CONFIG_FILE = 'logger_config.cfg'
 
 enabled = True
+instant_write = False
 log_timestamps = False
 output_file = "console"
 
@@ -31,7 +32,7 @@ def log(tag, value):
             value = prepend_time(value)
         logs_dict[tag].append(value)
 
-def showlog(tag):
+def writelog(tag):
     if output_file == 'console':
         for log_item in logs_dict[tag]:
             print(log_item)
@@ -47,13 +48,13 @@ def clearlog(tag):
 def read_config():
     global enabled
     global log_timestamps
-    global output
+    global output_file
     global initialized
     cfg_parser = configparser.ConfigParser()
     cfg_parser.readfp(open(CONFIG_FILE, 'r'))
     enabled = (cfg_parser.get('Logger Settings', 'enabled') == 'True')
     log_timestamps = (cfg_parser.get('Logger Settings', 'log_timestamps') == 'True')
-    output = cfg_parser.get('Logger Settings', 'output')
+    output_file = cfg_parser.get('Logger Settings', 'output')
 
     if not enabled:
         print("Notice: Logger is disabled. Debugging statements will not print or output.")
