@@ -66,34 +66,13 @@ def check(tmp, cmd):
         return True 
     return False
 
-# Get rid of extra \ at end of words
-def rid_of_back_backslash(line, i, potential):
-    # Get end of line slashes out    
-    if i > 0 and line[i - 1] == ' ' and line[i] == '\\':
-        potential = 'True'
-
-    if line[i] == ' ':
-        potential = 'False'
-
-    if i < len(line) and potential == 'True' and line[i] == '\\' and line[i + 1].isspace():
-        potential = 'Changed'
-
-    return potential
-
 def write_to_file(outfile, bib, input, file, inner_file):
-    potential = 'False'
-
     with open(path + "/" + file, 'r') as in_file:
         # For each line, add to the master file
         for line in in_file:
             tmp = ""
             
             for i in range(len(line)):
-                potential = rid_of_back_backslash(line, i, potential)
-                if (potential == 'Changed'):
-                    i = i + 1
-                    potential = 'False'
-
                 tmp = tmp + line[i]
 
                 # Handle comments

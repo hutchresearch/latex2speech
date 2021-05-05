@@ -6,6 +6,8 @@ def safe_replace_child(parent, child, child_index, child_repl):
     without modifying TexSoup, it will always delete the first child 
     of the parent that shares its name with the desired child.
     '''
+    if isinstance(parent, TexSoup.data.TexExpr):
+        parent = TexSoup.TexSoup(str(parent))
     if not isinstance(parent, TexSoup.data.BraceGroup) and \
        not isinstance(parent, TexSoup.data.BracketGroup):
         parent.insert(child_index, child_repl)
