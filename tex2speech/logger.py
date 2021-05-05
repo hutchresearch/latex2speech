@@ -3,8 +3,8 @@ import os.path
 import configparser
 from datetime import datetime
 
-# Usage: call log("my tag", "warning/info/debugging statement")
-# To view content with your tag, call view_log("my tag")
+# Usage: call log("my tag", "my log or debug statement")
+# To view all content with your tag, call view_log("my tag")
 
 CONFIG_FILE = 'logger_config.cfg'
 
@@ -29,11 +29,12 @@ def log(tag, value):
         read_config()
     if enabled:
         if log_timestamps:
-            value = prepend_time(value)
-        logs_dict[tag].append(value)
+            value = prepend_time(str(value))
+        logs_dict[tag].append(str(value))
 
 def writelog(tag):
     if output_file == 'console':
+        print('-- log for ' + tag + '--')
         for log_item in logs_dict[tag]:
             print(log_item)
     else:
