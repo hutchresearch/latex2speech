@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import os
 
 # Path to upload

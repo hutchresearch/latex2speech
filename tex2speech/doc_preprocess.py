@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import re
     
 def doc_preprocess(file_name):
