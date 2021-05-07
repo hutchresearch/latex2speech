@@ -88,7 +88,7 @@ def tts_of_file(file, contents, last_file):
         # Get audio link from bucket
         object_name = file + '.' + task_id + '.mp3'
         audio_link = generate_presigned_url(object_name)
-
+        print("Finished..now waiting on Polly->S3 " + str(audio_link))
         if last_file:
             while(not check_s3(object_name)):
                 time.sleep(1)
@@ -175,8 +175,9 @@ def start_polly(main, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents, end)
-        audio_link = "hi"
+        audio_link = tts_of_file(master[0], parsed_contents, end)
+        # audio_link = "hi"
+
         links.append(audio_link)
 
     retObj.append(master_files[0])
