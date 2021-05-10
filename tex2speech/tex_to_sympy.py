@@ -548,7 +548,7 @@ def underscore_exp(func):
 
     func = func.replace('{', '')
     func = func.replace('}', '')
-    returnObj = returnObj + str(func[0:])
+    returnObj = '<break time = "0.3s"/> '+ returnObj + str(func[0:]) + ' <break time = "0.3s"/>'
 
     return returnObj
 
