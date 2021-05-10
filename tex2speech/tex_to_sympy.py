@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import sympy
 import antlr4
 import re

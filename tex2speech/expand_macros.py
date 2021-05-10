@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import re
 
 import TexSoup
@@ -132,41 +134,41 @@ def expand_doc_macros(doc):
         Create all the macro objects for the document and store them in their
         respective binding lists. Required initialization for later expansion.
         '''
-        defnBindings = {}
+        defn_bindings = {}
         for macro_defn in doc.find_all('newcommand'):
-            defnBindings[macro_defn.position] = macro_defn
+            defn_bindings[macro_defn.position] = macro_defn
         for macro_defn in doc.find_all('renewcommand'):
-            defnBindings[macro_defn.position] = macro_defn
+            defn_bindings[macro_defn.position] = macro_defn
         for macro_defn in doc.find_all('newenvironment'):
-            defnBindings[macro_defn.position] = macro_defn
+            defn_bindings[macro_defn.position] = macro_defn
         for macro_defn in doc.find_all('renewenvironment'):
-            defnBindings[macro_defn.position] = macro_defn
+            defn_bindings[macro_defn.position] = macro_defn
 
-        bindingOrder = list(defnBindings.keys())
-        bindingOrder.sort()
+        binding_order = list(defn_bindings.keys())
+        binding_order.sort()
 
-        nonlocal cmdBindings
-        nonlocal envBindings
-        activeCmdBindings = {}
-        activeEnvBindings = {}
-        for pos in bindingOrder:
-            defn = defnBindings[pos]
+        nonlocal cmd_bindings
+        nonlocal env_bindings
+        active_cmd_bindings = {}
+        active_env_bindings = {}
+        for pos in binding_order:
+            defn = defn_bindings[pos]
             if expr_test(defn, TexSoup.data.TexCmd) and \
                 (defn.name == 'newcommand' or defn.name == 'renewcommand'):
-                macro = CmdMacro(defn, activeCmdBindings, activeEnvBindings)
-                activeCmdBindings[macro.name] = macro
-                if macro.name in cmdBindings:
-                    cmdBindings[macro.name].append(macro)
+                macro = CmdMacro(defn, active_cmd_bindings, active_env_bindings)
+                active_cmd_bindings[macro.name] = macro
+                if macro.name in cmd_bindings:
+                    cmd_bindings[macro.name].append(macro)
                 else:
-                    cmdBindings[macro.name] = [macro]
+                    cmd_bindings[macro.name] = [macro]
             elif expr_test(defn, TexSoup.data.TexCmd) and \
                 (defn.name == 'newenvironment' or defn.name == 'renewenvironment'):
-                macro = EnvMacro(defn, activeCmdBindings, activeEnvBindings)
-                activeEnvBindings[macro.name] = macro
-                if macro.name in envBindings:
-                    envBindings[macro.name].append(macro)
+                macro = EnvMacro(defn, active_cmd_bindings, active_env_bindings)
+                active_env_bindings[macro.name] = macro
+                if macro.name in env_bindings:
+                    env_bindings[macro.name].append(macro)
                 else:
-                    envBindings[macro.name] = [macro]
+                    env_bindings[macro.name] = [macro]
 
     def expand_doc_macros_sub(node): 
         '''
@@ -176,31 +178,33 @@ def expand_doc_macros(doc):
         saved position of a macro's definition can be used to determine 
         the current active binding.
         '''
-        nonlocal cmdBindings
-        nonlocal envBindings
+        nonlocal cmd_bindings
+        nonlocal env_bindings
         if node.name != 'newcommand' and node.name != 'renewcommand' and \
             node.name != 'newenvironment' and node.name != 'renewenvironment':
             children = get_effective_children(node)
             for i, child in enumerate(children):
                 expand_doc_macros_sub(child)
-                bindingList = None
+                binding_list = None
                 try:
                     if expr_test(child, TexSoup.data.TexCmd):
-                        bindingList = cmdBindings[child.name]
+                        binding_list = cmd_bindings[child.name]
                     elif expr_test(child, TexSoup.data.TexEnv):
-                        bindingList = envBindings[child.name]
+                        binding_list = env_bindings[child.name]
                 except KeyError:
                     pass
 
-                if bindingList:
+                if binding_list:
                     binding = -1
-                    while binding+1 < len(bindingList) and bindingList[binding+1].position < child.position:
+                    while binding+1 < len(binding_list) and binding_list[binding+1].position < child.position:
                         binding += 1
                     if binding >= 0:
-                        safe_replace_child(node, child, i, bindingList[binding].expand_macro(child))
+                        safe_replace_child(node, child, i, binding_list[binding].expand_macro(child))
 
-    cmdBindings = {}
-    envBindings = {}
+    cmd_bindings = {}
+    env_bindings = {}
     create_macro_bindings()
     expand_doc_macros_sub(doc)
+    with open('out.tex', 'w+') as out:
+        out.write(str(doc))
     return TexSoup.TexSoup(str(doc))

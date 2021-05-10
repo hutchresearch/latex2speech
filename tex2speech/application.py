@@ -4,6 +4,9 @@
 # -> sudo apt-get install gcc (Need to have c compiler) -> If using mac command is sudo brew install gcc
 # You also need the python development headers, to get this run the command or equivalent to apt-get install python-dev
 # -> pip install uwsgi
+
+from logger import log, writelog
+
 import os, time
 import glob
 import zipfile
@@ -210,13 +213,13 @@ def handle_form():
     session.pop('bib_holder', None)
 
     # Render
-    file_links = start_polly(file_holder, bib_holder)
+    # file_links = start_polly(file_holder, bib_holder)
 
-    # try:
-    #     # Render
-    #     file_links = start_polly(file_holder, bib_holder)
-    # except EOFError as e:
-    #     return render_template('error.html')
+    try:
+        # Render
+        file_links = start_polly(file_holder, bib_holder)
+    except (EOFError, AssertionError, Exception, UnicodeDecodeError, RuntimeError, TypeError, NameError, AttributeError, IndexError) as e:
+        return render_template('error.html')
 
     # redirect to home if nothing in file_links
     if file_links[0] == []:

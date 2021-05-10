@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import xml.etree.ElementTree as ET
 
 from SSMLParsing.arg_element import ArgElement

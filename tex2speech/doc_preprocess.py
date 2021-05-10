@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import re
     
 def doc_preprocess(file_name):
@@ -34,6 +36,12 @@ def doc_preprocess(file_name):
 
         # Account for white space between arguments
         text = re.sub(r'(?<=\}|\])[\s]+(?=\{|\[)', '', text)
+
+        # Remove double backslash
+        text = re.sub(r'\\\\', '', text)
+
+        # Remove backslash canceled whitespace
+        text = re.sub(r'\\(?=[\s])', '', text)
 
         # Replace file contents
         file.truncate(0)

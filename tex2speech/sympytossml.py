@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 from sympy import *
 import xml.etree.ElementTree as ET
 from enum import Enum

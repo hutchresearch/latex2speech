@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import TexSoup
 import sympy
 import xml.etree.ElementTree as ET

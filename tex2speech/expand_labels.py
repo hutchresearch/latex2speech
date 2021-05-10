@@ -1,3 +1,5 @@
+from logger import log, writelog
+
 import TexSoup
 import os
 from os import path
