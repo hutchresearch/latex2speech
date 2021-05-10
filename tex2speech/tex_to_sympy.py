@@ -533,6 +533,25 @@ def helper_pre_process_first(illegal, mathmode):
 
     return mathmode
 
+# Function to return immediet underscore/exponent
+def underscore_exp(func):
+    func = func.replace('{', '')
+    func = func.replace('}', '')
+    if (func[0] == '_'):
+        func = func.replace('_', '')
+        returnObj = ' underscore '
+    elif (func[0] == '^'):
+        func = func.replace('^', '')
+        returnObj = ' to the power of '
+    else:
+        return False 
+
+    func = func.replace('{', '')
+    func = func.replace('}', '')
+    returnObj = returnObj + str(func[0:])
+
+    return returnObj
+
 # Gets rids of special charachters that this 
 # parser can't handle
 def pre_process(mathmode):
@@ -553,8 +572,8 @@ def pre_process(mathmode):
     # mathmode = mathmode.replace(',', '')
 
     # Gets rid of ;
-    mathmode = mathmode.replace(';', '')
-
+    mathmode = mathmode.replace(';', '') 
+ 
     mathmode = re.sub(r"\s+"," ", mathmode, flags = re.I)
     return mathmode
 
@@ -564,9 +583,12 @@ def test_sympy(mathmode):
 def run_sympy(mathmode):
     try:
         cleanedMathmode = pre_process(mathmode)
-        sympyObj = process_sympy(cleanedMathmode)
-        ssmlObj = convert_sympy_ssml((sympyObj), QuantityModes.PARENTHESES_NUMBERED)
+        evaluator = underscore_exp(mathmode)
+        if (evaluator == False):
+            sympyObj = process_sympy(cleanedMathmode)
+            ssmlObj = convert_sympy_ssml((sympyObj), QuantityModes.PARENTHESES_NUMBERED)
+            return ssmlObj
+        return evaluator
 
-        return ssmlObj
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception) as e:
         return " math did not render "
