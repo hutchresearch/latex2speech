@@ -1,5 +1,3 @@
-from logger import log, writelog
-
 from sympy import *
 import xml.etree.ElementTree as ET
 from enum import Enum
@@ -16,6 +14,7 @@ class QuantityModes(Enum):
     PARENTHESES_NUMBERED = 4
 
 sympy_funcs_file = './static/sympy_funcs.xml' 
+
 
 begin_str = '<prosody pitch=\"+25%\"><break time=\"0.3ms\"/>begin'
 end_str = '<prosody pitch=\"+25%\"><break time=\"0.3ms\"/>end'
@@ -47,9 +46,6 @@ def _convert(expr, funcs_tree, mode, quantity_index):
     func_id = expr.__class__.__name__
     r = funcs_tree.getroot()
     func = r.find(func_id)
-
-    min_args = len(func.findall('arg'))
-    assert(min_args < len(expr.args))
     
     s = str()
     
@@ -65,16 +61,15 @@ def _convert(expr, funcs_tree, mode, quantity_index):
         repeat_index = 0
         
         while i < len(expr.args):
-
             if j >= len(func):
                 j = repeat_index
 
             if func[j].tag == 'arg':
-                if isinstance(expr.args[i], Atom):
+                if isinstance(expr.args[i], Atom): 
                     s += _convert(expr.args[i], funcs_tree, mode, quantity_index + 1)
                 elif len(expr.args[i].args) == 1:
                     s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + ' '
-                else:                                                                                                                                                                                    
+                else:
                     n_str = ''
                     if mode == QuantityModes.PARENTHESES or mode == QuantityModes.PARENTHESES_NUMBERED:
                         q_str = parentheses_str
@@ -113,9 +108,4 @@ def _convert(expr, funcs_tree, mode, quantity_index):
             elif func[j].tag == 'end':
                 i = len(expr.args)
 
-            else:
-                i += 1
-                continue
-
     return s
-                 

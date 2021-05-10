@@ -73,7 +73,7 @@
 
     <cmd name = "cite" type = "none">
         <emphasis level = "reduced">
-            Cited in reference as:
+            Cited:
             <break time = "0.3s"/>
             <arg num = "1"/>
         </emphasis>

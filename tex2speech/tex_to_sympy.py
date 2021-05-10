@@ -323,7 +323,6 @@ def convert_frac(frac):
     return sympy.Mul(expr_top, sympy.Pow(expr_bot, -1, evaluate=False), evaluate=False)
 
 def convert_binom(binom):
-    print("Printing \n\n" + binom)
     expr_n = convert_expr(binom.n)
     expr_k = convert_expr(binom.k)
     return sympy.binomial(expr_n, expr_k, evaluate=False)
@@ -549,7 +548,6 @@ def pre_process(mathmode):
 
     # Gets rid of .
     mathmode = mathmode.replace('.', '')
-    print("    " + str(mathmode))
 
     # Gets rid of ,
     # mathmode = mathmode.replace(',', '')
@@ -567,9 +565,8 @@ def run_sympy(mathmode):
     try:
         cleanedMathmode = pre_process(mathmode)
         sympyObj = process_sympy(cleanedMathmode)
-        print("    " + str(sympyObj))
         ssmlObj = convert_sympy_ssml((sympyObj), QuantityModes.PARENTHESES_NUMBERED)
-        print("<FINISHED")
+
         return ssmlObj
-    except (RuntimeError, TypeError, NameError, SyntaxError, Exception):
-        return " math mode equation did not render "
+    except (RuntimeError, TypeError, NameError, SyntaxError, Exception) as e:
+        return " math did not render "
