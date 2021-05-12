@@ -1,3 +1,6 @@
+<!-- Defines pronunciation of SymPy functions for SymPy 1.8 -->
+<!-- See sympytossml.py and https://github.com/hutchresearch/latex2speech/wiki/Mathmode-to-SSML -->
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ssmlfuncs>
@@ -84,7 +87,6 @@
         <text>not</text>
         <repeat />
         <arg />
-        <text>,</text>
     </Not>
 
     <Xor>
@@ -209,32 +211,32 @@
     </csch>
 
     <asinh>
-        <text>the inverse hyperbolic sine function of </text>
+        <text>inverse hyperbolic sine function of </text>
         <arg />
     </asinh>
 
     <acosh>
-        <text>the inverse hyperbolic cosine function of </text>
+        <text>inverse hyperbolic cosine function of </text>
         <arg />
     </acosh>
 
     <atanh>
-        <text>the inverse hyperbolic tangent function of </text>
+        <text>inverse hyperbolic tangent function of </text>
         <arg />
     </atanh>
 
     <acoth>
-        <text>the inverse hyperbolic cotangent function of </text>
+        <text>inverse hyperbolic cotangent function of </text>
         <arg />
     </acoth>
 
     <asech>
-        <text>the inverse hyperbolic secant function of </text>
+        <text>inverse hyperbolic secant function of </text>
         <arg />
     </asech>
 
     <acsch>
-        <text>The inverse hyperbolic cosecant function of </text>
+        <text>inverse hyperbolic cosecant function of </text>
         <arg />
     </acsch>
 
@@ -402,9 +404,8 @@
     </factorial2>
 
     <!-- Calculus-->
-    <!-- For now calculus is handled by the default case, need to look into how to format this -->
     <Derivative>
-        <text>the derivative of</text>
+        <text>derivative of</text>
         <arg />
         <text>with respect to</text>
         <subarg />
@@ -434,9 +435,9 @@
     </Limit>
 
     <exp>
-        <text>exponential function e to the </text>
+        <text>exponential function e to the</text>
         <arg />
-        <text> power</text>
+        <text>power of</text>
     </exp>
 
     <!-- Piecewise -->
@@ -452,12 +453,69 @@
         <arg />
     </ExprCondPair>
 
-    <!-- Not sure if this is entirely correct -->
+    <!-- Series -->
     <harmonic>
-        <text>harmonic series of </text>
+        <text>harmonic series of</text>
         <repeat />
         <arg />
     </harmonic>
 
+    <!-- Sets & Set Theory -->
+    <FiniteSet>
+        <text>finite set containing</text>
+        <repeat />
+        <arg />
+    </FiniteSet>
+
+    <Union>
+        <text>union of</text>
+        <repeat />
+        <arg>
+        <text>and</text>
+    </Union>
+
+    <Intersection>
+        <text>intersection of</text>
+        <repeat />
+        <arg>
+        <text>and</text>
+    </Intersection>
+
+    <ProductSet>
+        <text>cartesian product of</text>
+        <repeat />
+        <arg>
+        <text>and</text>
+    </ProductSet>
+
+    <Complement>
+        <text>relative complement of</text>
+        <arg>
+        <text>with</text>
+        <arg>
+    </Complement>
+
+    <SymmetricDifference>
+        <text>symmetric difference of</text>
+        <arg>
+        <text>and</text>
+        <arg>
+    </ProductSet>
+
+    <Range>
+        <text>range of integers between</text>
+        <arg>
+        <repeat>
+        <text>and</text>
+        <arg>
+    </Range>
+
+    <PowerSet>
+        <text>power set of</text>
+        <arg>
+    </PowerSet>
+
+    <!-- TODO: ImageSet -->
+    <!-- TODO: ContitionSet -->
+
 </ssmlfuncs>
-    
