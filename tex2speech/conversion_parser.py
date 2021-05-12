@@ -54,8 +54,8 @@ class ConversionParser:
         Function that will take in new table contents, and parse
         each column
         '''
-        # if is_dbg:
-        #     print(">{}Parse Table Contents".format(self.prefix))
+        if is_dbg:
+            print(">{}Parse Table Contents".format(self.prefix))
 
         split = str(contents_node).split("\n")
         # Go through each row
@@ -74,8 +74,8 @@ class ConversionParser:
 
                     column += 1
             
-        # if is_dbg:
-        #     print("<{}Parse Table Contents".format(self.prefix))
+        if is_dbg:
+            print("<{}Parse Table Contents".format(self.prefix))
 
     def _parseTableNode(self, contents):
         '''
@@ -96,8 +96,8 @@ class ConversionParser:
         Retrieves the correct argument node's list of arguments with respect to 
         the format of the ArgElement class.
         '''
-        # if is_dbg:
-        #     print(">{}Get Arg".format(self.prefix))
+        if is_dbg:
+            print(">{}Get Arg".format(self.prefix))
 
         target_type = TexSoup.data.BraceGroup
         if arg_elem.getArgType() == 'bracket':
@@ -114,8 +114,8 @@ class ConversionParser:
         if num == arg_elem.getArgNum():
             arg = node.args[i]
 
-        # if is_dbg:
-        #     print("<{}Get Arg".format(self.prefix))
+        if is_dbg:
+            print("<{}Get Arg".format(self.prefix))
 
         return arg
 
@@ -132,7 +132,7 @@ class ConversionParser:
         '''
         if is_dbg:
             self.res_env += 1
-            # print(">{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
+            print(">{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
         if len(elem_list) > 0:
             offset = 0
             i = 0
@@ -185,7 +185,7 @@ class ConversionParser:
                 if i > 0:
                     left_child = elem_list[i-1]
         if is_dbg:
-            # print("<{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
+            print("<{}Resolve Environment Elements #{}".format(self.prefix, self.res_env))
             self.res_env -= 1
 
     def _parseEnvironment(self, env_node, ssml_parent, left_child):
@@ -193,9 +193,9 @@ class ConversionParser:
         Handles environment parsing, returning the result of its parsing or 
         or none of no appropriate definition is found.
         '''
-        # if is_dbg:
-        #     print(">{}Parse Environment".format(self.prefix))
-        #     print("-{}  Environment Name : {}".format(self.prefix, env_node.name))
+        if is_dbg:
+            print(">{}Parse Environment".format(self.prefix))
+            print("-{}  Environment Name : {}".format(self.prefix, env_node.name))
 
         args, contents = seperate_contents(env_node)
 
@@ -208,8 +208,8 @@ class ConversionParser:
         else:
             self._resolveEnvironmentElements(env_node, ssml_parent, elem_list, left_child)
 
-        # if is_dbg:
-        #     print("<{}Parse Environment".format(self.prefix))
+        if is_dbg:
+            print("<{}Parse Environment".format(self.prefix))
 
         return elem_list
 
@@ -220,7 +220,7 @@ class ConversionParser:
         '''
         if is_dbg:
             self.res_cmd += 1
-            # print(">{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
+            print(">{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
         if len(elem_list) > 0:
             offset = 0
             i = 0
@@ -257,7 +257,7 @@ class ConversionParser:
                 if i > 0:
                     left_child = elem_list[i-1]
         if is_dbg:
-            # print("<{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
+            print("<{}Resolve Command Elements #{}".format(self.prefix, self.res_cmd))
             self.res_cmd -= 1
 
     def _parseCommand(self, cmd_node, ssml_parent, left_child):
@@ -265,9 +265,9 @@ class ConversionParser:
         Handles command parsing, returning the result of its parsing or 
         or none of no appropriate definition is found.
         '''
-        # if is_dbg:
-        #     print(">{}Parse Command".format(self.prefix))
-        #     print("-{}  Command Name : {}".format(self.prefix, cmd_node.name))
+        if is_dbg:
+            print(">{}Parse Command".format(self.prefix))
+            print("-{}  Command Name : {}".format(self.prefix, cmd_node.name))
 
         args, _ = seperate_contents(cmd_node)
         
@@ -280,8 +280,8 @@ class ConversionParser:
         if elem_list:
             self._resolveCmdElements(cmd_node, ssml_parent, elem_list, left_child)
 
-        # if is_dbg:
-            # print("<{}Parse Command".format(self.prefix))
+        if is_dbg:
+            print("<{}Parse Command".format(self.prefix))
 
         return elem_list
 
@@ -295,9 +295,9 @@ class ConversionParser:
         if is_dbg:
             self.parse_nodes += 1
             self.prefix = "\t" * (self.parse_nodes-1)
-            # print(">{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
-            # print(">{}  with children {}".format(self.prefix, ssml_children))
-            # print(">{}  and insert index {}".format(self.prefix, insert_index))
+            print(">{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
+            print(">{}  with children {}".format(self.prefix, ssml_children))
+            print(">{}  and insert index {}".format(self.prefix, insert_index))
         for texNode in tex_nodes:
             parseOut = None
             if insert_index > 0:
@@ -310,21 +310,23 @@ class ConversionParser:
                 text = str(texNode)
                 self._appendText(text, left_child, ssml_parent)
             if parseOut:
-                # print("-{}Parse Nodes #{}: Inserting parsed contents {}".format(self.prefix, self.parse_nodes, parseOut))
-                # print("-{}   into {}".format(self.prefix, ssml_children))
-                # print("-{}   at index {}".format(self.prefix, insert_index))
+                if is_dbg:
+                    print("-{}Parse Nodes #{}: Inserting parsed contents {}".format(self.prefix, self.parse_nodes, parseOut))
+                    print("-{}   into {}".format(self.prefix, ssml_children))
+                    print("-{}   at index {}".format(self.prefix, insert_index))
                 for ssmlChild in parseOut:
                     ssml_children.insert(insert_index, ssmlChild)
                     insert_index += 1
-                # print("-{}Result: {}".format(self.prefix, ssml_children))
-                # print("-{}  with an index of {}".format(self.prefix, insert_index))
+                if is_dbg:
+                    print("-{}Result: {}".format(self.prefix, ssml_children))
+                    print("-{}  with an index of {}".format(self.prefix, insert_index))
 
             if insert_index > 0:
                 left_child = ssml_children[insert_index-1]
         
         if is_dbg:
             self.prefix = "\t" * (self.parse_nodes-1)
-            # print("<{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
+            print("<{}Parse Nodes #{}".format(self.prefix, self.parse_nodes))
             self.parse_nodes -= 1
             if self.parse_nodes >= 0:
                 self.prefix = "\t" * (self.parse_nodes-1)

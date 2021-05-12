@@ -548,4 +548,174 @@
 
     <env name="verbatim" type = "none">
     </env>
+
+    <env name="thm" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Theorem:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="theorem" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Theorem:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="lem" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Lemma:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="lemma" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Lemma:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="cor" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Corollary:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="corollary" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Corollary:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="dfn" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Definition:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="definition" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Definition:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="proof" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Proof:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="remark" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Remark:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="prop" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Proposition:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="ex" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Example:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="exmp" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Example:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+    
 </latex>

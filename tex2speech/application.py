@@ -1,12 +1,5 @@
 # # Run flask app: python3 application.py
 
-# For uwsgi container to host flask in a production setting
-# -> sudo apt-get install gcc (Need to have c compiler) -> If using mac command is sudo brew install gcc
-# You also need the python development headers, to get this run the command or equivalent to apt-get install python-dev
-# -> pip install uwsgi
-
-from logger import log, writelog
-
 import os, time
 import glob
 import zipfile
@@ -16,6 +9,7 @@ import tarfile
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
 from aws_polly_render import start_polly
+from logger import log, writelog
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
