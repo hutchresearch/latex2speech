@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!-- Defines pronunciation of SymPy functions for SymPy 1.8 -->
 <!-- See sympytossml.py and https://github.com/hutchresearch/latex2speech/wiki/Mathmode-to-SSML -->
-
-<?xml version="1.0" encoding="UTF-8"?>
 
 <ssmlfuncs>
 
@@ -470,49 +470,49 @@
     <Union>
         <text>union of</text>
         <repeat />
-        <arg>
+        <arg />
         <text>and</text>
     </Union>
 
     <Intersection>
         <text>intersection of</text>
         <repeat />
-        <arg>
+        <arg />
         <text>and</text>
     </Intersection>
 
     <ProductSet>
         <text>cartesian product of</text>
         <repeat />
-        <arg>
+        <arg />
         <text>and</text>
     </ProductSet>
 
     <Complement>
         <text>relative complement of</text>
-        <arg>
+        <arg />
         <text>with</text>
-        <arg>
+        <arg />
     </Complement>
 
     <SymmetricDifference>
         <text>symmetric difference of</text>
-        <arg>
+        <arg />
         <text>and</text>
-        <arg>
+        <arg />
     </ProductSet>
 
     <Range>
         <text>range of integers between</text>
-        <arg>
+        <arg />
         <repeat>
         <text>and</text>
-        <arg>
+        <arg />
     </Range>
 
     <PowerSet>
         <text>power set of</text>
-        <arg>
+        <arg />
     </PowerSet>
 
     <!-- TODO: ImageSet -->

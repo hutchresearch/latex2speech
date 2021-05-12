@@ -1,9 +1,10 @@
-from logger import log, writelog
 
 import sympy
 import antlr4
 import re
 from antlr4.error.ErrorListener import ErrorListener
+
+from logger import log
 
 from gen.PSParser import PSParser
 from gen.PSLexer import PSLexer
@@ -591,4 +592,5 @@ def run_sympy(mathmode):
         return evaluator
 
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception) as e:
+        print(e)
         return " math did not render "
