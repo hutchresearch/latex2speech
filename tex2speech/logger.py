@@ -5,6 +5,7 @@ from datetime import datetime
 
 # Usage: call log("my tag", "my log or debug statement")
 # To view all content with your tag, call view_log("my tag")
+# Documentation: https://github.com/hutchresearch/latex2speech/wiki/Logging-and-Debugging
 
 CONFIG_FILE = 'logger_config.cfg'
 
