@@ -561,13 +561,13 @@ def pre_process(mathmode):
     # mathmode = helper_pre_process(illegalAmpPat, mathmode)
 
     # Gets rid of \
-    illegalSlask = r"\\\W"
+    illegalSlask = r'\\\W'
     mathmode = helper_pre_process(illegalSlask, mathmode)
-    illegalSlask = r"\\\d"
+    illegalSlask = r'\\\d'
     mathmode = helper_pre_process_first(illegalSlask, mathmode)
 
-    # Gets rid of .
-    mathmode = mathmode.replace('.', '')
+    # Gets rid of . which are not between numbers and thus not decimals
+    mathmode = re.sub(r"(\D)\.(\D)", "\\1\\2", mathmode)
 
     # Gets rid of ,
     # mathmode = mathmode.replace(',', '')
