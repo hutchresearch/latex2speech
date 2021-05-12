@@ -500,12 +500,12 @@
         <arg />
         <text>and</text>
         <arg />
-    </ProductSet>
+    </SymmetricDifference>
 
     <Range>
         <text>range of integers between</text>
         <arg />
-        <repeat>
+        <repeat />
         <text>and</text>
         <arg />
     </Range>
