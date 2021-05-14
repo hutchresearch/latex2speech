@@ -1,0 +1,88 @@
+Count: 184 | File: Cohen_Tan_LegendreFcns_v2.tex: | Malformed argument. First and last elements must match a valid argument format. In this case, TexSoup could not find matching punctuation for: {.
+Count: 43 | File: merger_rev.tex: | "equation" env expecting \end{equation}. Reached end of file.
+Count: 5 | File: apj_submitted_lattice.tex: | "center" env expecting \end{center}. Instead got \end{document}
+Count: 281 | File: h2625.tex: | Command \item invalid in math mode.
+Count: 1 | File: TopologicalString.tex: | "array" env expecting \end{array}. Instead got \end{equation}
+Count: 153 | File: nattrass_highpt_proc.tex: | "$" env expecting $. Reached end of file.
+Count: 142 | File: DMNuMass_PRD.tex: | "eqnarray" env expecting \end{eqnarray}. Reached end of file.
+Count: 1 | File: rhorho_preprint.tex: | "abstract" env expecting \end{abstract}. Instead got \end{document}
+Count: 390 | File: eccprd.tex: | 'utf-8' codec can't decode byte
+Count: 209 | File: isoEPL2.tex: | 
+Count: 1 | File: BaireColorings.tex: | "lem" env expecting \end{lem}. Instead got \end{document}
+Count: 78 | File: PUB_0lepton2010.tex: | list index out of range
+Count: 20 | File: diffusionmcmc.tex: | Malformed argument. First and last elements must match a valid argument format. In this case, TexSoup could not find matching punctuation for: [.
+Count: 26 | File: psch2-web.tex: | "eqnarray" env expecting \end{eqnarray}. Instead got \end{document}
+Count: 3 | File: sxdf8506_hatsukade.tex: | "deluxetable" env expecting \end{deluxetable}. Instead got \end{document}
+Count: 20 | File: 4NeutralEpidemics.tex: | 'str' object has no attribute 'name'
+Count: 2 | File: CKM2010-TauCharmExperiments-zyh.tex: | "large" env expecting \end{large}. Reached end of file.
+Count: 5 | File: paper2sc.tex: | "multicols" env expecting \end{multicols}. Reached end of file.
+Count: 14 | File: Mitidieri.tex: | "equation" env expecting \end{equation}. Instead got \end{document}
+Count: 10 | File: ncKdV.tex: | "eqnarray*" env expecting \end{eqnarray*}. Reached end of file.
+Count: 12 | File: LDADMFT5.tex: | "list" env expecting \end{list}. Reached end of file.
+Count: 2 | File: swapping.tex: | "trivlist" env expecting \end{trivlist}. Reached end of file.
+Count: 2 | File: ggwriteup4.tex: | "document" env expecting \end{document}. Instead got \end{split}
+Count: 1 | File: FractionallyCalabiYau.tex: | "minipage" env expecting \end{minipage}. Reached end of file.
+Count: 2 | File: LinePatterns.tex: | "itshape" env expecting \end{itshape}. Reached end of file.
+Count: 1 | File: kcal.tex: | "deluxetable" env expecting \end{deluxetable}. Instead got \end{deluxetable*}
+Count: 12 | File: multiring.tex: | "itemize" env expecting \end{itemize}. Reached end of file.
+Count: 1 | File: GT16.tex: | "thebibliography" env expecting \end{thebibliography}. Reached end of file.
+Count: 14 | File: derivative_expansion-12.tex: | "$$" env expecting $$. Reached end of file.
+Count: 1 | File: gjn-photon-filter-qip-v2.tex: | "sidexample" env expecting \end{sidexample}. Reached end of file.
+Count: 2 | File: wmapsz_arxiv.tex: | "align" env expecting \end{align}. Reached end of file.
+Count: 7 | File: curryc.tex: | "figure" env expecting \end{figure}. Reached end of file.
+Count: 15 | File: Nudelman_r2.tex: | "array" env expecting \end{array}. Reached end of file.
+Count: 1 | File: NonHomog5.tex: | "math" env expecting \). Reached end of file.
+Count: 9 | File: jks9_arxiv_v1.tex: | "enumerate" env expecting \end{enumerate}. Reached end of file.
+Count: 1 | File: gs2d_new.tex: | "gather" env expecting \end{gather}. Reached end of file.
+Count: 1 | File: New_Entanglement_Monotones....Arxiv.tex: | "align" env expecting \end{align}. Instead got \end{proof}
+Count: 2 | File: dougherty_sean_evla.tex: | "quotation" env expecting \end{quotation}. Instead got \end{document}
+Count: 1 | File: antihelium.tex: | string index out of range
+Count: 1 | File: NNbarpaper_FinalVersion.tex: | "align" env expecting \end{align}. Instead got \end{widetext}
+Count: 1 | File: Nf2-arXiv.tex: | "array" env expecting \end{array}. Instead got \end{document}
+Count: 1 | File: hor_kok_arxiv.tex: | "example" env expecting \end{example}. Instead got \end{document}
+Count: 4 | File: vary.tex: | "center" env expecting \end{center}. Reached end of file.
+Count: 1 | File: kt-it20101.tex: | "document" env expecting \end{document}. Reached end of file.
+Count: 1 | File: gapless.tex: | "center" env expecting \end{center}. Instead got \end{equation}
+Count: 1 | File: rho1pSubmittedVersion.tex: | "rep@theorem" env expecting \end{rep@theorem}. Reached end of file.
+Count: 3 | File: Renormalization_and_wandering_continua_of_rational_maps.tex: | "proof" env expecting \end{proof}. Instead got \end{document}
+Count: 2 | File: rac-pse.tex: | "proof" env expecting \end{proof}. Reached end of file.
+Count: 2 | File: ThreeSphere.tex: | "equation*" env expecting \end{equation*}. Reached end of file.
+Count: 1 | File: diffg.tex: | "eqnarray*" env expecting \end{eqnarray*}. Instead got \end{document}
+Count: 2 | File: IFAE2005.tex: | "tabular" env expecting \end{tabular}. Reached end of file.
+Count: 1 | File: zll-slh.tex: | "document" env expecting \end{document}. Instead got \end{equation}
+Count: 1 | File: AR_PSPC_manu_02.tex: | "eqnarray" env expecting \end{eqnarray}. Instead got \end{multicols}
+Count: 1 | File: pol.tex: | 'utf-8' codec can't decode bytes
+Count: 1 | File: 2000-18.tex: | maximum recursion depth exceeded while calling a Python object
+Count: 1 | File: GMO_v1.tex: | "displaymath" env expecting \end{displaymath}. Reached end of file.
+Count: 1 | File: esop_CoRR.tex: | "tabbing" env expecting \end{tabbing}. Reached end of file.
+Count: 1 | File: datacenter_battery_arxiv_v3.tex: | "thebibliography" env expecting \end{thebibliography}. Instead got \end{document}
+Count: 1 | File: blaz_var_elsarticle.tex: | "displaymath" env expecting \end{displaymath}. Instead got \end{document}
+Count: 1 | File: sigma10-083.tex: | "gather*" env expecting \end{gather*}. Instead got \end{document}
+Count: 1 | File: abhyankar_inertia_conjecture_final.tex: | "preremark" env expecting \end{preremark}. Reached end of file.
+Count: 1 | File: lid3b.tex: | "mathletters" env expecting \end{mathletters}. Reached end of file.
+Count: 1 | File: interpol_fix.tex: | "split" env expecting \end{split}. Instead got \end{document}
+Count: 1 | File: ArticuloTesisTangentconeandWhitneyequisingularity.tex: | "ex" env expecting \end{ex}. Reached end of file.
+Count: 1 | File: salman_muite_finel_arxiv.tex: | "itemize" env expecting \end{itemize}. Instead got \end{document}
+Count: 1 | File: epal-mechanics.tex: | "filecontents*" env expecting \end{filecontents*}. Instead got \end{filecontents}
+Count: 1 | File: CR_Rx0325.tex: | "equation" env expecting \end{equation}. Instead got \end{array}
+Count: 1 | File: bazeiaNet.tex: | "subequations" env expecting \end{subequations}. Reached end of file.
+Count: 1 | File: paper_fluct_nonideal.tex: | "split" env expecting \end{split}. Reached end of file.
+Count: 1 | File: quickceSP.tex: | "document" env expecting \end{document}. Instead got \end{theorem}
+Count: 1 | File: pub-nocomments.tex: | "thebibliography" env expecting \end{thebibliography}. Instead got \end{comment}
+Count: 1 | File: arx2els.tex: | "math" env expecting \end{math}. Instead got \end{document}
+Count: 1 | File: statW331-1.tex: | "align" env expecting \end{align}. Instead got \end{document}
+Count: 1 | File: green2.tex: | "displaymath" env expecting \]. Reached end of file.
+Count: 1 | File: ETQFT-DW.tex: | "varremark" env expecting \end{varremark}. Instead got \end{document}
+Count: 1 | File: Trea.tex: | "em" env expecting \end{em}. Reached end of file.
+Count: 1 | File: FredericoFBS-3.tex: | "widetext" env expecting \end{widetext}. Reached end of file.
+Count: 1 | File: EKS3v7-revised.tex: | "document" env expecting \end{document}. Instead got \end{align}
+Count: 1 | File: agnr-paper.tex: | "eqnarray" env expecting \end{eqnarray}. Instead got \end{array}
+Count: 1 | File: chFKM.tex: | "minipage" env expecting \end{minipage}. Instead got \end{document}
+Count: 1 | File: DAFNELambda_Re.tex: | "filecontents" env expecting \end{filecontents}. Reached end of file.
+Count: 1 | File: D5Y.tex: | "tikzpicture" env expecting \end{tikzpicture}. Instead got \end{center}
+Count: 1 | File: extra_d_choi.tex: | "eqnarray" env expecting \end{eqnarray}. Instead got \end{thebibliography}
+Count: 1 | File: exact3new.tex: | "Pro" env expecting \end{Pro}. Instead got \end{document}
+Count: 1 | File: MinCTC_final.tex: | "thebibliography" env expecting \end{thebibliography}. Instead got \end{filecontents}
+Count: 1 | File: kkpi.tex: | "equation" env expecting \end{equation}. Instead got \end{thebibliography}
+Count: 1 | File: ArticleBN.tex: | "Remarque1" env expecting \end{Remarque1}. Instead got \end{document}
+Count: 1 | File: CMUsfinal.tex: | "multicols" env expecting \end{multicols}. Instead got \end{document}
