@@ -55,7 +55,7 @@ TEXT_COLOR:
   CONFIG: None
 
 THEOREM:
-  DEFAULT: None:
+  DEFAULT: None
   CONFIG: None
 
 UNDERLINE:
