@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<latex>
+<!-- LaTeX Commands -->
+    <cmd name = "title" type = "none">
+        Title 
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+
+    <cmd name = "author" type = "none">
+        By:
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+
+    <cmd name = "date" type = "none">
+        Published:
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+
+    <cmd name="section" type = "none">
+        Section: 
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+
+    <cmd name="subsection" type = "none">
+        Sub Section: 
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+
+    <cmd name="dots" type = "none">
+        <break strength="strong"/>
+    </cmd>
+
+    <cmd name="em" type = "none">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+
+    <cmd name="emph" type = "none">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+
+    <cmd name="textit" type = "none">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+
+    <cmd name="textbf" type = "none">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+
+    <cmd name = "texttt" type = "none">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+
+    <cmd name = "cite" type = "none">
+        <emphasis level = "reduced">
+            Cited:
+            <break time = "0.3s"/>
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+
+    <cmd name = "bibitem" type = "none">
+        <break time = "1s"/>
+        Bibliography item is read as:
+        <break time = "0.5s"/>
+        <arg num = "1"/>
+    </cmd>
+
+    <cmd name = "LaTeX" type = "none">
+        LaTeX
+    </cmd>
+
+    <cmd name = "caption" type = "none">
+        Caption:
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.5s"/>
+    </cmd>
+    
+    <cmd name = "frac" type = "mathmode">
+        Fraction
+        <break time = "0.3s"/>
+        <arg num = "2"/>
+        
+    </cmd>
+    
+    <cmd name = "label" type = "none">
+        Label:
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+    </cmd>
+        
+    <!-- /bf is different from /textbf{}. May be using emphasis incorrectly here -->
+    <cmd name = "bf" type = "none">
+        <emphasis level = "strong" />
+    </cmd>
+    
+    <cmd name = "in" type = "mathmode">
+        Is Member Of
+        <break time = "0.2s"/>
+    </cmd>
+    
+    <cmd name = "alpha" type = "mathmode">
+        Alpha
+    </cmd>
+    
+    <cmd name = "mu" type = "mathmode">
+        Mu
+    </cmd>
+    
+    <cmd name = "bar" type = "mathmode">
+        Bar
+        <arg num = "1"/>
+    </cmd>
+        
+    <!-- This may have a different meaning -->
+    <cmd name = "tilde" type = "mathmode">
+        Median
+        <arg num = "1"/>
+        <break time = "0.3s" />
+    </cmd>
+        
+    <!-- Not Sure how we want to say this -->
+    <cmd name = "hat" type = "mathmode">
+        Hat
+        <arg num = "1" />
+        <break time = "0.3s"/>
+    </cmd>
+        
+    <cmd name = "pi" type = "mathmode">
+        Pi
+    </cmd>
+    
+    <!-- This may be two arguments: $\sqrt{4+2}$ or $\sqrt[3]{4+2}$ -->
+    <cmd name = "sqrt" type = "mathmode">
+        Square Root Of
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+        
+    <cmd name = "times" type = "mathmode">
+        Times
+        <arg num = "1"/>
+        <break time = "0.3s" />
+    </cmd>
+    
+    <cmd name = "leq" type = "mathmode">
+        Less Than Or Equal To
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+    
+    <cmd name = "beta" type = "mathmode" >
+        Beta
+    </cmd>
+    
+    <cmd name = "to" type = "mathmode">
+        Goes To
+        <arg num = "1"/>
+        <break time = "0.5s"/>
+    </cmd>
+    
+    <cmd name = "nu" type = "mathmode">
+        Nu
+    </cmd>
+    
+    <cmd name = "textbf" type = "none">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+    
+    <cmd name = "lambda" type = "mathmode">
+        lambda
+    </cmd>
+    
+    <cmd name = "delta" type = "mathmode">
+        delta
+    </cmd>
+    
+    <cmd name = "Delta" type = "mathmode">
+        <emphasis level = "strong">
+            Delta
+        </emphasis>
+    </cmd>
+    
+    <cmd name = "pm" type = "mathmode">
+        Plus Or Minus
+    </cmd>
+    
+    
+    <!-- I read this symbol means "Partial Derivative", there may be another meaning-->
+
+    <cmd name = "partial" type = "mathmode">
+        Partial Derivative
+    </cmd>
+    
+    <cmd name = "infty" type = "mathmode">
+        Infinity
+    </cmd>
+        
+    <cmd name = "emph" type = "mathmode">
+        <emphasis level = "strong">
+            <arg num = "1"/>
+        </emphasis>
+    </cmd>
+    
+    <cmd name = "gamma" type = "mathmode">
+        Gamma
+    </cmd>
+    
+    <cmd name = "vec" type = "mathmode">
+        Vector:
+        <arg num = "1"/>
+        <break time = "0.4s"/>
+    </cmd>
+        
+    <cmd name = "rho" type = "mathmode">
+        Rho
+    </cmd>
+    
+    <cmd name = "tau" type = "mathmode">
+        Tau
+    </cmd>
+    
+    <cmd name = "phi" type = "mathmode">
+        Phi
+    </cmd>
+    
+    <cmd name = "mathbb" type = "mathmode">
+        The Set
+        <arg num = "1" />
+        <break time = "0.4s" />
+    </cmd>
+    
+    <cmd name = "theta" type = "mathmode">
+        Theta
+    </cmd>
+    
+    <cmd name = "omega" type = "mathmode">
+        Omega
+    </cmd>
+    
+    <cmd name = "rightarrow" type = "mathmode">
+        Points To
+        <arg num = "1" />
+        <break time = "0.4s" />
+    </cmd>
+    
+    <cmd name = "sim" type = "mathmode">
+        Similar To
+        <arg num = "1"/>
+        <break time = "0.4s" />
+    </cmd>
+    
+    <cmd name = "prime" type = "mathmode">
+        Prime
+    </cmd>
+    
+    <cmd name = "eta" type = "mathmode">
+        Eta
+    </cmd>
+    
+    <cmd name = "geq" type = "mathmode">
+        Greater Than or Equal To
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+    
+    <cmd name = "le" type = "mathmode">
+        Less than
+        <arg num = "1"/>
+        <break time = "0.3s"/>
+    </cmd>
+    
+    <cmd name = "psi" type = "mathmode">
+        Psi
+    </cmd>
+    
+    <cmd name = "epsilon" type = "mathmode">
+        Epsilon
+    </cmd>
+    
+    <cmd name = "xi" type = "mathmode">
+        Xi
+    </cmd>
+    
+    <!-- I read this represents Liters (fluid measurement) but ive never seen this before -->
+    <cmd name = "ell" type = "mathmode">
+        Liters
+    </cmd>
+    
+    
+        
+            
+        
+    
+        
+    
+        
+    
+        
+    
+
+    <!-- This is incase user does \thebibliography -->
+    <cmd name = "thebibliography" type = "none">
+        <emphasis level = "strong">
+            Reference Section: 
+        </emphasis>
+    </cmd>
+
+    <cmd name = "footnote" type = "none">
+        Footnote:
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+        <break time = "0.5s"/>
+    </cmd>
+
+    <cmd name = "TeX" type = "none">
+        TeX
+    </cmd>
+
+    <!-- Need to create new tag here for \item stuff -->
+    <cmd name = "item" type = "none">
+        Item
+    </cmd>
+
+    <cmd name = "ensuremath" type = "mathmode">
+        <break time = "0.3s"/>
+        <arg num = "1"/>
+    </cmd>
+
+<!-- Latex Environments -->
+    <!-- This is incase user does \begin{thebibliography} -->
+    <env name = "thebibliography" type = "none">
+        <says>
+            <emphasis level = "strong">
+                Reference Section: 
+            </emphasis>
+                <content/>
+        </says>
+    </env>
+
+    <env name="equation" type="mathmode">
+        <says>
+            the equation
+            <content/>
+        </says>
+    </env>
+
+    <env name="eqnarray" type="mathmode">
+        <says>
+            <content/>
+        </says>
+    </env>
+
+    <env name="$" type="mathmode">
+        <says>
+            <content/>
+        </says>
+    </env>
+
+    <env name="$$" type="mathmode">
+        <says>
+            <content/>
+        </says>
+    </env>
+
+    <env name="displaymath" type="mathmode"> <!-- Also alias for \[...\] in TexSoup -->
+        <says>
+            <content/>
+        </says>
+    </env>
+
+    <env name="math" type="mathmode"> <!-- Also alias for \(...\) in TexSoup-->
+        <says>
+            <content/>
+        </says>
+    </env>
+
+    <env name="itemize" type = "none">
+        <says>
+            List contents:
+            <break time = "40ms"/>
+            <content/>
+            <break time = "40ms"/>
+            End of List.
+        </says>
+
+        <!-- This might be wrong, because we want the contents to be read with break time infront? -->
+        <!-- <defines>
+            <cmd name="item" type = "none">
+                <break time = "40ms"/>
+            </cmd>
+
+        </defines> -->
+
+        <break time = "medium"/>
+    </env>
+
+    <env name="quotation" type = "none">
+        <says>
+            <p>
+                <content/>
+            </p>
+        </says>
+    </env>
+
+    <env name="quote" type = "none">
+        <says>
+            <p>
+                <content/>
+            </p>
+        </says>
+    </env>
+
+    <env name="center" type = "none">
+        <says>
+            <p>
+                <content/>
+            </p>
+        </says>
+    </env>
+
+    <env name="flushleft" type = "none">
+        <says>
+            <p>
+                <content/>
+            </p>
+        </says>
+    </env>
+
+    <env name="flushright" type = "none">
+        <says>
+            <p>
+                <content/>
+            </p>
+        </says>
+    </env>
+
+    <env name="verse" type = "none">
+        <says>
+            <p>
+                <content/>
+            </p>
+        </says>
+    </env>
+
+    <env name="enumerate" type = "none">
+        <says>
+            List contents:
+            <break time = "40ms"/>
+            <content/>
+            <break time = "40ms"/>
+            End of List.
+        </says>
+    </env>
+
+    <env name="description" type = "none">
+        <says>
+            Description contents:
+            <break time = "40ms"/>
+            <content/>
+            <break time = "40ms"/>
+            End of Description.
+        </says>
+    </env>
+
+    <env name="description" type = "none">
+    </env>
+
+    <env name="list" type = "none">
+    </env>
+
+    <env name="array" type = "none">
+    </env>
+
+    <env name="table" type = "none">
+        <says>
+            Begin Table:
+            <break time = "0.3s"/>
+            <content/>
+            End Table
+            <break time = "0.3s"/>
+        </says>
+    </env>
+
+    <env name="tabular" type = "readTable">
+        <says>
+            Table Contents:
+            <break time = "40ms"/>
+            <content/>
+            End Table Contents
+            <break time = "40ms"/>
+        </says>
+    </env>
+
+    <env name="tabularx" type = "readTable">
+        <says>
+            Table Contents:
+            <break time = "40ms"/>
+            <content/>
+            End Table Contents
+            <break time = "40ms"/>
+        </says>
+    </env>
+
+    <env name="abstract" type = "none">
+    </env>
+
+    <env name="minipage" type = "none">
+    </env>
+
+    <env name="split" type = "none">
+    </env>
+
+    <env name="tabbing" type = "none">
+    </env>
+
+    <env name="titlepage" type = "none">
+    </env>
+
+    <env name="figure" type = "none">
+    </env>
+
+    <env name="picture" type = "none">
+    </env>
+
+    <env name="verbatim" type = "none">
+    </env>
+
+    <env name="thm" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Theorem:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="theorem" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Theorem:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="lem" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Lemma:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="lemma" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Lemma:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="cor" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Corollary:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="corollary" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Corollary:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="dfn" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Definition:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="definition" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Definition:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="proof" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Proof:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="remark" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Remark:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="prop" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Proposition:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="ex" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Example:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+
+    <env name="exmp" type = "none">
+        <says>
+            <p>
+                <emphasis level = "strong">
+                Example:
+                </emphasis>
+                <break time = "40ms"/>
+                <content/>
+                <break time = "0.5s"/>
+            </p>
+        </says>
+    </env>
+    
+</latex>
