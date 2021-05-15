@@ -16,12 +16,6 @@
 #     Extra:
 #       - None
 
-# Example
-    # config_file = open('app_config.yaml')
-    # configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
-    # print(configuration_contents[0]['VOICE_ID'][0]['DEFAULT'][0]) //RETURNS Jonanna
-    # configuration_contents[0]['VOICE_ID'][1]['CONFIG'][0] //RETURNS None
-
 # Documentation
 # Each tag is in caps
 #   A tag will have two levels
@@ -29,68 +23,96 @@
         # The default tag will be the default settings, if the user hasn't specified their own config, the default will take over
       # - CONFIG
         # This tag is what the user can specify, the program will look for the users configuration first before goint to the default version
+
+# Example
+    # config_file = open('app_config.yaml')
+    # configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
+    # print(configuration_contents['VOICE_ID']['DEFAULT'][0] //RETURNS Jonanna
+    # configuration_contents['VOICE_ID']['CONFIG'][0] //RETURNS None
     
 # Amazon Polly
-- VOICE_ID:
-  - DEFAULT:
+  # Can add any amazon polly voices
+VOICE_ID:
+  DEFAULT:
     - Joanna
-  - CONFIG:
+  CONFIG:
     - Brian 
 
 # Mathmode
-- QUANTITY_MODES:
-  - DEFAULT:
-    - PARENTHESES_NUMBERED
-  - CONFIG:
-    - None
+  # TYPE: For now only have Quantity, None option, can enhance to prosody in future
+  # QUANTITY_METHOD: quantity, quantity_numbered, paretheses, parentheses_numbered
+QUANTITY_MODES:
+  DEFAULT:
+    TYPE:
+      - Quantity
+    QUANTITY_METHOD:
+      - parentheses_numbered
+  CONFIG:
+    TYPE:
+      - None
+    QUANTITY_METHOD:
+      - None
 
-- MATHMODE_NO_RENDER:
-  - DEFAULT:
-    - math not rendered
-  - CONFIG:
-    - None
+# TYPE: Message, Break, None (Can expand later)
+# MESSAGE: Enter message you want spoken (this will be said if type is message)
+# BREAK_TIME: Add the break time you want (this will be added if type is Break)
+MATHMODE_NO_RENDER:
+  DEFAULT:
+    TYPE:
+      - Message
+    MESSAGE:
+      - math mode did not render
+    BREAK_TIME:
+      - 0.5s
+  CONFIG:
+    TYPE: 
+      - None
+    MESSAGE:
+      - None
+    BREAK_TIME:
+      - None
 
 # Commands
 
-- FONT:
-  - DEFAULT:
+FONT:
+  DEFAULT:
     - None 
-  - CONFIG: 
+  CONFIG: 
     - None
 
-- TEXT_COLOR:
-  - DEFAULT:
+TEXT_COLOR:
+  DEFAULT:
     - None
-  - CONFIG:
+  CONFIG:
     - None
 
-- THEOREM:
-  - DEFAULT:
+THEOREM:
+  DEFAULT:
     - None:
-  - CONFIG:
+  CONFIG:
     - None
 
-- UNDERLINE:
-  - DEFAULT:
+UNDERLINE:
+  DEFAULT:
     - None
-  - CONFIG:
+  CONFIG:
     - None
 
-- BOLD:
-  - DEFAULT:
-    - Emphasis:
+BOLD:
+  DEFAULT:
+    Emphasis:
       - Strong
-  - CONFIG:
+  CONFIG:
     - None
 
-- ITALICS:
-  - DEFAULT:
+ITALICS:
+  DEFAULT:
     - None 
-  - CONFIG:
+  CONFIG:
     - None
   
-- COMMAND_NO_RENDER:
-  - DEFAULT:
+COMMAND_NO_RENDER:
+  DEFAULT:
     - None 
-  - CONFIG:
+  CONFIG:
     - None
