@@ -1,5 +1,72 @@
+# Referenced Google Doc: https://docs.google.com/document/d/1KDtC6QHN6HqJTCUWnPgtxOs-J6uZOJD4CFOg39lgf5Q/edit?usp=sharing
+
+# Notes: Should it be
+# BLEH:
+#   DEFAULT:
+#     TEXT:
+#       - None
+#     Extra:
+#       Emphasis:
+#         - Reduced
+# OR
+# BLEH:
+#   DEFAULT:
+#     TEXT:
+#       - None
+#     Extra:
+#       - None
+
 # Amazon Polly
+- VOICE_ID:
+  - DEFAULT:
+    - Joanna
+  - CONFIG:
 
 # Mathmode
+- QUANTITY_MODES:
+  - DEFAULT:
+    - PARENTHESES_NUMBERED
+  - CONFIG:
+
+- MATHMODE_NO_RENDER:
+  - DEFAULT:
+    - math not rendered
+  - CONFIG:
 
 # Commands
+
+- FONT:
+  - DEFAULT:
+    - None 
+  - CONFIG: 
+
+- TEXT_COLOR:
+  - DEFAULT:
+    - None
+  - CONFIG:
+
+- THEOREM:
+  - DEFAULT:
+    - None:
+  - CONFIG:
+
+- UNDERLINE:
+  - DEFAULT:
+    - None
+  - CONFIG:
+
+- BOLD:
+  - DEFAULT:
+    - Emphasis:
+      - Strong
+  - CONFIG:
+
+- ITALICS:
+  - DEFAULT:
+    - None 
+  - CONFIG:
+  
+- COMMAND_NO_RENDER:
+  - DEFAULT:
+    - None 
+  - CONFIG:
