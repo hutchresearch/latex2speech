@@ -9,7 +9,7 @@ import tarfile
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
 from aws_polly_render import start_polly
-from logger import log, writelog
+from logger import logging, writelog
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -207,13 +207,13 @@ def handle_form():
     session.pop('bib_holder', None)
 
     # Render
-    # file_links = start_polly(file_holder, bib_holder)
+    file_links = start_polly(file_holder, bib_holder)
 
-    try:
-        # Render
-        file_links = start_polly(file_holder, bib_holder)
-    except (EOFError, AssertionError, Exception, UnicodeDecodeError, RuntimeError, TypeError, NameError, AttributeError, IndexError) as e:
-        return render_template('error.html')
+    # try:
+    #     # Render
+    #     file_links = start_polly(file_holder, bib_holder)
+    # except (EOFError, AssertionError, Exception, UnicodeDecodeError, RuntimeError, TypeError, NameError, AttributeError, IndexError) as e:
+    #     return render_template('error.html')
 
     # redirect to home if nothing in file_links
     if file_links[0] == []:

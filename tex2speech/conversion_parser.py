@@ -1,4 +1,4 @@
-from logger import log, writelog
+from logger import logging, writelog
 
 import TexSoup
 import sympy
@@ -20,7 +20,7 @@ from sympytossml import convert_sympy_ssml, QuantityModes
 from tex_soup_utils import expr_test, seperate_contents
 from tex_to_sympy import run_sympy
 
-is_dbg = True
+is_dbg = False
 
 class ConversionParser:
     '''
@@ -356,7 +356,7 @@ class ConversionParser:
         Parse doc with respect to the database the parser was initialized with.
         '''
         tree = RootElement()
-        
+
         if not isinstance(doc, TexSoup.data.TexNode):
             doc = TexSoup.TexSoup(doc)
 

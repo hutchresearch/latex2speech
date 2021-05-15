@@ -23,8 +23,9 @@ def prepend_time(value):
     time_str = now.strftime("%H:%M:%S")
     return time_str + ' >> ' + value
 
-def log(tag, value):
-    some_unused_variable_name = 1
+def logging(tag, value):
+    print("TEST")
+    # some_unused_variable_name = 1
     #global logger_initialized
     #global logger_enabled
     #if not logger_initialized:

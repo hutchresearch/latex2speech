@@ -4,7 +4,7 @@ import antlr4
 import re
 from antlr4.error.ErrorListener import ErrorListener
 
-from logger import log
+from logger import logging, writelog
 
 from gen.PSParser import PSParser
 from gen.PSLexer import PSLexer
@@ -574,7 +574,6 @@ def pre_process(mathmode):
 
     # Gets rid of ;
     mathmode = mathmode.replace(';', '') 
- 
     mathmode = re.sub(r"\s+"," ", mathmode, flags = re.I)
     return mathmode
 
