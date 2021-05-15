@@ -22,6 +22,7 @@ from doc_preprocess import doc_preprocess
 from expand_labels import expand_doc_new_labels
 from format_master_files import format_master_files
 from doc_cleanup import cleanxml_string
+from modify_xml import run_xml_modify
 
 # Internal classes
 from conversion_db import ConversionDB
@@ -144,8 +145,10 @@ def parse_bib_file(the_path):
 
 # Pass off to parser
 def start_conversion(contents):
+    run_xml_modify()
+
     # Create database/parser
-    db_source = open('static/pronunciation.xml')
+    db_source = open('static/output.xml')
     db = ConversionDB(db_source.read())
     parser = ConversionParser(db)
 
@@ -184,8 +187,8 @@ def start_polly(main, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents, end)
-        audio_link = "hi"
+        audio_link = tts_of_file(master[0], parsed_contents, end)
+        # audio_link = "hi"
 
         links.append(audio_link)
 

@@ -65,7 +65,7 @@ UNDERLINE:
 BOLD:
   DEFAULT:
     TYPE: emphasis
-    EMPHASIS: strong
+    EMPHASIS: moderate
   CONFIG: 
     TYPE: None 
     EMPHASIS: None 
