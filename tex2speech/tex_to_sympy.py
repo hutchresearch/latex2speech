@@ -2,6 +2,7 @@
 import sympy
 import antlr4
 import re
+import yaml
 from antlr4.error.ErrorListener import ErrorListener
 
 from logger import logging, writelog
@@ -582,6 +583,16 @@ def test_sympy(mathmode):
 
 def run_sympy(mathmode):
     try:
+        config_file = open('app_config.yaml')
+        configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
+
+        # if configuration_contents[0]['QUANTITY_MODES'][1]['CONFIG'][0] != 'None':
+        #     mode = configuration_contents[0]['QUANTITY_MODES'][1]['CONFIG'][0]
+        # else:
+        #     mode = configuration_contents[0]['QUANTITY_MODES'][1]['DEFAULT'][0]
+
+        print(configuration_contents[0]['QUANTITY_MODES'][1]['CONFIG'][0])
+
         cleanedMathmode = pre_process(mathmode)
         evaluator = underscore_exp(mathmode)
         if (evaluator == False):
