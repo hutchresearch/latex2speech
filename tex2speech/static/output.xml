@@ -1,0 +1,704 @@
+<latex>
+
+    <cmd name="title" type="none" family="">
+        Title 
+        <break time="0.3s" />
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+
+    <cmd name="author" type="none" family="">
+        By:
+        <break time="0.3s" />
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+
+    <cmd name="date" type="none" family="">
+        Published:
+        <break time="0.3s" />
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+
+    <cmd name="section" type="none" family="">
+        Section: 
+        <break time="0.3s" />
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+
+    <cmd name="subsection" type="none" family="">
+        Sub Section: 
+        <break time="0.3s" />
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+
+    <cmd name="dots" type="none" family="">
+        <break strength="strong" />
+    </cmd>
+
+    <cmd name="em" type="none" family="bold">
+        
+        <emphasis level="strong">
+            <arg num="1" />
+        </emphasis>
+        
+    </cmd>
+
+    <cmd name="emph" type="none" family="bold">
+        <emphasis level="strong">
+            <arg num="1" />
+        </emphasis>
+    </cmd>
+
+    <cmd name="textit" type="none" family="">
+        <emphasis level="strong">
+            <arg num="1" />
+        </emphasis>
+    </cmd>
+
+    <cmd name="textbf" type="none" family="bold">
+        <emphasis level="strong">
+            <arg num="1" />
+        </emphasis>
+    </cmd>
+
+    <cmd name="texttt" type="none" family="">
+        <emphasis level="strong">
+            <arg num="1" />
+        </emphasis>
+    </cmd>
+
+    <cmd name="cite" type="none" family="">
+        <emphasis level="reduced">
+            Cited:
+            <break time="0.3s" />
+            <arg num="1" />
+        </emphasis>
+    </cmd>
+
+    <cmd name="bibitem" type="none" family="">
+        <break time="1s" />
+        Bibliography item is read as:
+        <break time="0.5s" />
+        <arg num="1" />
+    </cmd>
+
+    <cmd name="LaTeX" type="none" family="">
+        LaTeX
+    </cmd>
+
+    <cmd name="caption" type="none" family="">
+        Caption:
+        <break time="0.3s" />
+        <arg num="1" />
+        <break time="0.5s" />
+    </cmd>
+    
+    <cmd name="frac" type="mathmode" family="">
+        Fraction
+        <break time="0.3s" />
+        <arg num="2" />
+        
+    </cmd>
+    
+    <cmd name="label" type="none" family="">
+        Label:
+        <break time="0.3s" />
+        <arg num="1" />
+    </cmd>
+        
+    
+    <cmd name="bf" type="none" family="">
+        <emphasis level="strong" />
+    </cmd>
+    
+    <cmd name="in" type="mathmode" family="">
+        Is Member Of
+        <break time="0.2s" />
+    </cmd>
+    
+    <cmd name="alpha" type="mathmode" family="">
+        Alpha
+    </cmd>
+    
+    <cmd name="mu" type="mathmode" family="">
+        Mu
+    </cmd>
+    
+    <cmd name="bar" type="mathmode" family="">
+        Bar
+        <arg num="1" />
+    </cmd>
+        
+    
+    <cmd name="tilde" type="mathmode" family="">
+        Median
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+        
+    
+    <cmd name="hat" type="mathmode" family="">
+        Hat
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+        
+    <cmd name="pi" type="mathmode" family="">
+        Pi
+    </cmd>
+    
+    
+    <cmd name="sqrt" type="mathmode" family="">
+        Square Root Of
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+        
+    <cmd name="times" type="mathmode" family="">
+        Times
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+    
+    <cmd name="leq" type="mathmode" family="">
+        Less Than Or Equal To
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+    
+    <cmd name="beta" type="mathmode" family="">
+        Beta
+    </cmd>
+    
+    <cmd name="to" type="mathmode" family="">
+        Goes To
+        <arg num="1" />
+        <break time="0.5s" />
+    </cmd>
+    
+    <cmd name="nu" type="mathmode" family="">
+        Nu
+    </cmd>
+    
+    <cmd name="textbf" type="none" family="">
+        <emphasis level="strong">
+            <arg num="1" />
+        </emphasis>
+    </cmd>
+    
+    <cmd name="lambda" type="mathmode" family="">
+        lambda
+    </cmd>
+    
+    <cmd name="delta" type="mathmode" family="">
+        delta
+    </cmd>
+    
+    <cmd name="Delta" type="mathmode" family="">
+        <emphasis level="strong">
+            Delta
+        </emphasis>
+    </cmd>
+    
+    <cmd name="pm" type="mathmode" family="">
+        Plus Or Minus
+    </cmd>
+    
+    
+    
+
+    <cmd name="partial" type="mathmode" family="">
+        Partial Derivative
+    </cmd>
+    
+    <cmd name="infty" type="mathmode" family="">
+        Infinity
+    </cmd>
+        
+    <cmd name="emph" type="mathmode" family="">
+        <emphasis level="strong">
+            <arg num="1" />
+        </emphasis>
+    </cmd>
+    
+    <cmd name="gamma" type="mathmode" family="">
+        Gamma
+    </cmd>
+    
+    <cmd name="vec" type="mathmode" family="">
+        Vector:
+        <arg num="1" />
+        <break time="0.4s" />
+    </cmd>
+        
+    <cmd name="rho" type="mathmode" family="">
+        Rho
+    </cmd>
+    
+    <cmd name="tau" type="mathmode" family="">
+        Tau
+    </cmd>
+    
+    <cmd name="phi" type="mathmode" family="">
+        Phi
+    </cmd>
+    
+    <cmd name="mathbb" type="mathmode" family="">
+        The Set
+        <arg num="1" />
+        <break time="0.4s" />
+    </cmd>
+    
+    <cmd name="theta" type="mathmode" family="">
+        Theta
+    </cmd>
+    
+    <cmd name="omega" type="mathmode" family="">
+        Omega
+    </cmd>
+    
+    <cmd name="rightarrow" type="mathmode" family="">
+        Points To
+        <arg num="1" />
+        <break time="0.4s" />
+    </cmd>
+    
+    <cmd name="sim" type="mathmode" family="">
+        Similar To
+        <arg num="1" />
+        <break time="0.4s" />
+    </cmd>
+    
+    <cmd name="prime" type="mathmode" family="">
+        Prime
+    </cmd>
+    
+    <cmd name="eta" type="mathmode" family="">
+        Eta
+    </cmd>
+    
+    <cmd name="geq" type="mathmode" family="">
+        Greater Than or Equal To
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+    
+    <cmd name="le" type="mathmode" family="">
+        Less than
+        <arg num="1" />
+        <break time="0.3s" />
+    </cmd>
+    
+    <cmd name="psi" type="mathmode" family="">
+        Psi
+    </cmd>
+    
+    <cmd name="epsilon" type="mathmode" family="">
+        Epsilon
+    </cmd>
+    
+    <cmd name="xi" type="mathmode" family="">
+        Xi
+    </cmd>
+    
+    
+    <cmd name="ell" type="mathmode" family="">
+        Liters
+    </cmd> 
+
+    
+    <cmd name="thebibliography" type="none" family="">
+        <emphasis level="strong">
+            Reference Section: 
+        </emphasis>
+    </cmd>
+
+    <cmd name="footnote" type="none" family="">
+        Footnote:
+        <break time="0.3s" />
+        <arg num="1" />
+        <break time="0.5s" />
+    </cmd>
+
+    <cmd name="TeX" type="none" family="">
+        TeX
+    </cmd>
+
+    
+    <cmd name="item" type="none" family="">
+        Item
+    </cmd>
+
+    <cmd name="ensuremath" type="mathmode" family="">
+        <break time="0.3s" />
+        <arg num="1" />
+    </cmd>
+
+
+    
+    <env name="thebibliography" type="none" family="">
+        <says>
+            <emphasis level="strong">
+                Reference Section: 
+            </emphasis>
+                <content />
+        </says>
+    </env>
+
+    <env name="equation" type="mathmode" family="">
+        <says>
+            the equation
+            <content />
+        </says>
+    </env>
+
+    <env name="eqnarray" type="mathmode" family="">
+        <says>
+            <content />
+        </says>
+    </env>
+
+    <env name="$" type="mathmode" family="">
+        <says>
+            <content />
+        </says>
+    </env>
+
+    <env name="$$" type="mathmode" family="">
+        <says>
+            <content />
+        </says>
+    </env>
+
+    <env name="displaymath" type="mathmode" family=""> 
+        <says>
+            <content />
+        </says>
+    </env>
+
+    <env name="math" type="mathmode" family=""> 
+        <says>
+            <content />
+        </says>
+    </env>
+
+    <env name="itemize" type="none" family="">
+        <says>
+            List contents:
+            <break time="40ms" />
+            <content />
+            <break time="40ms" />
+            End of List.
+        </says>
+
+        
+        
+
+        <break time="medium" />
+    </env>
+
+    <env name="quotation" type="none" family="">
+        <says>
+            <p>
+                <content />
+            </p>
+        </says>
+    </env>
+
+    <env name="quote" type="none" family="">
+        <says>
+            <p>
+                <content />
+            </p>
+        </says>
+    </env>
+
+    <env name="center" type="none" family="">
+        <says>
+            <p>
+                <content />
+            </p>
+        </says>
+    </env>
+
+    <env name="flushleft" type="none" family="">
+        <says>
+            <p>
+                <content />
+            </p>
+        </says>
+    </env>
+
+    <env name="flushright" type="none" family="">
+        <says>
+            <p>
+                <content />
+            </p>
+        </says>
+    </env>
+
+    <env name="verse" type="none" family="">
+        <says>
+            <p>
+                <content />
+            </p>
+        </says>
+    </env>
+
+    <env name="enumerate" type="none" family="">
+        <says>
+            List contents:
+            <break time="40ms" />
+            <content />
+            <break time="40ms" />
+            End of List.
+        </says>
+    </env>
+
+    <env name="description" type="none" family="">
+        <says>
+            Description contents:
+            <break time="40ms" />
+            <content />
+            <break time="40ms" />
+            End of Description.
+        </says>
+    </env>
+
+    <env name="description" type="none" family="">
+    </env>
+
+    <env name="list" type="none" family="">
+    </env>
+
+    <env name="array" type="none" family="">
+    </env>
+
+    <env name="table" type="none" family="">
+        <says>
+            Begin Table:
+            <break time="0.3s" />
+            <content />
+            End Table
+            <break time="0.3s" />
+        </says>
+    </env>
+
+    <env name="tabular" type="readTable" family="">
+        <says>
+            Table Contents:
+            <break time="40ms" />
+            <content />
+            End Table Contents
+            <break time="40ms" />
+        </says>
+    </env>
+
+    <env name="tabularx" type="readTable" family="">
+        <says>
+            Table Contents:
+            <break time="40ms" />
+            <content />
+            End Table Contents
+            <break time="40ms" />
+        </says>
+    </env>
+
+    <env name="abstract" type="none" family="">
+    </env>
+
+    <env name="minipage" type="none" family="">
+    </env>
+
+    <env name="split" type="none" family="">
+    </env>
+
+    <env name="tabbing" type="none" family="">
+    </env>
+
+    <env name="titlepage" type="none" family="">
+    </env>
+
+    <env name="figure" type="none" family="">
+    </env>
+
+    <env name="picture" type="none" family="">
+    </env>
+
+    <env name="verbatim" type="none" family="">
+    </env>
+
+    <env name="thm" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Theorem:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="theorem" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Theorem:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="lem" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Lemma:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="lemma" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Lemma:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="cor" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Corollary:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="corollary" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Corollary:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="dfn" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Definition:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="definition" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Definition:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="proof" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Proof:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="remark" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Remark:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="prop" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Proposition:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="ex" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Example:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+
+    <env name="exmp" type="none" family="">
+        <says>
+            <p>
+                <emphasis level="strong">
+                Example:
+                </emphasis>
+                <break time="40ms" />
+                <content />
+                <break time="0.5s" />
+            </p>
+        </says>
+    </env>
+    
+</latex>

@@ -64,11 +64,11 @@ UNDERLINE:
 
 BOLD:
   DEFAULT:
-    Type: Emphasis
-    Emphasis: Strong
+    TYPE: emphasis
+    EMPHASIS: strong
   CONFIG: 
-    Type: None 
-    Emphasis: None 
+    TYPE: None 
+    EMPHASIS: None 
 
 ITALICS:
   DEFAULT: None 
