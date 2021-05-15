@@ -41,7 +41,7 @@ VOICE_ID:
 # Mathmode
   # TYPE: For now only have Quantity, None option, can enhance to prosody in future
   # QUANTITY_METHOD: quantity, quantity_numbered, paretheses, parentheses_numbered
-QUANTITY_MODES:
+QUANTITY_MODE:
   DEFAULT:
     TYPE:
       - Quantity
@@ -56,12 +56,12 @@ QUANTITY_MODES:
 # TYPE: Message, Break, None (Can expand later)
 # MESSAGE: Enter message you want spoken (this will be said if type is message)
 # BREAK_TIME: Add the break time you want (this will be added if type is Break)
-MATHMODE_NO_RENDER:
+MATH_ERROR:
   DEFAULT:
     TYPE:
       - Message
     MESSAGE:
-      - math mode did not render
+      - math didn't render
     BREAK_TIME:
       - 0.5s
   CONFIG:
