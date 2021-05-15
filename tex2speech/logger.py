@@ -24,16 +24,14 @@ def prepend_time(value):
     return time_str + ' >> ' + value
 
 def logging(tag, value):
-    print("TEST")
-    # some_unused_variable_name = 1
-    #global logger_initialized
-    #global logger_enabled
-    #if not logger_initialized:
-    #    read_config()
-    #if logger_enabled:
-        #if log_timestamps:
-            #value = prepend_time(str(value))
-        #logs_dict[tag].append(str(value))
+    global logger_initialized
+    global logger_enabled
+    if not logger_initialized:
+        read_config()
+    if logger_enabled:
+        if log_timestamps:
+            value = prepend_time(str(value))
+        logs_dict[tag].append(str(value))
 
 def writelog(tag):
     if output_file == 'console':

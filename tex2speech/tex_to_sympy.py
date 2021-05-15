@@ -1,4 +1,4 @@
-
+from sympytossml import QuantityModes, convert_sympy_ssml
 import sympy
 import antlr4
 import re
@@ -11,7 +11,9 @@ from gen.PSLexer import PSLexer
 from gen.PSListener import PSListener
 
 from sympy.printing.str import StrPrinter
-from sympytossml import *
+import configparser
+
+CONFIG_FILE = 'app_config.cfg'
 
 def process_sympy(sympy):
     matherror = MathErrorListener(sympy)
@@ -581,15 +583,37 @@ def test_sympy(mathmode):
     return process_sympy(mathmode)
 
 def run_sympy(mathmode):
+    quantity_mode, error_notification = get_config(CONFIG_FILE)
     try:
         cleanedMathmode = pre_process(mathmode)
         evaluator = underscore_exp(mathmode)
         if (evaluator == False):
             sympyObj = process_sympy(cleanedMathmode)
-            ssmlObj = convert_sympy_ssml((sympyObj), QuantityModes.PARENTHESES_NUMBERED)
+            ssmlObj = convert_sympy_ssml((sympyObj), quantity_mode)
             return ssmlObj
         return evaluator
 
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception) as e:
         print(e)
-        return " math did not render "
+        return error_notification
+
+def get_config(file):
+    cfg_parser = configparser.ConfigParser()
+    cfg_parser.readfp(open(CONFIG_FILE, 'r'))
+    quantity_mode_cfg = cfg_parser.get('Mathmode', 'quantity_mode')
+    quantity_mode = QuantityModes.NO_INDICATOR
+    if quantity_mode_cfg == 'quantity':
+        quantity_mode = QuantityModes.QUANTITY
+    elif quantity_mode_cfg == 'quantity_numbered':
+        quantity_mode = QuantityModes.QUANTITY_NUMBERED
+    elif quantity_mode_cfg == 'parentheses':
+        quantity_mode = QuantityModes.PARENTHESES
+    elif quantity_mode_cfg == 'parentheses_numbered':
+        quantity_mode = QuantityModes.PARENTHESES_NUMBERED
+    error_notification_cfg = cfg_parser.get('Mathmode', 'error_notification')
+    error_notification = ''
+    if error_notification_cfg == 'pause':
+        error_notification = '<break time=\"1s\"/>'
+    elif error_notification_cfg == 'message':
+        error_notification = 'Math mode did not render'
+    return quantity_mode, error_notification
