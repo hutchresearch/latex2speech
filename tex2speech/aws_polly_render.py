@@ -76,10 +76,10 @@ def tts_of_file(file, contents, last_file):
     config_file = open('app_config.yaml')
     configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
 
-    if configuration_contents['VOICE_ID']['CONFIG'][0] != 'None':
-        voice = configuration_contents['VOICE_ID']['CONFIG'][0]
+    if configuration_contents['VOICE_ID']['CONFIG'] != 'None':
+        voice = configuration_contents['VOICE_ID']['CONFIG']
     else:
-        voice = configuration_contents['VOICE_ID']['DEFAULT'][0]
+        voice = configuration_contents['VOICE_ID']['CONFIG']
 
     try:
         # Request speech synthesis

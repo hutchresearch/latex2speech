@@ -611,9 +611,9 @@ def get_quantity_mode(mode):
 
 # Helper method to get quantity depending on whether it's the default method or config method
 def config_quantity_helper(config_content, def_conf):
-    type = config_content['QUANTITY_MODE'][def_conf]['TYPE'][0]
+    type = config_content['QUANTITY_MODE'][def_conf]['TYPE']
     if (type == 'Quantity'):
-        quantity_mode = get_quantity_mode(config_content['QUANTITY_MODE'][def_conf]['QUANTITY_METHOD'][0])
+        quantity_mode = get_quantity_mode(config_content['QUANTITY_MODE'][def_conf]['QUANTITY_METHOD'])
     else:
         quantity_mode = QuantityModes.NO_INDICATOR
 
@@ -621,11 +621,11 @@ def config_quantity_helper(config_content, def_conf):
 
 # Helper method to get error notification depending on whether it's the default method or config method
 def config_error_helper(config_content, def_conf):
-    type = config_content['MATH_ERROR'][def_conf]['TYPE'][0]
+    type = config_content['MATH_ERROR'][def_conf]['TYPE']
     if (type == 'Message'):
-        error_notification = config_content['MATH_ERROR'][def_conf]['MESSAGE'][0]
+        error_notification = config_content['MATH_ERROR'][def_conf]['MESSAGE']
     elif (type == 'Break'):
-        break_time = config_content['MATH_ERROR'][def_conf]['BREAK_TIME'][0]
+        break_time = config_content['MATH_ERROR'][def_conf]['BREAK_TIME']
         error_notification = '<break time = ' + break_time + '/>'
     else:
         error_notification = ''
@@ -637,13 +637,13 @@ def get_config():
     config_content = yaml.load(config_file, Loader=yaml.FullLoader)
 
     # Quantity Modes
-    if config_content['QUANTITY_MODE']['CONFIG']['TYPE'][0] != 'None':
+    if config_content['QUANTITY_MODE']['CONFIG']['TYPE'] != 'None':
         quantity_mode = config_quantity_helper(config_content,'CONFIG')
     else:
         quantity_mode = config_quantity_helper(config_content,'DEFAULT')
 
     # Error Message
-    if config_content['MATH_ERROR']['CONFIG']['TYPE'][0] != 'None':
+    if config_content['MATH_ERROR']['CONFIG']['TYPE'] != 'None':
         error_notification = config_error_helper(config_content,'CONFIG')
     else:
         error_notification = config_error_helper(config_content,'DEFAULT')
