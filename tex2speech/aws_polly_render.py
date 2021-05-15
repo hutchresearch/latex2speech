@@ -75,13 +75,15 @@ def generate_presigned_url(objectURL):
 def tts_of_file(file, contents, last_file):
     config_file = open('app_config.yaml')
     configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
-    print(configuration_contents)
-    print(configuration_contents['VOICE_ID'])
+    voice = 'Joanna'
+
+    if configuration_contents[0]['VOICE_ID'][1]['CONFIG'][0] != 'None':
+        voice = configuration_contents[0]['VOICE_ID'][1]['CONFIG'][0]
 
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
-            VoiceId = 'Joanna',
+            VoiceId = voice,
             OutputS3BucketName = 'tex2speech',
             OutputS3KeyPrefix = file,
             OutputFormat = 'mp3',
