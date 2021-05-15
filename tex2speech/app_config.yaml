@@ -21,17 +21,20 @@
   - DEFAULT:
     - Joanna
   - CONFIG:
+    - None
 
 # Mathmode
 - QUANTITY_MODES:
   - DEFAULT:
     - PARENTHESES_NUMBERED
   - CONFIG:
+    - None
 
 - MATHMODE_NO_RENDER:
   - DEFAULT:
     - math not rendered
   - CONFIG:
+    - None
 
 # Commands
 
@@ -39,34 +42,41 @@
   - DEFAULT:
     - None 
   - CONFIG: 
+    - None
 
 - TEXT_COLOR:
   - DEFAULT:
     - None
   - CONFIG:
+    - None
 
 - THEOREM:
   - DEFAULT:
     - None:
   - CONFIG:
+    - None
 
 - UNDERLINE:
   - DEFAULT:
     - None
   - CONFIG:
+    - None
 
 - BOLD:
   - DEFAULT:
     - Emphasis:
       - Strong
   - CONFIG:
+    - None
 
 - ITALICS:
   - DEFAULT:
     - None 
   - CONFIG:
+    - None
   
 - COMMAND_NO_RENDER:
   - DEFAULT:
     - None 
   - CONFIG:
+    - None
