@@ -2,6 +2,7 @@ from sympytossml import QuantityModes, convert_sympy_ssml
 import sympy
 import antlr4
 import re
+import yaml
 from antlr4.error.ErrorListener import ErrorListener
 
 from logger import logging, writelog
@@ -583,7 +584,7 @@ def test_sympy(mathmode):
     return process_sympy(mathmode)
 
 def run_sympy(mathmode):
-    quantity_mode, error_notification = get_config(CONFIG_FILE)
+    quantity_mode, error_notification = get_config()
     try:
         cleanedMathmode = pre_process(mathmode)
         evaluator = underscore_exp(mathmode)
@@ -597,23 +598,56 @@ def run_sympy(mathmode):
         print(e)
         return error_notification
 
-def get_config(file):
-    cfg_parser = configparser.ConfigParser()
-    cfg_parser.readfp(open(CONFIG_FILE, 'r'))
-    quantity_mode_cfg = cfg_parser.get('Mathmode', 'quantity_mode')
+# Quantity mode helper
+def get_quantity_mode(mode):
     quantity_mode = QuantityModes.NO_INDICATOR
-    if quantity_mode_cfg == 'quantity':
+    if mode == 'quantity':
         quantity_mode = QuantityModes.QUANTITY
-    elif quantity_mode_cfg == 'quantity_numbered':
+    elif mode == 'quantity_numbered':
         quantity_mode = QuantityModes.QUANTITY_NUMBERED
-    elif quantity_mode_cfg == 'parentheses':
+    elif mode == 'parentheses':
         quantity_mode = QuantityModes.PARENTHESES
-    elif quantity_mode_cfg == 'parentheses_numbered':
+    elif mode == 'parentheses_numbered':
         quantity_mode = QuantityModes.PARENTHESES_NUMBERED
-    error_notification_cfg = cfg_parser.get('Mathmode', 'error_notification')
-    error_notification = ''
-    if error_notification_cfg == 'pause':
-        error_notification = '<break time=\"1s\"/>'
-    elif error_notification_cfg == 'message':
-        error_notification = 'Math mode did not render'
+    return quantity_mode
+
+# Helper method to get quantity depending on whether it's the default method or config method
+def config_quantity_helper(config_content, def_conf):
+    type = config_content['QUANTITY_MODE'][def_conf]['TYPE']
+    if (type == 'Quantity'):
+        quantity_mode = get_quantity_mode(config_content['QUANTITY_MODE'][def_conf]['QUANTITY_METHOD'])
+    else:
+        quantity_mode = QuantityModes.NO_INDICATOR
+
+    return quantity_mode
+
+# Helper method to get error notification depending on whether it's the default method or config method
+def config_error_helper(config_content, def_conf):
+    type = config_content['MATH_ERROR'][def_conf]['TYPE']
+    if (type == 'Message'):
+        error_notification = config_content['MATH_ERROR'][def_conf]['MESSAGE']
+    elif (type == 'Break'):
+        break_time = config_content['MATH_ERROR'][def_conf]['BREAK_TIME']
+        error_notification = '<break time = ' + break_time + '/>'
+    else:
+        error_notification = ''
+
+    return error_notification
+
+def get_config():
+    config_file = open('temporary.yaml')
+    config_content = yaml.load(config_file, Loader=yaml.FullLoader)
+
+    # Quantity Modes
+    if config_content['QUANTITY_MODE']['CONFIG']['TYPE'] != 'None':
+        quantity_mode = config_quantity_helper(config_content,'CONFIG')
+    else:
+        quantity_mode = config_quantity_helper(config_content,'DEFAULT')
+
+    # Error Message
+    if config_content['MATH_ERROR']['CONFIG']['TYPE'] != 'None':
+        error_notification = config_error_helper(config_content,'CONFIG')
+    else:
+        error_notification = config_error_helper(config_content,'DEFAULT')
+
     return quantity_mode, error_notification

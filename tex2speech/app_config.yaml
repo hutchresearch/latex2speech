@@ -1,0 +1,87 @@
+# Referenced Google Doc: https://docs.google.com/document/d/1KDtC6QHN6HqJTCUWnPgtxOs-J6uZOJD4CFOg39lgf5Q/edit?usp=sharing
+
+# Documentation
+# Each tag is in caps
+#   A tag will have two levels
+      # - DEFAULT
+        # The default tag will be the default settings, if the user hasn't specified their own config, the default will take over
+      # - CONFIG
+        # This tag is what the user can specify, the program will look for the users configuration first before goint to the default version
+
+# Example
+    # config_file = open('app_config.yaml')
+    # configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
+    # print(configuration_contents['VOICE_ID']['DEFAULT'] //RETURNS Jonanna
+    # configuration_contents['VOICE_ID']['CONFIG'] //RETURNS None
+    
+# Amazon Polly
+  # Can add any amazon polly voices
+VOICE_ID:
+  DEFAULT: Joanna
+  CONFIG: None 
+
+# Mathmode
+  # TYPE: For now only have Quantity, None option, can enhance to prosody in future
+  # QUANTITY_METHOD: quantity, quantity_numbered, paretheses, parentheses_numbered
+QUANTITY_MODE:
+  DEFAULT:
+    TYPE: Quantity
+    QUANTITY_METHOD: parentheses_numbered
+  CONFIG:
+    TYPE: None
+    QUANTITY_METHOD: None
+
+# TYPE: Message, Break, None (Can expand later)
+# MESSAGE: Enter message you want spoken (this will be said if type is message)
+# BREAK_TIME: Add the break time you want (this will be added if type is Break)
+MATH_ERROR:
+  DEFAULT:
+    TYPE: Message
+    MESSAGE: math didn't render
+    BREAK_TIME: 0.5s
+  CONFIG:
+    TYPE: None
+    MESSAGE: None
+    BREAK_TIME: None
+
+# Commands
+
+FONT:
+  DEFAULT: None 
+  CONFIG: None
+
+TEXT_COLOR:
+  DEFAULT: None
+  CONFIG: None
+
+THEOREM:
+  DEFAULT: None
+  CONFIG: None
+
+UNDERLINE:
+  DEFAULT: None
+  CONFIG: None
+
+BOLD:
+  DEFAULT:
+    TYPE: emphasis
+    EMPHASIS: strong
+    PROSODY:
+      RATE: medium 
+      PITCH: medium
+      VOLUME: default
+  CONFIG: 
+    TYPE: None 
+    EMPHASIS: None 
+    PROSODY: 
+      RATE: None 
+      PITCH: None 
+      VOLUME: None
+
+ITALICS:
+  DEFAULT: None 
+  CONFIG: None
+  
+COMMAND_NO_RENDER:
+  DEFAULT: None 
+  CONFIG: None

@@ -7,6 +7,7 @@ import json, time
 import urllib.request
 import argparse
 import re
+import yaml
 
 # AWS Libraries
 import boto3
@@ -21,6 +22,7 @@ from doc_preprocess import doc_preprocess
 from expand_labels import expand_doc_new_labels
 from format_master_files import format_master_files
 from doc_cleanup import cleanxml_string
+from modify_xml import run_xml_modify
 
 # Internal classes
 from conversion_db import ConversionDB
@@ -72,10 +74,18 @@ def generate_presigned_url(objectURL):
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file, contents, last_file):
+    config_file = open('temporary.yaml')
+    configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
+
+    if configuration_contents['VOICE_ID']['CONFIG'] != 'None':
+        voice = configuration_contents['VOICE_ID']['CONFIG']
+    else:
+        voice = configuration_contents['VOICE_ID']['CONFIG']
+
     try:
         # Request speech synthesis
         audio = polly.start_speech_synthesis_task(
-            VoiceId = 'Joanna',
+            VoiceId = voice,
             OutputS3BucketName = 'tex2speech',
             OutputS3KeyPrefix = file,
             OutputFormat = 'mp3',
@@ -135,8 +145,10 @@ def parse_bib_file(the_path):
 
 # Pass off to parser
 def start_conversion(contents):
+    run_xml_modify()
+
     # Create database/parser
-    db_source = open('static/pronunciation.xml')
+    db_source = open('static/output.xml')
     db = ConversionDB(db_source.read())
     parser = ConversionParser(db)
 
