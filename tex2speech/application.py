@@ -161,7 +161,7 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
 
 @app.route('/')
 def index():
-    voices = ['Zeina', 'Zhiyu', 'Naja', 'Mads', 'Lotte', 'Ruben', 'Nicole', 'Olivia', 'Russel', 'Amy', 'Emma', 'Brian', 'Aditi', 'Raveena', 'Ivy', 'Joanna', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Mathew', 'Geraint', 'Celine', 'Mathieu', 'Chantal', 'Marlene', 'Vicki', 'Hans', 'Aditi', 'Dora', 'Karl', 'Carla', 'Bianca', 'Giorgio', 'Mizuki', 'Takumi', 'Seoyeon', 'Liv', 'Ewa', 'Maja', 'Jacek', 'Jan', 'Camila', 'Vitoria', 'Recardo', 'Carmen', 'Tatyana', 'Maxim', 'Conchita', 'Lucia', 'Enrique', 'Mia', 'Lupe', 'Penelope', 'Miguel', 'Astrid', 'Filiz', 'Gwyneth']
+    voices = ['Zeina', 'Zhiyu', 'Naja', 'Mads', 'Lotte', 'Ruben', 'Nicole', 'Olivia', 'Russel', 'Amy', 'Emma', 'Brian', 'Aditi', 'Raveena', 'Ivy', 'Joanna', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Mathew', 'Geraint', 'Celine', 'Mathieu', 'Chantal', 'Marlene', 'Vicki', 'Hans', 'Aditi', 'Dora', 'Karl', 'Carla', 'Bianca', 'Giorgio', 'Mizuki', 'Takumi', 'Seoyeon', 'Liv', 'Ewa', 'Maja', 'Jacek', 'Jan', 'Camila', 'Vitoria', 'Recardo', 'Carmen', 'Tatyana', 'Maxim', 'Conchita', 'Lucia', 'Enrique', 'Mia', 'Lupe', 'Penelope', 'Miguel', 'Astrid', 'Filiz', 'Joanna']
     return render_template('index.html', voices = voices)
 
 # Upload middle man
@@ -206,6 +206,10 @@ def handle_form():
     # Pop sessions 
     session.pop('file_holder', None)
     session.pop('bib_holder', None)
+
+    # Update YAML file based on settings config
+    voice = request.form.get('voice')
+
 
     # Render
     file_links = start_polly(file_holder, bib_holder)

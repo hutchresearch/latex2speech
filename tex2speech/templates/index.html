@@ -22,6 +22,13 @@
         <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post" id = 'formID'>
             {{ dropzone.create() }}
             <div class = "center">
+                <br>
+                <select name="voice">
+                    {% for voice in voices %}
+                        <option value= "{{voice}}" SELECTED>{{voice}}</option>"
+                    {% endfor %}
+                </select>
+                <br>
                 <input type="submit" id="submit" value="Convert">
                 <div id="dot-elastic"></div>
                 <!-- <div class="dot-spin"></div> -->
