@@ -5,7 +5,8 @@ import yaml
 def modify_xml(family_tag, tagName, setAttr, setVal, mytree):
     for family in mytree.findall('cmd'):
         if family.attrib['family'] == family_tag:
-            modifiable = family.find(tagName)
+            modifiable = family.find('modifiable')
+            modifiable.tag = tagName
             modifiable.set(setAttr, setVal)
 
 # Bold Tags -> family = 'bold'
@@ -22,8 +23,8 @@ def bold(contents, mytree):
 
     if (type == 'emphasis'):
         attr = 'level'
-    elif (type == 'prosody'):
-        attr = contents['BOLD']['DEFAULT']['PROSODY']
+    # elif (type == 'prosody'):
+    #     attr = contents['BOLD']['DEFAULT']['PROSODY']
 
     modify_xml('bold', type, attr, val, mytree)
 

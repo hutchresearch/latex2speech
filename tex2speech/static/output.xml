@@ -41,14 +41,14 @@
 
     <cmd name="em" type="none" family="bold">
         
-        <emphasis level="moderate">
+        <emphasis level="strong">
             <arg num="1" />
         </emphasis>
         
     </cmd>
 
     <cmd name="emph" type="none" family="bold">
-        <emphasis level="moderate">
+        <emphasis level="strong">
             <arg num="1" />
         </emphasis>
     </cmd>
@@ -60,7 +60,7 @@
     </cmd>
 
     <cmd name="textbf" type="none" family="bold">
-        <emphasis level="moderate">
+        <emphasis level="strong">
             <arg num="1" />
         </emphasis>
     </cmd>

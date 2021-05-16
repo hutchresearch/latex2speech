@@ -65,18 +65,18 @@ UNDERLINE:
 BOLD:
   DEFAULT:
     TYPE: emphasis
-    EMPHASIS: STRONG
-    PROSODY: None
-      RATE: None 
-      PITCH: None 
-      VOLUME: None
+    EMPHASIS: strong
+    # PROSODY: None
+    #   RATE: None 
+    #   PITCH: None 
+    #   VOLUME: None
   CONFIG: 
     TYPE: None 
     EMPHASIS: None 
-    PROSODY: 
-      RATE: None 
-      PITCH: None 
-      VOLUME: None
+    # PROSODY: 
+    #   RATE: None 
+    #   PITCH: None 
+    #   VOLUME: None
 
 ITALICS:
   DEFAULT: None 
