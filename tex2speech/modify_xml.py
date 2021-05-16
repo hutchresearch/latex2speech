@@ -32,12 +32,7 @@ def bold(contents, mytree):
     if contents['BOLD']['CONFIG']['TYPE'] != 'None':
         type, attr, val = bold_helper('CONFIG', contents)
     else:
-        type = contents['BOLD']['DEFAULT']['TYPE']
-        if (type == 'emphasis'):
-            attr.append('level')
-            val.append(contents['BOLD']['DEFAULT']['EMPHASIS'])
-        elif (type == 'prosody'):
-            type, attr, val = bold_helper('DEFAULT', contents)
+        type, attr, val = bold_helper('DEFAULT', contents)
 
     modify_xml('bold', type, attr, val, mytree)
 
@@ -47,7 +42,7 @@ def run_xml_modify():
     myroot = mytree.getroot()
 
     # Read yaml contents
-    config_file = open('app_config.yaml')
+    config_file = open('temporary.yaml')
     contents = yaml.load(config_file, Loader=yaml.FullLoader)
 
     # Function calls

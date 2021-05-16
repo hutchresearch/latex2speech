@@ -5,6 +5,7 @@ import glob
 import zipfile
 import shutil
 import tarfile
+import yaml
 
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
@@ -65,6 +66,8 @@ def delete_from_folder():
 
     for f in finalLog:
         os.remove(f)
+
+    os.remove('temporary.yaml')
 
 # Helper function to compress files
 def compress_holder(file, bib):
@@ -161,7 +164,9 @@ def facilitate_upload(content, file_holder, bib_holder, iteration):
 
 @app.route('/')
 def index():
-    voices = ['Zeina', 'Zhiyu', 'Naja', 'Mads', 'Lotte', 'Ruben', 'Nicole', 'Olivia', 'Russel', 'Amy', 'Emma', 'Brian', 'Aditi', 'Raveena', 'Ivy', 'Joanna', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Mathew', 'Geraint', 'Celine', 'Mathieu', 'Chantal', 'Marlene', 'Vicki', 'Hans', 'Aditi', 'Dora', 'Karl', 'Carla', 'Bianca', 'Giorgio', 'Mizuki', 'Takumi', 'Seoyeon', 'Liv', 'Ewa', 'Maja', 'Jacek', 'Jan', 'Camila', 'Vitoria', 'Recardo', 'Carmen', 'Tatyana', 'Maxim', 'Conchita', 'Lucia', 'Enrique', 'Mia', 'Lupe', 'Penelope', 'Miguel', 'Astrid', 'Filiz', 'Joanna']
+    # voices = ['Zeina', 'Zhiyu', 'Naja', 'Mads', 'Lotte', 'Ruben', 'Nicole', 'Olivia', 'Russel', 'Amy', 'Emma', 'Brian', 'Aditi', 'Raveena', 'Ivy', 'Joanna', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Mathew', 'Geraint', 'Celine', 'Mathieu', 'Chantal', 'Marlene', 'Vicki', 'Hans', 'Aditi', 'Dora', 'Karl', 'Carla', 'Bianca', 'Giorgio', 'Mizuki', 'Takumi', 'Seoyeon', 'Liv', 'Ewa', 'Maja', 'Jacek', 'Jan', 'Camila', 'Vitoria', 'Recardo', 'Carmen', 'Tatyana', 'Maxim', 'Conchita', 'Lucia', 'Enrique', 'Mia', 'Lupe', 'Penelope', 'Miguel', 'Astrid', 'Filiz', 'Joanna']
+
+    voices = ['Nicole', 'Olivia', 'Russell', 'Amy', 'Emma', 'Brian', 'Ivy', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Matthew', 'Joanna']
     return render_template('index.html', voices = voices)
 
 # Upload middle man
@@ -208,17 +213,25 @@ def handle_form():
     session.pop('bib_holder', None)
 
     # Update YAML file based on settings config
+    # When you get an actual settings file, put this in seperate function
     voice = request.form.get('voice')
+    with open('app_config.yaml') as f:
+        doc = yaml.load(f)
 
+    if voice != 'Joanna':
+        doc['VOICE_ID']['CONFIG'] = voice
+
+    with open('temporary.yaml', 'w') as f:
+        yaml.dump(doc, f)
 
     # Render
-    file_links = start_polly(file_holder, bib_holder)
+    # file_links = start_polly(file_holder, bib_holder)
 
-    # try:
-    #     # Render
-    #     file_links = start_polly(file_holder, bib_holder)
-    # except (EOFError, AssertionError, Exception, UnicodeDecodeError, RuntimeError, TypeError, NameError, AttributeError, IndexError) as e:
-    #     return render_template('error.html')
+    try:
+        # Render
+        file_links = start_polly(file_holder, bib_holder)
+    except (EOFError, AssertionError, Exception, UnicodeDecodeError, RuntimeError, TypeError, NameError, AttributeError, IndexError) as e:
+        return render_template('error.html')
 
     # redirect to home if nothing in file_links
     if file_links[0] == []:

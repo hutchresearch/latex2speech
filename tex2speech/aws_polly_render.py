@@ -74,7 +74,7 @@ def generate_presigned_url(objectURL):
 # Returns audio of file using Amazon Polly
 # Feeding in marked up SSML document
 def tts_of_file(file, contents, last_file):
-    config_file = open('app_config.yaml')
+    config_file = open('temporary.yaml')
     configuration_contents = yaml.load(config_file, Loader=yaml.FullLoader)
 
     if configuration_contents['VOICE_ID']['CONFIG'] != 'None':
@@ -187,8 +187,8 @@ def start_polly(main, bib_contents):
         print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents, end)
-        audio_link = "hi"
+        audio_link = tts_of_file(master[0], parsed_contents, end)
+        # audio_link = "hi"
 
         links.append(audio_link)
 

@@ -633,7 +633,7 @@ def config_error_helper(config_content, def_conf):
     return error_notification
 
 def get_config():
-    config_file = open('app_config.yaml')
+    config_file = open('temporary.yaml')
     config_content = yaml.load(config_file, Loader=yaml.FullLoader)
 
     # Quantity Modes

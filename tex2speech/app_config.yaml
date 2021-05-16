@@ -18,7 +18,7 @@
   # Can add any amazon polly voices
 VOICE_ID:
   DEFAULT: Joanna
-  CONFIG: Brian 
+  CONFIG: None 
 
 # Mathmode
   # TYPE: For now only have Quantity, None option, can enhance to prosody in future
@@ -64,7 +64,7 @@ UNDERLINE:
 
 BOLD:
   DEFAULT:
-    TYPE: prosody
+    TYPE: emphasis
     EMPHASIS: strong
     PROSODY:
       RATE: medium 
