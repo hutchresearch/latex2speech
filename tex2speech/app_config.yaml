@@ -64,19 +64,19 @@ UNDERLINE:
 
 BOLD:
   DEFAULT:
-    TYPE: emphasis
+    TYPE: prosody
     EMPHASIS: strong
-    # PROSODY: None
-    #   RATE: None 
-    #   PITCH: None 
-    #   VOLUME: None
+    PROSODY:
+      RATE: medium 
+      PITCH: medium 
+      VOLUME: default
   CONFIG: 
     TYPE: None 
     EMPHASIS: None 
-    # PROSODY: 
-    #   RATE: None 
-    #   PITCH: None 
-    #   VOLUME: None
+    PROSODY: 
+      RATE: None 
+      PITCH: None 
+      VOLUME: None
 
 ITALICS:
   DEFAULT: None 

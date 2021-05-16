@@ -7,24 +7,29 @@ def modify_xml(family_tag, tagName, setAttr, setVal, mytree):
         if family.attrib['family'] == family_tag:
             modifiable = family.find('modifiable')
             modifiable.tag = tagName
-            modifiable.set(setAttr, setVal)
+
+            for attr, val in zip(setAttr, setVal):
+                modifiable.set(attr, val)
 
 # Bold Tags -> family = 'bold'
 #  \em \emph \textbf
 def bold(contents, mytree):
-    attr = ''
+    attr = []
+    val = []
 
     if contents['BOLD']['CONFIG']['TYPE'] != 'None':
         type = contents['BOLD']['CONFIG']['TYPE']
         val = contents['BOLD']['CONFIG']['EMPHASIS']
     else:
         type = contents['BOLD']['DEFAULT']['TYPE']
-        val = contents['BOLD']['DEFAULT']['EMPHASIS']
-
-    if (type == 'emphasis'):
-        attr = 'level'
-    # elif (type == 'prosody'):
-    #     attr = contents['BOLD']['DEFAULT']['PROSODY']
+        if (type == 'emphasis'):
+            attr.append('level')
+            val.append(contents['BOLD']['DEFAULT']['EMPHASIS'])
+        elif (type == 'prosody'):
+            attr = ['rate', 'pitch', 'volume']
+            val.append(contents['BOLD']['DEFAULT']['PROSODY']['RATE'])
+            val.append(contents['BOLD']['DEFAULT']['PROSODY']['PITCH'])
+            val.append(contents['BOLD']['DEFAULT']['PROSODY']['VOLUME'])
 
     modify_xml('bold', type, attr, val, mytree)
 

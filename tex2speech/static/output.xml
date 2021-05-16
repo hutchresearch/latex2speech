@@ -41,16 +41,16 @@
 
     <cmd name="em" type="none" family="bold">
         
-        <emphasis level="strong">
+        <prosody rate="medium" pitch="medium" volume="default">
             <arg num="1" />
-        </emphasis>
+        </prosody>
         
     </cmd>
 
     <cmd name="emph" type="none" family="bold">
-        <emphasis level="strong">
+        <prosody rate="medium" pitch="medium" volume="default">
             <arg num="1" />
-        </emphasis>
+        </prosody>
     </cmd>
 
     <cmd name="textit" type="none" family="">
@@ -60,9 +60,9 @@
     </cmd>
 
     <cmd name="textbf" type="none" family="bold">
-        <emphasis level="strong">
+        <prosody rate="medium" pitch="medium" volume="default">
             <arg num="1" />
-        </emphasis>
+        </prosody>
     </cmd>
 
     <cmd name="texttt" type="none" family="">
