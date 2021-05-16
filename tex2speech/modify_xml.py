@@ -12,24 +12,32 @@ def modify_xml(family_tag, tagName, setAttr, setVal, mytree):
                 modifiable.set(attr, val)
 
 # Bold Tags -> family = 'bold'
-#  \em \emph \textbf
-def bold(contents, mytree):
+def bold_helper(conf_def, contents):
     attr = []
     val = []
 
+    type = contents['BOLD'][conf_def]['TYPE']
+    if (type == 'emphasis'):
+        attr.append('level')
+        val.append(contents['BOLD'][conf_def]['EMPHASIS'])
+    elif (type == 'prosody'):
+        attr = ['rate', 'pitch', 'volume']
+        val.append(contents['BOLD'][conf_def]['PROSODY']['RATE'])
+        val.append(contents['BOLD'][conf_def]['PROSODY']['PITCH'])
+        val.append(contents['BOLD'][conf_def]['PROSODY']['VOLUME'])
+
+    return type, attr, val
+
+def bold(contents, mytree):
     if contents['BOLD']['CONFIG']['TYPE'] != 'None':
-        type = contents['BOLD']['CONFIG']['TYPE']
-        val = contents['BOLD']['CONFIG']['EMPHASIS']
+        type, attr, val = bold_helper('CONFIG', contents)
     else:
         type = contents['BOLD']['DEFAULT']['TYPE']
         if (type == 'emphasis'):
             attr.append('level')
             val.append(contents['BOLD']['DEFAULT']['EMPHASIS'])
         elif (type == 'prosody'):
-            attr = ['rate', 'pitch', 'volume']
-            val.append(contents['BOLD']['DEFAULT']['PROSODY']['RATE'])
-            val.append(contents['BOLD']['DEFAULT']['PROSODY']['PITCH'])
-            val.append(contents['BOLD']['DEFAULT']['PROSODY']['VOLUME'])
+            type, attr, val = bold_helper('DEFAULT', contents)
 
     modify_xml('bold', type, attr, val, mytree)
 

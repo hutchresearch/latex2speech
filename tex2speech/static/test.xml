@@ -42,11 +42,9 @@
     </cmd>
 
     <cmd name="em" type = "none" family = "bold">
-        <!-- <emphasis level = "strong"> -->
         <modifiable>
             <arg num = "1"/>
         </modifiable>
-        <!-- </emphasis> -->
     </cmd>
 
     <cmd name="emph" type = "none" family = "bold">
@@ -103,7 +101,6 @@
         Fraction
         <break time = "0.3s"/>
         <arg num = "2"/>
-        
     </cmd>
     
     <cmd name = "label" type = "none" family = "">
