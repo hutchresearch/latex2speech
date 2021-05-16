@@ -1,4 +1,4 @@
-
+from sympytossml import QuantityModes, convert_sympy_ssml
 import sympy
 import antlr4
 import re
@@ -12,7 +12,9 @@ from gen.PSLexer import PSLexer
 from gen.PSListener import PSListener
 
 from sympy.printing.str import StrPrinter
-from sympytossml import *
+import configparser
+
+CONFIG_FILE = 'app_config.cfg'
 
 def process_sympy(sympy):
     matherror = MathErrorListener(sympy)
@@ -588,7 +590,7 @@ def run_sympy(mathmode):
         evaluator = underscore_exp(mathmode)
         if (evaluator == False):
             sympyObj = process_sympy(cleanedMathmode)
-            ssmlObj = convert_sympy_ssml((sympyObj), QuantityModes.PARENTHESES_NUMBERED)
+            ssmlObj = convert_sympy_ssml((sympyObj), quantity_mode)
             return ssmlObj
         return evaluator
 
