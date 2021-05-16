@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 # Prosody for Volume attribute
 class ProsodyElement(SSMLElementNode):
-    def __init__(self, volume = None, rate = None, pitch = None, duration = None):
+    def __init__(self, volume = None, rate = None, pitch = None):
         super().__init__()
         
         if volume is not None:
@@ -15,8 +15,8 @@ class ProsodyElement(SSMLElementNode):
         if pitch is not None:
             self.pitch = self._assignPitch(pitch);
 
-        if duration is not None:
-            self.duration = self._assignDuration(duration);
+        # if duration is not None:
+        #     self.duration = self._assignDuration(duration);
 
     # Assigns volume depending on dB or actual words (e.g., x-soft, soft)
     def _assignVolume(self, value):
@@ -204,8 +204,8 @@ class ProsodyElement(SSMLElementNode):
             string += ' rate="' + str(self.rate) + '"'
         if self.pitch:
             string += ' pitch="' + str(self.pitch) + '"'
-        if self.duration:
-            string += ' duration="' + str(self.duration) + '"'
+        # if self.duration:
+        #     string += ' duration="' + str(self.duration) + '"'
         string += ">"
         return string
 

@@ -68,7 +68,7 @@ BOLD:
     EMPHASIS: strong
     PROSODY:
       RATE: medium 
-      PITCH: medium 
+      PITCH: medium
       VOLUME: default
   CONFIG: 
     TYPE: None 
