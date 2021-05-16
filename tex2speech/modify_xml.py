@@ -22,6 +22,8 @@ def bold(contents, mytree):
 
     if (type == 'emphasis'):
         attr = 'level'
+    elif (type == 'prosody'):
+        attr = contents['BOLD']['DEFAULT']['PROSODY']
 
     modify_xml('bold', type, attr, val, mytree)
 

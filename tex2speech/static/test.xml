@@ -43,16 +43,16 @@
 
     <cmd name="em" type = "none" family = "bold">
         <!-- <emphasis level = "strong"> -->
-        <emphasis>
+        <modifiable>
             <arg num = "1"/>
-        </emphasis>
+        </modifiable>
         <!-- </emphasis> -->
     </cmd>
 
     <cmd name="emph" type = "none" family = "bold">
-        <emphasis>
+        <modifiable>
             <arg num = "1"/>
-        </emphasis>
+        </modifiable>
     </cmd>
 
     <cmd name="textit" type = "none" family = "">
@@ -62,9 +62,9 @@
     </cmd>
 
     <cmd name="textbf" type = "none" family = "bold">
-        <emphasis>
+        <modifiable>
             <arg num = "1"/>
-        </emphasis>
+        </modifiable>
     </cmd>
 
     <cmd name = "texttt" type = "none" family = "">
