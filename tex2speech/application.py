@@ -170,7 +170,7 @@ def index():
 
     quantity_method = ['None', 'quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered']
 
-    bold = ['None', 'prosody', 'emphasis']
+    bold = ['prosody', 'emphasis']
     bold_emphasis = ['none', 'moderate', 'reduced', 'strong']
     prosody_rate = ['x-slow', 'slow', 'fast', 'x-fast', 'medium']
     prosody_pitch = ['x-low', 'low', 'high', 'x-high', 'medium']
@@ -245,17 +245,17 @@ def handle_form():
     logging("CONFIG", math_perentheses)
 
     # Bold is set for prosody
-    logging("CONFIG", bold)
-    if bold != 'emphasis' or bold != 'None':
+    print("BOLD: " + bold)
+    if bold != 'emphasis':
+        print("HEY")
         doc['BOLD']['CONFIG']['TYPE'] = bold 
         doc['BOLD']['CONFIG']['PROSODY']['RATE'] = bold_prosody_rate 
         doc['BOLD']['CONFIG']['PROSODY']['PITCH'] = bold_prosody_pitch 
         doc['BOLD']['CONFIG']['PROSODY']['VOLUME'] = bold_prosody_volume
     elif bold == 'emphasis':
         if bold_emphasis != 'strong':
+            doc['BOLD']['CONFIG']['TYPE'] = bold 
             doc['BOLD']['CONFIG']['EMPHASIS'] = bold_emphasis
-    else:
-        doc['BOLD']['DEFAULT']['TYPE'] = 'None'
 
     with open('temporary.yaml', 'w') as f:
         yaml.dump(doc, f)
