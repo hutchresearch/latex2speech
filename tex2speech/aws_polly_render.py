@@ -174,7 +174,7 @@ def start_polly(main, bib_contents):
         doc_preprocess(master[0])
 
         # Expand Labels then open document
-        expand_doc_new_labels(master[0])
+        # expand_doc_new_labels(master[0])
         tex_file = open(master[0], "r")
 
         # Call parsing here

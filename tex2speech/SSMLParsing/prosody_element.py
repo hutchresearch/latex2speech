@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 class ProsodyElement(SSMLElementNode):
     def __init__(self, volume = None, rate = None, pitch = None):
         super().__init__()
-        
+
         if volume is not None:
             self.volume = self._assignVolume(volume)
         
@@ -26,17 +26,29 @@ class ProsodyElement(SSMLElementNode):
             temp = int(tempVal)
         else:
             if value == 'x-soft':
-                temp = -6
+                temp = 'x-soft'
             elif value == 'soft':
-                temp= -3
+                temp= 'soft'
             elif value == 'medium':
-                temp = 0
+                temp = 'medium'
             elif value == 'loud':
-                temp= 3
+                temp= 'loud'
             elif value == 'x-loud':
-                temp = 6
+                temp = 'x-loud'
             else:
-                temp = 0
+                temp = 'medium'
+            # if value == 'x-soft':
+            #     temp = -6
+            # elif value == 'soft':
+            #     temp= -3
+            # elif value == 'medium':
+            #     temp = 0
+            # elif value == 'loud':
+            #     temp= 3
+            # elif value == 'x-loud':
+            #     temp = 6
+            # else:
+            #     temp = 0
 
         return temp
 
@@ -56,17 +68,29 @@ class ProsodyElement(SSMLElementNode):
                 temp= int(tempVal)
         else:
             if rate == 'x-slow':
-                temp = 60
+                temp = 'x-slow'
             elif rate == 'slow':
-                temp = 80
+                temp = 'slow'
             elif rate == 'medium':
-                temp = 100
+                temp = 'medium'
             elif rate == 'fast':
-                temp = 120
+                temp = 'fast'
             elif rate == 'x-fast':
-                temp = 140
+                temp = 'x-fast'
             else:
-                temp = 100
+                temp = 'medium'
+            # if rate == 'x-slow':
+            #     temp = 60
+            # elif rate == 'slow':
+            #     temp = 80
+            # elif rate == 'medium':
+            #     temp = 100
+            # elif rate == 'fast':
+            #     temp = 120
+            # elif rate == 'x-fast':
+            #     temp = 140
+            # else:
+            #     temp = 100
 
         return temp
 
@@ -78,17 +102,29 @@ class ProsodyElement(SSMLElementNode):
             temp = int(tempVal)
         else:
             if pitch == 'x-low':
-                temp = -20
+                temp = 'x-low'
             elif pitch == 'low':
-                temp = -10
+                temp = 'low'
             elif pitch == 'medium':
-                temp = 0
+                temp = 'medium'
             elif pitch == 'high':
-                temp = 10
+                temp = 'high'
             elif pitch == 'x-high':
-                temp = 20
+                temp = 'x-high'
             else:
-                temp = 0;
+                temp = 'medium'
+            # if pitch == 'x-low':
+            #     temp = -20
+            # elif pitch == 'low':
+            #     temp = -10
+            # elif pitch == 'medium':
+            #     temp = 0
+            # elif pitch == 'high':
+            #     temp = 10
+            # elif pitch == 'x-high':
+            #     temp = 20
+            # else:
+            #     temp = 0;
 
         return temp
 
@@ -157,19 +193,17 @@ class ProsodyElement(SSMLElementNode):
         return str(self.duration) + "ms"
 
     def _update(self):
-        for i, child in enumerate(self.children):
-            if isinstance(child, ProsodyElement):
-                if self.volume:
-                    newVol = self._mediumVolume(child.getVolume())
+        if self.volume:
+            newVol = self._mediumVolume(self.getVolume())
 
-                if self.rate:
-                    newRate = self._mediumRate(child.getRate())
+        if self.rate:
+            newRate = self._mediumRate(self.getRate())
 
-                if self.pitch:
-                    newPitch = self._mediumPitch(child.getPitch())
+        if self.pitch:
+            newPitch = self._mediumPitch(self.getPitch())
 
-                if self.duration:
-                    newDuration = self._mediumDuration(child.getDuration())
+        # if self.duration:
+        #     newDuration = self._mediumDuration(self.getDuration())
 
     def _getXMLElement(self):
         attrib = {}
@@ -197,8 +231,6 @@ class ProsodyElement(SSMLElementNode):
         return elem
 
     def _getHeadTag(self):
-        self._update()
-        print(self.volume + " " + self.rate + " " + self.pitch)
         string = "<prosody"
         if self.volume:
             string += ' volume="' + str(self.volume) + '"'
