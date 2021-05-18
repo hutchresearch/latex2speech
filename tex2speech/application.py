@@ -224,7 +224,7 @@ def handle_form():
     # Update YAML file based on settings config
     # When you get an actual settings file, put this in seperate function
     voice = request.form.get('voice')
-    math_parenthesis = request.form.get('quantity_method')
+    math_perentheses = request.form.get('quantity_method')
     bold = request.form.get('bold')
     bold_emphasis = request.form.get('bold_emphasis')
     bold_prosody_rate = request.form.get('bold_prosody_rate')
@@ -235,14 +235,17 @@ def handle_form():
         doc = yaml.load(f)
 
     if voice != 'Joanna':
+        logging("CONFIG", voice)
         doc['VOICE_ID']['CONFIG'] = voice
 
-    # Math parenthesis is not none or default
-    if math_parenthesis != 'None' or math_parenthesis != 'parentheses_numbered':
+    # Math perentheses is not none or default
+    if math_perentheses != 'None' or math_perentheses != 'parentheses_numbered':
         doc['QUANTITY_MODE']['CONFIG']['TYPE'] = 'Quantity'
-        doc['QUANTITY_MODE']['CONFIG']['QUANTITY_METHOD'] = math_parenthesis
+        doc['QUANTITY_MODE']['CONFIG']['QUANTITY_METHOD'] = math_perentheses
+    logging("CONFIG", math_perentheses)
 
     # Bold is set for prosody
+    logging("CONFIG", bold)
     if bold != 'emphasis' or bold != 'None':
         doc['BOLD']['CONFIG']['TYPE'] = bold 
         doc['BOLD']['CONFIG']['PROSODY']['RATE'] = bold_prosody_rate 

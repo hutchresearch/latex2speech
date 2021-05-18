@@ -138,14 +138,14 @@ main {
 /* Options CSS */
 
 .optionsMenu {
-  text-align: left;
-  width: 40%;
+  display: inline-block;
+  text-align: center;
   margin: auto;
   margin-bottom: 20px;
 }
 
 .optionsBox {
-  margin-left: 20px;
+  text-align: left;
 }
 
 #advanced_options {
