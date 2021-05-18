@@ -19,7 +19,7 @@
 html, body {
     height: 100%;
     width: 100%;
-    background-color: #eee;
+    background-color: #f6f6f6;
 }
 
 .clearfix {
@@ -109,7 +109,7 @@ main {
     margin-right: 20%;
     margin-top: 30px;
     border: 4px dashed rgb(152, 152, 152) !important;
-    background-color: #eee !important;
+    background-color: #f6f6f6 !important;
 }
 
 .dropzone .dz-preview.dz-file-preview .dz-image {
