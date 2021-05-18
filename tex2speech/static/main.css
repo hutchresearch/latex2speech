@@ -38,7 +38,7 @@ header {
 
 header h1 {
     position: absolute;
-    width: 100%;
+    width: calc(100vw - 34px);
     text-align: center;
     color: #FFF;
 }
@@ -51,7 +51,7 @@ header img {
 
 /* Main CSS HOME */
 main {
-    width: 100%;
+  width: calc(100vw - 34px);
     top: 60px;
 }
 
@@ -81,6 +81,13 @@ main {
 #submit:hover {
     background-color: #0a53a6;
     cursor: pointer;
+}
+
+.optionsMenu {
+  text-align: left;
+  width: 40%;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 .center {

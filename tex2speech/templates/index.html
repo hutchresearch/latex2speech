@@ -22,66 +22,68 @@
         <form action='{{ url_for('handle_form') }}' enctype='multipart/form-data' method='post' id = 'formID'>
             {{ dropzone.create() }}
             <div class = 'center'>
-                <br>
-                <h7>Voice:  </h7>
-                <select name='voice'>
-                    {% for voice in voices %}
-                        <option value= '{{voice}}' SELECTED>{{voice}}</option>'
-                    {% endfor %}
-                </select>
-                <br>
+                <div class = 'optionsMenu'>
+                    <br>
+                    <h7>Voice:  </h7>
+                    <select name='voice'>
+                        {% for voice in voices %}
+                            <option value= '{{voice}}' SELECTED>{{voice}}</option>'
+                        {% endfor %}
+                    </select>
+                    <br>
 
-                <div id = 'advanced_options'>
-                    <p onclick='toggle_advanced_options()'>Advanced Options &#9660;</p>
+                    <div id = 'advanced_options'>
+                        <p onclick='toggle_advanced_options()'>Advanced Options &#9660;</p>
 
-                    <div id = 'option_box'>
-                        <h7>Math Parenthesis:  </h7>
-                        <select name='quantity_method'>
-                            {% for type in quantity_method %}
-                                <option value= '{{type}}' SELECTED>{{type}}</option>'
-                            {% endfor %}
-                        </select>
-                        <br>
+                        <div id = 'option_box'>
+                            <h7>Math Parenthesis:  </h7>
+                            <select name='quantity_method'>
+                                {% for type in quantity_method %}
+                                    <option value= '{{type}}' SELECTED>{{type}}</option>'
+                                {% endfor %}
+                            </select>
+                            <br>
 
-                        <h7>Bold:  </h7>
-                        <select name='bold'>
-                            {% for b in bold %}
-                                <option value= '{{b}}' SELECTED>{{b}}</option>'
-                            {% endfor %}
-                        </select>
-                        <br>
+                            <h7>Bold:  </h7>
+                            <select name='bold'>
+                                {% for b in bold %}
+                                    <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                {% endfor %}
+                            </select>
+                            <br>
 
-                        <h7>Bold-Emphasis:  </h7>
-                        <select name='bold_emphasis'>
-                            {% for b in bold_emphasis %}
-                                <option value= '{{b}}' SELECTED>{{b}}</option>'
-                            {% endfor %}
-                        </select>
-                        <br>
+                            <h7>Bold-Emphasis:  </h7>
+                            <select name='bold_emphasis'>
+                                {% for b in bold_emphasis %}
+                                    <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                {% endfor %}
+                            </select>
+                            <br>
 
-                        <h7>Bold-Prosody Rate:  </h7>
-                        <select name='bold_prosody_rate'>
-                            {% for b in prosody_rate %}
-                                <option value= '{{b}}' SELECTED>{{b}}</option>'
-                            {% endfor %}
-                        </select>
-                        <br>
+                            <h7>Bold-Prosody Rate:  </h7>
+                            <select name='bold_prosody_rate'>
+                                {% for b in prosody_rate %}
+                                    <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                {% endfor %}
+                            </select>
+                            <br>
 
-                        <h7>Bold-Prosody Pitch:  </h7>
-                        <select name='bold_prosody_pitch'>
-                            {% for b in prosody_pitch %}
-                                <option value= '{{b}}' SELECTED>{{b}}</option>'
-                            {% endfor %}
-                        </select>
-                        <br>
+                            <h7>Bold-Prosody Pitch:  </h7>
+                            <select name='bold_prosody_pitch'>
+                                {% for b in prosody_pitch %}
+                                    <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                {% endfor %}
+                            </select>
+                            <br>
 
-                        <h7>Bold-Prosody Volume:  </h7>
-                        <select name='bold_prosody_volume'>
-                            {% for b in prosody_volume %}
-                                <option value= '{{b}}' SELECTED>{{b}}</option>'
-                            {% endfor %}
-                        </select>
-                        <br>
+                            <h7>Bold-Prosody Volume:  </h7>
+                            <select name='bold_prosody_volume'>
+                                {% for b in prosody_volume %}
+                                    <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                {% endfor %}
+                            </select>
+                            <br>
+                        </div>
                     </div>
                 </div>
                 <input type='submit' id='submit' value='Convert'>
