@@ -144,11 +144,15 @@ main {
   margin-bottom: 20px;
 }
 
+.optionsBox {
+  margin-left: 20px;
+}
+
 #advanced_options {
   margin-top: 10px;
 }
 
-#advanced_options_button p:hover {
+#advanced_options_button {
   cursor: pointer;
 }
 

@@ -1,5 +1,5 @@
 // initial state of options
-document.getElementById('option_box').style.display = 'none';
+document.getElementById('advanced_options_box').style.display = 'none';
 document.getElementById('advanced_options_button').textContent = 'Advanced Options \u2BC8'
 
 $( document ).ready(function() {
@@ -15,7 +15,7 @@ $( document ).ready(function() {
 });
 
 function toggle_advanced_options() {
-    var optBox = document.getElementById('option_box');
+    var optBox = document.getElementById('advanced_options_box');
     var optButton = document.getElementById('advanced_options_button')
     if (optBox.style.display === 'none') {
         optBox.style.display = 'block';
