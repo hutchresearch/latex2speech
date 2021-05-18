@@ -7,8 +7,8 @@ newFile = open("new.txt", "w")
 with open(file) as f:
     line = f.readline()
 
-    count = 4001
-    change = 2784
+    count = 5001
+    change = 3593
 
     while line:
         num = line.split(' ')
