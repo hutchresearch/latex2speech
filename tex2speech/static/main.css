@@ -83,13 +83,6 @@ main {
     cursor: pointer;
 }
 
-.optionsMenu {
-  text-align: left;
-  width: 40%;
-  margin: auto;
-  margin-bottom: 20px;
-}
-
 .center {
     text-align: center;
 }
@@ -142,13 +135,20 @@ main {
 }
 /* End of Dropzone Override */
 
-/* Advanced Options CSS */
+/* Options CSS */
+
+.optionsMenu {
+  text-align: left;
+  width: 40%;
+  margin: auto;
+  margin-bottom: 20px;
+}
 
 #advanced_options {
   margin-top: 10px;
 }
 
-#advanced_options p:hover {
+#advanced_options_button p:hover {
   cursor: pointer;
 }
 
@@ -223,6 +223,7 @@ ul {
   list-style-position: inside;
 }
 /* End of List CSS */
+
 #dot-elastic {
     position: relative;
     width: 5px;

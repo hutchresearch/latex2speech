@@ -1,4 +1,6 @@
+// initial state of options
 document.getElementById('option_box').style.display = 'none';
+document.getElementById('advanced_options_button').textContent = 'Advanced Options \u2BC8'
 
 $( document ).ready(function() {
     // Disable button once form has been submitted
@@ -17,9 +19,9 @@ function toggle_advanced_options() {
     var optButton = document.getElementById('advanced_options_button')
     if (optBox.style.display === 'none') {
         optBox.style.display = 'block';
-        optButton.textContent = "Advanced Options &#9660"
+        optButton.textContent =  'Advanced Options \u2BC6'
     } else {
         optBox.style.display = 'none';
-        optButton.textContent = "Advanced Options &#9654"
+        optButton.textContent =  'Advanced Options \u2BC8'
     }
 }
