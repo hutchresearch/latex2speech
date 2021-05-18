@@ -168,10 +168,10 @@ def index():
 
     voices = ['Nicole', 'Olivia', 'Russell', 'Amy', 'Emma', 'Brian', 'Ivy', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Matthew', 'Joanna']
 
-    quantity_method = ['quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered', 'None']
+    quantity_method = ['None', 'quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered']
 
-    bold = ['emphasis', 'prosody', 'None']
-    bold_emphasis = ['strong', 'moderate', 'reduced', 'none']
+    bold = ['None', 'prosody', 'emphasis']
+    bold_emphasis = ['none', 'moderate', 'reduced', 'strong']
     prosody_rate = ['x-slow', 'slow', 'fast', 'x-fast', 'medium']
     prosody_pitch = ['x-low', 'low', 'high', 'x-high', 'medium']
     prosody_volume = ['silent', 'x-soft', 'soft', 'loud', 'x-loud', 'medium']
@@ -224,11 +224,35 @@ def handle_form():
     # Update YAML file based on settings config
     # When you get an actual settings file, put this in seperate function
     voice = request.form.get('voice')
+    math_parenthesis = request.form.get('quantity_method')
+    bold = request.form.get('bold')
+    bold_emphasis = request.form.get('bold_emphasis')
+    bold_prosody_rate = request.form.get('bold_prosody_rate')
+    bold_prosody_pitch = request.form.get('bold_prosody_pitch')
+    bold_prosody_volume = request.form.get('bold_prosody_volume')
+
     with open('app_config.yaml') as f:
         doc = yaml.load(f)
 
     if voice != 'Joanna':
         doc['VOICE_ID']['CONFIG'] = voice
+
+    # Math parenthesis is not none or default
+    if math_parenthesis != 'None' or math_parenthesis != 'parentheses_numbered':
+        doc['QUANTITY_MODE']['CONFIG']['TYPE'] = 'Quantity'
+        doc['QUANTITY_MODE']['CONFIG']['QUANTITY_METHOD'] = math_parenthesis
+
+    # Bold is set for prosody
+    if bold != 'emphasis' or bold != 'None':
+        doc['BOLD']['CONFIG']['TYPE'] = bold 
+        doc['BOLD']['CONFIG']['PROSODY']['RATE'] = bold_prosody_rate 
+        doc['BOLD']['CONFIG']['PROSODY']['PITCH'] = bold_prosody_pitch 
+        doc['BOLD']['CONFIG']['PROSODY']['VOLUME'] = bold_prosody_volume
+    elif bold == 'emphasis':
+        if bold_emphasis != 'strong':
+            doc['BOLD']['CONFIG']['EMPHASIS'] = bold_emphasis
+    else:
+        doc['BOLD']['DEFAULT']['TYPE'] = 'None'
 
     with open('temporary.yaml', 'w') as f:
         yaml.dump(doc, f)
