@@ -40,15 +40,15 @@
     </cmd>
 
     <cmd name="em" type="none" family="bold">
-        <prosody rate="x-slow" pitch="x-high" volume="x-loud">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="emph" type="none" family="bold">
-        <prosody rate="x-slow" pitch="x-high" volume="x-loud">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="textit" type="none" family="">
@@ -58,9 +58,9 @@
     </cmd>
 
     <cmd name="textbf" type="none" family="bold">
-        <prosody rate="x-slow" pitch="x-high" volume="x-loud">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="texttt" type="none" family="">
