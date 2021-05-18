@@ -37,7 +37,7 @@
 
                         <div id = 'advanced_options_box' class = 'optionsBox'>
                             <table>
-                                <tr>
+                                <tr title = 'Set how parentheses will be spoken in math equations'>
                                     <th>Math Parentheses:</th>
                                     <th class = 'cellPadded'><select name='quantity_method'>
                                         {% for type in quantity_method %}
@@ -45,7 +45,7 @@
                                         {% endfor %}
                                     </select></th>
                                 </tr>
-                                <tr>
+                                <tr title = 'set how the pronunciation of bold text will be altered'>
                                     <th>Bold:</th>
                                     <th class = 'cellPadded'><select name='bold'>
                                         {% for b in bold %}
@@ -54,7 +54,7 @@
                                     </select></th>
                                 </tr>
 
-                                <tr>
+                                <tr title = 'If bold text is emphasized, set emphasis level here'>
                                     <th>Bold-Emphasis:</th>
                                     <th class = 'cellPadded'><select name='bold_emphasis'>
                                         {% for b in bold_emphasis %}
@@ -62,7 +62,7 @@
                                         {% endfor %}
                                     </select></th>
                                 </tr>
-                                <tr>
+                                <tr title = 'If bold text has prosody adjusted, set speed here'>
                                     <th>Bold-Prosody Rate:</th>
                                     <th class = 'cellPadded'><select name='bold_prosody_rate'>
                                         {% for b in prosody_rate %}
@@ -71,7 +71,7 @@
                                     </select></th>
                                 </tr>
 
-                                <tr>
+                                <tr title = 'If bold text has prosody adjusted, set pitch here'>
                                     <th>Bold-Prosody Pitch:</th>
                                     <th class = 'cellPadded'><select name='bold_prosody_pitch'>
                                         {% for b in prosody_pitch %}
@@ -80,7 +80,7 @@
                                     </select></th>
                                 </tr>
 
-                                <tr>
+                                <tr title = 'If bold text has prosody adjusted, set volume here'>
                                     <th>Bold-Prosody Volume:</th>
                                     <th class = 'cellPadded'><select name='bold_prosody_volume \t'>
                                         {% for b in prosody_volume %}
