@@ -18,7 +18,7 @@
   # Can add any amazon polly voices
 VOICE_ID:
   DEFAULT: Joanna
-  CONFIG: None 
+  CONFIG: Joanna 
 
 # Mathmode
   # TYPE: For now only have Quantity, None option, can enhance to prosody in future
