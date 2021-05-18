@@ -167,7 +167,16 @@ def index():
     # voices = ['Zeina', 'Zhiyu', 'Naja', 'Mads', 'Lotte', 'Ruben', 'Nicole', 'Olivia', 'Russel', 'Amy', 'Emma', 'Brian', 'Aditi', 'Raveena', 'Ivy', 'Joanna', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Mathew', 'Geraint', 'Celine', 'Mathieu', 'Chantal', 'Marlene', 'Vicki', 'Hans', 'Aditi', 'Dora', 'Karl', 'Carla', 'Bianca', 'Giorgio', 'Mizuki', 'Takumi', 'Seoyeon', 'Liv', 'Ewa', 'Maja', 'Jacek', 'Jan', 'Camila', 'Vitoria', 'Recardo', 'Carmen', 'Tatyana', 'Maxim', 'Conchita', 'Lucia', 'Enrique', 'Mia', 'Lupe', 'Penelope', 'Miguel', 'Astrid', 'Filiz', 'Joanna']
 
     voices = ['Nicole', 'Olivia', 'Russell', 'Amy', 'Emma', 'Brian', 'Ivy', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Matthew', 'Joanna']
-    return render_template('index.html', voices = voices)
+
+    quantity_method = ['quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered', 'None']
+
+    bold = ['emphasis', 'prosody', 'None']
+    bold_emphasis = ['strong', 'moderate', 'reduced', 'none']
+    prosody_rate = ['x-slow', 'slow', 'fast', 'x-fast', 'medium']
+    prosody_pitch = ['x-low', 'low', 'high', 'x-high', 'medium']
+    prosody_volume = ['silent', 'x-soft', 'soft', 'loud', 'x-loud', 'medium']
+
+    return render_template('index.html', voices = voices, quantity_method = quantity_method, bold = bold, bold_emphasis = bold_emphasis, prosody_rate = prosody_rate, prosody_pitch = prosody_pitch, prosody_volume = prosody_volume)
 
 # Upload middle man
 @app.route('/upload', methods=['POST'])

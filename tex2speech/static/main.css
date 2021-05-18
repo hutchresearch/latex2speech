@@ -135,6 +135,18 @@ main {
 }
 /* End of Dropzone Override */
 
+/* Advanced Options CSS */
+
+#advanced_options {
+  margin-top: 10px;
+}
+
+#advanced_options p:hover {
+  cursor: pointer;
+}
+
+/* End of Advanced Options CSS */
+
 /* End of Main CSS HOME */
 
 /* Main CSS DOWNLOAD */
