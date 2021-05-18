@@ -250,6 +250,12 @@ def handle_form():
     logging("CONFIG", math_perentheses)
 
     # Math mode Error
+    if math_error_type == 'Message':
+        doc['MATH_ERROR']['CONFIG']['TYPE'] = math_error_type
+        doc['MATH_ERROR']['CONFIG']['MESSAGE'] = math_error_message
+    elif math_error_type == 'Break':
+        doc['MATH_ERROR']['CONFIG']['TYPE'] = math_error_type
+        doc['MATH_ERROR']['CONFIG']['BREAK_TIME'] = '"' + str(math_error_breaktime) + 's"'
 
     # Bold is set for prosody
     if bold != 'emphasis':
