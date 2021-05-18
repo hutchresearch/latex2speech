@@ -245,9 +245,7 @@ def handle_form():
     logging("CONFIG", math_perentheses)
 
     # Bold is set for prosody
-    print("BOLD: " + bold)
     if bold != 'emphasis':
-        print("HEY")
         doc['BOLD']['CONFIG']['TYPE'] = bold 
         doc['BOLD']['CONFIG']['PROSODY']['RATE'] = bold_prosody_rate 
         doc['BOLD']['CONFIG']['PROSODY']['PITCH'] = bold_prosody_pitch 
