@@ -170,13 +170,15 @@ def index():
 
     quantity_method = ['None', 'quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered']
 
+    math_error_type = ['Break', 'Message']
+
     bold = ['prosody', 'emphasis']
     bold_emphasis = ['none', 'moderate', 'reduced', 'strong']
     prosody_rate = ['x-slow', 'slow', 'fast', 'x-fast', 'medium']
     prosody_pitch = ['x-low', 'low', 'high', 'x-high', 'medium']
     prosody_volume = ['silent', 'x-soft', 'soft', 'loud', 'x-loud', 'medium']
 
-    return render_template('index.html', voices = voices, quantity_method = quantity_method, bold = bold, bold_emphasis = bold_emphasis, prosody_rate = prosody_rate, prosody_pitch = prosody_pitch, prosody_volume = prosody_volume)
+    return render_template('index.html', voices = voices, quantity_method = quantity_method, bold = bold, bold_emphasis = bold_emphasis, prosody_rate = prosody_rate, prosody_pitch = prosody_pitch, prosody_volume = prosody_volume, math_error_type = math_error_type)
 
 # Upload middle man
 @app.route('/upload', methods=['POST'])
@@ -224,6 +226,9 @@ def handle_form():
     # Update YAML file based on settings config
     # When you get an actual settings file, put this in seperate function
     voice = request.form.get('voice')
+    math_error_type = request.form.get('math_error_type')
+    math_error_message = request.form.get('math_error_message')
+    math_error_breaktime = request.form.get('math_error_breaktime')
     math_perentheses = request.form.get('quantity_method')
     bold = request.form.get('bold')
     bold_emphasis = request.form.get('bold_emphasis')
@@ -243,6 +248,8 @@ def handle_form():
         doc['QUANTITY_MODE']['CONFIG']['TYPE'] = 'Quantity'
         doc['QUANTITY_MODE']['CONFIG']['QUANTITY_METHOD'] = math_perentheses
     logging("CONFIG", math_perentheses)
+
+    # Math mode Error
 
     # Bold is set for prosody
     if bold != 'emphasis':

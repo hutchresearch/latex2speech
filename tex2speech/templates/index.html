@@ -45,6 +45,26 @@
                                         {% endfor %}
                                     </select></th>
                                 </tr>
+                                <tr title = 'Set how mathmode errors will be handled'>
+                                    <th>Math Error Handling:</th>
+                                    <th class = 'cellPadded'><select name='math_error_type'>
+                                        {% for type in math_error_type %}
+                                            <option value= '{{type}}' SELECTED>{{type}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+                                <tr title = 'Set how mathmode errors will be handled with a message'>
+                                    <th>Math Error Message:</th>
+                                    <th class = 'cellPadded'>
+                                        <input type="text" name="math_error_message" value = 'math did not render'>
+                                    </th>
+                                </tr>
+                                <tr title = 'Set how mathmode errors break time'>
+                                    <th>Math Error Breaktime (s):</th>
+                                    <th class = 'cellPadded'>
+                                        <input type="text" name="math_error_breaktime" value = '0.5'>
+                                    </th>
+                                </tr>
                                 <tr title = 'set how the pronunciation of bold text will be altered'>
                                     <th>Bold:</th>
                                     <th class = 'cellPadded'><select name='bold'>
