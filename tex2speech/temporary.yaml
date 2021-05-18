@@ -1,0 +1,52 @@
+BOLD:
+  CONFIG:
+    EMPHASIS: None
+    PROSODY:
+      PITCH: medium
+      RATE: medium
+      VOLUME: medium
+    TYPE: None
+  DEFAULT:
+    EMPHASIS: strong
+    PROSODY:
+      PITCH: medium
+      RATE: medium
+      VOLUME: default
+    TYPE: emphasis
+COMMAND_NO_RENDER:
+  CONFIG: None
+  DEFAULT: None
+FONT:
+  CONFIG: None
+  DEFAULT: None
+ITALICS:
+  CONFIG: None
+  DEFAULT: None
+MATH_ERROR:
+  CONFIG:
+    BREAK_TIME: None
+    MESSAGE: None
+    TYPE: None
+  DEFAULT:
+    BREAK_TIME: 0.5s
+    MESSAGE: math didn't render
+    TYPE: Message
+QUANTITY_MODE:
+  CONFIG:
+    QUANTITY_METHOD: None
+    TYPE: Quantity
+  DEFAULT:
+    QUANTITY_METHOD: parentheses_numbered
+    TYPE: Quantity
+TEXT_COLOR:
+  CONFIG: None
+  DEFAULT: None
+THEOREM:
+  CONFIG: None
+  DEFAULT: None
+UNDERLINE:
+  CONFIG: None
+  DEFAULT: None
+VOICE_ID:
+  CONFIG: None
+  DEFAULT: Joanna

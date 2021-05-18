@@ -218,6 +218,11 @@ footer {
 
 /* End of Footer CSS */
 
+/* List CSS */
+ul {
+  list-style-position: inside;
+}
+/* End of List CSS */
 #dot-elastic {
     position: relative;
     width: 5px;

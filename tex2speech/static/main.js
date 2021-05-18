@@ -13,10 +13,13 @@ $( document ).ready(function() {
 });
 
 function toggle_advanced_options() {
-    var opt = document.getElementById('option_box');
-    if (opt.style.display === 'none') {
-        opt.style.display = 'block';
+    var optBox = document.getElementById('option_box');
+    var optButton = document.getElementById('advanced_options_button')
+    if (optBox.style.display === 'none') {
+        optBox.style.display = 'block';
+        optButton.textContent = "Advanced Options &#9660"
     } else {
-        opt.style.display = 'none';
+        optBox.style.display = 'none';
+        optButton.textContent = "Advanced Options &#9654"
     }
 }
