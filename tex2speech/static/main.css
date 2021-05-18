@@ -228,6 +228,15 @@ ul {
 }
 /* End of List CSS */
 
+/* Table CSS */
+th {
+  font-weight: normal;
+}
+.cellPadded {
+  padding-left: 20px;
+}
+/* End of Table CSS */
+
 #dot-elastic {
     position: relative;
     width: 5px;
