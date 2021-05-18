@@ -80,7 +80,7 @@ def tts_of_file(file, contents, last_file):
     if configuration_contents['VOICE_ID']['CONFIG'] != 'None':
         voice = configuration_contents['VOICE_ID']['CONFIG']
     else:
-        voice = configuration_contents['VOICE_ID']['CONFIG']
+        voice = configuration_contents['VOICE_ID']['DEFAULT']
 
     try:
         # Request speech synthesis
