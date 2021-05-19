@@ -371,7 +371,7 @@
     
     <cmd name = "underbrace" type = "mathmode" family = "">
         Under Brace
-        <arg num = 1>
+        <!-- <arg num = 1/> -->
     </cmd>
     
     <cmd name = "cup" type = "mathmode" family = "">

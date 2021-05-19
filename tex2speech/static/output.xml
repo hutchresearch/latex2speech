@@ -40,15 +40,15 @@
     </cmd>
 
     <cmd name="em" type="none" family="bold">
-        <prosody rate="medium" pitch="x-high" volume="medium">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="emph" type="none" family="bold">
-        <prosody rate="medium" pitch="x-high" volume="medium">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="textit" type="none" family="">
@@ -58,9 +58,9 @@
     </cmd>
 
     <cmd name="textbf" type="none" family="bold">
-        <prosody rate="medium" pitch="x-high" volume="medium">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="texttt" type="none" family="">
@@ -334,6 +334,53 @@
         <break time="0.3s" />
         <arg num="1" />
     </cmd>
+    
+    <cmd name="%" type="none" family="">
+        Percent
+    </cmd>
+    
+    <cmd name="approx" type="none" family="">
+        Approximately
+    </cmd>
+    
+    <cmd name="simeq" type="mathmode" family="">
+        Similar To
+    </cmd>
+    
+    <cmd name="longrightarrow" type="none" family="">
+        Leads To
+    </cmd>
+    
+    <cmd name="backslash" type="none" family="">
+        Slash
+    </cmd>
+    
+    <cmd name="leftrightarrow" type="none" family="">
+        Is Like
+    </cmd>
+    
+    <cmd name="leftarrow" type="none" family="">
+        Left Arrow
+    </cmd>
+    
+    <cmd name="emptyset" type="mathmode" family="">
+        Empty Set
+    </cmd>
+    
+    <cmd name="underbrace" type="mathmode" family="">
+        Under Brace
+        
+    </cmd>
+    
+    <cmd name="cup" type="mathmode" family="">
+        Union
+    </cmd>
+    
+    <cmd name="uparrow" type="mathmode" family="">
+        Up Arrow
+    </cmd>
+    
+
 
 
     
