@@ -47,34 +47,34 @@
                                 </tr>
                                 <tr title = 'Set how mathmode errors will be handled'>
                                     <th>Math Error Handling:</th>
-                                    <th class = 'cellPadded'><select name='math_error_type'>
+                                    <th class = 'cellPadded'><select name='math_error_type' onChange = 'updateAdvancedSuboptions()' id = 'math_error_type'>
                                         {% for type in math_error_type %}
                                             <option value= '{{type}}' SELECTED>{{type}}</option>'
                                         {% endfor %}
                                     </select></th>
                                 </tr>
-                                <tr title = 'Set how mathmode errors will be handled with a message'>
-                                    <th>Math Error Message:</th>
-                                    <th class = 'cellPadded'>
-                                        <input type="text" name="math_error_message" value = 'math did not render'>
-                                    </th>
-                                </tr>
-                                <tr title = 'Set how mathmode errors break time'>
+                                <tr title = 'Set mathmode error break time' class = 'math_error_break' class = 'math_error_break'>
                                     <th>Math Error Breaktime (s):</th>
                                     <th class = 'cellPadded'>
                                         <input type="text" name="math_error_breaktime" value = '0.5'>
                                     </th>
                                 </tr>
+                                <tr title = 'Set error message for math equations that did not render' class = 'math_error_text'>
+                                    <th>Math Error Message:</th>
+                                    <th class = 'cellPadded'>
+                                        <input type="text" name="math_error_message" value = 'math did not render'>
+                                    </th>
+                                </tr>
                                 <tr title = 'set how the pronunciation of bold text will be altered'>
                                     <th>Bold:</th>
-                                    <th class = 'cellPadded'><select name='bold'>
+                                    <th class = 'cellPadded'><select name='bold' onChange = 'updateAdvancedSuboptions()' id = 'bold_type'>
                                         {% for b in bold %}
                                             <option value= '{{b}}' SELECTED>{{b}}</option>'
                                         {% endfor %}
                                     </select></th>
                                 </tr>
 
-                                <tr title = 'If bold text is emphasized, set emphasis level here'>
+                                <tr title = 'If bold text is emphasized, set emphasis level here' class = 'bold_emphasis'>
                                     <th>Bold-Emphasis:</th>
                                     <th class = 'cellPadded'><select name='bold_emphasis'>
                                         {% for b in bold_emphasis %}
@@ -82,7 +82,7 @@
                                         {% endfor %}
                                     </select></th>
                                 </tr>
-                                <tr title = 'If bold text has prosody adjusted, set speed here'>
+                                <tr title = 'If bold text has prosody adjusted, set speed here' class = 'bold_prosody'>
                                     <th>Bold-Prosody Rate:</th>
                                     <th class = 'cellPadded'><select name='bold_prosody_rate'>
                                         {% for b in prosody_rate %}
@@ -91,7 +91,7 @@
                                     </select></th>
                                 </tr>
 
-                                <tr title = 'If bold text has prosody adjusted, set pitch here'>
+                                <tr title = 'If bold text has prosody adjusted, set pitch here' class = 'bold_prosody'>
                                     <th>Bold-Prosody Pitch:</th>
                                     <th class = 'cellPadded'><select name='bold_prosody_pitch'>
                                         {% for b in prosody_pitch %}
@@ -100,7 +100,7 @@
                                     </select></th>
                                 </tr>
 
-                                <tr title = 'If bold text has prosody adjusted, set volume here'>
+                                <tr title = 'If bold text has prosody adjusted, set volume here' class = 'bold_prosody'>
                                     <th>Bold-Prosody Volume:</th>
                                     <th class = 'cellPadded'><select name='bold_prosody_volume'>
                                         {% for b in prosody_volume %}
