@@ -337,10 +337,6 @@
         <arg num = "1"/>
     </cmd>
     
-    <cmd name = "&" type = "none" family = "">
-        And
-    </cmd>
-    
     <cmd name = "%" type = "none" family = "">
         Percent
     </cmd>
