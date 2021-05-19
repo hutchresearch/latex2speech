@@ -35,14 +35,14 @@ def logging(tag, value):
 
 def writelog(tag):
     if output_file == 'console':
-        print('-- log for ' + tag + '--')
+        print('-- log for ' + tag + '--\n')
         for log_item in logs_dict[tag]:
-            print(log_item)
+            print(log_item + '\n')
     else:
         f = open(output_file, 'w')
-        f.write('-- log for ' + tag + '--')
+        f.write('-- log for ' + tag + '--\n')
         for log_item in logs_dict[tag]:
-            f.write(log_item)
+            f.write(log_item + '\n')
         f.close()
         
 def clearlog(tag):

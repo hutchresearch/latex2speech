@@ -583,6 +583,13 @@ def pre_process(mathmode):
 def test_sympy(mathmode):
     return process_sympy(mathmode)
 
+def post_process(sympy_text):
+    # Gets rid of trailing zeros at the end of a decimal number
+    sympy_text = re.sub(r"(\.[0]{0,}[1-9]{1,})[0]{1,}", "\\1", sympy_text)
+    logging("POSTPROCESS", sympy_text)
+    writelog("POSTPROCESS")
+    return sympy_text
+
 def run_sympy(mathmode):
     quantity_mode, error_notification = get_config()
     try:
@@ -591,7 +598,7 @@ def run_sympy(mathmode):
         if (evaluator == False):
             sympyObj = process_sympy(cleanedMathmode)
             ssmlObj = convert_sympy_ssml((sympyObj), quantity_mode)
-            return ssmlObj
+            return post_process(ssmlObj)
         return evaluator
 
     except (RuntimeError, TypeError, NameError, SyntaxError, Exception) as e:
