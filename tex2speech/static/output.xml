@@ -40,15 +40,15 @@
     </cmd>
 
     <cmd name="em" type="none" family="bold">
-        <prosody rate="medium" pitch="x-high" volume="medium">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="emph" type="none" family="bold">
-        <prosody rate="medium" pitch="x-high" volume="medium">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="textit" type="none" family="">
@@ -58,9 +58,9 @@
     </cmd>
 
     <cmd name="textbf" type="none" family="bold">
-        <prosody rate="medium" pitch="x-high" volume="medium">
+        <emphasis level="strong">
             <arg num="1" />
-        </prosody>
+        </emphasis>
     </cmd>
 
     <cmd name="texttt" type="none" family="">
@@ -95,12 +95,6 @@
         <break time="0.5s" />
     </cmd>
     
-    <cmd name="frac" type="mathmode" family="">
-        Fraction
-        <break time="0.3s" />
-        <arg num="2" />
-    </cmd>
-    
     <cmd name="label" type="none" family="">
         Label:
         <break time="0.3s" />
@@ -112,200 +106,11 @@
         <emphasis level="strong" />
     </cmd>
     
-    <cmd name="in" type="mathmode" family="">
-        Is Member Of
-        <break time="0.2s" />
-    </cmd>
-    
-    <cmd name="alpha" type="mathmode" family="">
-        Alpha
-    </cmd>
-    
-    <cmd name="mu" type="mathmode" family="">
-        Mu
-    </cmd>
-    
-    <cmd name="bar" type="mathmode" family="">
-        Bar
-        <arg num="1" />
-    </cmd>
-        
-    
-    <cmd name="tilde" type="mathmode" family="">
-        Median
-        <arg num="1" />
-        <break time="0.3s" />
-    </cmd>
-        
-    
-    <cmd name="hat" type="mathmode" family="">
-        Hat
-        <arg num="1" />
-        <break time="0.3s" />
-    </cmd>
-        
-    <cmd name="pi" type="mathmode" family="">
-        Pi
-    </cmd>
-    
-    
-    <cmd name="sqrt" type="mathmode" family="">
-        Square Root Of
-        <arg num="1" />
-        <break time="0.3s" />
-    </cmd>
-        
-    <cmd name="times" type="mathmode" family="">
-        Times
-        <arg num="1" />
-        <break time="0.3s" />
-    </cmd>
-    
-    <cmd name="leq" type="mathmode" family="">
-        Less Than Or Equal To
-        <arg num="1" />
-        <break time="0.3s" />
-    </cmd>
-    
-    <cmd name="beta" type="mathmode" family="">
-        Beta
-    </cmd>
-    
-    <cmd name="to" type="mathmode" family="">
-        Goes To
-        <arg num="1" />
-        <break time="0.5s" />
-    </cmd>
-    
-    <cmd name="nu" type="mathmode" family="">
-        Nu
-    </cmd>
-    
     <cmd name="textbf" type="none" family="">
         <emphasis level="strong">
             <arg num="1" />
         </emphasis>
     </cmd>
-    
-    <cmd name="lambda" type="mathmode" family="">
-        lambda
-    </cmd>
-    
-    <cmd name="delta" type="mathmode" family="">
-        delta
-    </cmd>
-    
-    <cmd name="Delta" type="mathmode" family="">
-        <emphasis level="strong">
-            Delta
-        </emphasis>
-    </cmd>
-    
-    <cmd name="pm" type="mathmode" family="">
-        Plus Or Minus
-    </cmd>
-    
-    
-    
-
-    <cmd name="partial" type="mathmode" family="">
-        Partial Derivative
-    </cmd>
-    
-    <cmd name="infty" type="mathmode" family="">
-        Infinity
-    </cmd>
-        
-    <cmd name="emph" type="mathmode" family="">
-        <emphasis level="strong">
-            <arg num="1" />
-        </emphasis>
-    </cmd>
-    
-    <cmd name="gamma" type="mathmode" family="">
-        Gamma
-    </cmd>
-    
-    <cmd name="vec" type="mathmode" family="">
-        Vector:
-        <arg num="1" />
-        <break time="0.4s" />
-    </cmd>
-        
-    <cmd name="rho" type="mathmode" family="">
-        Rho
-    </cmd>
-    
-    <cmd name="tau" type="mathmode" family="">
-        Tau
-    </cmd>
-    
-    <cmd name="phi" type="mathmode" family="">
-        Phi
-    </cmd>
-    
-    <cmd name="mathbb" type="mathmode" family="">
-        The Set
-        <arg num="1" />
-        <break time="0.4s" />
-    </cmd>
-    
-    <cmd name="theta" type="mathmode" family="">
-        Theta
-    </cmd>
-    
-    <cmd name="omega" type="mathmode" family="">
-        Omega
-    </cmd>
-    
-    <cmd name="rightarrow" type="mathmode" family="">
-        Points To
-        <arg num="1" />
-        <break time="0.4s" />
-    </cmd>
-    
-    <cmd name="sim" type="mathmode" family="">
-        Similar To
-        <arg num="1" />
-        <break time="0.4s" />
-    </cmd>
-    
-    <cmd name="prime" type="mathmode" family="">
-        Prime
-    </cmd>
-    
-    <cmd name="eta" type="mathmode" family="">
-        Eta
-    </cmd>
-    
-    <cmd name="geq" type="mathmode" family="">
-        Greater Than or Equal To
-        <arg num="1" />
-        <break time="0.3s" />
-    </cmd>
-    
-    <cmd name="le" type="mathmode" family="">
-        Less than
-        <arg num="1" />
-        <break time="0.3s" />
-    </cmd>
-    
-    <cmd name="psi" type="mathmode" family="">
-        Psi
-    </cmd>
-    
-    <cmd name="epsilon" type="mathmode" family="">
-        Epsilon
-    </cmd>
-    
-    <cmd name="xi" type="mathmode" family="">
-        Xi
-    </cmd>
-    
-    
-    <cmd name="ell" type="mathmode" family="">
-        Liters
-    </cmd> 
 
     
     <cmd name="thebibliography" type="none" family="">
@@ -333,6 +138,26 @@
     <cmd name="ensuremath" type="mathmode" family="">
         <break time="0.3s" />
         <arg num="1" />
+    </cmd>
+    
+    <cmd name="approx" type="none" family="">
+        Approximately
+    </cmd>
+    
+    <cmd name="longrightarrow" type="none" family="">
+        Leads To
+    </cmd>
+    
+    <cmd name="backslash" type="none" family="">
+        Slash
+    </cmd>
+    
+    <cmd name="leftrightarrow" type="none" family="">
+        Is Like
+    </cmd>
+    
+    <cmd name="leftarrow" type="none" family="">
+        Left Arrow
     </cmd>
 
 
