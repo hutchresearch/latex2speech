@@ -30,22 +30,22 @@ function toggle_advanced_options() {
 function updateAdvancedSuboptions() {
     var mathErrorType = document.getElementById('math_error_type');
     if (mathErrorType.options[mathErrorType.selectedIndex].text == 'Message') {
-        document.getElementsByClassName('math_error_text')[0].style.visibility = 'visible'
-        document.getElementsByClassName('math_error_break')[0].style.visibility = 'hidden'
+        document.getElementsByClassName('math_error_text')[0].style.display = 'table-row'
+        document.getElementsByClassName('math_error_break')[0].style.display = 'none'
     }
     
     if (mathErrorType.options[mathErrorType.selectedIndex].text == 'Break') {
-        document.getElementsByClassName('math_error_text')[0].style.visibility = 'hidden'
-        document.getElementsByClassName('math_error_break')[0].style.visibility = 'visible'
+        document.getElementsByClassName('math_error_text')[0].style.display = 'none'
+        document.getElementsByClassName('math_error_break')[0].style.display = 'table-row'
     }
 
     var boldType = document.getElementById('bold_type');
     if (boldType.options[boldType.selectedIndex].text == 'emphasis') {
-        for (let e of document.getElementsByClassName('bold_emphasis')) { e.style.visibility = 'visible'}
-        for (let e of document.getElementsByClassName('bold_prosody')) { e.style.visibility = 'hidden'}
+        for (let e of document.getElementsByClassName('bold_emphasis')) { e.style.display = 'table-row'}
+        for (let e of document.getElementsByClassName('bold_prosody')) { e.style.display = 'none'}
     }
     if (boldType.options[boldType.selectedIndex].text == 'prosody') {
-        for (let e of document.getElementsByClassName('bold_emphasis')) { e.style.visibility = 'hidden'}
-        for (let e of document.getElementsByClassName('bold_prosody')) { e.style.visibility = 'visible'}
+        for (let e of document.getElementsByClassName('bold_emphasis')) { e.style.display = 'none'}
+        for (let e of document.getElementsByClassName('bold_prosody')) { e.style.display = 'table-row'}
     }
 }
