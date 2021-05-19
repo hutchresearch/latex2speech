@@ -167,7 +167,18 @@ def index():
     # voices = ['Zeina', 'Zhiyu', 'Naja', 'Mads', 'Lotte', 'Ruben', 'Nicole', 'Olivia', 'Russel', 'Amy', 'Emma', 'Brian', 'Aditi', 'Raveena', 'Ivy', 'Joanna', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Mathew', 'Geraint', 'Celine', 'Mathieu', 'Chantal', 'Marlene', 'Vicki', 'Hans', 'Aditi', 'Dora', 'Karl', 'Carla', 'Bianca', 'Giorgio', 'Mizuki', 'Takumi', 'Seoyeon', 'Liv', 'Ewa', 'Maja', 'Jacek', 'Jan', 'Camila', 'Vitoria', 'Recardo', 'Carmen', 'Tatyana', 'Maxim', 'Conchita', 'Lucia', 'Enrique', 'Mia', 'Lupe', 'Penelope', 'Miguel', 'Astrid', 'Filiz', 'Joanna']
 
     voices = ['Nicole', 'Olivia', 'Russell', 'Amy', 'Emma', 'Brian', 'Ivy', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Kevin', 'Matthew', 'Joanna']
-    return render_template('index.html', voices = voices)
+
+    quantity_method = ['None', 'quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered']
+
+    math_error_type = ['Break', 'Message']
+
+    bold = ['prosody', 'emphasis']
+    bold_emphasis = ['none', 'moderate', 'reduced', 'strong']
+    prosody_rate = ['x-slow', 'slow', 'fast', 'x-fast', 'medium']
+    prosody_pitch = ['x-low', 'low', 'high', 'x-high', 'medium']
+    prosody_volume = ['silent', 'x-soft', 'soft', 'loud', 'x-loud', 'medium']
+
+    return render_template('index.html', voices = voices, quantity_method = quantity_method, bold = bold, bold_emphasis = bold_emphasis, prosody_rate = prosody_rate, prosody_pitch = prosody_pitch, prosody_volume = prosody_volume, math_error_type = math_error_type)
 
 # Upload middle man
 @app.route('/upload', methods=['POST'])
@@ -215,11 +226,47 @@ def handle_form():
     # Update YAML file based on settings config
     # When you get an actual settings file, put this in seperate function
     voice = request.form.get('voice')
+    math_error_type = request.form.get('math_error_type')
+    math_error_message = request.form.get('math_error_message')
+    math_error_breaktime = request.form.get('math_error_breaktime')
+    math_perentheses = request.form.get('quantity_method')
+    bold = request.form.get('bold')
+    bold_emphasis = request.form.get('bold_emphasis')
+    bold_prosody_rate = request.form.get('bold_prosody_rate')
+    bold_prosody_pitch = request.form.get('bold_prosody_pitch')
+    bold_prosody_volume = request.form.get('bold_prosody_volume')
+
     with open('app_config.yaml') as f:
         doc = yaml.load(f)
 
     if voice != 'Joanna':
+        logging("CONFIG", voice)
         doc['VOICE_ID']['CONFIG'] = voice
+
+    # Math perentheses is not none or default
+    if math_perentheses != 'None' or math_perentheses != 'parentheses_numbered':
+        doc['QUANTITY_MODE']['CONFIG']['TYPE'] = 'Quantity'
+        doc['QUANTITY_MODE']['CONFIG']['QUANTITY_METHOD'] = math_perentheses
+    logging("CONFIG", math_perentheses)
+
+    # Math mode Error
+    if math_error_type == 'Message':
+        doc['MATH_ERROR']['CONFIG']['TYPE'] = math_error_type
+        doc['MATH_ERROR']['CONFIG']['MESSAGE'] = math_error_message
+    elif math_error_type == 'Break':
+        doc['MATH_ERROR']['CONFIG']['TYPE'] = math_error_type
+        doc['MATH_ERROR']['CONFIG']['BREAK_TIME'] = '"' + str(math_error_breaktime) + 's"'
+
+    # Bold is set for prosody
+    if bold != 'emphasis':
+        doc['BOLD']['CONFIG']['TYPE'] = bold 
+        doc['BOLD']['CONFIG']['PROSODY']['RATE'] = bold_prosody_rate 
+        doc['BOLD']['CONFIG']['PROSODY']['PITCH'] = bold_prosody_pitch 
+        doc['BOLD']['CONFIG']['PROSODY']['VOLUME'] = bold_prosody_volume
+    elif bold == 'emphasis':
+        if bold_emphasis != 'strong':
+            doc['BOLD']['CONFIG']['TYPE'] = bold 
+            doc['BOLD']['CONFIG']['EMPHASIS'] = bold_emphasis
 
     with open('temporary.yaml', 'w') as f:
         yaml.dump(doc, f)

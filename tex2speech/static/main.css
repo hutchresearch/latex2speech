@@ -19,7 +19,7 @@
 html, body {
     height: 100%;
     width: 100%;
-    background-color: #eee;
+    background-color: #f6f6f6;
 }
 
 .clearfix {
@@ -38,7 +38,7 @@ header {
 
 header h1 {
     position: absolute;
-    width: 100%;
+    width: calc(100vw - 34px);
     text-align: center;
     color: #FFF;
 }
@@ -51,7 +51,7 @@ header img {
 
 /* Main CSS HOME */
 main {
-    width: 100%;
+  width: calc(100vw - 34px);
     top: 60px;
 }
 
@@ -109,7 +109,7 @@ main {
     margin-right: 20%;
     margin-top: 30px;
     border: 4px dashed rgb(152, 152, 152) !important;
-    background-color: #eee !important;
+    background-color: #f6f6f6 !important;
 }
 
 .dropzone .dz-preview.dz-file-preview .dz-image {
@@ -134,6 +134,29 @@ main {
     margin-top: 30px !important;
 }
 /* End of Dropzone Override */
+
+/* Options CSS */
+
+.optionsMenu {
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.optionsBox {
+  text-align: left;
+}
+
+#advanced_options {
+  margin-top: 10px;
+}
+
+#advanced_options_button {
+  cursor: pointer;
+}
+
+/* End of Options CSS */
 
 /* End of Main CSS HOME */
 
@@ -198,6 +221,21 @@ footer {
 }
 
 /* End of Footer CSS */
+
+/* List CSS */
+ul {
+  list-style-position: inside;
+}
+/* End of List CSS */
+
+/* Table CSS */
+th {
+  font-weight: normal;
+}
+.cellPadded {
+  padding-left: 20px;
+}
+/* End of Table CSS */
 
 #dot-elastic {
     position: relative;
