@@ -181,7 +181,7 @@ main {
 
 .inputBox img {
   height: 30px;
-  width: 30px;
+  width: 100px;
 }
 
 .fileOutput, .error_back {
@@ -208,7 +208,7 @@ main {
 
 .error_back img{
   height: 30px;
-  width: 30px;
+  width: 100px;
 }
 
 /* End of Main CSS DOWNLOAD */

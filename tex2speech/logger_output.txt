@@ -1,6 +1,6 @@
 -- log for POSTPROCESS--
-01:44:05 >> h_{1} equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> 0.444 times a <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>
-01:44:05 >> h_{2} equals 0.444
-01:44:05 >> h equals a
-01:44:05 >> h_{1} equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> 16 to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>
-01:44:05 >> h_{2} equals 1.26
+16:59:45 >> h_{1} equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> 0.444 times a <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>
+16:59:45 >> h_{2} equals 0.444
+16:59:45 >> h equals a
+16:59:45 >> h_{1} equals <prosody pitch="+25%"><break time="0.3ms"/>begin first parentheses</prosody><break time="0.3ms"/> 16 to the power of -1 <prosody pitch="+25%"><break time="0.3ms"/>end first parentheses</prosody><break time="0.3ms"/>
+16:59:45 >> h_{2} equals 1.26
