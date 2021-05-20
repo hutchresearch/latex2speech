@@ -586,8 +586,8 @@ def test_sympy(mathmode):
 def post_process(sympy_text):
     # Gets rid of trailing zeros at the end of a decimal number
     sympy_text = re.sub(r"(\.[0]{0,}[1-9]{1,})[0]{1,}", "\\1", sympy_text)
-    logging("POSTPROCESS", sympy_text)
-    writelog("POSTPROCESS")
+    # logging("POSTPROCESS", sympy_text)
+    # writelog("POSTPROCESS")
     return sympy_text
 
 def run_sympy(mathmode):

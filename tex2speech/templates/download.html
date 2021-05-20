@@ -21,7 +21,7 @@
             <h2>Your audio files are ready to download</h2>
             <div class="output">
                 {% for files in file_holder %}
-                    <div class = "fileOutput">
+                    <div class = "fileOutput" title = "Download">
                         <a href="{{ files[1] }}" target = "_blank">
                             <img src = "{{url_for('static', filename='download.png')}}">
                             </img>
@@ -33,7 +33,7 @@
             </div>
 
             <!-- Back Button -->
-            <div class = "fileOutput">
+            <div class = "fileOutput" title = "Go Back">
                 <a href="/">
                     <img src = "{{url_for('static', filename='back.png')}}">
                     </img>

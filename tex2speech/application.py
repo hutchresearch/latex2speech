@@ -240,14 +240,12 @@ def handle_form():
         doc = yaml.load(f)
 
     if voice != 'Joanna':
-        logging("CONFIG", voice)
         doc['VOICE_ID']['CONFIG'] = voice
 
     # Math perentheses is not none or default
     if math_perentheses != 'None' or math_perentheses != 'parentheses_numbered':
         doc['QUANTITY_MODE']['CONFIG']['TYPE'] = 'Quantity'
         doc['QUANTITY_MODE']['CONFIG']['QUANTITY_METHOD'] = math_perentheses
-    logging("CONFIG", math_perentheses)
 
     # Math mode Error
     if math_error_type == 'Message':
