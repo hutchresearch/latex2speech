@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from enum import Enum
 import inflect
 import re
+from logger import logging, writelog
 
 infl = inflect.engine()
 
@@ -25,8 +26,7 @@ def ordinal_str(num):
     return infl.number_to_words(infl.ordinal(num))
 
 def remove_extra_spaces(str):
-    re.sub(' +', ' ', str)
-    return str.strip()
+    return " ".join(str.split())
 
 '''
 Convert SymPy object expr to english words.
@@ -36,7 +36,10 @@ def convert_sympy_ssml(expr, mode):
     funcs_tree = ET.parse(sympy_funcs_file)
     s = _convert(expr, funcs_tree, mode, 1, True)
     s = remove_extra_spaces(s)
-    s = s.replace('pm', ' plus or minus ')
+    # Hack to overcome the fact that sympy does not support 'plus or minus' or 'minus'
+    s = s.replace('times pm times', 'plus or minus')
+    s = s.replace('plus -', 'minus')
+    print(s)
     return s
     
 '''
