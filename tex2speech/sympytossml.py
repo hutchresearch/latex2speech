@@ -36,6 +36,7 @@ def convert_sympy_ssml(expr, mode):
     funcs_tree = ET.parse(sympy_funcs_file)
     s = _convert(expr, funcs_tree, mode, 1)
     s = remove_extra_spaces(s)
+    s = s.replace('pm', ' plus or minus ')
     return s
     
 '''
