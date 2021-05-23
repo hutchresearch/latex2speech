@@ -10,6 +10,7 @@
     </cmd>
 
     <cmd name = "author" type = "none" family = "">
+        <break time = "0.3s"/>
         By:
         <break time = "0.3s"/>
         <arg num = "1"/>
@@ -17,6 +18,7 @@
     </cmd>
 
     <cmd name = "date" type = "none" family = "">
+        <break time = "0.3s"/>
         Published:
         <break time = "0.3s"/>
         <arg num = "1"/>
@@ -24,6 +26,7 @@
     </cmd>
 
     <cmd name="section" type = "none" family = "">
+        <break time = "0.3s"/>
         Section: 
         <break time = "0.3s"/>
         <arg num = "1"/>
@@ -31,6 +34,7 @@
     </cmd>
 
     <cmd name="subsection" type = "none" family = "">
+        <break time = "0.3s"/>
         Sub Section: 
         <break time = "0.3s"/>
         <arg num = "1"/>
@@ -132,7 +136,7 @@
         TeX
     </cmd>
 
-    <!-- Need to create new tag here for \item stuff -->
+    <!-- TODO: This is currently handled in an if statement in conversion_parser.py -->
     <cmd name = "item" type = "none" family = "">
         Item
     </cmd>
