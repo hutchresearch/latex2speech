@@ -1,4 +1,7 @@
 instance/
 .DS_Store
 .vscode
+.gitignore
+temporary.yaml
 tex2speechenv/
+upload/

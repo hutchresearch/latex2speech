@@ -240,7 +240,7 @@ class ConversionParser:
 
                         # Handle \item command
                         if (str(cmd_node)[:5] == r'\item'):
-                            text = str(cmd_node)[5:]
+                            text = "<break time = \"0.3s\"/>" + str(cmd_node)[5:]
 
                         self._appendText(text, left_child, elem_list_parent)
                     else:
