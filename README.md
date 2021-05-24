@@ -2,7 +2,7 @@
 
 
 # TeX2Speech
-A web application for converting LaTeX documents to spoken audio. You can demo the program [here](http://tex2speech.eba-mgbfwtgw.us-east-1.elasticbeanstalk.com/).
+[A web application for converting LaTeX documents to spoken audio](http://tex2speech.eba-mgbfwtgw.us-east-1.elasticbeanstalk.com/).
 
 ## Features
 - Quickly and conveniently upload LaTeX and download mp3 with an intuitive web interface
