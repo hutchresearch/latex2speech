@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Tex2Speech</title>
+    <link rel="shortcut icon" type="image/jpg" href="static/tex2speech-logo.png"/>
 
     <!-- CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}" />
@@ -22,12 +23,11 @@
         </div>
 
         <!-- Back Button -->
-        <div class = "error_back">
+        <div class = "fileOutput" title = "Go Back">
             <a href="/">
-                <img src = "{{url_for('static', filename='back.png')}}">
+                <img src = "{{url_for('static', filename='back.png')}}" title="Go Back">
                 </img>
             </a>
-            <p>Go Back</p>
         </div>
 
     </main>
