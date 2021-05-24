@@ -39,7 +39,8 @@ def convert_sympy_ssml(expr, mode):
     # Hack to overcome the fact that sympy does not support 'plus or minus' or 'minus'
     s = s.replace('times pm times', 'plus or minus')
     s = s.replace('plus -', 'minus')
-    print(s)
+    # Infinity hack
+    s = s.replace(' oo ', ' infinity ')
     return s
     
 '''

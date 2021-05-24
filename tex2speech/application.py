@@ -168,7 +168,7 @@ def index():
 
     voices = ['Nicole', 'Russell', 'Amy', 'Emma', 'Brian', 'Ivy', 'Kendra', 'Kimberly', 'Salli', 'Joey', 'Justin', 'Matthew', 'Joanna']
 
-    quantity_method = ['None', 'quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered']
+    quantity_method = ['quantity', 'quantity_numbered', 'parentheses', 'parentheses_numbered', 'None']
 
     math_error_type = ['Break', 'Message']
 
