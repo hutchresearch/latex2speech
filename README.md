@@ -1,4 +1,6 @@
-<img src="https://raw.githubusercontent.com/hutchresearch/latex2speech/main/tex2speech/static/tex2speech-logo.png" width="300" height="300" style = "text-align: center;" />
+<div style = 'text-align:center;'>
+<img src="https://raw.githubusercontent.com/hutchresearch/latex2speech/main/tex2speech/static/tex2speech-logo.png" width="300" height="300" />
+</div>
 
 # TeX2Speech
 A web application for converting LaTeX documents to spoken audio. You can demo the program [here](http://tex2speech.eba-mgbfwtgw.us-east-1.elasticbeanstalk.com/).
