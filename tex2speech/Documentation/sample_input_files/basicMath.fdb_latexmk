@@ -1,12 +1,10 @@
 # Fdb version 3
-["pdflatex"] 1621809890 "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.tex" "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.pdf" "basicMath" 1621809905
-  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.aux" 1621809891 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.tex" 1621809889 361 8488ef41965b4a1c236043c09bff60f8 ""
+["pdflatex"] 1621811604 "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.tex" "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.pdf" "basicMath" 1621811605
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.aux" 1621811605 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.tex" 1621811604 283 c59247f9a6642b9f05072f15870e9936 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
-  "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
-  "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsbsy.sty" 1523134290 2211 ca7ce284ab93c8eecdc6029dc5ccbd73 ""
   "/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsgen.sty" 1523134290 4161 7f6eb9092061a11f87d08ed13515b48d ""
@@ -21,11 +19,11 @@
   "/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1586288239 4811913 0be9a7e86c70a26e5e3042966bcd7097 ""
   "/usr/local/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt" 1586288259 2432462 fd0fa20e9a3cb5f8169fd0ba1c955158 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
-  "basicMath.aux" 1621809891 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
-  "basicMath.tex" 1621809889 361 8488ef41965b4a1c236043c09bff60f8 ""
+  "basicMath.aux" 1621811605 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
+  "basicMath.tex" 1621811604 283 c59247f9a6642b9f05072f15870e9936 ""
   (generated)
+  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.pdf"
   "basicMath.pdf"
   "basicMath.aux"
-  "basicMath.log"
   "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.log"
-  "/Users/taichen/Desktop/Tai/MyRepos/Tex2Speech/latex2speech/tex2speech/Documentation/sample_input_files/basicMath.pdf"
+  "basicMath.log"

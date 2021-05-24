@@ -8,6 +8,7 @@
     </cmd>
 
     <cmd name="author" type="none" family="">
+        <break time="0.3s" />
         By:
         <break time="0.3s" />
         <arg num="1" />
@@ -15,6 +16,7 @@
     </cmd>
 
     <cmd name="date" type="none" family="">
+        <break time="0.3s" />
         Published:
         <break time="0.3s" />
         <arg num="1" />
@@ -22,6 +24,7 @@
     </cmd>
 
     <cmd name="section" type="none" family="">
+        <break time="0.3s" />
         Section: 
         <break time="0.3s" />
         <arg num="1" />
@@ -29,6 +32,7 @@
     </cmd>
 
     <cmd name="subsection" type="none" family="">
+        <break time="0.3s" />
         Sub Section: 
         <break time="0.3s" />
         <arg num="1" />
