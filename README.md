@@ -1,3 +1,4 @@
+![Logo](https://github.com/hutchresearch/latex2speech/blob/main/tex2speech/static/tex2speech-logo.png)
 # TeX2Speech
 A web application for converting LaTeX documents to spoken audio. You can demo the program [here](http://tex2speech.eba-mgbfwtgw.us-east-1.elasticbeanstalk.com/).
 
