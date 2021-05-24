@@ -1,5 +1,5 @@
-<div style = 'text-align:center;'>
-<img src="https://raw.githubusercontent.com/hutchresearch/latex2speech/main/tex2speech/static/tex2speech-logo.png" width="300" height="300" align = 'center' />
+<div align = 'center'>
+<img src="https://raw.githubusercontent.com/hutchresearch/latex2speech/main/tex2speech/static/tex2speech-logo.png" width="300" height="300" />
 </div>
 
 # TeX2Speech
