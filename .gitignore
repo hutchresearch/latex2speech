@@ -5,3 +5,4 @@ instance/
 temporary.yaml
 tex2speechenv/
 upload/
+static/output.xml

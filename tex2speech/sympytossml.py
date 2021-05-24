@@ -33,21 +33,17 @@ Convert SymPy object expr to english words.
 Mode defines how quantities should be denoted.
 '''
 def convert_sympy_ssml(expr, mode):
+    print_tree(expr, assumptions=False)
     funcs_tree = ET.parse(sympy_funcs_file)
-    s = _convert(expr, funcs_tree, mode, 1, True)
+    s = _convert(expr, funcs_tree, mode, 1)
     s = remove_extra_spaces(s)
-    # Hack to overcome the fact that sympy does not support 'plus or minus' or 'minus'
-    s = s.replace('times pm times', 'plus or minus')
-    s = s.replace('plus -', 'minus')
-    # Infinity hack
-    s = s.replace(' oo ', ' infinity ')
     return s
     
 '''
 Recursive conversion function.
 User should call convert_sympy_ssml instead.
 '''
-def _convert(expr, funcs_tree, mode, quantity_index, is_initial):
+def _convert(expr, funcs_tree, mode, quantity_index):
     func_id = expr.__class__.__name__
     r = funcs_tree.getroot()
     func = r.find(func_id)
@@ -71,12 +67,9 @@ def _convert(expr, funcs_tree, mode, quantity_index, is_initial):
 
             if func[j].tag == 'arg':
                 if isinstance(expr.args[i], Atom): 
-                    s += _convert(expr.args[i], funcs_tree, mode, quantity_index, is_initial)
+                    s += _convert(expr.args[i], funcs_tree, mode, quantity_index)
                 elif len(expr.args[i].args) == 1 or mode == QuantityModes.NO_INDICATOR:
-                    s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index, is_initial) + ' '
-                elif is_initial:
-                    s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index, is_initial) + ' '
-                    is_initial = false
+                    s += ' ' + _convert(expr.args[i], funcs_tree, mode, quantity_index) + ' '
                 else:
                     n_str = ''
                     if mode == QuantityModes.PARENTHESES or mode == QuantityModes.PARENTHESES_NUMBERED:
@@ -87,7 +80,7 @@ def _convert(expr, funcs_tree, mode, quantity_index, is_initial):
                         n_str = ordinal_str(quantity_index)
 
                     s += ' ' + begin_str + ' ' + n_str + ' ' + q_str + \
-                    _convert(expr.args[i], funcs_tree, mode, quantity_index + 1, is_initial) + \
+                    _convert(expr.args[i], funcs_tree, mode, quantity_index + 1) + \
                     end_str + ' ' + n_str + ' ' + q_str + ' ' 
                 
                 i_sub = 0
@@ -95,7 +88,7 @@ def _convert(expr, funcs_tree, mode, quantity_index, is_initial):
                 j += 1
             
             elif func[j].tag == 'subarg':
-                s += _convert(expr.args[i].args[i_sub], funcs_tree, mode, quantity_index, is_initial)
+                s += _convert(expr.args[i].args[i_sub], funcs_tree, mode, quantity_index)
                 i_sub += 1
                 if i_sub == len(expr.args[i].args):
                     i += 1

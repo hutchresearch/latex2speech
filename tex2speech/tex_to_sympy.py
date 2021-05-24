@@ -586,8 +586,13 @@ def test_sympy(mathmode):
 def post_process(sympy_text):
     # Gets rid of trailing zeros at the end of a decimal number
     sympy_text = re.sub(r"(\.[0]{0,}[1-9]{1,})[0]{1,}", "\\1", sympy_text)
-    # logging("POSTPROCESS", sympy_text)
-    # writelog("POSTPROCESS")
+    # Add pause before and after math
+    sympy_text = "<break time = \"0.3s\"/>" + sympy_text + "<break time = \"0.3s\"/>"
+    # Overcome the fact that sympy does not support 'plus or minus' or 'minus'
+    sympy_text = sympy_text.replace('times pm times', 'plus or minus')
+    sympy_text = sympy_text.replace('plus -', 'minus')
+    # Replace fake infinity character
+    sympy_text = sympy_text.replace(' oo ', ' infinity ')
     return sympy_text
 
 def run_sympy(mathmode):
