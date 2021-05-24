@@ -595,7 +595,6 @@ def post_process(sympy_text):
     sympy_text = sympy_text.replace('plus <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> -1 times', 'minus')
     # Replace fake infinity character
     sympy_text = sympy_text.replace(' oo ', ' infinity ')
-    print(sympy_text)
     return sympy_text
 
 def run_sympy(mathmode):
