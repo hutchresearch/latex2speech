@@ -589,10 +589,10 @@ def post_process(sympy_text):
     # Add pause before and after math
     sympy_text = "<break time = \"0.3s\"/>" + sympy_text + "<break time = \"0.3s\"/>"
     # Overcome the fact that sympy does not support 'plus or minus' or 'minus'
-    # This is a terrible hack and must be changed
+    # This is a terrible hack and must be changed. 
+    # It also does not work when quantity/parentheses indicators are on
     sympy_text = sympy_text.replace('times pm times', 'plus or minus')
     sympy_text = sympy_text.replace('plus -', 'minus')
-    sympy_text = sympy_text.replace('plus <prosody pitch="+25%"><break time="0.3ms"/>begin quantity</prosody><break time="0.3ms"/> -1 times', 'minus')
     # Replace fake infinity character
     sympy_text = sympy_text.replace(' oo ', ' infinity ')
     return sympy_text
