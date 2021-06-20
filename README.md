@@ -1,11 +1,11 @@
-<img src="https://raw.githubusercontent.com/hutchresearch/latex2speech/main/tex2speech/static/tex2speech-logo.png" width="300" height="300" />
+<img src="https://raw.githubusercontent.com/hutchresearch/latex2speech/main/tex2speech/static/tex2speech-logo.png" width="250" height="250" />
 
 
 # TeX2Speech
 A web application for converting LaTeX documents to spoken audio.
 
 ## Documentation
-For full documentation, visit [https://tex2speech-website.vercel.app/](https://tex2speech-website.vercel.app/).
+For full documentation, visit [tex2speech](https://tex2speech-website.vercel.app/).
 
 For quick technical documentation, see the [wiki](https://github.com/hutchresearch/latex2speech/wiki).
 
