@@ -1,10 +1,10 @@
-<div style="text-align:center">
+<div align = "center">
     <a href = "https://tex2speech-website.vercel.app/">
         <img src="https://raw.githubusercontent.com/hutchresearch/latex2speech/main/tex2speech/static/tex2speech-logo.png" width="200" height="200" />
     </a><br>
-    <span style = "font-weight: bold; font-size: 25px;">Tex2Speech</span>
-    <p>Sleek, easy to use text-to-speech web application for converting LaTeX documents into spoken audio.<br><a href = "https://tex2speech-website.vercel.app/docs.html" style = "font-weight: bold;">Explore Tex2Speech Docs »</a></p>
-    <a href = "https://github.com/hutchresearch/latex2speech/issues/new?template=bug_report.md">Report Bug</a> ▪ <a href = "https://github.com/hutchresearch/latex2speech/issues/new?template=feature_request.md">Request Feature</a>
+    <h3><b>Tex2Speech</b></h3>
+    <p>Sleek, easy to use text-to-speech web application for converting LaTeX documents into spoken audio.<br><a href = "https://tex2speech-website.vercel.app/docs.html"><b>Explore Tex2Speech Docs »</b></a></p>
+    <a href = "https://github.com/hutchresearch/latex2speech/issues/new?template=bug_report.md">Report Bug</a> ∙ <a href = "https://github.com/hutchresearch/latex2speech/issues/new?template=feature_request.md">Request Feature</a>
 </div>
 
 ### Getting Started
