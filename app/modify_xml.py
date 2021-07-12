@@ -38,7 +38,7 @@ def bold(contents, mytree):
 
 def run_xml_modify():
     # Create tree
-    mytree = ET.parse('./static/pronunciation.xml')
+    mytree = ET.parse('./static/xml/pronunciation.xml')
     myroot = mytree.getroot()
 
     # Read yaml contents

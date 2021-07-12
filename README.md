@@ -1,6 +1,6 @@
 <div align = "center">
     <a href = "https://tex2speech-website.vercel.app/">
-        <img src="https://raw.githubusercontent.com/willsower/latex2speech/main/static/img/Tex2SpeechLogo.png" width="200" height="200" />
+        <img src="https://raw.githubusercontent.com/willsower/latex2speech/main/app/static/img/Tex2SpeechLogo.png" width="200" height="200" />
     </a>
     <h3><b>Tex2Speech</b></h3>
     <p>Sleek, easy to use text-to-speech web application for converting LaTeX documents into spoken audio.<br><a href = "https://tex2speech-website.vercel.app/docs.html"><b>Explore Tex2Speech Docs »</b></a></p>
@@ -14,11 +14,11 @@
 Note: You need to have Python on your machine and have an active Amazon Web Services account
 
 1. Clone this repository
-2. Create a virtual environment `python3 -m venv env` 
+2. Create a virtual environment in root directory `python3 -m venv env` 
 3. Activate it `source env/bin/activate` on Mac/Linux or `source env/Scripts/activate` on Windows
 4. Run `pip3 install -r requirements.txt` to install all dependencies
 5. Install the AWS CLI by running `pip3 install awscli` then run `aws configure` add in your AWS Secret Key and Access Key
-6. Create directory called instance in the `latex2speech/tex2speech` directory
+6. Create directory called instance in the `latex2speech/app` directory
 7. Create a file called config.py in the instance directory `instance/config.py`
 8. Create variable in config.py called `SECRET_KEY` and assign it a random generated key (string of random characters)
 9. To run project locally run `python3 application.py` 
