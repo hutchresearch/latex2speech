@@ -14,7 +14,7 @@ class QuantityModes(Enum):
     PARENTHESES = 3
     PARENTHESES_NUMBERED = 4
 
-sympy_funcs_file = './static/sympy_funcs.xml' 
+sympy_funcs_file = './static/xml/sympy_funcs.xml' 
 
 
 begin_str = '<prosody pitch=\"+25%\"><break time=\"0.3ms\"/>begin'

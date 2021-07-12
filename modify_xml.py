@@ -49,4 +49,4 @@ def run_xml_modify():
     bold(contents, mytree)
 
     # Write to output.xml
-    mytree.write('./static/output.xml')
+    mytree.write('./static/xml/output.xml')

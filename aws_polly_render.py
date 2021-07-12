@@ -148,7 +148,7 @@ def start_conversion(contents):
     run_xml_modify()
 
     # Create database/parser
-    db_source = open('static/output.xml')
+    db_source = open('static/xml/output.xml')
     db = ConversionDB(db_source.read())
     parser = ConversionParser(db)
 
