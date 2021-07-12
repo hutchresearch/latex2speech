@@ -115,7 +115,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
         doc1 = doc1.replace("\\", "")
         doc2 = doc2.replace("\\", "")
 
-        # print(doc1 + "\n" + doc2 + "\n" + doc1 == doc2)
+        print(doc1 + "\n" + doc2 + "\n" + doc1 == doc2)
         return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
 
     '''Testing inline references to the bibliography'''

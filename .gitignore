@@ -3,6 +3,7 @@ instance/
 .vscode
 .gitignore
 .pytest_cache
+.coverage
 temporary.yaml
 tex2speechenv/
 upload/
