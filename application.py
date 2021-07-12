@@ -215,7 +215,7 @@ def handle_form():
     # redirect to home if nothing in session
     if 'file_holder' not in session or session['file_holder'] == []:
         return redirect(url_for('index'))
-    
+
     file_holder = session['file_holder']
     bib_holder = session['bib_holder']
 
