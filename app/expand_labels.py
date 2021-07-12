@@ -1,4 +1,4 @@
-from logger import logging, writelog
+from app.logger import logging, writelog
 
 import TexSoup
 import os

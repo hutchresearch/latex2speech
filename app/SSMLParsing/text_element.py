@@ -1,4 +1,4 @@
-from SSMLParsing.ssml_element import SSMLElement
+from app.SSMLParsing.ssml_element import SSMLElement
 
 '''Simple wrapper for when text can't be placed to an adjacent node'''
 class TextElement(SSMLElement):

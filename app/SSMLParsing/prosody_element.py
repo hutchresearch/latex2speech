@@ -1,4 +1,4 @@
-from SSMLParsing.ssml_element_node import SSMLElementNode
+from app.SSMLParsing.ssml_element_node import SSMLElementNode
 import xml.etree.ElementTree as ET
 
 # Prosody for Volume attribute
