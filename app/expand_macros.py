@@ -1,7 +1,7 @@
 import re
 import TexSoup
-from app.tex_soup_utils import safe_replace_child, get_effective_children, expr_test, seperate_contents
-from app.logger import logging, writelog
+from tex_soup_utils import safe_replace_child, get_effective_children, expr_test, seperate_contents
+from logger import logging, writelog
 
 class Macro:
     def _arg_to_string(self, arg):

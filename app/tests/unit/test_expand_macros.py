@@ -1,7 +1,7 @@
 import TexSoup
 import unittest
 
-from app import expand_macros
+import expand_macros
 
 '''Unit tests for the classes. Since the expandMacro functionality is tested
    thouroughly in Testexpand_doc_macros these are just small tests to test

@@ -1,8 +1,8 @@
 import unittest
-from app.application import app
+from application import app
 from pathlib import Path
 
-from app import aws_polly_render
+import aws_polly_render
 
 '''Work in progress tests -- Will change layout to handle zips in quarter 3'''
 

@@ -11,6 +11,7 @@ static/output.xml
 logger_output.txt
 env
 venv
+out.tex
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

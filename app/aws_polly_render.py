@@ -18,15 +18,15 @@ from contextlib import closing
 # Parsing Library
 from pybtex.database.input import bibtex
 
-from app.doc_preprocess import doc_preprocess
-from app.expand_labels import expand_doc_new_labels
-from app.format_master_files import format_master_files
-from app.doc_cleanup import cleanxml_string
-from app.modify_xml import run_xml_modify
+from doc_preprocess import doc_preprocess
+from expand_labels import expand_doc_new_labels
+from format_master_files import format_master_files
+from doc_cleanup import cleanxml_string
+from modify_xml import run_xml_modify
 
 # Internal classes
-from app.conversion_db import ConversionDB
-from app.conversion_parser import ConversionParser
+from conversion_db import ConversionDB
+from conversion_parser import ConversionParser
 
 # Creates session of user using AWS credentials
 session = Session(profile_name='default')

@@ -1,8 +1,8 @@
 import unittest
-from app.application import app 
+from application import app 
 import os
 
-import app.expand_labels, app.conversion_parser, app.aws_polly_render
+import expand_labels, conversion_parser, aws_polly_render
 
 class TestExternalBibliographies(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
@@ -115,17 +115,17 @@ class TestEmbeddedBibliographies(unittest.TestCase):
         doc1 = doc1.replace("\\", "")
         doc2 = doc2.replace("\\", "")
 
-        print(doc1 + "\n" + doc2 + "\n" + doc1 == doc2)
+        print("\n\nTEST\n\n " + doc1 + "\n" + doc2 + "\n" + doc1 == doc2)
         return set(str(doc1).split(' ')) == set(str(doc2).split(' '))
 
     '''Testing inline references to the bibliography'''
     def testing_inline_ref_bibliography(self):
 # [NOTE] -> I put this in the bug log, but notice how \LaTeX\, it will render \LaTeX as a command AND \Companion as a command
         # First test of inline commentation of bibliogrpahy references
-        doc = (r"Three items are cited: \textit{The \LaTeX\ Companion} "+
+        doc = (r"\begin{document}Three items are cited: \textit{The \LaTeX\ Companion} "+
                         r"book \cite{latexcompanion}, the Einstein journal paper \cite{einstein}, and the "+
                         r"Donald Knuth's website \cite{knuthwebsite}. The \LaTeX\ related items are"+
-                        r"\cite{latexcompanion,knuthwebsite}. ")
+                        r"\cite{latexcompanion,knuthwebsite}. \end{document}")
 
         expand = app.aws_polly_render.start_conversion(doc)
 

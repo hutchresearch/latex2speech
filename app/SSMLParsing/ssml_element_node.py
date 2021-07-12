@@ -1,4 +1,4 @@
-from app.SSMLParsing.ssml_element import SSMLElement
+from SSMLParsing.ssml_element import SSMLElement
 import xml.etree.ElementTree as ET
 import copy
 

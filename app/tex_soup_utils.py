@@ -1,5 +1,5 @@
 import TexSoup
-from app.logger import logging, writelog
+from logger import logging, writelog
 
 def safe_replace_child(parent, child, child_index, child_repl):
     '''

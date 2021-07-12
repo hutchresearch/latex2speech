@@ -4,15 +4,15 @@ import xml.etree.ElementTree as ET
 
 import TexSoup
 
-from app.SSMLParsing.text_element import TextElement
-from app.SSMLParsing.root_element import RootElement
-from app.SSMLParsing.break_element import BreakElement
-from app.SSMLParsing.arg_element import ArgElement
-from app.SSMLParsing.content_element import ContentElement
-from app.SSMLParsing.emphasis_element import EmphasisElement
-from app.SSMLParsing.prosody_element import ProsodyElement
-from app import conversion_db
-from app.conversion_parser import ConversionParser
+from SSMLParsing.text_element import TextElement
+from SSMLParsing.root_element import RootElement
+from SSMLParsing.break_element import BreakElement
+from SSMLParsing.arg_element import ArgElement
+from SSMLParsing.content_element import ContentElement
+from SSMLParsing.emphasis_element import EmphasisElement
+from SSMLParsing.prosody_element import ProsodyElement
+import conversion_db
+from conversion_parser import ConversionParser
 
 class testConversionParser(unittest.TestCase):
     '''

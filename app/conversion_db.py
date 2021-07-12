@@ -1,16 +1,16 @@
 import xml.etree.ElementTree as ET
 
-from app.SSMLParsing.arg_element import ArgElement
-from app.SSMLParsing.break_element import BreakElement
-from app.SSMLParsing.content_element import ContentElement
-from app.SSMLParsing.emphasis_element import EmphasisElement
-from app.SSMLParsing.prosody_element import ProsodyElement
-from app.SSMLParsing.paragraph_element import ParagraphElement
-from app.SSMLParsing.root_element import RootElement
-from app.SSMLParsing.ssml_element_node import SSMLElementNode
-from app.SSMLParsing.ssml_element import SSMLElement
-from app.SSMLParsing.text_element import TextElement
-from app.logger import logging, writelog
+from SSMLParsing.arg_element import ArgElement
+from SSMLParsing.break_element import BreakElement
+from SSMLParsing.content_element import ContentElement
+from SSMLParsing.emphasis_element import EmphasisElement
+from SSMLParsing.prosody_element import ProsodyElement
+from SSMLParsing.paragraph_element import ParagraphElement
+from SSMLParsing.root_element import RootElement
+from SSMLParsing.ssml_element_node import SSMLElementNode
+from SSMLParsing.ssml_element import SSMLElement
+from SSMLParsing.text_element import TextElement
+from logger import logging, writelog
 
 class ConversionDB:
     def __init__(self, xmlFile):
