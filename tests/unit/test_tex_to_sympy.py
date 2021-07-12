@@ -1,5 +1,5 @@
 import unittest
-import tex_to_sympy
+from app import tex_to_sympy
 
 class TestTexToSympy(unittest.TestCase):
     

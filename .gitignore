@@ -2,6 +2,7 @@ instance/
 .DS_Store
 .vscode
 .gitignore
+.pytest_cache
 temporary.yaml
 tex2speechenv/
 upload/

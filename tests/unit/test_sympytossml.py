@@ -1,6 +1,6 @@
-from sympy import symbols
+from sympy import symbols, Function
 import unittest
-from sympytossml import *
+from app import sympytossml
 
 x, y, n, a, b = symbols('x y n a b')
 f, g, h = Function('f'), Function('g'), Function('h')

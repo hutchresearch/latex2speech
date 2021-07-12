@@ -1,4 +1,4 @@
-from SSMLParsing.ssml_element import SSMLElement
+from app.SSMLParsing.ssml_element import SSMLElement
 
 class ArgElement(SSMLElement):
     def __init__(self, argNum, argType='brace'):

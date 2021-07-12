@@ -1,7 +1,7 @@
 import pytest
 
-# from tex2speech import application as flask_app
-from tex2speech.application import application
+# from app import application as flask_app
+# from app.application import app as flask_app
 
 # @pytest.fixture
 # def app():

@@ -9,8 +9,8 @@ import yaml
 
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_dropzone import Dropzone
-from aws_polly_render import start_polly
-from logger import logging, writelog
+from app.aws_polly_render import start_polly
+from app.logger import logging, writelog
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 

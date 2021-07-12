@@ -1,11 +1,11 @@
 import unittest
 import tempfile
 import xml.etree.ElementTree as ET
-from conversion_db import ConversionDB
-from SSMLParsing.text_element import TextElement
-from SSMLParsing.break_element import BreakElement
-from SSMLParsing.prosody_element import ProsodyElement
-from SSMLParsing.emphasis_element import EmphasisElement
+from app.conversion_db import ConversionDB
+from app.SSMLParsing.text_element import TextElement
+from app.SSMLParsing.break_element import BreakElement
+from app.SSMLParsing.prosody_element import ProsodyElement
+from app.SSMLParsing.emphasis_element import EmphasisElement
 
 '''
 Unit tests for the ConversionDB class.
