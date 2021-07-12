@@ -15,8 +15,8 @@ Note: You need to have Python on your machine and have an active Amazon Web Serv
 
 1. Clone this repository
 2. Create a virtual environment `python3 -m venv env` 
-3. Activate it `source env/bin/activate`
-4. From `latex2speech/tex2speech` run `pip3 install -r requirements.txt` to install all dependencies
+3. Activate it `source env/bin/activate` on Mac/Linux or `source env/Scripts/activate` on Windows
+4. Run `pip3 install -r requirements.txt` to install all dependencies
 5. Install the AWS CLI by running `pip3 install awscli` then run `aws configure` add in your AWS Secret Key and Access Key
 6. Create directory called instance in the `latex2speech/tex2speech` directory
 7. Create a file called config.py in the instance directory `instance/config.py`
