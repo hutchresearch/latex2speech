@@ -1,0 +1,403 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+
+* {
+    padding: 0;
+    padding-left: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+:root {
+    --main-color: #003f87;
+    --dropzone-override: rgb(213, 211, 211);
+    /* --dot-color: #FFF; */
+    --dot-color: #FFF;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: #f6f6f6;
+}
+
+.clearfix {
+  clear: both;
+}
+
+/* Header CSS */
+header {
+    background-color: var(--main-color);
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+header h1 {
+    position: absolute;
+    width: calc(100vw - 34px);
+    text-align: center;
+    color: #FFF;
+}
+
+header img {
+    height: 50px;
+    width: auto;
+}
+/* End of Header CSS */
+
+/* Main CSS HOME */
+main {
+  width: calc(100vw - 34px);
+    top: 60px;
+}
+
+.descriptionBox {
+    text-align: left;
+    width: 40%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.descriptionBox h2 {
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#submit {
+    background-color: var(--main-color);
+    color: #FFF;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 7px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 25px;
+}
+
+#submit:hover {
+    background-color: #0a53a6;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+}
+
+#outerBlocker {
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+}
+
+#block {
+  width: 60%;
+  height: 300px;
+  position: absolute;
+  margin-left: 20%;
+  margin-right: 20%;
+  top: 50px;
+  visibility: hidden;
+}
+
+/* Dropzone Override */
+.dropzone {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 30px;
+    border: 4px dashed rgb(152, 152, 152) !important;
+    background-color: #f6f6f6 !important;
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image {
+    background: var(--dropzone-override) !important;
+    border: none !important;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span, .dropzone .dz-preview .dz-details .dz-size span {
+    background-color: var(--dropzone-override) !important;
+    border: none !important;
+}
+
+.dropzone .dz-preview .dz-details .dz-filename span {
+    background-color: var(--dropzone-override) !important;
+}
+
+.dropzone .dz-preview.dz-complete .dz-progress {
+    margin-top: 30px !important;
+}
+
+.dropzone .dz-preview:not(.dz-processing) .dz-progress {
+    margin-top: 30px !important;
+}
+/* End of Dropzone Override */
+
+/* Options CSS */
+
+.optionsMenu {
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.optionsBox {
+  text-align: left;
+}
+
+#advanced_options {
+  margin-top: 10px;
+}
+
+#advanced_options_button {
+  cursor: pointer;
+}
+
+/* End of Options CSS */
+
+/* End of Main CSS HOME */
+
+/* Main CSS DOWNLOAD */
+
+.inputBox {
+  margin-top: 40px;
+}
+
+.inputBox h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.inputBox a {
+  text-align: center;
+}
+
+.output {
+  /* text-align: center; */
+}
+
+.inputBox img {
+  height: 30px;
+  width: 100px;
+}
+
+.fileOutput, .error_back {
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  margin: auto;
+  margin-left: 48%;
+}
+
+.fileOutput p, .error_back p {
+  float: right;
+  padding-top: 4px;
+  margin-left: 4px;
+}
+
+.errorBox {
+  width: 80%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  margin: auto;
+}
+
+.error_back img{
+  height: 30px;
+  width: 100px;
+}
+
+/* End of Main CSS DOWNLOAD */
+
+/* Footer CSS */
+
+footer {
+    text-align: center;
+    padding: 15px;
+}
+
+/* End of Footer CSS */
+
+/* List CSS */
+ul {
+  list-style-position: inside;
+}
+/* End of List CSS */
+
+/* Table CSS */
+th {
+  font-weight: normal;
+}
+.cellPadded {
+  padding-left: 20px;
+}
+/* End of Table CSS */
+
+#dot-elastic {
+    position: relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElastic 1s infinite linear;
+
+    margin: auto;
+    left: 75px;
+    top: -58px;
+    visibility: hidden;
+  }
+  
+  #dot-elastic::before, #dot-elastic::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  
+  #dot-elastic::before {
+    left: -10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElasticBefore 1s infinite linear;
+  }
+  
+  #dot-elastic::after {
+    left: 10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--dot-color);
+    color: var(--dot-color);
+    animation: dotElasticAfter 1s infinite linear;
+  }
+  
+  @keyframes dotElasticBefore {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1.5);
+    }
+    50% {
+      transform: scale(1, 0.67);
+    }
+    75% {
+      transform: scale(1, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  
+  @keyframes dotElastic {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, 1.5);
+    }
+    75% {
+      transform: scale(1, 1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+  
+  @keyframes dotElasticAfter {
+    0% {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, 0.67);
+    }
+    75% {
+      transform: scale(1, 1.5);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+
+
+  .dot-spin {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: transparent;
+    box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), 0 18px 0 0 rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), -18px 0 0 0 rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 rgba(152, 128, 255, 0);
+    animation: dotSpin 1.5s infinite linear;
+    
+    margin: auto;
+    margin-bottom: 20px;
+  }
+  
+  @keyframes dotSpin {
+    0%,
+    100% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    12.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    25% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 0 var(--dot-color), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    37.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 0 var(--dot-color), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    50% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 0 var(--dot-color), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+    62.5% {
+      box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 var(--dot-color), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+    75% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 0 var(--dot-color), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+    87.5% {
+      box-shadow: 0 -18px 0 0 var(--dot-color), 12.72984px -12.72984px 0 0 var(--dot-color), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 var(--dot-color);
+    }
+  }
+
+@media screen and (max-width: 1465px) {
+  .fileOutput {
+    margin-left: 46%;
+  }
+}
+  
+@media screen and (max-width: 1020px) {
+  .fileOutput {
+    margin-left: 44%;
+  }
+
+  .descriptionBox {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .fileOutput {
+    margin-left: 41%;
+  }
+
+  .descriptionBox {
+    width: 60%;
+  }
+}
