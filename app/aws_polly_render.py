@@ -23,6 +23,7 @@ from expand_labels import expand_doc_new_labels
 from format_master_files import format_master_files
 from doc_cleanup import cleanxml_string
 from modify_xml import run_xml_modify
+from logger import logging,writelog, clearlog
 
 # Internal classes
 from conversion_db import ConversionDB
@@ -185,10 +186,12 @@ def start_polly(main, bib_contents):
         parsed_contents = cleanxml_string(parsed_contents)
 
         # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+        logging('MY_TAG', parsed_contents)
+        logging('test', "HYey")
 
         # Feed to Amazon Polly here
-        audio_link = tts_of_file(master[0], parsed_contents, end)
-        # audio_link = "hi"
+        # audio_link = tts_of_file(master[0], parsed_contents, end)
+        audio_link = "hi"
 
         links.append(audio_link)
 
