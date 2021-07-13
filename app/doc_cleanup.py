@@ -42,7 +42,3 @@ def cleanxml_string(xml_str):
         match = re.search(illegal_gt_pat_leading, xml_str)
 
     return xml_str
-
-if __name__ == '__main__':
-    print(cleanxml_string(r'<>>>><&haha&amp;'))
-    print(cleanxml_string(r'<whats < the deal > with> xml tags! &&&&&&&&&amp; <  kjlsdkf <<, < jklj > <<<<>>>>>> messed up man'))

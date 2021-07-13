@@ -12,6 +12,7 @@ logger_output.txt
 env
 venv
 out.tex
+htmlcov
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

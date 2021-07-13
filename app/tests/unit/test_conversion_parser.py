@@ -732,6 +732,3 @@ class testConversionParser(unittest.TestCase):
         # For each node
             # Looks at child but if has emphasis fine
             # Look at next, possibly creates new node, reaches up to the parent, modifies the list of children, then leave, now it's the parents turn
-
-if __name__ == "__main__":
-    unittest.main()
