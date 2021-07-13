@@ -25,6 +25,8 @@ class TestExternalBibliographies(unittest.TestCase):
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/>  Authors: Gratzer, George A., <break time='0.3s'/>"))
 
+        os.remove("testingBib.bib")
+
     # Testing single function of title being read correctly
     def testing_external_title(self):
         # Create new file
@@ -37,6 +39,8 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> title: More Math Into LaTeX<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
 
     # Testing single function of publisher being read correctly
     def testing_external_publisher(self):
@@ -51,6 +55,8 @@ class TestExternalBibliographies(unittest.TestCase):
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> publisher: Birkhauser<break time='0.3s'/>"))
 
+        os.remove("testingBib.bib")
+
     # Testing single function of address being read correctly
     def testing_external_address(self):
         # Create new file
@@ -63,6 +69,8 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> address: Boston<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
 
     # Testing single function of year being read correctly
     def testing_external_year(self):
@@ -77,6 +85,8 @@ class TestExternalBibliographies(unittest.TestCase):
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> year: 2007<break time='0.3s'/>"))
 
+        os.remove("testingBib.bib")
+
     # Testing single function of edition being read correctly
     def testing_external_edition(self):
         # Create new file
@@ -89,6 +99,8 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> edition: 4th<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
 
     # test to test parse bib files for external, gives overall
     def testing_external_bib_file(self):
@@ -107,6 +119,8 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/>  Authors: Gratzer, George A., <break time='0.3s'/> title: More Math Into LaTeX<break time='0.3s'/>publisher: Birkhauser<break time='0.3s'/>address: Boston<break time='0.3s'/>year: 2007<break time='0.3s'/>edition: 4th<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
         
 class TestEmbeddedBibliographies(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
