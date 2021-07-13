@@ -166,6 +166,13 @@ class ProsodyElement(SSMLElementNode):
 
     # Grabs self volume (+/- n dB)
     def getVolume(self):
+        if (str(self.volume)[0] == "-"):
+            if (str(self.volume)[1]).isnumeric():
+                return str(self.volume) + "dB"
+        else:
+            if (str(self.volume)[0]).isnumeric():
+                    return str(self.volume) + "dB"
+                    
         return str(self.volume)
 
     # Grabs self rate (n%)

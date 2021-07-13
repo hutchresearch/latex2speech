@@ -394,18 +394,18 @@ class testConversionParser(unittest.TestCase):
 
         self.assertIsInstance(ssmlParseTree.children[1], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[1].getHeadText(), '')
-        self.assertEqual(ssmlParseTree.children[1].getTailText(), '5')
+        self.assertEqual(ssmlParseTree.children[1].getTailText().strip(), '5')
         self.assertEqual(ssmlParseTree.children[1].getVolume(), 'x-loud')
         self.assertEqual(len(ssmlParseTree.children[1].children), 1)
 
         self.assertIsInstance(ssmlParseTree.children[1].children[0], ProsodyElement)
-        self.assertEqual(ssmlParseTree.children[1].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getHeadText().strip(), '6')
         self.assertEqual(ssmlParseTree.children[1].children[0].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[1].children[0].getVolume(), '+0dB')
+        self.assertEqual(ssmlParseTree.children[1].children[0].getVolume(), 'medium')
 
         self.assertIsInstance(ssmlParseTree.children[2], ProsodyElement)
-        self.assertEqual(ssmlParseTree.children[2].getHeadText(), '3')
-        self.assertEqual(ssmlParseTree.children[2].getTailText(), '4')
+        self.assertEqual(ssmlParseTree.children[2].getHeadText().strip(), '3')
+        self.assertEqual(ssmlParseTree.children[2].getTailText().strip(), '4')
         self.assertEqual(ssmlParseTree.children[2].getVolume(), '-3dB')
         self.assertEqual(len(ssmlParseTree.children[2].children), 1)
 
