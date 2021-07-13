@@ -411,25 +411,25 @@ class testConversionParser(unittest.TestCase):
 
         self.assertIsInstance(ssmlParseTree.children[2].children[0], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText(), '')
-        self.assertEqual(ssmlParseTree.children[2].children[0].getTailText(), '5')
-        self.assertEqual(ssmlParseTree.children[2].children[0].getVolume(), '+6dB')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getTailText().strip(), '5')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getVolume(), 'x-loud')
         self.assertEqual(len(ssmlParseTree.children[2].children), 1)
 
         self.assertIsInstance(ssmlParseTree.children[2].children[0].children[0], ProsodyElement)
-        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText(), '6')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText().strip(), '6')
         self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getVolume(), '+0dB')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getVolume(), 'medium')
         
         self.assertIsInstance(ssmlParseTree.children[3], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[3].getHeadText(), '')
         self.assertEqual(ssmlParseTree.children[3].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[3].getVolume(), '+0dB')
+        self.assertEqual(ssmlParseTree.children[3].getVolume(), 'medium')
         self.assertEqual(len(ssmlParseTree.children[3].children), 1)
 
         self.assertIsInstance(ssmlParseTree.children[3].children[0], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[3].children[0].getHeadText(), '')
         self.assertEqual(ssmlParseTree.children[3].children[0].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[3].children[0].getVolume(), '+3dB')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getVolume(), 'loud')
 
     ''' <prosody rate = ""></prosody>
             - x-slow, slow, medium, fast, x-fast. Sets pitch  
