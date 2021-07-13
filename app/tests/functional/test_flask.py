@@ -1,5 +1,5 @@
 import unittest
-from application import app
+from app import app
 from pathlib import Path
 
 import aws_polly_render

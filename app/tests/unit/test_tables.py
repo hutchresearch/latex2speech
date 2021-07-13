@@ -1,7 +1,7 @@
 import unittest
-from application import app 
+from app import app 
 
-import aws_polly_render, conversion_parser
+import tex2speech.aws_polly_render, tex2speech.conversion_parser
 
 class TestTables(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
@@ -15,7 +15,7 @@ class TestTables(unittest.TestCase):
                 "d & e & f \n"+
                "\\end{tabular}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         self.assertTrue(self._docsEqual(expand, r'<speak> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value: d  , Column 2, Value:  e  , Column 3, Value:  f <break time="40ms"/>    </speak>'))
 
         # Basic table with \hline command
@@ -29,7 +29,7 @@ class TestTables(unittest.TestCase):
                     "\\end{tabular} \n"+
                 "\\end{center}\n")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         self.assertTrue(self._docsEqual(expand, r'<speak>  <p> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: oranges  , Column 2, Value:  apples  , Column 3, Value:  pears  New Row:  , Column 1, Value:  red  , Column 2, Value:  green  , Column 3, Value:  blue  New Row:  , Column 1, Value: lettuce  , Column 2, Value:  carrot  , Column 3, Value:  brocoli <break time="40ms"/>    </p>  </speak>'))
 
         # Basic table with \hline command 2
@@ -43,7 +43,7 @@ class TestTables(unittest.TestCase):
                     "\\end{tabular} \n"+
                 "\\end{center}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         self.assertTrue(self._docsEqual(expand, r'<speak>  <p> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: yes  , Column 2, Value:  no  , Column 3, Value:  maybe  New Row:  , Column 1, Value:  so  , Column 2, Value:  testing  , Column 3, Value:  more in one cell  New Row:  , Column 1, Value:  this has a lot of words in it  , Column 2, Value:  too many words for the table  , Column 3, Value:  i cant take it any longer! <break time="40ms"/>    </p>  </speak>'))
 
     def testing_tables_with_extra_commands(self):
@@ -60,7 +60,7 @@ class TestTables(unittest.TestCase):
                     "\\end{tabular} \n"+
                 "\\end{center}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         self.assertTrue(self._docsEqual(expand, r'<speak>  <p> Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: cell1 dummy text dummy text dummy text , Column 2, Value:  cell2  , Column 3, Value:  cell3  New Row:  , Column 1, Value:    New Row:  , Column 1, Value: cell1 dummy text dummy text dummy text  , Column 2, Value:  cell5  , Column 3, Value:  cell6  New Row:  , Column 1, Value:    New Row:  , Column 1, Value: cell7  , Column 2, Value:  cell8  , Column 3, Value:  cell9 <break time="40ms"/>    </p>  </speak>'))
 
         # This table uses tabularx and a bunch of random stuff, testing to see if this gets parsed/passed
@@ -77,7 +77,7 @@ class TestTables(unittest.TestCase):
                 "\\hline \n"+
             r"\end{tabularx}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         # self.assertTrue(self._docsEqual(expand, r""))
 
         # Different table layout, testing to see if it parses there
@@ -98,7 +98,7 @@ class TestTables(unittest.TestCase):
                 r"\hline"+
             r"\end{tabular}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         # self.assertTrue(self._docsEqual(expand, r""))
 
         # Testing with different format, has two \hline and 0.5ex in the way
@@ -118,7 +118,7 @@ class TestTables(unittest.TestCase):
                 "\\end{tabular}"+
             r"\end{table}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         # self.assertTrue(self._docsEqual(expand, r""))
 
         # Testing big table function
@@ -139,7 +139,7 @@ class TestTables(unittest.TestCase):
                 r"\hline"+
             r"\end{tabular}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         # self.assertTrue(self._docsEqual(expand, r""))
 
     def testing_multiple_row(self):
@@ -157,7 +157,7 @@ class TestTables(unittest.TestCase):
                 "\\end{tabular} \n"+
                 "\\end{center}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         # self.assertTrue(self._docsEqual(expand, r""))        
 
     '''Unit test for testing captions in a table, and table name'''
@@ -175,7 +175,7 @@ class TestTables(unittest.TestCase):
             r"\label{table:1}"+
             r"\end{table}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         self.assertTrue(self._docsEqual(expand, r'<speak> Begin Table: <break time="0.3s"/>   Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value:  d  , Column 2, Value:  e  , Column 3, Value:  f <break time="40ms"/>   Caption: <break time="0.3s"/>   Table to test captions and labels <break time="0.5s"/>    <break time="0.3s"/>    </speak>'))  
 
         # Testing caption at top
@@ -191,5 +191,5 @@ class TestTables(unittest.TestCase):
                 r"\end{table}"+
                 r"\end{document}")
 
-        expand = aws_polly_render.start_conversion(doc)
+        expand = tex2speech.aws_polly_render.start_conversion(doc)
         self.assertTrue(self._docsEqual(expand, r'<speak> Begin Table: <break time="0.3s"/>    <p> Caption: <break time="0.3s"/>   Your first table. <break time="0.5s"/>   Table Contents: <break time="40ms"/>   New Row:  , Column 1, Value: a  , Column 2, Value:  b  , Column 3, Value:  c  New Row:  , Column 1, Value:  d  , Column 2, Value:  e  , Column 3, Value:  f <break time="40ms"/>    </p>  <break time="0.3s"/>    </speak>'))  
