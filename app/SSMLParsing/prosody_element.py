@@ -146,51 +146,56 @@ class ProsodyElement(SSMLElementNode):
     def _mediumVolume(self, nestedVolume):
         mid = (self.volume + self._assignVolume(nestedVolume))/2
 
-        if str(mid[0]) == '-':
-            return mid + "dB"
-        else:
-            return "+" + mid + "dB"
+        return str(mid)
 
     # Gets medium rate of nested and self element
     def _mediumRate(self, nestedRate):
         mid = (self.rate + self._assignRate(nestedRate))/2;
-        return str(mid) + "%"
+        return str(mid)
 
     # Gets medium pitch of nested and self element
     def _mediumPitch(self, nestedPitch):
         mid = (self.pitch + self._assignRate(nestedPitch))/2;
 
-        if mid[0] == '-':
-            return str(mid) + "%"
-        else:
-            return "+" + str(mid) + "%"
+        return str(mid)
 
     # Gets medium duration depending on nested and self element
     def _mediumDuration(self, nestedDuration):
         mid = (self.duration + self._assignRate(nestedDuration))/2;
-        return str(mid) + "ms"
+        return str(mid)
 
     # Grabs self volume (+/- n dB)
     def getVolume(self):
-        if str(self.volume)[0] == '-': 
-            return str(self.volume) + "dB"
+        if (str(self.volume)[0] == "-"):
+            if (str(self.volume)[1]).isnumeric():
+                return str(self.volume) + 'dB'
         else:
-            return "+" + str(self.volume) + "dB"
+            if (str(self.volume)[0]).isnumeric():
+                    return str(self.volume) + 'dB'
+
+        return str(self.volume)
 
     # Grabs self rate (n%)
     def getRate(self):
-        return str(self.rate) + "%"
+        if str(self.rate).isnumeric():
+            return str(self.rate) + '%'
+
+        return str(self.rate)
 
     # Grabs self pitch (+/- n%)
     def getPitch(self):
-        if str(self.pitch)[0] == '-':
-            return str(self.pitch) + "%"
+        if (str(self.pitch)[0] == "-"):
+            if (str(self.pitch)[1]).isnumeric():
+                return str(self.pitch) + '%'
         else:
-            return "+" + str(self.pitch) + "%"
+            if (str(self.pitch)[0]).isnumeric():
+                    return '+' + str(self.pitch) + '%'
+
+        return str(self.pitch)
 
     # Grabs self duration (n ms)
     def getDuration(self):
-        return str(self.duration) + "ms"
+        return str(self.duration)
 
     def _update(self):
         if self.volume:

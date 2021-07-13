@@ -202,6 +202,6 @@ def expand_doc_macros(doc):
     env_bindings = {}
     create_macro_bindings()
     expand_doc_macros_sub(doc)
-    with open('out.tex', 'w+') as out:
-        out.write(str(doc))
+    # with open('out.tex', 'w+') as out:
+    #     out.write(str(doc))
     return TexSoup.TexSoup(str(doc))

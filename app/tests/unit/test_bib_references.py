@@ -1,6 +1,8 @@
 import unittest
 import os
+import yaml
 
+from doc_preprocess import doc_preprocess
 import expand_labels, conversion_parser, aws_polly_render
 
 class TestExternalBibliographies(unittest.TestCase):
@@ -23,6 +25,8 @@ class TestExternalBibliographies(unittest.TestCase):
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/>  Authors: Gratzer, George A., <break time='0.3s'/>"))
 
+        os.remove("testingBib.bib")
+
     # Testing single function of title being read correctly
     def testing_external_title(self):
         # Create new file
@@ -35,6 +39,8 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> title: More Math Into LaTeX<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
 
     # Testing single function of publisher being read correctly
     def testing_external_publisher(self):
@@ -49,6 +55,8 @@ class TestExternalBibliographies(unittest.TestCase):
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> publisher: Birkhauser<break time='0.3s'/>"))
 
+        os.remove("testingBib.bib")
+
     # Testing single function of address being read correctly
     def testing_external_address(self):
         # Create new file
@@ -61,6 +69,8 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> address: Boston<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
 
     # Testing single function of year being read correctly
     def testing_external_year(self):
@@ -75,6 +85,8 @@ class TestExternalBibliographies(unittest.TestCase):
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> year: 2007<break time='0.3s'/>"))
 
+        os.remove("testingBib.bib")
+
     # Testing single function of edition being read correctly
     def testing_external_edition(self):
         # Create new file
@@ -87,6 +99,8 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/> edition: 4th<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
 
     # test to test parse bib files for external, gives overall
     def testing_external_bib_file(self):
@@ -105,10 +119,11 @@ class TestExternalBibliographies(unittest.TestCase):
         bibContent = aws_polly_render.parse_bib_file(path);
 
         self.assertTrue(self._docsEqual(bibContent,"<emphasis level='strong'> References Section </emphasis> <break time='1s'/>  Bibliography item is read as: <break time='0.5s'/>gG07. Type: book<break time='0.5s'/>  Authors: Gratzer, George A., <break time='0.3s'/> title: More Math Into LaTeX<break time='0.3s'/>publisher: Birkhauser<break time='0.3s'/>address: Boston<break time='0.3s'/>year: 2007<break time='0.3s'/>edition: 4th<break time='0.3s'/>"))
+
+        os.remove("testingBib.bib")
         
 class TestEmbeddedBibliographies(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):
-        print(doc1)
         doc1 = doc1.replace("'", '"')
         doc2 = doc2.replace("'", '"')
         doc1 = doc1.replace("\\", "")
@@ -121,14 +136,22 @@ class TestEmbeddedBibliographies(unittest.TestCase):
     def testing_inline_ref_bibliography(self):
 # [NOTE] -> I put this in the bug log, but notice how \LaTeX\, it will render \LaTeX as a command AND \Companion as a command
         # First test of inline commentation of bibliogrpahy references
-        doc = (r"Three items are cited: \textit{The \LaTeX\ Companion} "+
+        doc = (r"\begin{document}Three items are cited: \textit{The \LaTeX\ Companion} "+
                         r"book \cite{latexcompanion}, the Einstein journal paper \cite{einstein}, and the "+
                         r"Donald Knuth's website \cite{knuthwebsite}. The \LaTeX\ related items are"+
-                        r"\cite{latexcompanion,knuthwebsite}. ")
+                        r"\cite{latexcompanion,knuthwebsite}. \end{document}")
+
+        with open('app_config.yaml') as f:
+            doc_yaml = yaml.load(f)
+
+        with open('temporary.yaml', 'w') as f:
+            yaml.dump(doc_yaml, f)
 
         expand = aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, r"<speak> Three items are cited:  <emphasis level='strong'> The  LaTeX </emphasis>  book  <emphasis level='reduced'> Cited in reference as: latexcompanion <break time='0.3s'/>    </emphasis> , the Einstein journal paper  <emphasis level='reduced'> Cited in reference as: einstein <break time='0.3s'/>    </emphasis> , and the Donald Knuth's website  <emphasis level='reduced'> Cited in reference as: knuthwebsite <break time='0.3s'/>    </emphasis> . The  LaTeX <emphasis level='reduced'> Cited in reference as: latexcompanion,knuthwebsite <break time='0.3s'/>    </emphasis> .  </speak>"))
+        os.remove('temporary.yaml')
+
+        self.assertTrue(self._docsEqual(expand, r" Three items are cited:  <emphasis level='strong'> The  LaTeX   </emphasis>  book  <emphasis level='reduced'> Cited: latexcompanion  <break time='0.3s'/>    </emphasis> , the Einstein journal paper  <emphasis level='reduced'> Cited: einstein  <break time='0.3s'/>    </emphasis> , and the Donald Knuth's website  <emphasis level='reduced'> Cited: knuthwebsite  <break time='0.3s'/>    </emphasis> . The  LaTeX   items are <emphasis level='reduced'> Cited: latexcompanion,knuthwebsite  <break time='0.3s'/>    </emphasis> ."))
 
     '''Testing embedded bibliographies function at the bottom of tex file'''
     def testing_bibliography_at_bottom(self):
@@ -140,9 +163,15 @@ class TestEmbeddedBibliographies(unittest.TestCase):
                                     r"Addison-Wesley, Reading, Massachusetts, 1993."+
                             r"\end{thebibliography}")
 
+        with open('app_config.yaml') as f:
+            yaml_doc = yaml.load(f)
+
+        with open('temporary.yaml', 'w') as f:
+            yaml.dump(yaml_doc, f)
+
         expand = aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, "<speak>  <emphasis level='strong'> Reference Section: <break time='1s'/>   Bibliography item is read as: <break time='0.5s'/>   latexcompanion Michel Goossens, Frank Mittelbach, and Alexander Samarin. <emphasis level='strong'> The  LaTeX </emphasis> . Addison-Wesley, Reading, Massachusetts, 1993. </emphasis>  </speak>"))
+        self.assertTrue(self._docsEqual(expand, "  <emphasis level='strong'> Reference Section: </emphasis>  <break time='1s'/>   Bibliography item is read as: <break time='0.5s'/>   latexcompanion  Michel Goossens, Frank Mittelbach, and Alexander Samarin. <emphasis level='strong'> The  LaTeX   </emphasis> . Addison-Wesley, Reading, Massachusetts, 1993."))
 
         #  Second test of bibliography output
         doc = (r"\begin{thebibliography}{9}"+
@@ -155,7 +184,7 @@ class TestEmbeddedBibliographies(unittest.TestCase):
 
         expand = aws_polly_render.start_conversion(doc)
 
-        self.assertTrue(self._docsEqual(expand, "<speak>  <emphasis level='strong'> Reference Section: <break time='1s'/>   Bibliography item is read as: <break time='0.5s'/>   einstein  Albert Einstein.  <emphasis level='strong'> Zur Elektrodynamik bewegter K \" o rper </emphasis> . (German)  [ <emphasis level='strong'> On the electrodynamics of moving bodies </emphasis> ] . Annalen der Physik, 322(10):891–921, 1905. </emphasis>  </speak>"))
+        self.assertTrue(self._docsEqual(expand, "  <emphasis level='strong'> Reference Section: </emphasis>  <break time='1s'/>   Bibliography item is read as: <break time='0.5s'/>   einstein   Albert Einstein.  <emphasis level='strong'> Zur Elektrodynamik bewegter K \" o rper  </emphasis> . (German)  [ <emphasis level='strong'> On the electrodynamics of moving bodies  </emphasis> ] . Annalen der Physik, 322(10):891–921, 1905."))
 
         # Third test of bibliography output
         doc = (r"\begin{thebibliography}{9}"+
@@ -165,8 +194,9 @@ class TestEmbeddedBibliographies(unittest.TestCase):
                                 r"\end{thebibliography}")
 
         expand = aws_polly_render.start_conversion(doc)
+        os.remove('temporary.yaml')
 
-        self.assertTrue(self._docsEqual(expand, r'<speak>  <emphasis level="strong"> Reference Section: <break time="1s"/>   Bibliography item is read as: <break time="0.5s"/>   knuthwebsite  Knuth: Computers and Typesetting, \\ <emphasis level="strong"> http://www-cs-faculty.stanford.edu/ \~ uno/abcde.html </emphasis>  </emphasis>  </speak>'))
+        self.assertTrue(self._docsEqual(expand, r'  <emphasis level="strong"> Reference Section: </emphasis>  <break time="1s"/>   Bibliography item is read as: <break time="0.5s"/>   knuthwebsite   Knuth: Computers and Typesetting, \\ <emphasis level="strong"> http://www-cs-faculty.stanford.edu/ \~ uno/abcde.html  </emphasis>'))
 
 class TestExpandLabels(unittest.TestCase):
     def _docsEqual(self, doc1, doc2):

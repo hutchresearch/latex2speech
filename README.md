@@ -25,7 +25,9 @@ Note: You need to have Python on your machine and have an active Amazon Web Serv
 
 **To run tests**
 
-Run the command `python3 -m pytest` and all tests should run. If you want a specific file to run use `python3 -m pytest tests/unit/test_name.py` for example
+Run the command `python3 -m pytest` and all tests should run. If you want a specific file to run use `python3 -m pytest tests/unit/test_name.py` for example.
+
+To find how much code coverage there is, run `coverage run -m pytest` to create a .coverage file. Run `coverage report` to get full details of the report.
 
 ### Documentation
 
