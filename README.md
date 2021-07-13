@@ -23,6 +23,10 @@ Note: You need to have Python on your machine and have an active Amazon Web Serv
 8. Create variable in config.py called `SECRET_KEY` and assign it a random generated key (string of random characters)
 9. To run project locally run `python3 application.py` 
 
+**To run tests**
+
+Run the command `python3 -m pytest` and all tests should run. If you want a specific file to run use `python3 -m pytest tests/unit/test_name.py` for example
+
 ### Documentation
 
 Tex2Speech documentation is included in this repository under the [wiki](https://github.com/hutchresearch/latex2speech/wiki), it is also built and publicly hosted on Vercel at [https://tex2speech-website.vercel.app/](https://tex2speech-website.vercel.app/).

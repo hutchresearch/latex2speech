@@ -1,24 +1,23 @@
-from app.logger import logging, writelog
+from logger import logging, writelog
 
 import TexSoup
 import sympy
 import xml.etree.ElementTree as ET
 
-from app.conversion_db import ConversionDB
-from app.SSMLParsing.arg_element import ArgElement
-from app.SSMLParsing.break_element import BreakElement
-from app.SSMLParsing.content_element import ContentElement
-from app.SSMLParsing.emphasis_element import EmphasisElement
-from app.SSMLParsing.prosody_element import ProsodyElement
-from app.SSMLParsing.root_element import RootElement
-from app.SSMLParsing.ssml_element_node import SSMLElementNode
-from app.SSMLParsing.ssml_element import SSMLElement
-from app.SSMLParsing.text_element import TextElement
-from app.expand_macros import expand_doc_macros
-
-from app.sympytossml import convert_sympy_ssml, QuantityModes
-from app.tex_soup_utils import expr_test, seperate_contents
-from app.tex_to_sympy import run_sympy
+from conversion_db import ConversionDB
+from SSMLParsing.arg_element import ArgElement
+from SSMLParsing.break_element import BreakElement
+from SSMLParsing.content_element import ContentElement
+from SSMLParsing.emphasis_element import EmphasisElement
+from SSMLParsing.prosody_element import ProsodyElement
+from SSMLParsing.root_element import RootElement
+from SSMLParsing.ssml_element_node import SSMLElementNode
+from SSMLParsing.ssml_element import SSMLElement
+from SSMLParsing.text_element import TextElement
+from expand_macros import expand_doc_macros
+from sympytossml import convert_sympy_ssml, QuantityModes
+from tex_soup_utils import expr_test, seperate_contents
+from tex_to_sympy import run_sympy
 
 is_dbg = False
 

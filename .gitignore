@@ -3,6 +3,7 @@ instance/
 .vscode
 .gitignore
 .pytest_cache
+.coverage
 temporary.yaml
 tex2speechenv/
 upload/
@@ -10,6 +11,7 @@ static/output.xml
 logger_output.txt
 env
 venv
+out.tex
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

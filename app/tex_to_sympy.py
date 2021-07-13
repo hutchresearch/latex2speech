@@ -4,15 +4,15 @@ import re
 import yaml
 from antlr4.error.ErrorListener import ErrorListener
 
-from app.gen.PSParser import PSParser
-from app.gen.PSLexer import PSLexer
-from app.gen.PSListener import PSListener
+from gen.PSParser import PSParser
+from gen.PSLexer import PSLexer
+from gen.PSListener import PSListener
 
 from sympy.printing.str import StrPrinter
 import configparser
 
-from app.sympytossml import QuantityModes, convert_sympy_ssml
-from app.logger import logging, writelog
+from sympytossml import QuantityModes, convert_sympy_ssml
+from logger import logging, writelog
 
 CONFIG_FILE = 'app_config.cfg'
 

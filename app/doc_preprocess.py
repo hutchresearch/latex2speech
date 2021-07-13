@@ -1,4 +1,4 @@
-from app.logger import logging, writelog
+from logger import logging, writelog
 
 import re
     
