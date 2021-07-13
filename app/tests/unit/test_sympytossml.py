@@ -1,4 +1,4 @@
-from sympy import symbols
+from sympy import symbols, Function
 import unittest
 from sympytossml import *
 

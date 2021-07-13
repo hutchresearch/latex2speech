@@ -3,7 +3,7 @@ import inflect
 import re
 from enum import Enum
 from logger import logging, writelog
-from sympy import *
+from sympy import symbols
 
 infl = inflect.engine()
 
