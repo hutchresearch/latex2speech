@@ -15,3 +15,4 @@ TexSoup==0.3.1
 Werkzeug==1.0.1
 flask-dropzone==1.5.4
 pyyaml==5.3.1
+coverage==5.5
