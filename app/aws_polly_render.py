@@ -154,6 +154,7 @@ def start_conversion(contents):
     parser = ConversionParser(db)
 
     parsed_contents = parser.parse(contents)
+
     return parsed_contents
 
 # Function that is called from app.py with file
