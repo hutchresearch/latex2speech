@@ -168,22 +168,29 @@ class ProsodyElement(SSMLElementNode):
     def getVolume(self):
         if (str(self.volume)[0] == "-"):
             if (str(self.volume)[1]).isnumeric():
-                return str(self.volume) + "dB"
+                return str(self.volume) + 'dB'
         else:
             if (str(self.volume)[0]).isnumeric():
-                    return str(self.volume) + "dB"
-                    
+                    return str(self.volume) + 'dB'
+
         return str(self.volume)
 
     # Grabs self rate (n%)
     def getRate(self):
         if str(self.rate).isnumeric():
-            return str(self.rate) + "%"
+            return str(self.rate) + '%'
 
         return str(self.rate)
 
     # Grabs self pitch (+/- n%)
     def getPitch(self):
+        if (str(self.pitch)[0] == "-"):
+            if (str(self.pitch)[1]).isnumeric():
+                return str(self.pitch) + '%'
+        else:
+            if (str(self.pitch)[0]).isnumeric():
+                    return str(self.pitch) + '%'
+
         return str(self.pitch)
 
     # Grabs self duration (n ms)
