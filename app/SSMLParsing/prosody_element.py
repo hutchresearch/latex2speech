@@ -170,6 +170,9 @@ class ProsodyElement(SSMLElementNode):
 
     # Grabs self rate (n%)
     def getRate(self):
+        if str(self.rate).isnumeric():
+            return str(self.rate) + "%"
+
         return str(self.rate)
 
     # Grabs self pitch (+/- n%)

@@ -384,18 +384,18 @@ class testConversionParser(unittest.TestCase):
         self.assertIsInstance(ssmlParseTree.children[0], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[0].getHeadText(), '')
         self.assertEqual(ssmlParseTree.children[0].getTailText().strip(), '1')
-        self.assertEqual(ssmlParseTree.children[0].getVolume(), '+6dB')
+        self.assertEqual(ssmlParseTree.children[0].getVolume(), 'x-loud')
         self.assertEqual(len(ssmlParseTree.children[0].children), 1)
 
         self.assertIsInstance(ssmlParseTree.children[0].children[0], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[0].children[0].getHeadText().strip(), '2')
         self.assertEqual(ssmlParseTree.children[0].children[0].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[0].children[0].getVolume(), '+0dB')
+        self.assertEqual(ssmlParseTree.children[0].children[0].getVolume(), 'medium')
 
         self.assertIsInstance(ssmlParseTree.children[1], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[1].getHeadText(), '')
         self.assertEqual(ssmlParseTree.children[1].getTailText(), '5')
-        self.assertEqual(ssmlParseTree.children[1].getVolume(), '+6dB')
+        self.assertEqual(ssmlParseTree.children[1].getVolume(), 'x-loud')
         self.assertEqual(len(ssmlParseTree.children[1].children), 1)
 
         self.assertIsInstance(ssmlParseTree.children[1].children[0], ProsodyElement)
@@ -527,7 +527,7 @@ class testConversionParser(unittest.TestCase):
         self.assertIsInstance(ssmlParseTree.children[3].children[0], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[3].children[0].getHeadText(), '')
         self.assertEqual(ssmlParseTree.children[3].children[0].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[3].children[0].getRate(), 'x-loud')
+        self.assertEqual(ssmlParseTree.children[3].children[0].getRate(), '180%')
 
     '''<prosody pitch = ""></prosody>
             - deafult (regular)
