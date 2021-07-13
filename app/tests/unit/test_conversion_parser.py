@@ -608,18 +608,18 @@ class testConversionParser(unittest.TestCase):
         self.assertIsInstance(ssmlParseTree.children[2].children[0], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[2].children[0].getHeadText(), '')
         self.assertEqual(ssmlParseTree.children[2].children[0].getTailText().strip(), '5')
-        self.assertEqual(ssmlParseTree.children[2].children[0].getPitch(), '-20%')
+        self.assertEqual(ssmlParseTree.children[2].children[0].getPitch(), 'x-low')
         self.assertEqual(len(ssmlParseTree.children[2].children), 1)
 
         self.assertIsInstance(ssmlParseTree.children[2].children[0].children[0], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getHeadText().strip(), '6')
         self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getPitch(), '+10%')
+        self.assertEqual(ssmlParseTree.children[2].children[0].children[0].getPitch(), 'high')
         
         self.assertIsInstance(ssmlParseTree.children[3], ProsodyElement)
         self.assertEqual(ssmlParseTree.children[3].getHeadText(), '')
         self.assertEqual(ssmlParseTree.children[3].getTailText(), '')
-        self.assertEqual(ssmlParseTree.children[3].getPitch(), '+0%')
+        self.assertEqual(ssmlParseTree.children[3].getPitch(), 'medium')
         self.assertEqual(len(ssmlParseTree.children[3].children), 1)
 
         self.assertIsInstance(ssmlParseTree.children[3].children[0], ProsodyElement)

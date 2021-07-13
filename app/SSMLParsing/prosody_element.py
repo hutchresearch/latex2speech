@@ -189,7 +189,7 @@ class ProsodyElement(SSMLElementNode):
                 return str(self.pitch) + '%'
         else:
             if (str(self.pitch)[0]).isnumeric():
-                    return str(self.pitch) + '%'
+                    return '+' + str(self.pitch) + '%'
 
         return str(self.pitch)
 
