@@ -186,11 +186,11 @@ def start_polly(main, bib_contents):
 
         parsed_contents = cleanxml_string(parsed_contents)
 
-        print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
+        # print("\n\nCONTENTS AFTER CHANGE\n\n" + parsed_contents + "\n\n")
 
         # Feed to Amazon Polly here
-        # audio_link = tts_of_file(master[0], parsed_contents, end)
-        audio_link = "hi"
+        audio_link = tts_of_file(master[0], parsed_contents, end)
+        # audio_link = "hi"
 
         links.append(audio_link)
 

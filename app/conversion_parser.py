@@ -59,7 +59,10 @@ class ConversionParser:
         split = str(contents_node).split("\n")
         # Go through each row
         for row in split:
-            self._appendText("New Row: ", left_child, elem_list_parent)
+            if len(row) == 0:
+                continue
+ 
+            self._appendText("<break time = '0.3s'/>New Row: ", left_child, elem_list_parent)
 
             inner_split = row.split('&')
             column = 1
@@ -67,7 +70,7 @@ class ConversionParser:
             # Go through each value in the row
             for word in inner_split: 
                 if word != "&":
-                    text = ", Column " + str(column) + ", Value: " + word
+                    text = ", Column " + str(column) + ", " + word
 
                     self._appendText(text, left_child, elem_list_parent)
 
@@ -83,7 +86,7 @@ class ConversionParser:
         so this is what this function will do before passing contents
         to parseTableContents function
         '''
-        table_contents = str(contents).replace('\hline', '')
+        table_contents = str(contents).replace(r'\hline', '')
         table_contents = table_contents[table_contents.find('\n'):]
         table_contents = table_contents.lstrip()
         table_contents = table_contents.split("\end{tabular}", 1)[0]

@@ -306,9 +306,11 @@
 
     <env name="table" type="none" family="">
         <says>
+            <break time="0.3s" />
             Begin Table:
             <break time="0.3s" />
             <content />
+            <break time="0.3s" />
             End Table
             <break time="0.3s" />
         </says>
@@ -316,9 +318,11 @@
 
     <env name="tabular" type="readTable" family="">
         <says>
+            <break time="0.2s" />
             Table Contents:
             <break time="40ms" />
             <content />
+            <break time="0.3s" />
             End Table Contents
             <break time="40ms" />
         </says>
@@ -326,9 +330,11 @@
 
     <env name="tabularx" type="readTable" family="">
         <says>
+            <break time="0.2s" />
             Table Contents:
             <break time="40ms" />
             <content />
+            <break time="0.3s" />
             End Table Contents
             <break time="40ms" />
         </says>
