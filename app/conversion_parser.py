@@ -62,7 +62,7 @@ class ConversionParser:
             if len(row) == 0:
                 continue
  
-            self._appendText("<break time = '0.5s'/>New Row: ", left_child, elem_list_parent)
+            self._appendText("<break time = '0.3s'/>New Row: ", left_child, elem_list_parent)
 
             inner_split = row.split('&')
             column = 1
