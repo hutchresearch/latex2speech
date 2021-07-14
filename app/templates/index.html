@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Home - Tex2Speech</title>
+    <link rel="shortcut icon" type="image/jpg" href="static/img/Tex2SpeechLogo.png"/>
+
+    <!-- CSS Files -->
+    <link rel='stylesheet' type='text/css' href='{{ url_for('static', filename='css/main.css')}}' />
+    {{ dropzone.load_css() }}
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+</head>
+<body>
+    <header>
+        {{ dropzone.load() }}
+        <img src='{{url_for('static', filename='img/WWULogo.png')}}' align='middle' />
+        <h1>Tex2Speech</h1>
+    </header>
+
+    <main>
+
+        <form action='{{ url_for('handle_form') }}' enctype='multipart/form-data' method='post' id = 'formID'>
+            {{ dropzone.create() }}
+            <div class = 'center'>
+                <div class = 'optionsMenu'>
+                    <br>
+                    <h7>Voice:  </h7>
+                    <select name='voice'>
+                        {% for voice in voices %}
+                            <option value= '{{voice}}' SELECTED>{{voice}}</option>'
+                        {% endfor %}
+                    </select>
+                    <br>
+
+                    <div id = 'advanced_options'>
+                        <div id = 'advanced_options_button' class = 'optionsButton' onclick='toggle_advanced_options()'>Advanced Options</div>
+
+                        <div id = 'advanced_options_box' class = 'optionsBox'>
+                            <table>
+                                <tr title = 'Set how parentheses will be spoken in math equations'>
+                                    <th>Math Parentheses:</th>
+                                    <th class = 'cellPadded'><select name='quantity_method'>
+                                        {% for type in quantity_method %}
+                                            <option value= '{{type}}' SELECTED>{{type}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+                                <tr title = 'Set how mathmode errors will be handled'>
+                                    <th>Math Error Handling:</th>
+                                    <th class = 'cellPadded'><select name='math_error_type' onChange = 'updateAdvancedSuboptions()' id = 'math_error_type'>
+                                        {% for type in math_error_type %}
+                                            <option value= '{{type}}' SELECTED>{{type}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+                                <tr title = 'Set mathmode error break time' class = 'math_error_break' class = 'math_error_break'>
+                                    <th>Math Error Breaktime (s):</th>
+                                    <th class = 'cellPadded'>
+                                        <input type="text" name="math_error_breaktime" value = '0.5'>
+                                    </th>
+                                </tr>
+                                <tr title = 'Set error message for math equations that did not render' class = 'math_error_text'>
+                                    <th>Math Error Message:</th>
+                                    <th class = 'cellPadded'>
+                                        <input type="text" name="math_error_message" value = 'math did not render'>
+                                    </th>
+                                </tr>
+                                <tr title = 'set how the pronunciation of bold text will be altered'>
+                                    <th>Bold:</th>
+                                    <th class = 'cellPadded'><select name='bold' onChange = 'updateAdvancedSuboptions()' id = 'bold_type'>
+                                        {% for b in bold %}
+                                            <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+
+                                <tr title = 'If bold text is emphasized, set emphasis level here' class = 'bold_emphasis'>
+                                    <th>Bold-Emphasis:</th>
+                                    <th class = 'cellPadded'><select name='bold_emphasis'>
+                                        {% for b in bold_emphasis %}
+                                            <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+                                <tr title = 'If bold text has prosody adjusted, set speed here' class = 'bold_prosody'>
+                                    <th>Bold-Prosody Rate:</th>
+                                    <th class = 'cellPadded'><select name='bold_prosody_rate'>
+                                        {% for b in prosody_rate %}
+                                            <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+
+                                <tr title = 'If bold text has prosody adjusted, set pitch here' class = 'bold_prosody'>
+                                    <th>Bold-Prosody Pitch:</th>
+                                    <th class = 'cellPadded'><select name='bold_prosody_pitch'>
+                                        {% for b in prosody_pitch %}
+                                            <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+
+                                <tr title = 'If bold text has prosody adjusted, set volume here' class = 'bold_prosody'>
+                                    <th>Bold-Prosody Volume:</th>
+                                    <th class = 'cellPadded'><select name='bold_prosody_volume'>
+                                        {% for b in prosody_volume %}
+                                            <option value= '{{b}}' SELECTED>{{b}}</option>'
+                                        {% endfor %}
+                                    </select></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <input type='submit' id='submit' value='Convert'>
+                <div id='dot-elastic'></div>
+                <!-- <div class='dot-spin'></div> -->
+                <div id = 'block'></div>
+            </div>
+        </form>
+        {{ dropzone.config() }}
+
+        <div class = 'descriptionBox'>
+            <h2>Using the Converter</h2>
+            <p>This tool converts .tex files to spoken audio .mp3 files. To use it, drag your files into the box above and click convert.</p>
+            <p>Multiple files can be uploaded at once. If they are part of the same document, they will be automatically 
+                combined into one audio file. If not, the app will output multiple audio files, one for each document.
+            </p>
+        </div>
+
+        <div class = 'descriptionBox'>
+            <h2>Supported File Types</h2>
+            <ul>
+                <li>.tex files</li>
+                <li>.bib files associated with an uploaded .tex file will be included in audio output.</li>
+                <li>.zip and .tgz files will be automatically unzipped and their contents will be processed.</li>
+            </ul>
+        </div>
+
+        <div class = 'descriptionBox'>
+            <h2>Source Code &amp; Documentation</h2>
+            <p>Source code is available on our <a href='https://github.com/hutchresearch/latex2speech'style='text-decoration: none'>GitHub</a></p>
+            <p>Overall documentation is available on our <a href = "https://tex2speech-website.vercel.app/" style='text-decoration: none'>website.</a></p>
+        </div>
+
+    </main>
+    <footer>
+        <p>2021</p>
+    </footer>
+<!-- JavaScript Files -->
+<script src='{{url_for('static', filename='js/main.js')}}'></script>
+</body>
+</html>

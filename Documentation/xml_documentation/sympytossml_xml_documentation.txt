@@ -1,0 +1,24 @@
+Each sympy object supported by sympytossml is represented by an entry in sympy_funcs.xml.
+The tag of this entry must be the name of the sympy class, which can be found on docs.sympy.org.
+The program will use this entry to parse through the function in a linear fashion. 
+It parses through the XML tags and the args array of the Sympy class in parallel, so the first instance of <arg /> in the XML element is always the first argument in the Sympy args array, unless it is after a <repeat /> tag.
+
+XML Tags:
+
+<text>      - Anything inside this tag will be appended to the final string in its entirety. There should be no spaces before or after the text
+<arg />     - An argument from the sympy function.
+<subarg />  - An argument from a subarray within the sympy function's main arg array. See Sum for an example.
+<repeat />  - Sets the repeat point. If this tag is present, when the parser reaches the last XML element, it will loop back here until the end of the Sympy args array is reached.
+
+Example:
+
+<Add>                      <- Name of sympy class that represents addition
+    <arg />                    
+    <repeat />              <- Allows an arbitrary number of arguments. 
+                               Everything below this tag will be repeated 
+                               until there are no more args
+
+    <text>plus</text>       <- No spaces before or after 'plus'
+    <arg />
+</Add>
+

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Defines pronunciation of SymPy functions for SymPy 1.8 -->
+<!-- See sympytossml.py and https://github.com/hutchresearch/latex2speech/wiki/Mathmode-to-SSML -->
+
+<ssmlfuncs>
+
+    <!-- User Defined or Unsupported Function -->
+    <userFunction>
+        <funcname />
+        <text>of</text>
+        <repeat />
+        <arg />
+        <text>,</text>
+    </userFunction>
+    
+    <!-- Equality -->
+    <Equality>
+        <arg />
+        <text>equals</text>
+        <arg />
+    </Equality>
+
+    <GreaterThan>
+        <arg />
+        <text>greater than or equal to</text>
+    </GreaterThan>
+
+    <LessThan>
+        <arg />
+        <text>less than or equal to</text>
+    </LessThan>
+
+    <StrictGreaterThan>
+        <arg />
+        <text>greater than</text>
+    </StrictGreaterThan>
+
+    <StrictLessThan>
+        <arg />
+        <text>less than</text>
+    </StrictLessThan>
+
+    <!-- Basic Operators -->
+    <Add>
+        <arg />
+        <repeat />
+        <text>plus</text>
+        <arg />
+    </Add>
+
+    <Mul>
+        <arg />
+        <repeat />
+        <text>times</text>
+        <arg />
+    </Mul>
+
+    <Pow>
+        <arg />
+        <text>to the power of</text>
+        <arg />
+    </Pow>
+
+    <Mod>
+        <arg />
+        <text>modulus</text>
+        <arg />
+    </Mod>
+
+    <!-- Logic -->
+    <And>
+        <arg />
+        <repeat />
+        <text>and</text>
+        <arg />
+    </And>
+
+    <Or>
+        <arg />
+        <repeat />
+        <text>or</text>
+        <arg />
+    </Or>
+   
+    <Not>
+        <text>not</text>
+        <repeat />
+        <arg />
+    </Not>
+
+    <Xor>
+        <arg />
+        <repeat />
+        <text>exclusive or</text>
+        <arg />
+    </Xor>
+
+    <Nand>
+        <arg />
+        <repeat />
+        <text>nand</text>
+        <arg />
+    </Nand>
+
+    <Nor>
+        <arg />
+        <repeat />
+        <text>nor</text>
+        <arg />
+    </Nor>
+
+    <Wedge>
+        <arg />
+        <repeat />
+        <text>wedge</text>
+        <arg />
+    </Wedge>
+
+    <!-- Notation -->
+
+    <!-- Trigonometry -->
+    <sin>
+        <text>sine of</text>
+        <arg />
+    </sin>
+
+    <cos>
+        <text>cosine of</text>
+        <arg />
+    </cos>
+
+    <tan>
+        <text>tangent of</text>
+        <arg />
+    </tan>
+
+    <cot>
+        <text>cotangent of</text>
+        <arg />
+    </cot>
+
+    <sec>
+        <text>secant of</text>
+        <arg />
+    </sec>
+
+    <csc>
+        <text>cosecant of</text>
+        <arg />
+    </csc>
+
+    <asin>
+        <text>arc sine of</text>
+        <arg />
+    </asin>
+
+    <acos>
+        <text>arc cosine of</text>
+        <arg />
+    </acos>
+
+    <atan>
+        <text>arc tangent of</text>
+        <arg />
+    </atan>
+
+    <acot>
+        <text>arc cotangent of</text>
+        <arg />
+    </acot>
+
+    <asec>
+        <text>arc secant of</text>
+        <arg />
+    </asec>
+
+    <acsc>
+        <text>arc cosecant of</text>
+        <arg />
+    </acsc>
+
+    <sinh>
+        <text>hyperbolic sin of</text>
+        <arg />
+    </sinh>
+
+    <cosh>
+        <text>hyperbolic cosine of</text>
+        <arg />
+    </cosh>
+
+    <tanh>
+        <text>hyperbolic tangent of</text>
+        <arg />
+    </tanh>
+
+    <coth>
+        <text>hyberbolic cotangent of</text>
+        <arg />
+    </coth>
+
+    <sech>
+        <text>hyberbolic secant of</text>
+        <arg />
+    </sech>
+
+    <csch>
+        <text>Hyperbolic cosecant</text>
+        <arg />
+    </csch>
+
+    <asinh>
+        <text>inverse hyperbolic sine function of </text>
+        <arg />
+    </asinh>
+
+    <acosh>
+        <text>inverse hyperbolic cosine function of </text>
+        <arg />
+    </acosh>
+
+    <atanh>
+        <text>inverse hyperbolic tangent function of </text>
+        <arg />
+    </atanh>
+
+    <acoth>
+        <text>inverse hyperbolic cotangent function of </text>
+        <arg />
+    </acoth>
+
+    <asech>
+        <text>inverse hyperbolic secant function of </text>
+        <arg />
+    </asech>
+
+    <acsch>
+        <text>inverse hyperbolic cosecant function of </text>
+        <arg />
+    </acsch>
+
+    <sinc>
+        <text>sinc of</text>
+        <arg />
+    </sinc>
+
+    <atan2>
+        <text>atan two of</text>
+        <arg />
+    </atan2>
+
+    <log>
+        <text>log of</text>
+        <arg />
+    </log>
+
+    <!-- Operators -->
+    <deg>
+        <arg />
+        <text>degrees</text>
+    </deg>
+
+    <gcd>
+        <text>greatest common divisor</text>
+    </gcd>
+
+    <!-- Numerical -->
+    <ceiling>
+        <text>ceiling of</text>
+        <arg />
+    </ceiling>
+
+    <ceil>
+        <text>ceiling of</text>
+        <arg />
+    </ceil>
+
+    <floor>
+        <text>floor of</text>
+        <arg />
+    </floor>
+
+    <sign>
+        <text>sign of</text>
+        <arg />
+    </sign>
+
+    <Abs>
+        <text>absolute value of</text>
+        <arg />
+    </Abs>
+
+    <Min>
+        <text>minuimum value among</text>
+        <repeat />
+        <arg />
+        <text>,</text>
+    </Min>
+ 
+    <Max>
+        <text>maximum value among</text>
+        <repeat />
+        <arg />
+        <text>,</text>
+    </Max>
+
+    <!-- Imaginary Numbers -->
+    <im>
+        <text>imaginary part of</text>
+        <arg />
+    </im>
+
+    <re>
+        <text>real part of</text>
+        <arg />
+    </re>
+
+    <conjugate>
+        <text>conjugate of</text>
+        <arg />
+    </conjugate>
+
+    <polar_lift>
+        <text>polar lift of</text>
+        <arg />
+    </polar_lift>
+
+    <IdentityFunction>
+        <text>identity function of</text>
+        <arg />
+    </IdentityFunction>
+
+    <bell>
+        <text>bell number of </text>
+        <arg />
+    </bell>
+
+    <bernoulli>
+        <text>bernoulli number of </text>
+        <arg />
+    </bernoulli>
+
+    <catalan>
+        <text>catalan number of </text>
+        <arg />
+    </catalan>
+
+    <euler>
+        <text>euler number of </text>
+        <arg />
+    </euler>
+
+    <lucas>
+        <text>lucas number of </text>
+        <arg />
+    </lucas>
+
+    <genocchi>
+        <text>genocchi number of </text>
+        <arg />
+    </genocchi>
+
+    <partition>
+        <text>partition number of </text>
+        <arg />
+    </partition>
+
+    <!-- Summation and Series -->
+    <Sum>
+        <text>sum of</text>
+        <arg />
+        <text>from</text>
+        <subarg />
+        <text>equals</text>
+        <subarg />
+        <text>to</text>
+        <subarg />
+    </Sum>
+
+    <factorial>
+        <arg />
+        <text>factorial</text>
+    </factorial>
+
+    <RisingFactorial>
+        <text>Rising factorial of</text>
+        <arg />
+    </RisingFactorial>
+
+    <FallingFactorial>
+        <text>Falling factorial of </text>
+        <arg />
+    </FallingFactorial>
+
+    <subfactorial>
+        <arg />
+        <text>subfactorial</text>
+    </subfactorial>
+
+    <factorial2>
+        <text>double factorial of</text>
+        <arg />
+    </factorial2>
+
+    <!-- Calculus-->
+    <Derivative>
+        <text>derivative of</text>
+        <arg />
+        <text>with respect to</text>
+        <subarg />
+        <end />
+    </Derivative>
+    
+    <Integral>
+        <text>integral of</text>
+        <arg />
+        <text>d</text>
+        <subarg />
+        <end />
+    </Integral>
+   
+
+    <!-- Statistics -->
+        <!--Not Implimented-->
+
+    <!-- Limits -->
+    <Limit>
+        <text>Limit of </text>
+        <arg />
+        <text>as </text>
+        <arg />
+        <text> goes to</text>
+        <arg />
+    </Limit>
+
+    <exp>
+        <text>exponential function e to the</text>
+        <arg />
+        <text>power of</text>
+    </exp>
+
+    <!-- Piecewise -->
+    <Piecewise>
+        <text>Piecewise function</text>
+        <repeat /> 
+        <arg />
+    </Piecewise>
+
+    <ExprCondPair>
+        <arg />
+        <text>when </text>
+        <arg />
+    </ExprCondPair>
+
+    <!-- Series -->
+    <harmonic>
+        <text>harmonic series of</text>
+        <repeat />
+        <arg />
+    </harmonic>
+
+    <!-- Sets & Set Theory -->
+    <FiniteSet>
+        <text>finite set containing</text>
+        <repeat />
+        <arg />
+    </FiniteSet>
+
+    <Union>
+        <text>union of</text>
+        <repeat />
+        <arg />
+        <text>and</text>
+    </Union>
+
+    <Intersection>
+        <text>intersection of</text>
+        <repeat />
+        <arg />
+        <text>and</text>
+    </Intersection>
+
+    <ProductSet>
+        <text>cartesian product of</text>
+        <repeat />
+        <arg />
+        <text>and</text>
+    </ProductSet>
+
+    <Complement>
+        <text>relative complement of</text>
+        <arg />
+        <text>with</text>
+        <arg />
+    </Complement>
+
+    <SymmetricDifference>
+        <text>symmetric difference of</text>
+        <arg />
+        <text>and</text>
+        <arg />
+    </SymmetricDifference>
+
+    <Range>
+        <text>range of integers between</text>
+        <arg />
+        <repeat />
+        <text>and</text>
+        <arg />
+    </Range>
+
+    <PowerSet>
+        <text>power set of</text>
+        <arg />
+    </PowerSet>
+
+    <!-- TODO: ImageSet -->
+    <!-- TODO: ContitionSet -->
+
+</ssmlfuncs>
