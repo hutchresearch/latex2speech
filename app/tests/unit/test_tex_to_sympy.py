@@ -914,6 +914,3 @@ class TestTexToSympy(unittest.TestCase):
         # From MIT page, wante to check the not equal thing but just renders as ne
         equation = tex_to_sympy.test_sympy(r"x^{n} + y^{n} \ne z^{n}")
         self.assertTrue(self._equal(equation, "x**n + y**n*(ne*z**n)"))
-
-if __name__ == "__main__":
-    unittest.main()

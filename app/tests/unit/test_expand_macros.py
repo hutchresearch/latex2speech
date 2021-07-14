@@ -88,7 +88,7 @@ class Testexpand_doc_macros(unittest.TestCase):
     def testRecursiveDefinition(self):
         doc = TexSoup.TexSoup(r'\newcommand{\a}{\b}\newcommand{\b}{\c}\a')
         expanded = expand_macros.expand_doc_macros(doc)
-        self.assertTrue(self._docsEqual(expanded, TexSoup.TexSoup(r'\newcommand{\a}{\b}\newcommand{\b}{\c}\c')))
+        self.assertTrue(self._docsEqual(expanded, TexSoup.TexSoup(r'\newcommand{\a}{\b}\newcommand{\b}{\c}\b')))
         
         doc = TexSoup.TexSoup(r'\newenvironment{a}{\begin{b}\end{b}}{\begin{b}\end{b}}\newenvironment{b}{\c}{\c}\begin{a}\end{a}')
         expanded = expand_macros.expand_doc_macros(doc)
@@ -111,6 +111,3 @@ class Testexpand_doc_macros(unittest.TestCase):
         doc = TexSoup.TexSoup(r'\begin{a}\end{a}\renewenvironment{a}{\b}{\c}\begin{a}\end{a}\renewenvironment{a}{\c}{\d}\begin{a}\end{a}')
         expanded = expand_macros.expand_doc_macros(doc)
         self.assertTrue(self._docsEqual(expanded, TexSoup.TexSoup(r'\begin{a}\end{a}\renewenvironment{a}{\b}{\c}\b\c\renewenvironment{a}{\c}{\d}\c\d')))
-
-if __name__ == "__main__":
-    unittest.main()

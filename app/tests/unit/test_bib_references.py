@@ -236,6 +236,3 @@ class TestExpandLabels(unittest.TestCase):
         doc = r"Figure \ref{sample}, below, plots an isotherm for air modeled as an ideal gas."
         replace = expand_labels.replace_references(doc, hash)
         self.assertTrue(self._docsEqual(replace, r"Figure 1, below, plots an isotherm for air modeled as an ideal gas."))
-
-if __name__ == '__main__':
-    unittest.main()

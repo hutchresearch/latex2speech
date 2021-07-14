@@ -292,6 +292,3 @@ class testConversionDB(unittest.TestCase):
 
         self.assertIsInstance(elemsDict["cmd2"][0], TextElement)
         self.assertEqual(elemsDict["cmd2"][0].getHeadText(), "text3")
-
-if __name__ == "__main__":
-    unittest.main()
