@@ -313,6 +313,7 @@
 
     <env name="table" type = "none" family = "">
         <says>
+            <break time = "0.3s"/>
             Begin Table:
             <break time = "0.3s"/>
             <content/>
@@ -323,6 +324,7 @@
 
     <env name="tabular" type = "readTable" family = "">
         <says>
+            <break time = "0.3s"/>
             Table Contents:
             <break time = "40ms"/>
             <content/>
@@ -333,6 +335,7 @@
 
     <env name="tabularx" type = "readTable" family = "">
         <says>
+            <break time = "0.3s"/>
             Table Contents:
             <break time = "40ms"/>
             <content/>
