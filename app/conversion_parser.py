@@ -70,7 +70,7 @@ class ConversionParser:
             # Go through each value in the row
             for word in inner_split: 
                 if word != "&":
-                    text = ", Column " + str(column) + ", Value: " + word
+                    text = ", Column " + str(column) + ", " + word
 
                     self._appendText(text, left_child, elem_list_parent)
 
