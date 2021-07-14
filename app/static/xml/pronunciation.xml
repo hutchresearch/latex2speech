@@ -317,6 +317,7 @@
             Begin Table:
             <break time = "0.3s"/>
             <content/>
+            <break time = "0.3s"/>
             End Table
             <break time = "0.3s"/>
         </says>
@@ -328,6 +329,7 @@
             Table Contents:
             <break time = "40ms"/>
             <content/>
+            <break time = "0.3s"/>
             End Table Contents
             <break time = "40ms"/>
         </says>
@@ -339,6 +341,7 @@
             Table Contents:
             <break time = "40ms"/>
             <content/>
+            <break time = "0.3s"/>
             End Table Contents
             <break time = "40ms"/>
         </says>
